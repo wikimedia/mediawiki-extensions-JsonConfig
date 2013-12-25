@@ -1,0 +1,70 @@
+/**
+ * CSS for styling HTML-formatted JSON Schema objects
+ *
+ * @file
+ * @author Yuri Astrakhan (yurik/at/wikimedia.org), adapted from Munaf Assaf <massaf@wikimedia.org>
+ * @ingroup Extensions
+ */
+
+.mw-jsonconfig {
+	border-collapse: collapse;
+	border-spacing: 0;
+	font-family: 'Bitstream Vera Sans', 'DejaVu Sans', 'Lucida Sans', 'Lucida Grande', sans-serif;
+	font-style: normal;
+}
+
+.mw-jsonconfig th,
+.mw-jsonconfig td {
+	border: 1px solid gray;
+	padding: 0.5em 1em;
+}
+
+.mw-jsonconfig td {
+	background-color: #eee;
+	font-style: italic;
+}
+
+.mw-jsonconfig .mw-jsonconfig-value {
+	background-color: #dcfae3;
+	font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Courier, monospace;
+}
+
+.mw-jsonconfig-info {
+}
+
+.mw-jsonconfig tr {
+	margin-bottom: 0.5em;
+}
+
+.mw-jsonconfig th {
+	background-color: #fff;
+	font-weight: normal;
+}
+
+.mw-jsonconfig-default {
+	opacity: 0.3;
+}
+
+.mw-jsonconfig-same {
+	color: purple;
+	font-weight: bold;
+}
+
+.mw-jsonconfig-unknown {
+	color: red;
+	font-weight: bold;
+}
+
+.mw-jsonconfig caption {
+	/* For stylistic reasons, suppress the caption of the outermost table */
+	display: none;
+}
+
+.mw-jsonconfig table caption {
+	color: gray;
+	display: inline-block;
+	font-size: 10px;
+	font-style: italic;
+	margin-bottom: 0.5em;
+	text-align: left;
+}
