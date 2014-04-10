@@ -1,0 +1,14 @@
+{
+    "@metadata": {
+        "authors": [
+            "Bjankuloski06"
+        ]
+    },
+    "jsonconfig-desc": "Овозможува поставеност на JSON да се складира на вики",
+    "jsonconfig-bad-json": "Не можам да ја расчленам поставеноста на JSON. Проверете во синтаксата.",
+    "jsonconfig-optional-field": "(незадолжително)",
+    "jsonconfig-duplicate-field": "Пронајдов повеќе од една вредност „$1“",
+    "jsonconfig-err-bool": "На параметарот „$1“ мора да му се зададе или вистинито или лажно (true или false)",
+    "jsonconfig-err-string": "Параметарот „$1“ мора да биде низа",
+    "jsonconfig-err-integer": "Параметарот „$1“ мора да биде цел број"
+}

@@ -1,0 +1,14 @@
+{
+    "@metadata": {
+        "authors": [
+            "Xuacu"
+        ]
+    },
+    "jsonconfig-desc": "Permite guardar la configuración JSON nuna wiki",
+    "jsonconfig-bad-json": "Nun pudo analizase la configuración JSON. Por favor, compruebe la sintaxis.",
+    "jsonconfig-optional-field": "(opcional)",
+    "jsonconfig-duplicate-field": "Alcontróse más d'un valor «$1»",
+    "jsonconfig-err-bool": "El parámetru «$1» tien de configurase como verdadero o falso",
+    "jsonconfig-err-string": "El parámetru «$1» tien de ser una cadena",
+    "jsonconfig-err-integer": "El parámetru «$1» tien de ser un enteru"
+}

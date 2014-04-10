@@ -1,0 +1,14 @@
+{
+    "@metadata": {
+        "authors": [
+            "Metalhead64"
+        ]
+    },
+    "jsonconfig-desc": "Ermöglicht die Konfiguration von JSON zur Speicherung in einem Wiki",
+    "jsonconfig-bad-json": "Die JSON-Konfiguration konnte nicht geparst werden. Bitte die Syntax überprüfen.",
+    "jsonconfig-optional-field": "(optional)",
+    "jsonconfig-duplicate-field": "Es wurde mehr als ein Wert „$1“ gefunden",
+    "jsonconfig-err-bool": "Parameter „$1“ muss entweder wahr oder falsch sein",
+    "jsonconfig-err-string": "Parameter „$1“ muss eine Zeichenfolge sein",
+    "jsonconfig-err-integer": "Parameter „$1“ muss eine ganze Zahl sein"
+}
