@@ -1,0 +1,10 @@
+{
+    "@metadata": {
+        "authors": [
+            "Liuxinyu970226"
+        ]
+    },
+    "jsonconfig-desc": "允许JSON配置存储在wiki中",
+    "jsonconfig-optional-field": "（可选）",
+    "jsonconfig-duplicate-field": "已发现多于1个值“$1”"
+}

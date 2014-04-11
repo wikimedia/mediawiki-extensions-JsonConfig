@@ -1,0 +1,14 @@
+{
+    "@metadata": {
+        "authors": [
+            "Okras"
+        ]
+    },
+    "jsonconfig-desc": "Позволяет хранить настройки JSON в вики-проекте",
+    "jsonconfig-bad-json": "Не удаётся выполнить разбор конфигурации JSON. Пожалуйста, проверьте синтаксис.",
+    "jsonconfig-optional-field": "(необязательно)",
+    "jsonconfig-duplicate-field": "Найдено более одного значения «$1»",
+    "jsonconfig-err-bool": "Параметр «$1» должен быть задать значением true (истина) или false (ложь)",
+    "jsonconfig-err-string": "Параметр «$1» должен быть строкой",
+    "jsonconfig-err-integer": "Параметр «$1» должен быть целым числом"
+}
