@@ -1,0 +1,11 @@
+{
+    "@metadata": {
+        "authors": [
+            "Shirayuki"
+        ]
+    },
+    "jsonconfig-optional-field": "(省略可能)",
+    "jsonconfig-err-bool": "パラメーター「$1」には true または false を設定しなければなりません",
+    "jsonconfig-err-string": "パラメーター「$1」は文字列でなければなりません",
+    "jsonconfig-err-integer": "パラメーター「$1」は整数でなければなりません"
+}
