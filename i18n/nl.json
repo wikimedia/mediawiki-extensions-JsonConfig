@@ -1,0 +1,14 @@
+{
+    "@metadata": {
+        "authors": [
+            "Siebrand"
+        ]
+    },
+    "jsonconfig-desc": "Maakt het mogelijk JSON-instellingen op te slaan in een wiki",
+    "jsonconfig-bad-json": "Het was niet mogelijk de JSON-instellingen te verwerken. Controleer de syntaxis.",
+    "jsonconfig-optional-field": "(optioneel)",
+    "jsonconfig-duplicate-field": "Meer dan één waarde \"$1\" aangetroffen",
+    "jsonconfig-err-bool": "Parameter \"$1\" moet op waar of onwaar zijn ingesteld",
+    "jsonconfig-err-string": "Parameter \"$1\" moet tekst zijn",
+    "jsonconfig-err-integer": "Parameter \"$1\" moet een integer zijn"
+}
