@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Keysuck"
-        ]
-    },
-    "jsonconfig-optional-field": "(선택 사항)"
+	"@metadata": {
+		"authors": [
+			"Keysuck"
+		]
+	},
+	"jsonconfig-optional-field": "(선택 사항)"
 }

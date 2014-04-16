@@ -1,14 +1,14 @@
 {
-    "@metadata": {
-        "authors": [
-            "Andriykopanytsia"
-        ]
-    },
-    "jsonconfig-desc": "Дозволяє зберігати налаштування JSON у вікі-проекті",
-    "jsonconfig-bad-json": "Не вдалося проаналізувати конфігурацію JSON. Будь ласка, перевірте синтаксис.",
-    "jsonconfig-optional-field": "(необов'язково)",
-    "jsonconfig-duplicate-field": "Більше, ніж одне значення \"$1\" знайдено",
-    "jsonconfig-err-bool": "Параметр «$1» повинен мати значення true (істина) або false (брехня)",
-    "jsonconfig-err-string": "Параметр «$1» має бути рядком",
-    "jsonconfig-err-integer": "Параметр \"$1\" має бути цілим числом"
+	"@metadata": {
+		"authors": [
+			"Andriykopanytsia"
+		]
+	},
+	"jsonconfig-desc": "Дозволяє зберігати налаштування JSON у вікі-проекті",
+	"jsonconfig-bad-json": "Не вдалося проаналізувати конфігурацію JSON. Будь ласка, перевірте синтаксис.",
+	"jsonconfig-optional-field": "(необов'язково)",
+	"jsonconfig-duplicate-field": "Більше, ніж одне значення \"$1\" знайдено",
+	"jsonconfig-err-bool": "Параметр «$1» повинен мати значення true (істина) або false (брехня)",
+	"jsonconfig-err-string": "Параметр «$1» має бути рядком",
+	"jsonconfig-err-integer": "Параметр \"$1\" має бути цілим числом"
 }

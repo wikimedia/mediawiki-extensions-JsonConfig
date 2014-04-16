@@ -1,16 +1,16 @@
 {
-    "@metadata": {
-        "authors": [
-            "Lloffiwr",
-            "Shirayuki",
-            "Yuri Astrakhan"
-        ]
-    },
-    "jsonconfig-desc": "{{desc|name=JsonConfig|url=http://www.mediawiki.org/wiki/Extension:JsonConfig}}",
-    "jsonconfig-bad-json": "Text on the page is not in a valid JSON format, and there is not much more we can do with it.",
-    "jsonconfig-optional-field": "A short suffix appended to one of these messages to indicate that the field is optional.\n* {{msg-mw|Jsonconfig-bool}}\n* {{msg-mw|Jsonconfig-string}}\n* {{msg-mw|Jsonconfig-integer}}\n* {{msg-mw|Jsonconfig-ips}} - {{msg-mw|Zeroconfig-ips}}(?)\n* Or any other field error message provided by another extension\n{{Identical|Optional}}",
-    "jsonconfig-duplicate-field": "Field (<code>$1</code>) was present more than once but with different capitalization in the JSON, e.g. \"field\" and \"Field\".\n\nParameters:\n* $1 - field name",
-    "jsonconfig-err-bool": "A field named \"$1\" is not a valid boolean. Parameters:\n* $1 - parameter name",
-    "jsonconfig-err-string": "A field named \"$1\" is not a valid string. Parameters:\n* $1 - field name",
-    "jsonconfig-err-integer": "A field named \"$1\" is not a valid integer. Parameters:\n* $1 - field name"
+	"@metadata": {
+		"authors": [
+			"Lloffiwr",
+			"Shirayuki",
+			"Yuri Astrakhan"
+		]
+	},
+	"jsonconfig-desc": "{{desc|name=JsonConfig|url=http://www.mediawiki.org/wiki/Extension:JsonConfig}}",
+	"jsonconfig-bad-json": "Text on the page is not in a valid JSON format, and there is not much more we can do with it.",
+	"jsonconfig-optional-field": "A short suffix appended to one of these messages to indicate that the field is optional.\n* {{msg-mw|Jsonconfig-bool}}\n* {{msg-mw|Jsonconfig-string}}\n* {{msg-mw|Jsonconfig-integer}}\n* {{msg-mw|Jsonconfig-ips}} - {{msg-mw|Zeroconfig-ips}}(?)\n* Or any other field error message provided by another extension\n{{Identical|Optional}}",
+	"jsonconfig-duplicate-field": "Field (<code>$1</code>) was present more than once but with different capitalization in the JSON, e.g. \"field\" and \"Field\".\n\nParameters:\n* $1 - field name",
+	"jsonconfig-err-bool": "A field named \"$1\" is not a valid boolean. Parameters:\n* $1 - parameter name",
+	"jsonconfig-err-string": "A field named \"$1\" is not a valid string. Parameters:\n* $1 - field name",
+	"jsonconfig-err-integer": "A field named \"$1\" is not a valid integer. Parameters:\n* $1 - field name"
 }
