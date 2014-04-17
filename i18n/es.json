@@ -1,14 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Csbotero"
+			"Csbotero",
+			"Fitoschido"
 		]
 	},
 	"jsonconfig-desc": "Permite que la configuración JASON sea almacenada en un wiki",
 	"jsonconfig-bad-json": "No se puede analizar la configuración JSON. Por favor comprueba la sintaxis.",
-	"jsonconfig-optional-field": "(opccional)",
+	"jsonconfig-optional-field": "(opcional)",
 	"jsonconfig-duplicate-field": "Más de un valor \" $1 \" encontrado",
 	"jsonconfig-err-bool": "El parámetro \" $1 \" debe establecerse como verdadero o falso",
-	"jsonconfig-err-string": "El parámetro \" $1 \" debe ser una cadena",
-	"jsonconfig-err-integer": "El parámetro \"$1\" debe ser un número entero"
+	"jsonconfig-err-string": "El parámetro «$1» debe ser una cadena de caracteres",
+	"jsonconfig-err-integer": "El parámetro «$1» debe ser un número entero"
 }
