@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Aftab1995"
+		]
+	},
+	"jsonconfig-err-integer": "প্যারামিটার \"$1\" অবশ্যই একটি পূর্ণসংখ্যা হতে হবে"
+}
