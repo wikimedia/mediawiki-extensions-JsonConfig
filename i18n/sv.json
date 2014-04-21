@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"WikiPhoenix"
+		]
+	},
+	"jsonconfig-optional-field": "(valfritt)",
+	"jsonconfig-err-bool": "Parametern \"$1\" måste antingen vara \"true\" eller \"false\"",
+	"jsonconfig-err-string": "Parametern \"$1\" måste vara en sträng",
+	"jsonconfig-err-integer": "Parametern \"$1\" måste vara ett heltal"
+}
