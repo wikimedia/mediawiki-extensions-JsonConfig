@@ -153,7 +153,21 @@ class JCContent extends \TextContent {
 			$html = $status->getHTML();
 		}
 		if ( $status->isOK() ) {
-			$html .= $this->valueToHtml( $this->getData() );
+			$view = null;
+			global $wgJsonConfigModels;
+			$modelId = $this->getModel();
+			if ( array_key_exists( $modelId, $wgJsonConfigModels ) ) {
+				$value = $wgJsonConfigModels[$modelId];
+				if ( is_array( $value ) && array_key_exists( 'view', $value ) ) {
+					$class = $value['view'];
+					/** @var JCContentView $view */
+					$view = new $class();
+					$html .= $view->valueToHtml( $this );
+				}
+			}
+			if ( $view === null ) {
+				$html .= $this->valueToHtml( $this->getData() );
+			}
 		}
 		wfProfileOut( __METHOD__ );
 

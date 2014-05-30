@@ -3,6 +3,7 @@ namespace JsonConfig;
 
 use ContentHandler;
 use MWException;
+use TitleValue;
 use Title;
 
 /**
@@ -44,31 +45,35 @@ class JCSingleton {
 		$isInitialized = true;
 
 		// Make sure no one else defined handlers for the same modelId
-		foreach ( $wgJsonConfigModels as $modelId => $class ) {
+		foreach ( $wgJsonConfigModels as $modelId => $value ) {
 			if ( array_key_exists( $modelId, $wgContentHandlers ) ) {
-				throw new MWException( "JsonConfig: ModelID '$modelId' => '$class' is already " .
+				throw new MWException( "JsonConfig: ModelID '$modelId' => '$value' is already " .
 					"registered to '$wgContentHandlers[$modelId]' " );
 			}
 		}
 
 		foreach ( $wgJsonConfigs as $confId => &$conf ) {
-			if ( !is_string( $confId ) || $confId === '' ) {
-				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId'], the key must be a string" );
+			$modelId = array_key_exists( 'model', $conf ) ? ( $conf['model'] ?: $defaultModelId ) : $confId;
+			if ( !is_string( $modelId ) ) {
+				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId'], either the key must be a string or 'model' has to be defined" );
 				continue;
 			}
-			$modelId = array_key_exists( 'model', $conf ) ? ( $conf['model'] ? : $defaultModelId ) : $confId;
 			$conf['model'] = $modelId;
 
 			$ns = self::getConfVal( $conf, 'namespace', NS_CONFIG );
 			$name = self::getConfVal( $conf, 'name', '' );
 			$issubspace = self::getConfVal( $conf, 'issubspace', false );
-			self::getConfVal( $conf, 'flaggedrevs', null );
+			self::getConfVal( $conf, 'flaggedrevs', false );
 			$islocal = self::getConfVal( $conf, 'islocal', false );
 			$url = self::getConfVal( $conf, 'url', $wgJsonConfigApiUrl );
+			self::getConfVal( $conf, 'username', false );
+			self::getConfVal( $conf, 'password', false );
 
 			// Decide if matching configs should be stored on this wiki
 			$storeHere = $islocal || $wgJsonConfigStorage === true ||
-				( is_array( $wgJsonConfigStorage ) && in_array( $confId, $wgJsonConfigStorage ) );
+				( is_array( $wgJsonConfigStorage ) &&
+				  is_string( $confId ) &&
+				  in_array( $confId, $wgJsonConfigStorage ) );
 			$conf['storehere'] = $storeHere;
 
 			// We could have thrown MWException here, but we would rather fail gracefully on a mis-configured server
@@ -97,31 +102,33 @@ class JCSingleton {
 					"set to handle model '$wgNamespaceContentModels[$ns]'" );
 				continue;
 			}
-			// If nsname is given, add it to the list, together with the talk page
-			// Otherwise, create a placeholder for it
-			if ( array_key_exists( 'nsname', $conf ) ) {
-				if ( $ns === NS_CONFIG ) {
-					wfLogWarning( "JsonConfig: Parameter 'nsname' in \$wgJsonConfigs['$confId'] is not supported " .
-						'for namespace NS_CONFIG (' . NS_CONFIG . ')' );
-				} else {
-					$nsname = $conf['nsname'];
-					if ( !is_string( $nsname ) || $nsname === '' ) {
-						wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
-							"if given, nsname must be a string" );
-						continue;
-					} elseif ( array_key_exists( $ns, self::$namespaces ) &&
-						self::$namespaces[$ns] !== null
-					) {
-						wfLogWarning( "JsonConfig: \$wgJsonConfigs['$confId'] - nsname has already " .
-							"been set for namespace $ns" );
+			if ( $storeHere ) {
+				// If nsname is given, add it to the list, together with the talk page
+				// Otherwise, create a placeholder for it
+				if ( array_key_exists( 'nsname', $conf ) ) {
+					if ( $ns === NS_CONFIG ) {
+						wfLogWarning( "JsonConfig: Parameter 'nsname' in \$wgJsonConfigs['$confId'] is not supported " .
+							'for namespace NS_CONFIG (' . NS_CONFIG . ')' );
 					} else {
-						self::$namespaces[$ns] = $nsname;
-						self::$namespaces[$ns + 1] = array_key_exists( 'nstalk', $conf ) ?
-							$conf['nstalk'] : ( $nsname . '_talk' );
+						$nsname = $conf['nsname'];
+						if ( !is_string( $nsname ) || $nsname === '' ) {
+							wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
+								"if given, nsname must be a string" );
+							continue;
+						} elseif ( array_key_exists( $ns, self::$namespaces ) &&
+							self::$namespaces[$ns] !== null
+						) {
+							wfLogWarning( "JsonConfig: \$wgJsonConfigs['$confId'] - nsname has already " .
+								"been set for namespace $ns" );
+						} else {
+							self::$namespaces[$ns] = $nsname;
+							self::$namespaces[$ns + 1] = array_key_exists( 'nstalk', $conf ) ?
+								$conf['nstalk'] : ( $nsname . '_talk' );
+						}
 					}
+				} elseif ( !array_key_exists( $ns, self::$namespaces ) ) {
+					self::$namespaces[$ns] = null;
 				}
-			} elseif ( !array_key_exists( $ns, self::$namespaces ) ) {
-				self::$namespaces[$ns] = null;
 			}
 
 			unset( $nsVals );
@@ -188,53 +195,48 @@ class JCSingleton {
 			return $conf[$field];
 		}
 		$conf[$field] = $default;
-
 		return $default;
 	}
 
 	/**
-	 * Returns an array with title settings if the $title object is handled by the JsonConfig extension,
+	 * Returns an array with settings if the $titleValue object is handled by the JsonConfig extension,
 	 * false if unrecognized namespace, and null if namespace is handled but not this title
-	 * @param Title $title
+	 * @param TitleValue $titleValue
 	 * @return array|false|null
 	 */
-	public static function getConfig( Title $title ) {
+	public static function getSettings( TitleValue $titleValue ) {
 		static $lastTitle = null;
 		static $lastResult = false;
-		if ( $title === $lastTitle ) {
+		if ( $titleValue === $lastTitle ) {
 			return $lastResult;
 		}
-		$lastTitle = $title;
+		$lastTitle = $titleValue;
 		self::init();
-		if ( $title ) {
+		if ( $titleValue ) {
 			// array of:  { namespace => { name => { allows-sub-namespaces => config } } }
-			$key = $title->getNamespace();
+			$key = $titleValue->getNamespace();
 			if ( array_key_exists( $key, self::$titleMap ) ) {
 				$arr = self::$titleMap[$key];
-				$parts = explode( ':', $title->getText(), 2 );
+				$parts = explode( ':', $titleValue->getText(), 2 );
 				if ( array_key_exists( $parts[0], $arr ) ) {
 					$arr = $arr[$parts[0]];
 					$key = count( $parts ) == 2 ? 1 : 0;
 					if ( array_key_exists( $key, $arr ) ) {
 						$lastResult = $arr[$key];
-
 						return $lastResult;
 					}
 				}
 				if ( array_key_exists( '', $arr ) ) {
 					// all configs in this namespace are allowed
 					$lastResult = $arr[''];
-
 					return $lastResult;
 				}
 				// We know about the namespace, but there is no specific configuration
 				$lastResult = null;
-
 				return $lastResult;
 			}
 		}
 		$lastResult = false;
-
 		return $lastResult;
 	}
 
@@ -267,13 +269,11 @@ class JCSingleton {
 	 * @return bool
 	 */
 	public static function onContentHandlerDefaultModelFor( $title, &$modelId ) {
-		$conf = self::getConfig( $title );
+		$conf = self::getSettings( $title->getTitleValue() );
 		if ( $conf ) {
 			$modelId = $conf['model'];
-
 			return false;
 		}
-
 		return true;
 	}
 
@@ -289,10 +289,8 @@ class JCSingleton {
 		if ( array_key_exists( $modelId, $wgJsonConfigModels ) ) {
 			// This is one of our model IDs
 			$handler = new JCContentHandler( $modelId );
-
 			return false;
 		}
-
 		return true;
 	}
 
@@ -305,10 +303,9 @@ class JCSingleton {
 	 */
 	static function onCodeEditorGetPageLanguage( $title, &$lang ) {
 		$handler = ContentHandler::getForModelID( $title->getContentModel() );
-		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON || self::getConfig( $title ) ) {
+		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON || self::getSettings( $title->getTitleValue() ) ) {
 			$lang = 'json';
 		}
-
 		return true;
 	}
 
@@ -330,7 +327,6 @@ class JCSingleton {
 				$status->ok = false;
 			}
 		}
-
 		return true;
 	}
 
@@ -343,10 +339,11 @@ class JCSingleton {
 	static function onBeforePageDisplay( &$out, &$skin ) {
 		$title = $out->getTitle();
 		$handler = ContentHandler::getForModelID( $title->getContentModel() );
-		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON || self::getConfig( $title ) ) {
+		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON ||
+			self::getSettings( $title->getTitleValue() )
+		) {
 			$out->addModules( 'ext.jsonConfig' );
 		}
-
 		return true;
 	}
 
@@ -369,53 +366,54 @@ class JCSingleton {
 	public static function onPageContentSaveComplete( $article, $user, $content, $summary, $isMinor, $isWatch,
 		$section, $flags, $revision, $status, $baseRevId ) {
 		if ( is_a( $content, 'JsonConfig\JCContent' ) ) {
-			$store = self::getCachedStore( $article->getTitle() );
+			$store = self::getCachedStore( $article->getTitle()->getTitleValue() );
 			if ( $store ) {
 				$store->resetCache();
 			}
 		}
-
 		return true;
 	}
 
 	/**
 	 * Prohibit creation of the pages that are part of our namespaces but have not been explicitly allowed
+	 * @param Title $title
+	 * @param $user
+	 * @param string $action
+	 * @param null $result
+	 * @return bool
 	 */
 	public static function onUserCan( &$title, &$user, $action, &$result = null ) {
-		if ( $action === 'create' && self::getConfig( $title ) === null ) {
+		if ( $action === 'create' && self::getSettings( $title->getTitleValue() ) === null ) {
 			// prohibit creation of the pages for the namespace that we handle,
 			// if the title is not matching declared rules
 			$result = false;
-
 			return false;
 		}
-
 		return true;
 	}
 
 	/**
 	 * Get cache object for storage and retrieval of the data under given title
-	 * @param Title $title
+	 * @param TitleValue $titleValue
 	 * @return bool|JCCache Returns false if the title is not handled by the settings
 	 */
-	public static function getCachedStore( Title $title ) {
-		$conf = self::getConfig( $title );
+	public static function getCachedStore( TitleValue $titleValue ) {
+		$conf = self::getSettings( $titleValue );
 		if ( !$conf ) {
 			return false;
 		}
-
-		return new JCCache( $title, $conf );
+		return new JCCache( $titleValue, $conf );
 	}
 
 	/**
 	 * Get content object for the given title
-	 * @param Title $title
+	 * @param TitleValue $titleValue
 	 * @return bool|JCContent Returns false if the title is not handled by the settings
 	 */
-	public static function getContent( Title $title ) {
-		$conf = self::getConfig( $title );
+	public static function getContent( TitleValue $titleValue ) {
+		$conf = self::getSettings( $titleValue );
 		if ( $conf ) {
-			$store = new JCCache( $title, $conf );
+			$store = new JCCache( $titleValue, $conf );
 			$content = $store->get();
 			if ( $content !== false ) {
 				// Convert string to the content object if needed
@@ -423,11 +421,9 @@ class JCSingleton {
 					$handler = new JCContentHandler( $conf['model'] );
 					$content = $handler->unserializeContent( $content, null, false );
 				}
-
 				return $content;
 			}
 		}
-
 		return false;
 	}
 }

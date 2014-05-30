@@ -2,17 +2,17 @@
 namespace JsonConfig;
 
 use FormatJson;
-use Http;
+use MWHttpRequest;
 use MWException;
 use MWNamespace;
-use Title;
+use TitleValue;
 
 /**
  * Represents a json blob on a remote wiki.
  * Handles retrieval (via HTTP) and memcached caching.
  */
 class JCCache {
-	private $title, $key, $cache, $conf;
+	private $titleValue, $key, $cache, $conf;
 	private $isCached = false;
 
 	/** @var bool|string|JCContent */
@@ -25,20 +25,20 @@ class JCCache {
 	 * Constructor for JCCache
 	 * ** DO NOT USE directly - call JCSingleton::getCachedStore() instead. **
 	 *
-	 * @param Title $title
+	 * @param TitleValue $titleValue
 	 * @param array $conf
 	 */
-	function __construct( $title, $conf ) {
+	function __construct( $titleValue, $conf ) {
 		global $wgJsonConfigCacheKeyPrefix;
-		$this->title = $title;
+		$this->titleValue = $titleValue;
 		$this->conf = $conf;
 		$flrev = $conf['flaggedrevs'];
 		$key = implode( ':', array(
 			'JsonConfig',
 			$wgJsonConfigCacheKeyPrefix,
 			( $flrev === null ? '' : ( $flrev ? 'T' : 'F' ) ),
-			$title->getNamespace(),
-			$title->getDBkey() ) );
+			$titleValue->getNamespace(),
+			$titleValue->getDBkey() ) );
 		if ( $conf['islocal'] ) {
 			$key = wfMemcKey( $key );
 		}
@@ -121,7 +121,8 @@ class JCCache {
 	private function loadLocal() {
 		wfProfileIn( __METHOD__ );
 		// @fixme @bug handle flagged revisions
-		$result = \WikiPage::factory( $this->title )->getContent();
+		$title = \Title::newFromTitleValue( $this->titleValue );
+		$result = \WikiPage::factory( $title )->getContent();
 		if ( !$result ) {
 			$result = false; // Keeping consistent with other usages
 		} elseif ( !( $result instanceof JCContent ) ) {
@@ -129,7 +130,7 @@ class JCCache {
 				// If this is a regular wiki page, allow it to be parsed as a json config
 				$result = $result->getNativeData();
 			} else {
-				wfLogWarning( "The locally stored wiki page '$this->title' has unsupported content model'" );
+				wfLogWarning( "The locally stored wiki page '$this->titleValue' has unsupported content model'" );
 				$result = false;
 			}
 		}
@@ -142,89 +143,122 @@ class JCCache {
 	 */
 	private function loadRemote() {
 		wfProfileIn( __METHOD__ );
-		$ns = $this->conf['remotensname']
-			? $this->conf['remotensname']
-			: MWNamespace::getCanonicalName( $this->title->getNamespace() );
-		$title = $ns . ':' . $this->title->getText();
-		$flrevs = $this->conf['flaggedrevs'];
-		if ( $flrevs === false ) {
-			$query = array(
-				'format' => 'json',
-				'action' => 'query',
-				'titles' => $title,
-				'prop' => 'revisions',
-				'rvprop' => 'content',
-			);
-			$result = $this->getPageFromApi( $query );
-		} else {
-			$query = array(
-				'format' => 'json',
-				'action' => 'query',
-				'titles' => $title,
-				'prop' => 'info|flagged',
-			);
-			$result = $this->getPageFromApi( $query );
-			if ( $result !== false &&
-				( $flrevs === null || array_key_exists( 'flagged', $result ) )
-			) {
-				// If there is a stable flagged revision present, use it,
-				// otherwise use the latest revision that exists (unless flaggedRevs is true)
-				$revId = array_key_exists( 'flagged', $result ) ?
-					$result['flagged']['stable_revid'] :
-					$result['lastrevid'];
+		$req = $this->initApiRequestObj();
+		if ( $req !== false ) {
+			$ns = $this->conf['nsname']
+				? $this->conf['nsname']
+				: MWNamespace::getCanonicalName( $this->titleValue->getNamespace() );
+			$articleName = $ns . ':' . $this->titleValue->getText();
+			$flrevs = $this->conf['flaggedrevs'];
+			if ( $flrevs === false ) {
 				$query = array(
 					'format' => 'json',
 					'action' => 'query',
-					'revids' => $revId,
+					'titles' => $articleName,
 					'prop' => 'revisions',
 					'rvprop' => 'content',
 				);
-				$result = $this->getPageFromApi( $query );
+				$result = $this->getPageFromApi( $req, $query );
+			} else {
+				$query = array(
+					'format' => 'json',
+					'action' => 'query',
+					'titles' => $articleName,
+					'prop' => 'info|flagged',
+				);
+				$result = $this->getPageFromApi( $req, $query );
+				if ( $result !== false &&
+					( $flrevs === null || array_key_exists( 'flagged', $result ) )
+				) {
+					// If there is a stable flagged revision present, use it,
+					// otherwise use the latest revision that exists (unless flaggedRevs is true)
+					$revId = array_key_exists( 'flagged', $result ) ?
+						$result['flagged']['stable_revid'] :
+						$result['lastrevid'];
+					$query = array(
+						'format' => 'json',
+						'action' => 'query',
+						'revids' => $revId,
+						'prop' => 'revisions',
+						'rvprop' => 'content',
+					);
+					$result = $this->getPageFromApi( $req, $query );
+				}
 			}
+			if ( $result !== false ) {
+				$result = isset( $result['revisions'][0]['*'] ) ? $result['revisions'][0]['*'] : false;
+			}
+			$this->content = $result;
 		}
-		if ( $result !== false ) {
-			$result = isset( $result['revisions'][0]['*'] ) ? $result['revisions'][0]['*'] : false;
-		}
-		$this->content = $result;
+
 		wfProfileOut( __METHOD__ );
 	}
 
+	/** Init HTTP request object to make requests to the API, and login
+	 * @return bool|\CurlHttpRequest|\PhpHttpRequest
+	 */
+	private function initApiRequestObj() {
+		$apiUri = wfAppendQuery( $this->conf['url'], array( 'format' => 'json' ) );
+		$options = array(
+			'timeout' => 3,
+			'connectTimeout' => 'default',
+			'method' => 'POST',
+		);
+		$req = MWHttpRequest::factory( $apiUri, $options );
+
+		if ( $this->conf['username'] !== false && $this->conf['password'] !== false ) {
+			$postData = array(
+				'action' => 'login',
+				'lgname' => $this->conf['username'],
+				'lgpassword' => $this->conf['password'],
+			);
+			$req->setData( $postData );
+			$status = $req->execute();
+
+			if ( $status->isOK() ) {
+				$res = json_decode( $req->getContent(), true );
+				if ( isset( $res['login']['token'] ) ) {
+					$postData['lgtoken'] = $res['login']['token'];
+					$req->setData( $postData );
+					$req->execute();
+					// Ignore "OK"/"Failed" state - in case login failed, we still attempt to get data
+				}
+			}
+		}
+		return $req;
+	}
+
 	/** Given a legal set of API parameters, return page from API
+	 * @param \CurlHttpRequest|\PhpHttpRequest $req
 	 * @param array $query
 	 * @throws MWException
 	 * @return bool|mixed
 	 */
-	private function getPageFromApi( $query ) {
-		$apiUri = wfAppendQuery( $this->conf['url'], $query );
-		// @fixme: decide timeout value
-		$resp = Http::get( $apiUri, 3 ); // a few seconds is enough - otherwise we have bigger problems
-		if ( !$resp ) {
+	private function getPageFromApi( $req, $query ) {
+		$req->setData( $query );
+		$status = $req->execute();
+		if ( !$status->isOK() ) {
 			wfLogWarning( "Failed to get remote config '$query'" );
-
 			return false;
 		}
-		$revInfo = FormatJson::decode( $resp, true );
+		$revInfo = FormatJson::decode( $req->getContent(), true );
 		if ( isset( $revInfo['warnings'] ) ) {
 			wfLogWarning( "Waring from API call '$query': " . print_r( $revInfo['warnings'], true ) );
 		}
 		if ( !isset( $revInfo['query']['pages'] ) ) {
 			wfLogWarning( "Unrecognizable API result for '$query'" );
-
 			return false;
 		}
 		$pages = $revInfo['query']['pages'];
 		if ( !is_array( $pages ) || count( $pages ) !== 1 ) {
 			wfLogWarning( "Unexpected 'pages' element for '$query'" );
-
 			return false;
 		}
 		$pageInfo = reset( $pages ); // get the only element of the array
 		if ( isset( $revInfo['missing'] ) ) {
 			wfLogWarning( "Config page does not exist for '$query'" );
-
 			return false;
 		}
-
 		return $pageInfo;
 	}
 }

@@ -81,7 +81,6 @@ abstract class JCKeyValueContent extends JCContent {
 		foreach ( $this->defaultFields as $fld => $val ) {
 			unset( $data[$fld] );
 		}
-
 		return array_merge( $data, $this->unknownFields );
 	}
 
@@ -137,7 +136,7 @@ abstract class JCKeyValueContent extends JCContent {
 			}
 		}
 		if ( count( $duplicates ) > 1 ) {
-			$this->addValidationError( wfMessage( 'jsonconfig-duplicate-field' ) );
+			$this->addValidationError( wfMessage( 'jsonconfig-duplicate-field', $field ) );
 
 			return;
 		}
@@ -149,7 +148,6 @@ abstract class JCKeyValueContent extends JCContent {
 			if ( is_object( $value ) && get_class( $value ) === 'Message' ) {
 				// @todo: isOptional should be determined by passing default into the validator
 				$this->addValidationError( $value, $default !== null );
-
 				return;
 			}
 		}

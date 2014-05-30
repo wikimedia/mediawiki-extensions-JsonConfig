@@ -33,15 +33,15 @@ define( 'NS_CONFIG_TALK', 483 );
 $cwd = __DIR__ . DIRECTORY_SEPARATOR;
 $wgMessagesDirs['JsonConfig'] = $cwd . 'i18n';
 
+$cwd .= 'includes' . DIRECTORY_SEPARATOR;
 $classes = array(
 	'JCCache',
 	'JCContent',
 	'JCContentHandler',
-	'JCSingleton',
+	'JCContentView',
 	'JCKeyValueContent',
+	'JCSingleton',
 );
-
-$cwd .= 'includes' . DIRECTORY_SEPARATOR;
 foreach ( $classes as $class => $filename ) {
 	$cls = is_string( $class ) ? $class : $filename;
 	$wgAutoloadClasses['JsonConfig\\' . $cls] = $cwd . $filename . '.php';
@@ -71,11 +71,15 @@ $wgJsonConfigStorage = array();
 
 /**
  * Array of model ID => content class mappings
+ * Each value could either be a string - a JCContent-derived class name
+ * or an array:
+ *    { 'content' => 'classname',  // derives from JCContent
+ *      'view'    => 'classname' } // implements JCContentView
  */
 $wgJsonConfigModels = array();
 
 /**
- * Disable memcached caching (debuging)
+ * Disable memcached caching (debugging)
  */
 $wgJsonConfigDisableCache = false;
 

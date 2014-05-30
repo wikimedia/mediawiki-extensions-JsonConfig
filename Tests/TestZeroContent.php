@@ -5,24 +5,36 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 
 use JsonConfig\JCKeyValueContent;
 
-$wgJsonConfigModels['Test.Zero'] = 'TestZeroContent';
+define( 'NS_ZERO', 480 );
+define( 'NS_ZERO_TALK', 481 );
 
-$wgJsonConfigs['Test.Zero'] = array(
-	// model is the same as key
-	'name' => 'ZeroSingle',
-	'islocal' => true,
-);
-$wgJsonConfigs['Test.Zero.Subpages'] = array(
-	'model' => 'Test.Zero',
-	'name' => 'Zero',
-	'issubspace' => true,
-	'islocal' => true,
-);
+$wgJsonConfigModels['Test.JsonZeroConfig'] = 'TestZeroContent';
+
+//$wgJsonConfigs['Test.JsonZeroConfig'] = array(
+//	// model is the same as key
+//	'name' => 'ZeroSingle',
+//	'islocal' => true,
+//);
+//$wgJsonConfigs['Test.Zero.Subpages'] = array(
+//	'model' => 'Test.JsonZeroConfig',
+//	'name' => 'Zero',
+//	'issubspace' => true,
+//	'islocal' => true,
+//);
+//$wgJsonConfigs['Test.Zero.Ns'] = array(
+//	'model' => 'Test.JsonZeroConfig',
+//	'namespace' => 600,
+//	'nsname' => 'Z',
+//	'islocal' => true,
+//);
 $wgJsonConfigs['Test.Zero.Ns'] = array(
-	'model' => 'Test.Zero',
-	'namespace' => 600,
-	'nsname' => 'Z',
-	'islocal' => true,
+	'model' => 'Test.JsonZeroConfig',
+	'namespace' => NS_ZERO,
+	'nsname' => 'Zero',
+	'islocal' => false,
+	'url' => 'https://zero.wikimedia.org/w/api.php',
+	'username' => $wmgZeroRatedMobileAccessApiUserName,
+	'password' => $wmgZeroRatedMobileAccessApiPassword,
 );
 
 class TestZeroContent extends JCKeyValueContent {
@@ -49,7 +61,7 @@ END;
 		// Optional comment
 		$this->check( 'comment', '', self::getStrValidator() );
 
-		//'enabled' => true
+		//'enabled' => true,          // Config is enabled
 		$this->check( 'enabled', true, self::getBoolValidator() );
 
 		// List of additional partner admins for this entry
@@ -128,12 +140,15 @@ END;
 					->numParams( count( $validValues ) );
 			} );
 
+		// If carrier wants to suppress zero messaging in apps
+		$this->check( 'disableApps', false, self::getBoolValidator() );
+
 		//'name' => null,             // Map of localized partner names
 		$this->check( 'name', null,
 			function ( $fld, $v ) {
 				return JCKeyValueContent::isArray( $v, true )
-				&& TestZeroContent::isArrayOfLangs( array_keys( $v ) )
-				&& JCKeyValueContent::isArrayOfStrings( $v )
+						&& TestZeroContent::isArrayOfLangs( array_keys( $v ) )
+						&& JCKeyValueContent::isArrayOfStrings( $v )
 					? TestZeroContent::sortLangArray( $v ) : wfMessage( 'zeroconfig-name', $fld );
 			} );
 
@@ -141,8 +156,8 @@ END;
 		$this->check( 'banner', array(),
 			function ( $fld, $v ) {
 				return JCKeyValueContent::isArray( $v, true )
-				&& TestZeroContent::isArrayOfLangs( array_keys( $v ) )
-				&& JCKeyValueContent::isArrayOfStrings( $v )
+						&& TestZeroContent::isArrayOfLangs( array_keys( $v ) )
+						&& JCKeyValueContent::isArrayOfStrings( $v )
 					? TestZeroContent::sortLangArray( $v ) : wfMessage( 'zeroconfig-banner', $fld );
 			} );
 
@@ -206,8 +221,8 @@ END;
 		$this->check( 'langNameOverrides', array(),
 			function ( $fld, $v ) {
 				return JCKeyValueContent::isArray( $v, true )
-				&& TestZeroContent::isArrayOfLangs( array_keys( $v ) )
-				&& JCKeyValueContent::isArrayOfStrings( $v )
+						&& TestZeroContent::isArrayOfLangs( array_keys( $v ) )
+						&& JCKeyValueContent::isArrayOfStrings( $v )
 					? TestZeroContent::sortLangArray( $v ) : wfMessage( 'zeroconfig-lang_name_overrides', $fld );
 			} );
 
@@ -347,3 +362,11 @@ END;
 		return array_values( $admins );
 	}
 }
+
+
+$wgExtensionFunctions[] = function() {
+
+	$content = \JsonConfig\JCSingleton::getContent( new TitleValue( NS_ZERO, '250-99' ) );
+
+//	var_dump( $content );
+};
