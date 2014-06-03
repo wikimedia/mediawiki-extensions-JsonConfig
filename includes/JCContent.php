@@ -24,6 +24,8 @@ class JCContent extends \TextContent {
 	private $status;
 	/** @var bool */
 	private $isSaving;
+	/** If false, JSON parsing will use stdClass instead of array for "{...}" */
+	protected $useAssocParsing = false;
 
 	/**
 	 * @param string $text Json configuration. If null, default content will be inserted instead
@@ -97,7 +99,7 @@ class JCContent extends \TextContent {
 	 */
 	private function parse() {
 		$rawText = $this->getNativeData();
-		$data = FormatJson::decode( $rawText, true );
+		$data = FormatJson::decode( $rawText, $this->useAssocParsing );
 		if ( $data === null ) {
 			if ( $this->isSaving ) {
 				// The most common error is the trailing comma in a list. Attempt to remove it.
@@ -106,12 +108,11 @@ class JCContent extends \TextContent {
 				$count = 0;
 				$rawText = preg_replace( '/,[ \t]*([\r\n]*[ \t]*[\]}])/', '$1', $rawText, 1, $count );
 				if ( $count > 0 ) {
-					$data = FormatJson::decode( $rawText, true );
+					$data = FormatJson::decode( $rawText, $this->useAssocParsing );
 				}
 			}
 			if ( $data === null ) {
 				$this->status->fatal( 'jsonconfig-bad-json' );
-
 				return;
 			}
 		}
@@ -133,10 +134,8 @@ class JCContent extends \TextContent {
 		$formatted = FormatJson::encode( $this->getData(), true, FormatJson::ALL_OK );
 		if ( $this->getNativeData() !== $formatted ) {
 			$class = get_class( $this );
-
 			return new $class( $formatted, $this->getModel(), $this->isSaving() );
 		}
-
 		return $this;
 	}
 

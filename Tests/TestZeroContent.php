@@ -4,6 +4,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 }
 
 use JsonConfig\JCKeyValueContent;
+use JsonConfig\JCValidators;
 
 define( 'NS_ZERO', 480 );
 define( 'NS_ZERO_TALK', 481 );
@@ -59,10 +60,10 @@ END;
 		$this->initValidation( $data );
 
 		// Optional comment
-		$this->check( 'comment', '', self::getStrValidator() );
+		$this->check( 'comment', '', JCValidators::getStrValidator() );
 
 		//'enabled' => true,          // Config is enabled
-		$this->check( 'enabled', true, self::getBoolValidator() );
+		$this->check( 'enabled', true, JCValidators::getBoolValidator() );
 
 		// List of additional partner admins for this entry
 		if ( $this->isSaving() ) {
@@ -70,8 +71,8 @@ END;
 				function ( $fld, $v ) {
 					if ( is_string( $v ) ) {
 						$v = array( $v );
-					} elseif ( !JCKeyValueContent::isArray( $v, false ) ||
-						!JCKeyValueContent::isArrayOfStrings( $v )
+					} elseif ( !JCValidators::isArray( $v, false ) ||
+						!JCValidators::isArrayOfStrings( $v )
 					) {
 						return wfMessage( 'zeroconfig-admins', $fld );
 					}
@@ -129,9 +130,9 @@ END;
 						sort( $v );
 					}
 				}
-				if ( JCKeyValueContent::isArray( $v, false )
+				if ( JCValidators::isArray( $v, false )
 					&& count( $v ) > 0
-					&& JCKeyValueContent::isArrayOfStrings( $v )
+					&& JCValidators::isArrayOfStrings( $v )
 				) {
 					return $v;
 				}
@@ -141,23 +142,23 @@ END;
 			} );
 
 		// If carrier wants to suppress zero messaging in apps
-		$this->check( 'disableApps', false, self::getBoolValidator() );
+		$this->check( 'disableApps', false, JCValidators::getBoolValidator() );
 
 		//'name' => null,             // Map of localized partner names
 		$this->check( 'name', null,
 			function ( $fld, $v ) {
-				return JCKeyValueContent::isArray( $v, true )
+				return JCValidators::isArray( $v, true )
 						&& TestZeroContent::isArrayOfLangs( array_keys( $v ) )
-						&& JCKeyValueContent::isArrayOfStrings( $v )
+						&& JCValidators::isArrayOfStrings( $v )
 					? TestZeroContent::sortLangArray( $v ) : wfMessage( 'zeroconfig-name', $fld );
 			} );
 
 		//'banner' => null,           // Map of localized banner texts with {{PARTNER}} placeholder
 		$this->check( 'banner', array(),
 			function ( $fld, $v ) {
-				return JCKeyValueContent::isArray( $v, true )
+				return JCValidators::isArray( $v, true )
 						&& TestZeroContent::isArrayOfLangs( array_keys( $v ) )
-						&& JCKeyValueContent::isArrayOfStrings( $v )
+						&& JCValidators::isArrayOfStrings( $v )
 					? TestZeroContent::sortLangArray( $v ) : wfMessage( 'zeroconfig-banner', $fld );
 			} );
 
@@ -175,7 +176,7 @@ END;
 				if ( is_string( $v ) ) {
 					$v = array( $v );
 				}
-				if ( JCKeyValueContent::isArray( $v, false )
+				if ( JCValidators::isArray( $v, false )
 					&& TestZeroContent::isArrayOfLangs( $v )
 					&& count( $v ) > 0
 				) {
@@ -198,7 +199,7 @@ END;
 				}
 				$data = $self->getDataWithDefaults();
 				$showLangs = array_key_exists( 'showLangs', $data ) ? $data['showLangs'] : array();
-				if ( JCKeyValueContent::isArray( $v, false )
+				if ( JCValidators::isArray( $v, false )
 					&& TestZeroContent::isArrayOfLangs( $v )
 					&& ( count( $v ) === 0 || count( array_diff( $showLangs, $v ) ) === 0 )
 				) {
@@ -220,16 +221,16 @@ END;
 		// Orange Congo wanted to be able to override the 'kg' language name to 'Kikongo'
 		$this->check( 'langNameOverrides', array(),
 			function ( $fld, $v ) {
-				return JCKeyValueContent::isArray( $v, true )
+				return JCValidators::isArray( $v, true )
 						&& TestZeroContent::isArrayOfLangs( array_keys( $v ) )
-						&& JCKeyValueContent::isArrayOfStrings( $v )
+						&& JCValidators::isArrayOfStrings( $v )
 					? TestZeroContent::sortLangArray( $v ) : wfMessage( 'zeroconfig-lang_name_overrides', $fld );
 			} );
 
 		// List of proxies supported by the carrier, defaults to none (empty list)
 		$this->check( 'proxies', array(),
 			function ( $fld, $v, $self ) {
-				if ( JCKeyValueContent::isArray( $v, false ) ) {
+				if ( JCValidators::isArray( $v, false ) ) {
 					/** @var JCKeyValueContent $self */
 					if ( $self->isSaving() ) {
 						// Remove duplicates while preserving original order
@@ -244,27 +245,27 @@ END;
 			} );
 
 		// Background banner color
-		$this->check( 'background', '#E31230', self::getStrValidator() );
+		$this->check( 'background', '#E31230', JCValidators::getStrValidator() );
 
 		// Foreground banner color
-		$this->check( 'foreground', '#551011', self::getStrValidator() );
+		$this->check( 'foreground', '#551011', JCValidators::getStrValidator() );
 
 		// Banner font size override
-		$this->check( 'fontSize', '', self::getStrValidator() );
+		$this->check( 'fontSize', '', JCValidators::getStrValidator() );
 
 		// Show "non-zero navigation" warning when clicking the banner
-		$this->check( 'bannerWarning', true, self::getBoolValidator() );
+		$this->check( 'bannerWarning', true, JCValidators::getBoolValidator() );
 
 		// Zero rate images.
 		// @BUG? does this have the same meaning as legacy "IMAGES_ON"?
-		$this->check( 'showImages', true, self::getBoolValidator() );
+		$this->check( 'showImages', true, JCValidators::getBoolValidator() );
 
 		// Show the special zero page
 		// default = ( count( 'showLangs' ) > 1 )
-		$this->check( 'showZeroPage', true, self::getBoolValidator() );
+		$this->check( 'showZeroPage', true, JCValidators::getBoolValidator() );
 
 		// If carrier supports zero-rating HTTPS traffic
-		$this->check( 'enableHttps', false, self::getBoolValidator() );
+		$this->check( 'enableHttps', false, JCValidators::getBoolValidator() );
 
 		// List of IP CIDR blocks for this provider
 		if ( $this->isSaving() ) {
@@ -272,8 +273,8 @@ END;
 				function ( $fld, $v ) {
 					if ( is_string( $v ) ) {
 						$v = array( $v );
-					} elseif ( !JCKeyValueContent::isArray( $v, false ) ||
-						!JCKeyValueContent::isArrayOfStrings( $v )
+					} elseif ( !JCValidators::isArray( $v, false ) ||
+						!JCValidators::isArrayOfStrings( $v )
 					) {
 						return wfMessage( 'zeroconfig-ips', $fld );
 					}

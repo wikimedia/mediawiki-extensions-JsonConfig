@@ -238,25 +238,27 @@ class JCCache {
 		$req->setData( $query );
 		$status = $req->execute();
 		if ( !$status->isOK() ) {
-			wfLogWarning( "Failed to get remote config '$query'" );
+			wfLogWarning( 'Failed to get remote config. ' . FormatJson::encode( $status ) .
+				' ' . FormatJson::encode( $query ) );
 			return false;
 		}
 		$revInfo = FormatJson::decode( $req->getContent(), true );
 		if ( isset( $revInfo['warnings'] ) ) {
-			wfLogWarning( "Waring from API call '$query': " . print_r( $revInfo['warnings'], true ) );
+			wfLogWarning( 'Waring from API call. ' . FormatJson::encode( $query ) .
+				' ' . FormatJson::encode( $revInfo['warnings'] ) );
 		}
 		if ( !isset( $revInfo['query']['pages'] ) ) {
-			wfLogWarning( "Unrecognizable API result for '$query'" );
+			wfLogWarning( 'Unrecognizable API result. ' . FormatJson::encode( $query ) );
 			return false;
 		}
 		$pages = $revInfo['query']['pages'];
 		if ( !is_array( $pages ) || count( $pages ) !== 1 ) {
-			wfLogWarning( "Unexpected 'pages' element for '$query'" );
+			wfLogWarning( 'Unexpected "pages" element. ' . FormatJson::encode( $query ) );
 			return false;
 		}
 		$pageInfo = reset( $pages ); // get the only element of the array
 		if ( isset( $revInfo['missing'] ) ) {
-			wfLogWarning( "Config page does not exist for '$query'" );
+			wfLogWarning( 'Config page does not exist. ' . FormatJson::encode( $query ) );
 			return false;
 		}
 		return $pageInfo;
