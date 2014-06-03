@@ -1,0 +1,6 @@
+{
+	"jsonconfig-bad-json": "Kon nie die JSON-konfigurasie verwerk nie. Kontroleer asseblief die sintaks.",
+	"jsonconfig-optional-field": "(opsioneel)",
+	"jsonconfig-err-bool": "Parameter \"$1\" moet waar of vals wees",
+	"jsonconfig-err-string": "Parameter \"$1\" moet 'n string wees"
+}

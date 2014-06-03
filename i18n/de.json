@@ -10,5 +10,7 @@
 	"jsonconfig-duplicate-field": "Es wurde mehr als ein Wert „$1“ gefunden",
 	"jsonconfig-err-bool": "Parameter „$1“ muss entweder wahr oder falsch sein",
 	"jsonconfig-err-string": "Parameter „$1“ muss eine Zeichenfolge sein",
-	"jsonconfig-err-integer": "Parameter „$1“ muss eine ganze Zahl sein"
+	"jsonconfig-err-integer": "Parameter „$1“ muss eine ganze Zahl sein",
+	"jsonconfig-err-array": "Parameter „$1“ muss eine Liste sein, z.&nbsp;B. ['Wert1', 'Wert2', …]",
+	"jsonconfig-err-assoc-array": "Parameter „$1“ muss ein assoziatives Array (Wörterbuch) sein, z.&nbsp;B. {'Schlüssel': 'Wert', …}"
 }

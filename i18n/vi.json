@@ -1,0 +1,6 @@
+{
+	"jsonconfig-bad-json": "Không thể phân tích cấu hình JSON. Xin vui lòng kiểm tra cú pháp.",
+	"jsonconfig-optional-field": "(tùy chọn)",
+	"jsonconfig-err-bool": "Tham số “$1” phải là true hoặc false",
+	"jsonconfig-err-string": "Tham số “$1” phải là chuỗi"
+}

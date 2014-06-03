@@ -1,0 +1,5 @@
+{
+	"jsonconfig-bad-json": "Mer kunnte de <code lang=\"en\">JSON</code>-verpackte Daate vun de Eschtällong nit ussenein klamüüsere. Bes_esu_jood_un donn doh ens de Süntax prööve.",
+	"jsonconfig-err-bool": "Dä Parrameeter „$1“ moß „true“ udder „false“ sin, un kann och fott bliive",
+	"jsonconfig-err-string": "Dä Parrameeter „$1“ moss_en Aanzahl Zeische sin, un kann och fott bliive"
+}

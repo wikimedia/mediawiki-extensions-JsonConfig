@@ -1,0 +1,5 @@
+{
+	"jsonconfig-optional-field": "(valikuline)",
+	"jsonconfig-err-bool": "Parameetri \"$1\" väärtus saab olla kas tõene või väär",
+	"jsonconfig-err-string": "Parameeter \"$1\" peab olema sõne"
+}

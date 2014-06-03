@@ -1,0 +1,6 @@
+{
+	"jsonconfig-bad-json": "قادر به تجزیه پیکربندی جی‌سون نیست. لطفاً نحو را بررسی کنید.",
+	"jsonconfig-optional-field": "(اختیاری)",
+	"jsonconfig-err-bool": "پارامتر \"$1\" باید درست یا نادرست باشد",
+	"jsonconfig-err-string": "پارامتر \"$1\" باید یک دسته باشد"
+}

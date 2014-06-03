@@ -1,0 +1,6 @@
+{
+	"jsonconfig-bad-json": "Non se puido analizar a configuración JSON. Comprobe a sintaxe.",
+	"jsonconfig-optional-field": "(opcional)",
+	"jsonconfig-err-bool": "O parámetro \"$1\" debe ser verdadeiro ou falso",
+	"jsonconfig-err-string": "O parámetro \"$1\" debe ser unha cadea de texto"
+}

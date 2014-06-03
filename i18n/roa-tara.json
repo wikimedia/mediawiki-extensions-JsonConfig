@@ -1,0 +1,6 @@
+{
+	"jsonconfig-bad-json": "Non ge pozze analizzà 'a configurazione JSON. Pe piacere condrolle 'a sindase.",
+	"jsonconfig-optional-field": "(opzionale)",
+	"jsonconfig-err-bool": "Parametre \"$1\" adda essere vere o fause",
+	"jsonconfig-err-string": "Parametre \"$1\" adda essere 'na stringhe"
+}

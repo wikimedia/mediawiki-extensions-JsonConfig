@@ -4,5 +4,8 @@
 			"Liuxinyu970226"
 		]
 	},
-	"jsonconfig-optional-field": "（可選）"
+	"jsonconfig-bad-json": "無法解析 JSON 設定。請檢查語法。",
+	"jsonconfig-optional-field": "（可選）",
+	"jsonconfig-err-bool": "參數 \"$1\" 必須為 true 或 false （可選）",
+	"jsonconfig-err-string": "參數 \"$1\" 必須是一個字串 （可選）"
 }

@@ -4,6 +4,7 @@
 			"WikiPhoenix"
 		]
 	},
+	"jsonconfig-bad-json": "Det gick inte att tolka JSON-konfigureringen. Var god kontrollera syntaxen.",
 	"jsonconfig-optional-field": "(valfritt)",
 	"jsonconfig-duplicate-field": "Fler än ett värde \"$1\" hittades",
 	"jsonconfig-err-bool": "Parametern \"$1\" måste antingen vara \"true\" eller \"false\"",
