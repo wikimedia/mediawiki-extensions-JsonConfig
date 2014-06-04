@@ -4,7 +4,6 @@ namespace JsonConfig;
 
 use FormatJson;
 use Title;
-use Html;
 use Status;
 
 /**
@@ -26,6 +25,8 @@ class JCContent extends \TextContent {
 	private $isSaving;
 	/** If false, JSON parsing will use stdClass instead of array for "{...}" */
 	protected $useAssocParsing = false;
+	/** @var JCContentView|null contains an instance of the view class */
+	private $view = null;
 
 	/**
 	 * @param string $text Json configuration. If null, default content will be inserted instead
@@ -34,7 +35,7 @@ class JCContent extends \TextContent {
 	 */
 	public function __construct( $text, $modelId, $isSaving ) {
 		if ( $text === null ) {
-			$text = "{\n}";
+			$text = $this->getView()->getDefault( $modelId );
 		}
 		parent::__construct( $text, $modelId );
 		$this->isSaving = $isSaving;
@@ -152,21 +153,7 @@ class JCContent extends \TextContent {
 			$html = $status->getHTML();
 		}
 		if ( $status->isOK() ) {
-			$view = null;
-			global $wgJsonConfigModels;
-			$modelId = $this->getModel();
-			if ( array_key_exists( $modelId, $wgJsonConfigModels ) ) {
-				$value = $wgJsonConfigModels[$modelId];
-				if ( is_array( $value ) && array_key_exists( 'view', $value ) ) {
-					$class = $value['view'];
-					/** @var JCContentView $view */
-					$view = new $class();
-					$html .= $view->valueToHtml( $this );
-				}
-			}
-			if ( $view === null ) {
-				$html .= $this->valueToHtml( $this->getData() );
-			}
+			$html .= $this->getView()->valueToHtml( $this );
 		}
 		wfProfileOut( __METHOD__ );
 
@@ -174,57 +161,26 @@ class JCContent extends \TextContent {
 	}
 
 	/**
-	 * Convert array's key-value pair into a string of <th>...</th><td>...</td> elements
-	 * @param int|string $key
-	 * @param mixed $value
-	 * @param int $level
-	 * @param int|string $parentKey
-	 * @param mixed $parentValue
-	 * @return string
+	 * Get a view object for this content object
+	 * @return JCContentView
 	 */
-	public function rowToHtml( $key, $value, $level, $parentKey, $parentValue ) {
-		if ( is_string( $key ) ) {
-			$th = Html::element( 'th', null, $key );
-		} else {
-			$th = '';
-		}
-
-		$tdVal = $this->valueToHtml( $value, $key, $level );
-
-		// If html begins with a '<', its a complex object, and should not have a class
-		$attribs = null;
-		if ( substr( $tdVal, 0, 1 ) !== '<' ) {
-			$attribs = array( 'class' => 'mw-jsonconfig-value' );
-		}
-		$td = Html::rawElement( 'td', $attribs, $tdVal );
-
-		return $th . $td;
-	}
-
-	/**
-	 * Constructs an HTML representation of a JSON object.
-	 * @param mixed $value
-	 * @param int|string|null $key
-	 * @param int $level Tree level
-	 * @return string: HTML.
-	 */
-	public function valueToHtml( $value, $key = null, $level = 0 ) {
-		if ( is_array( $value ) && count( $value ) !== 0 ) {
-			$rows = array();
-			foreach ( $value as $k => $v ) {
-				$rows[] = Html::rawElement( 'tr', null,
-					$this->rowToHtml( $k, $v, $level + 1, $key, $value ) );
+	protected function getView() {
+		$view = $this->view;
+		if ( $view === null ) {
+			global $wgJsonConfigModels;
+			$modelId = $this->getModel();
+			if ( array_key_exists( $modelId, $wgJsonConfigModels ) ) {
+				$value = $wgJsonConfigModels[$modelId];
+				if ( is_array( $value ) && array_key_exists( 'view', $value ) ) {
+					$class = $value['view'];
+					$view = new $class();
+				}
 			}
-			$res = Html::rawElement( 'table', array( 'class' => 'mw-jsonconfig' ),
-				Html::rawElement( 'tbody', null, join( "\n", $rows ) ) );
-		} elseif ( is_array( $value ) ) {
-			$res = '';
-		} elseif ( !is_string( $value ) ) {
-			$res = FormatJson::encode( $value );
-		} else {
-			$res = $value;
+			if ( $view === null ) {
+				$view = new JCDefaultContentView();
+			}
+			$this->view = $view;
 		}
-
-		return $res;
+		return $view;
 	}
 }
