@@ -35,14 +35,15 @@ $wgMessagesDirs['JsonConfig'] = $cwd . 'i18n';
 
 $cwd .= 'includes' . DIRECTORY_SEPARATOR;
 foreach ( array(
-	          'JCCache',
-	          'JCContent',
-	          'JCContentHandler',
-	          'JCContentView',
-	          'JCKeyValueContent',
-	          'JCSingleton',
-	          'JCValidators',
-        ) as $class => $filename ) {
+			'JCCache',
+			'JCContent',
+			'JCContentHandler',
+			'JCContentView',
+			'JCDefaultContentView',
+			'JCKeyValueContent',
+			'JCSingleton',
+			'JCValidators',
+		) as $class => $filename ) {
 	$cls = is_string( $class ) ? $class : $filename;
 	$wgAutoloadClasses['JsonConfig\\' . $cls] = $cwd . $filename . '.php';
 }

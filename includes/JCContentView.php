@@ -3,16 +3,23 @@
 namespace JsonConfig;
 
 /**
- * Interface JCContentView is used as an optional override of the JCContent::valueToHtml()
+ * This class is used as a way to specify how to edit/view JCContent object
  * To use it, set $wgJsonConfigModels[$modelId]['view'] = 'MyJCContentViewClass';
  * @package JsonConfig
  */
-interface JCContentView {
+abstract class JCContentView {
 
 	/**
 	 * Render JCContent object as HTML
 	 * @param JCContent $content
 	 * @return string
 	 */
-	public function valueToHtml( JCContent $content );
+	abstract public function valueToHtml( JCContent $content );
+
+	/**
+	 * Returns default content for this object
+	 * @param string $modelId
+	 * @return string
+	 */
+	abstract public function getDefault( $modelId );
 }
