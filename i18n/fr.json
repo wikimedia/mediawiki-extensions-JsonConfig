@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Sherbrooke"
+			"Sherbrooke",
+			"Gomoko"
 		]
 	},
 	"jsonconfig-desc": "Permet de stocker une configuration JSON dans un wiki",
@@ -10,5 +11,7 @@
 	"jsonconfig-duplicate-field": "Plus d’une valeur « $1 » trouvée",
 	"jsonconfig-err-bool": "Paramètre « $1 » doit être vrai ou faux",
 	"jsonconfig-err-string": "Le paramètre « $1 » doit être une chaîne",
-	"jsonconfig-err-integer": "Le paramètre « $1 » doit être un nombre entier"
+	"jsonconfig-err-integer": "Le paramètre « $1 » doit être un nombre entier",
+	"jsonconfig-err-array": "Le paramètre « $1 » doit être une liste, par ex. ['valeur1', 'valeur2', …]",
+	"jsonconfig-err-assoc-array": "Le paramètre « $1 » doit être un tableau associatif (dictionnaire), par ex. {'clé': 'valeur', …}"
 }
