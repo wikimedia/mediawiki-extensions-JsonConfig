@@ -9,11 +9,15 @@
 	},
 	"jsonconfig-desc": "{{desc|name=JsonConfig|url=http://www.mediawiki.org/wiki/Extension:JsonConfig}}",
 	"jsonconfig-bad-json": "Text on the page is not in a valid JSON format, and there is not much more we can do with it.",
-	"jsonconfig-optional-field": "A short suffix appended to one of these messages to indicate that the field is optional.\n* {{msg-mw|Jsonconfig-err-bool}}\n* {{msg-mw|Jsonconfig-err-string}}\n* {{msg-mw|Jsonconfig-err-integer}}\n* Or any other field error message provided by another extension\n{{Identical|Optional}}",
 	"jsonconfig-duplicate-field": "Field (<code>$1</code>) was present more than once but with different capitalization in the JSON, e.g. \"field\" and \"Field\".\n\nParameters:\n* $1 - field name",
-	"jsonconfig-err-bool": "A field named \"$1\" is not a valid boolean. Parameters:\n* $1 - parameter name",
-	"jsonconfig-err-string": "A field named \"$1\" is not a valid string. Parameters:\n* $1 - field name",
-	"jsonconfig-err-integer": "A field named \"$1\" is not a valid integer. Parameters:\n* $1 - field name",
 	"jsonconfig-err-array": "A field named \"$1\" is not a valid non-associative array (not a list). Parameters:\n* $1 - field name",
-	"jsonconfig-err-assoc-array": "A field named \"$1\" is not a valid associative array (not a dictionary). Parameters:\n* $1 - field name"
+	"jsonconfig-err-assoc-array": "A field named \"$1\" is not a valid associative array (not a dictionary). Parameters:\n* $1 - field name",
+	"jsonconfig-err-bool": "A field named \"$1\" is not a valid boolean. Parameters:\n* $1 - parameter name",
+	"jsonconfig-err-integer": "A field named \"$1\" is not a valid integer. Parameters:\n* $1 - field name",
+	"jsonconfig-err-array-expected": "The field named \"$1\" is not a valid list",
+	"jsonconfig-err-object-expected": "The field named \"$1\" is not a valid object",
+	"jsonconfig-err-root-array-expected": "Entire JSON data was not a list surrounded by the [...] brackets",
+	"jsonconfig-err-root-object-expected": "Entire JSON data was not an object, surrounded by the {...} braces",
+	"jsonconfig-err-string": "A field named \"$1\" is not a valid string. Parameters:\n* $1 - field name",
+	"jsonconfig-optional-field": "A short suffix appended to one of these messages to indicate that the field is optional.\n* {{msg-mw|Jsonconfig-err-bool}}\n* {{msg-mw|Jsonconfig-err-string}}\n* {{msg-mw|Jsonconfig-err-integer}}\n* Or any other field error message provided by another extension\n{{Identical|Optional}}"
 }
