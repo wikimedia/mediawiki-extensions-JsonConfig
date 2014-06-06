@@ -3,7 +3,6 @@ namespace JsonConfig;
 
 use FormatJson;
 use MWHttpRequest;
-use MWException;
 use MWNamespace;
 use TitleValue;
 
@@ -158,7 +157,7 @@ class JCCache {
 					'prop' => 'revisions',
 					'rvprop' => 'content',
 				);
-				$result = $this->getPageFromApi( $req, $query );
+				$result = $this->getPageFromApi( $articleName, $req, $query );
 			} else {
 				$query = array(
 					'format' => 'json',
@@ -166,7 +165,7 @@ class JCCache {
 					'titles' => $articleName,
 					'prop' => 'info|flagged',
 				);
-				$result = $this->getPageFromApi( $req, $query );
+				$result = $this->getPageFromApi( $articleName, $req, $query );
 				if ( $result !== false &&
 					( $flrevs === null || array_key_exists( 'flagged', $result ) )
 				) {
@@ -182,11 +181,17 @@ class JCCache {
 						'prop' => 'revisions',
 						'rvprop' => 'content',
 					);
-					$result = $this->getPageFromApi( $req, $query );
+					$result = $this->getPageFromApi( $articleName, $req, $query );
 				}
 			}
 			if ( $result !== false ) {
-				$result = isset( $result['revisions'][0]['*'] ) ? $result['revisions'][0]['*'] : false;
+				if ( isset( $result['revisions'][0]['*'] ) ) {
+					$result = $result['revisions'][0]['*'];
+				} else {
+					$result = false;
+					self::warn( 'Unable to get config content',
+						array( 'title' => $articleName, 'result' => $result ) );
+				}
 			}
 			$this->content = $result;
 		}
@@ -198,7 +203,8 @@ class JCCache {
 	 * @return bool|\CurlHttpRequest|\PhpHttpRequest
 	 */
 	private function initApiRequestObj() {
-		$apiUri = wfAppendQuery( $this->conf['url'], array( 'format' => 'json' ) );
+		$conf = $this->conf;
+		$apiUri = wfAppendQuery( $conf['url'], array( 'format' => 'json' ) );
 		$options = array(
 			'timeout' => 3,
 			'connectTimeout' => 'default',
@@ -206,61 +212,95 @@ class JCCache {
 		);
 		$req = MWHttpRequest::factory( $apiUri, $options );
 
-		if ( $this->conf['username'] !== false && $this->conf['password'] !== false ) {
+		if ( $conf['username'] !== false && $conf['password'] !== false ) {
 			$postData = array(
 				'action' => 'login',
-				'lgname' => $this->conf['username'],
-				'lgpassword' => $this->conf['password'],
+				'lgname' => $conf['username'],
+				'lgpassword' => $conf['password'],
 			);
 			$req->setData( $postData );
 			$status = $req->execute();
+			$runCount = 1;
 
-			if ( $status->isOK() ) {
+			if ( $status->isGood() ) {
 				$res = json_decode( $req->getContent(), true );
 				if ( isset( $res['login']['token'] ) ) {
 					$postData['lgtoken'] = $res['login']['token'];
 					$req->setData( $postData );
-					$req->execute();
-					// Ignore "OK"/"Failed" state - in case login failed, we still attempt to get data
+					$status = $req->execute();
+					$runCount++;
 				}
+			}
+			if ( !$status->isGood() ) {
+				self::warn( "Failed to login",
+					array( 'run' => $runCount, 'url' => $conf['url'], 'user' => $conf['username'], 'status' => $status ) );
+				// Ignore "OK"/"Failed" state - in case login failed, we still attempt to get data
 			}
 		}
 		return $req;
 	}
 
 	/** Given a legal set of API parameters, return page from API
-	 * @param \CurlHttpRequest|\PhpHttpRequest $req
+	 * @param string $articleName title name used for warnings
+	 * @param \CurlHttpRequest|\PhpHttpRequest $req logged-in session
 	 * @param array $query
-	 * @throws MWException
 	 * @return bool|mixed
 	 */
-	private function getPageFromApi( $req, $query ) {
+	private function getPageFromApi( $articleName, $req, $query ) {
 		$req->setData( $query );
 		$status = $req->execute();
-		if ( !$status->isOK() ) {
-			wfLogWarning( 'Failed to get remote config. ' . FormatJson::encode( $status ) .
-				' ' . FormatJson::encode( $query ) );
+		if ( !$status->isGood() ) {
+			self::warn( 'Failed to get remote config',
+				array( 'title' => $articleName, 'status' => $status, 'query' => $query ) );
 			return false;
 		}
 		$revInfo = FormatJson::decode( $req->getContent(), true );
 		if ( isset( $revInfo['warnings'] ) ) {
-			wfLogWarning( 'Waring from API call. ' . FormatJson::encode( $query ) .
-				' ' . FormatJson::encode( $revInfo['warnings'] ) );
+			self::warn( 'Warning from API call',
+				array( 'title' => $articleName, 'query' => $query, 'warnings' => $revInfo['warnings'] ) );
 		}
 		if ( !isset( $revInfo['query']['pages'] ) ) {
-			wfLogWarning( 'Unrecognizable API result. ' . FormatJson::encode( $query ) );
+			self::warn( 'Unrecognizable API result', array( 'title' => $articleName, 'query' => $query ) );
 			return false;
 		}
 		$pages = $revInfo['query']['pages'];
 		if ( !is_array( $pages ) || count( $pages ) !== 1 ) {
-			wfLogWarning( 'Unexpected "pages" element. ' . FormatJson::encode( $query ) );
+			self::warn( 'Unexpected "pages" element', array( 'title' => $articleName, 'query' => $query ) );
 			return false;
 		}
 		$pageInfo = reset( $pages ); // get the only element of the array
 		if ( isset( $revInfo['missing'] ) ) {
-			wfLogWarning( 'Config page does not exist. ' . FormatJson::encode( $query ) );
+			self::warn( 'Config page does not exist', array( 'title' => $articleName, 'query' => $query ) );
 			return false;
 		}
 		return $pageInfo;
+	}
+
+	/**
+	 * Uses wfLogWarning() to report an error. All complex arguments are escaped with FormatJson::encode()
+	 * @param string $msg
+	 */
+	private static function warn( $msg, $vals ) {
+		if ( !is_array( $vals ) ) {
+			$vals = array( $vals );
+		}
+		$isFirst = true;
+		foreach ( $vals as $k => $v ) {
+			if ( $isFirst ) {
+				$isFirst = false;
+				$msg .= ': ';
+			} else {
+				$msg .= ', ';
+			}
+			if ( is_string( $k ) ) {
+				$msg .= $k . '=';
+			}
+			if ( is_string( $v ) || is_int( $v ) ) {
+				$msg .= $v;
+			} else {
+				$msg .= FormatJson::encode( $v );
+			}
+		}
+		wfLogWarning( $msg );
 	}
 }
