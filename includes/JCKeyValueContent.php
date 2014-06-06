@@ -1,7 +1,6 @@
 <?php
 namespace JsonConfig;
 
-use JsonConfig\JCValidators;
 use Message;
 use MWException;
 
@@ -80,6 +79,7 @@ abstract class JCKeyValueContent extends JCContent {
 		$this->unknownFields = $data;
 		$this->defaultFields = array();
 		$this->sameAsDefault = array();
+		return true;
 	}
 
 	/**
@@ -95,18 +95,19 @@ abstract class JCKeyValueContent extends JCContent {
 		return array_merge( $data, $this->unknownFields );
 	}
 
-	/**
-	 * Derrived classes must override this method to perform custom validation:
-	 * - call initValidation($data)
-	 * - perform validation using check(...) calls
-	 * - return the result of the finishValidation() call
-	 * @param $data
-	 * @throws MWException if not overriden in the derived class
-	 * @return mixed
-	 */
 	public function validate( $data ) {
-		throw new MWException( 'Derived class must override this function' );
+		if ( $this->initValidation( $data ) ) {
+			$this->validateContent();
+			return $this->finishValidation();
+		}
+		return $data;
 	}
+
+	/**
+	 * Derived classes must implement this method to perform custom validation
+	 * using the check(...) calls
+	 */
+	public abstract function validateContent();
 
 	/**
 	 * Use this function to perform all custom validation of the configuration

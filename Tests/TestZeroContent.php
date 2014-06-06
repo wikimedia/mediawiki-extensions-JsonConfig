@@ -56,9 +56,7 @@ END;
 		parent::__construct( $text, $modelId, $isSaving );
 	}
 
-	public function validate( $data ) {
-		$this->initValidation( $data );
-
+	public function validateContent() {
 		// Optional comment
 		$this->check( 'comment', '', JCValidators::getStrValidator() );
 
@@ -318,8 +316,6 @@ END;
 		) {
 			$this->dataWithDefaults['showZeroPage'] = count( $this->dataWithDefaults['showLangs'] ) > 1;
 		}
-
-		return $this->finishValidation();
 	}
 
 	/**
