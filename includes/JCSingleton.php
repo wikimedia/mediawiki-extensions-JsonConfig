@@ -44,14 +44,6 @@ class JCSingleton {
 		global $wgJsonConfigs, $wgJsonConfigModels, $wgJsonConfigApiUrl, $wgJsonConfigStorage;
 		$isInitialized = true;
 
-		// Make sure no one else defined handlers for the same modelId
-		foreach ( $wgJsonConfigModels as $modelId => $value ) {
-			if ( array_key_exists( $modelId, $wgContentHandlers ) ) {
-				throw new MWException( "JsonConfig: ModelID '$modelId' => '$value' is already " .
-					"registered to '$wgContentHandlers[$modelId]' " );
-			}
-		}
-
 		foreach ( $wgJsonConfigs as $confId => &$conf ) {
 			$modelId = array_key_exists( 'model', $conf ) ? ( $conf['model'] ?: $defaultModelId ) : $confId;
 			if ( !is_string( $modelId ) ) {
@@ -94,6 +86,11 @@ class JCSingleton {
 			if ( !array_key_exists( $modelId, $wgJsonConfigModels ) && $modelId !== $defaultModelId ) {
 				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
 					"Model '$modelId' is not defined in \$wgJsonConfigModels" );
+				continue;
+			}
+			if ( array_key_exists( $modelId, $wgContentHandlers ) ) {
+				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: Model '$modelId' is " .
+					"already registered in \$wgContentHandlers to {$wgContentHandlers[$modelId]}" );
 				continue;
 			}
 			// Even though we might be able to override default content model for namespace, lets keep things clean
