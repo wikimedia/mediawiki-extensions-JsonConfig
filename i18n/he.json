@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ronel1"
+		]
+	},
+	"jsonconfig-err-array": "הפרמטר \" $1 \" חייב להיות רשימה, למשל ['value1', 'value2']",
+	"jsonconfig-err-assoc-array": "הפרמטר \" $1 \" חייב להיות מערך אסוציאטיבי (מילון), למשל {'מפתח': 'value',...}"
+}
