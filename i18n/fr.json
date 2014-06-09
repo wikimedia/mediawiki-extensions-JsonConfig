@@ -7,11 +7,11 @@
 	},
 	"jsonconfig-desc": "Permet de stocker une configuration JSON dans un wiki",
 	"jsonconfig-bad-json": "Impossible d’interpréter la configuration JSON. Vérifiez la syntaxe s’il vous plaît.",
-	"jsonconfig-optional-field": "(facultatif)",
 	"jsonconfig-duplicate-field": "Plus d’une valeur « $1 » trouvée",
-	"jsonconfig-err-bool": "Paramètre « $1 » doit être vrai ou faux",
-	"jsonconfig-err-string": "Le paramètre « $1 » doit être une chaîne",
-	"jsonconfig-err-integer": "Le paramètre « $1 » doit être un nombre entier",
 	"jsonconfig-err-array": "Le paramètre « $1 » doit être une liste, par ex. ['valeur1', 'valeur2', …]",
-	"jsonconfig-err-assoc-array": "Le paramètre « $1 » doit être un tableau associatif (dictionnaire), par ex. {'clé': 'valeur', …}"
+	"jsonconfig-err-assoc-array": "Le paramètre « $1 » doit être un tableau associatif (dictionnaire), par ex. {'clé': 'valeur', …}",
+	"jsonconfig-err-bool": "Paramètre « $1 » doit être vrai ou faux",
+	"jsonconfig-err-integer": "Le paramètre « $1 » doit être un nombre entier",
+	"jsonconfig-err-string": "Le paramètre « $1 » doit être une chaîne",
+	"jsonconfig-optional-field": "(facultatif)"
 }

@@ -6,11 +6,15 @@
 	},
 	"jsonconfig-desc": "Ermöglicht die Konfiguration von JSON zur Speicherung in einem Wiki",
 	"jsonconfig-bad-json": "Die JSON-Konfiguration konnte nicht geparst werden. Bitte die Syntax überprüfen.",
-	"jsonconfig-optional-field": "(optional)",
 	"jsonconfig-duplicate-field": "Es wurde mehr als ein Wert „$1“ gefunden",
-	"jsonconfig-err-bool": "Parameter „$1“ muss entweder wahr oder falsch sein",
-	"jsonconfig-err-string": "Parameter „$1“ muss eine Zeichenfolge sein",
-	"jsonconfig-err-integer": "Parameter „$1“ muss eine ganze Zahl sein",
 	"jsonconfig-err-array": "Parameter „$1“ muss eine Liste sein, z.&nbsp;B. ['Wert1', 'Wert2', …]",
-	"jsonconfig-err-assoc-array": "Parameter „$1“ muss ein assoziatives Array (Wörterbuch) sein, z.&nbsp;B. {'Schlüssel': 'Wert', …}"
+	"jsonconfig-err-assoc-array": "Parameter „$1“ muss ein assoziatives Array (Wörterbuch) sein, z.&nbsp;B. {'Schlüssel': 'Wert', …}",
+	"jsonconfig-err-bool": "Parameter „$1“ muss entweder wahr oder falsch sein",
+	"jsonconfig-err-integer": "Parameter „$1“ muss eine ganze Zahl sein",
+	"jsonconfig-err-array-expected": "Es wird erwartet, dass der Wert bei „$1“ eine Liste umgeben von eckigen Klammern ([…]) ist",
+	"jsonconfig-err-object-expected": "Es wird erwartet, dass der Wert bei „$1“ ein Objekt umgeben von geschweiften Klammern ({…}) ist",
+	"jsonconfig-err-root-array-expected": "JSON-Daten sollten eine Liste sein, umgeben von eckigen Klammern ([…])",
+	"jsonconfig-err-root-object-expected": "JSON-Daten sollten ein Objekt sein, umgeben von geschweiften Klammern ({…})",
+	"jsonconfig-err-string": "Parameter „$1“ muss eine Zeichenfolge sein",
+	"jsonconfig-optional-field": "(optional)"
 }
