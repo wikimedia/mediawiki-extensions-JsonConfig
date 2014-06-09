@@ -3,6 +3,7 @@ namespace JsonConfig;
 
 use ContentHandler;
 use MWException;
+use stdClass;
 use TitleValue;
 use Title;
 
@@ -44,83 +45,130 @@ class JCSingleton {
 		global $wgJsonConfigs, $wgJsonConfigModels, $wgJsonConfigApiUrl, $wgJsonConfigStorage;
 		$isInitialized = true;
 
+		$badId = null;
 		foreach ( $wgJsonConfigs as $confId => &$conf ) {
-			$modelId = array_key_exists( 'model', $conf ) ? ( $conf['model'] ?: $defaultModelId ) : $confId;
-			if ( !is_string( $modelId ) ) {
-				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId'], either the key must be a string or 'model' has to be defined" );
-				continue;
+			// Unset previous iteration item if it failed validation ('continue' was used)
+			if ( $badId !== null ) {
+				unset( $wgJsonConfigs[$badId] );
 			}
-			$conf['model'] = $modelId;
+			$badId = $confId;
 
-			$ns = self::getConfVal( $conf, 'namespace', NS_CONFIG );
-			$name = self::getConfVal( $conf, 'name', '' );
-			$issubspace = self::getConfVal( $conf, 'issubspace', false );
-			self::getConfVal( $conf, 'flaggedrevs', false );
-			$islocal = self::getConfVal( $conf, 'islocal', false );
-			$url = self::getConfVal( $conf, 'url', $wgJsonConfigApiUrl );
-			self::getConfVal( $conf, 'username', false );
-			self::getConfVal( $conf, 'password', false );
+			if ( !is_string( $confId ) ) {
+				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId'], the key must be a string" );
+				continue;
+			}
+			if ( false === self::getConfObject( $conf, $confId ) ) {
+				continue;
+			}
 
-			// Decide if matching configs should be stored on this wiki
-			$storeHere = $islocal || $wgJsonConfigStorage === true ||
-				( is_array( $wgJsonConfigStorage ) &&
-				  is_string( $confId ) &&
-				  in_array( $confId, $wgJsonConfigStorage ) );
-			$conf['storehere'] = $storeHere;
-
-			// We could have thrown MWException here, but we would rather fail gracefully on a mis-configured server
-			if ( !is_int( $ns ) || !is_string( $name ) || !is_bool( $issubspace ) ) {
-				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId'], please check documentation" );
-				continue;
-			}
-			if ( $ns % 2 !== 0 ) {
-				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
-					"Namespace $ns should be an even number" );
-				continue;
-			}
-			if ( $url === false && !$storeHere ) {
-				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
-					"API URL is not set, and this config is not being stored locally" );
-				continue;
-			}
+			$modelId = isset( $conf->model ) ? ( $conf->model ? : $defaultModelId ) : $confId;
 			if ( !array_key_exists( $modelId, $wgJsonConfigModels ) && $modelId !== $defaultModelId ) {
 				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
-					"Model '$modelId' is not defined in \$wgJsonConfigModels" );
+				              "Model '$modelId' is not defined in \$wgJsonConfigModels" );
 				continue;
 			}
 			if ( array_key_exists( $modelId, $wgContentHandlers ) ) {
 				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: Model '$modelId' is " .
-					"already registered in \$wgContentHandlers to {$wgContentHandlers[$modelId]}" );
+				              "already registered in \$wgContentHandlers to {$wgContentHandlers[$modelId]}" );
+				continue;
+			}
+			$conf->model = $modelId;
+
+			$ns = self::getConfVal( $conf, 'namespace', NS_CONFIG );
+			if ( !is_int( $ns ) || $ns % 2 !== 0 ) {
+				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
+				              "Namespace $ns should be an even number" );
 				continue;
 			}
 			// Even though we might be able to override default content model for namespace, lets keep things clean
 			if ( array_key_exists( $ns, $wgNamespaceContentModels ) ) {
 				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: Namespace $ns is already " .
-					"set to handle model '$wgNamespaceContentModels[$ns]'" );
+				              "set to handle model '$wgNamespaceContentModels[$ns]'" );
 				continue;
 			}
+
+			// nsName & nsTalk are handled later
+			self::getConfVal( $conf, 'name', '' );
+			self::getConfVal( $conf, 'isSubspace', false );
+			$islocal = self::getConfVal( $conf, 'isLocal', false );
+			self::getConfVal( $conf, 'cacheExp', 24 * 60 * 60 );
+			self::getConfVal( $conf, 'cacheKey', '' );
+			self::getConfVal( $conf, 'flaggedRevs', false );
+
+			// Decide if matching configs should be stored on this wiki
+			$storeHere =
+				$islocal || $wgJsonConfigStorage === true ||
+				( is_array( $wgJsonConfigStorage ) && is_string( $confId ) &&
+				  in_array( $confId, $wgJsonConfigStorage ) );
+			$conf->storeHere = $storeHere;
+
+			if ( !$storeHere ) {
+				if ( false === ( $remote = self::getConfObject( $conf, 'remote', $confId ) ) ) {
+					continue;
+				}
+				if ( self::getConfVal( $remote, 'url', $wgJsonConfigApiUrl ) === '' ) {
+					wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']['url']: " .
+					              "API URL is not set, and this config is not being stored locally" );
+					continue;
+				}
+				self::getConfVal( $remote, 'username', '' );
+				self::getConfVal( $remote, 'password', '' );
+			} else {
+				$conf->remote = null;
+				if ( false === ( $store = self::getConfObject( $conf, 'store', $confId ) ) ) {
+					continue;
+				}
+				self::getConfVal( $store, 'cacheNewValue', true );
+				self::getConfVal( $store, 'notifyUrl', '' );
+				self::getConfVal( $store, 'notifyUsername', '' );
+				self::getConfVal( $store, 'notifyPassword', '' );
+			}
+
+			// Too lazy to write proper error messages for all parameters.
+			if ( ( isset( $conf->nsTalk ) && !is_string( $conf->nsTalk ) ) || !is_string( $conf->name ) ||
+			     !is_bool( $conf->isSubspace ) || !is_bool( $islocal ) || !is_int( $conf->cacheExp ) ||
+			     !is_string( $conf->cacheKey ) || !is_bool( $conf->flaggedRevs )
+			) {
+				wfLogWarning( "JsonConfig: Invalid type of one of the parameters in \$wgJsonConfigs['$confId'], please check documentation" );
+				continue;
+			}
+			if ( isset( $remote ) ) {
+				if ( !is_string( $remote->url ) || !is_string( $remote->username ) ||
+				     !is_string( $remote->password )
+				) {
+					wfLogWarning( "JsonConfig: Invalid type of one of the parameters in \$wgJsonConfigs['$confId']['remote'], please check documentation" );
+					continue;
+				}
+			}
+			if ( isset( $store ) ) {
+				if ( !is_bool( $store->cacheNewValue ) || !is_string( $store->notifyUrl ) ||
+				     !is_string( $store->notifyUsername ) || !is_string( $store->notifyPassword )
+				) {
+					wfLogWarning( "JsonConfig: Invalid type of one of the parameters in \$wgJsonConfigs['$confId']['store'], please check documentation" );
+					continue;
+				}
+			}
 			if ( $storeHere ) {
-				// If nsname is given, add it to the list, together with the talk page
+				// If nsName is given, add it to the list, together with the talk page
 				// Otherwise, create a placeholder for it
-				if ( array_key_exists( 'nsname', $conf ) ) {
+				if ( isset( $conf->nsName ) ) {
 					if ( $ns === NS_CONFIG ) {
-						wfLogWarning( "JsonConfig: Parameter 'nsname' in \$wgJsonConfigs['$confId'] is not supported " .
-							'for namespace NS_CONFIG (' . NS_CONFIG . ')' );
+						wfLogWarning( "JsonConfig: Parameter 'nsName' in \$wgJsonConfigs['$confId'] is not " .
+						              'supported for namespace == NS_CONFIG (' . NS_CONFIG . ')' );
 					} else {
-						$nsname = $conf['nsname'];
-						if ( !is_string( $nsname ) || $nsname === '' ) {
+						$nsName = $conf->nsName;
+						if ( !is_string( $nsName ) || $nsName === '' ) {
 							wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
-								"if given, nsname must be a string" );
+							              "if given, nsName must be a string" );
 							continue;
 						} elseif ( array_key_exists( $ns, self::$namespaces ) &&
 							self::$namespaces[$ns] !== null
 						) {
-							wfLogWarning( "JsonConfig: \$wgJsonConfigs['$confId'] - nsname has already " .
-								"been set for namespace $ns" );
+							wfLogWarning( "JsonConfig: \$wgJsonConfigs['$confId'] - nsName has already " .
+							              "been set for namespace $ns" );
 						} else {
-							self::$namespaces[$ns] = $nsname;
-							self::$namespaces[$ns + 1] = array_key_exists( 'nstalk', $conf ) ?
-								$conf['nstalk'] : ( $nsname . '_talk' );
+							self::$namespaces[$ns] = $nsName;
+							self::$namespaces[$ns + 1] = isset( $conf->nsTalk ) ? $conf->nsTalk : ( $nsName . '_talk' );
 						}
 					}
 				} elseif ( !array_key_exists( $ns, self::$namespaces ) ) {
@@ -137,69 +185,109 @@ class JCSingleton {
 			}
 
 			unset( $nameVals );
-			$nameExists = array_key_exists( $name, $nsVals );
-			if ( $name === '' ) {
+			$nameExists = array_key_exists( $conf->name, $nsVals );
+			if ( $conf->name === '' ) {
 				// Wildcard - the entire namespace is handled by this modelId, unless more specific name is set
-				if ( $nameExists ) {
+				if ( $conf->isSubspace ) {
+					wfLogWarning( "JsonConfig: \$wgJsonConfigs['$confId']->isSubspace is true, but name is not set" );
+					continue;
+				} elseif ( $nameExists ) {
 					wfLogWarning( "JsonConfig: \$wgJsonConfigs['$confId'] cannot define " .
 						"another nameless handler for namespace $ns" );
 					continue;
 				} else {
-					$nsVals[$name] = $conf;
+					$nsVals[$conf->name] = $conf;
 				}
 			} else {
 				if ( !$nameExists ) {
 					$nameVals = array();
-					$nsVals[$name] = &$nameVals;
+					$nsVals[$conf->name] = &$nameVals;
 				} else {
-					$nameVals = &$nsVals[$name];
+					$nameVals = &$nsVals[$conf->name];
 				}
-				$issubspace = $issubspace ? 1 : 0;
-				if ( array_key_exists( $issubspace, $nameVals ) ) {
-					wfLogWarning( "JsonConfig: \$wgJsonConfigs['$confId'] duplicates $ns:$name:isSubspace " .
-						"value - there must be no more than one 'true' and 'false'" );
+				$isSubspace = $conf->isSubspace ? 1 : 0;
+				if ( array_key_exists( $isSubspace, $nameVals ) ) {
+					wfLogWarning( "JsonConfig: \$wgJsonConfigs['$confId'] duplicates $ns:$conf->name:isSubspace " .
+					              "value - there must be no more than one 'true' and 'false'" );
 					continue;
 				}
-				$nameVals[$issubspace] = $conf;
+				$nameVals[$isSubspace] = $conf;
 			}
+			$badId = null; // Item passed validation, keep it
+		}
+		if ( $badId !== null ) {
+			unset( $wgJsonConfigs[$badId] );
 		}
 
 		// Add all undeclared namespaces
 		$missingNs = 1;
-		foreach ( self::$namespaces as $ns => $nsname ) {
-			if ( $nsname === null ) {
-				$nsname = 'Config';
+		foreach ( self::$namespaces as $ns => $nsName ) {
+			if ( $nsName === null ) {
+				$nsName = 'Config';
 				if ( $ns !== NS_CONFIG ) {
-					$nsname .= $missingNs;
-					wfLogWarning( "JsonConfig: Namespace $ns does not have 'nsname' defined, using '$nsname'" );
+					$nsName .= $missingNs;
+					wfLogWarning( "JsonConfig: Namespace $ns does not have 'nsName' defined, using '$nsName'" );
 					$missingNs += 1;
 				}
-				self::$namespaces[$ns] = $nsname;
-				self::$namespaces[$ns + 1] = $nsname . '_talk';
+				self::$namespaces[$ns] = $nsName;
+				self::$namespaces[$ns + 1] = $nsName . '_talk';
 			}
 		}
 	}
 
 	/**
 	 * Helper function to check if configuration has a field set, and if not, set it to default
-	 * @param array $conf
+	 * @param stdClass $conf
 	 * @param string $field
 	 * @param mixed $default
 	 * @return mixed
 	 */
 	private static function getConfVal( &$conf, $field, $default ) {
-		if ( array_key_exists( $field, $conf ) ) {
-			return $conf[$field];
+		if ( property_exists( $conf, $field ) ) {
+			return $conf->$field;
 		}
-		$conf[$field] = $default;
+		$conf->$field = $default;
 		return $default;
+	}
+
+	/**
+	 * Helper function to check if configuration has a field set, and if not, set it to default
+	 */
+	private static function getConfObject( & $value, $field, $confId = null ) {
+		if ( !$confId ) {
+			$val = & $value;
+		} else {
+			if ( !property_exists( $value, $field ) ) {
+				$value->$field = null;
+			}
+			$val = & $value->$field;
+		}
+		if ( $val === null ) {
+			$val = new stdClass();
+		} elseif ( is_array( $val ) ) {
+			$val = (object)$val;
+		} elseif ( !is_object( $val ) ) {
+			wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs" . ( $confId ? "['$confId']" : "" ) .
+			              "['$field'], the value must be either an array or an object" );
+			return null;
+		}
+		return $val;
+	}
+
+	/**
+	 * Mostly for debugging purposes, this function returns initialized internal JsonConfig settings
+	 * @return array
+	 */
+	public static function getTitleMap() {
+		self::init();
+		return self::$titleMap;
 	}
 
 	/**
 	 * Returns an array with settings if the $titleValue object is handled by the JsonConfig extension,
 	 * false if unrecognized namespace, and null if namespace is handled but not this title
 	 * @param TitleValue $titleValue
-	 * @return array|false|null
+	 * @return stdClass|false|null
 	 */
 	public static function getSettings( TitleValue $titleValue ) {
 		static $lastTitle = null;
@@ -208,12 +296,13 @@ class JCSingleton {
 			return $lastResult;
 		}
 		$lastTitle = $titleValue;
-		self::init();
+		// @fixme: why check for $titleValue?
 		if ( $titleValue ) {
 			// array of:  { namespace => { name => { allows-sub-namespaces => config } } }
 			$key = $titleValue->getNamespace();
-			if ( array_key_exists( $key, self::$titleMap ) ) {
-				$arr = self::$titleMap[$key];
+			$map = self::getTitleMap();
+			if ( array_key_exists( $key, $map ) ) {
+				$arr = $map[$key];
 				$parts = explode( ':', $titleValue->getText(), 2 );
 				if ( array_key_exists( $parts[0], $arr ) ) {
 					$arr = $arr[$parts[0]];
@@ -268,7 +357,7 @@ class JCSingleton {
 	public static function onContentHandlerDefaultModelFor( $title, &$modelId ) {
 		$conf = self::getSettings( $title->getTitleValue() );
 		if ( $conf ) {
-			$modelId = $conf['model'];
+			$modelId = $conf->model;
 			return false;
 		}
 		return true;
@@ -363,9 +452,10 @@ class JCSingleton {
 	public static function onPageContentSaveComplete( $article, $user, $content, $summary, $isMinor, $isWatch,
 		$section, $flags, $revision, $status, $baseRevId ) {
 		if ( is_a( $content, 'JsonConfig\JCContent' ) ) {
-			$store = self::getCachedStore( $article->getTitle()->getTitleValue() );
+			$store = self::getCachedStore( $article->getTitle()->getTitleValue(), $content );
 			if ( $store ) {
 				$store->resetCache();
+				// @todo: handle remote site notification ($conf->store->notifyUrl)
 			}
 		}
 		return true;
@@ -392,14 +482,15 @@ class JCSingleton {
 	/**
 	 * Get cache object for storage and retrieval of the data under given title
 	 * @param TitleValue $titleValue
+	 * @param bool|string|JCContent $content
 	 * @return bool|JCCache Returns false if the title is not handled by the settings
 	 */
-	public static function getCachedStore( TitleValue $titleValue ) {
+	public static function getCachedStore( TitleValue $titleValue, $content = false ) {
 		$conf = self::getSettings( $titleValue );
 		if ( !$conf ) {
 			return false;
 		}
-		return new JCCache( $titleValue, $conf );
+		return new JCCache( $titleValue, $conf, $content );
 	}
 
 	/**
@@ -415,7 +506,7 @@ class JCSingleton {
 			if ( $content !== false ) {
 				// Convert string to the content object if needed
 				if ( is_string( $content ) ) {
-					$handler = new JCContentHandler( $conf['model'] );
+					$handler = new JCContentHandler( $conf->model );
 					$content = $handler->unserializeContent( $content, null, false );
 				}
 				return $content;
