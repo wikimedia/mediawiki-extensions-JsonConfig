@@ -15,10 +15,11 @@ abstract class JCObjContent extends JCContent {
 	protected $isRootArray = false;
 	protected $dataStatus;
 
-	const ERROR = 0;
-	const CHECKED = 1;
-	const DEFAULT_USED = 2;
-	const SAME_AS_DEFAULT = 3;
+	const UNCHECKED = 0;
+	const ERROR = 1;
+	const CHECKED = 2;
+	const DEFAULT_USED = 3;
+	const SAME_AS_DEFAULT = 4;
 
 	/**
 	 * Override default behavior to include defaults if validation succeeded.
@@ -39,6 +40,14 @@ abstract class JCObjContent extends JCContent {
 	 */
 	public function getDataWithDefaults() {
 		return $this->dataWithDefaults;
+	}
+
+	/**
+	 * Get status array that recursively describes dataWithDefaults
+	 * @return object|array
+	 */
+	public function getDataStatus() {
+		return $this->dataStatus;
 	}
 
 	/**
@@ -136,14 +145,17 @@ abstract class JCObjContent extends JCContent {
 		$dataRef = & $this->dataWithDefaults; // Current data container
 		$path = (array) $path;
 		$fld = null; // Name of the sub-field in $dataRef
-		$fldPath = ''; // For error reporting, path to the current field, e.g. '/fld/3/blah'
+		$fldPath = ''; // For error reporting, path to the current field, e.g. 'fld/3/blah'
 		$unsetField = null; // If we are appending a new value, and default fails, unset this field
 		$unsetDataRef = null; // If we are appending a new value, and default fails, unset field in this data
 		$originalStatusRef = null; // Restore this Ref to $originalStatusVal
 		$originalStatusVal = null;
 		while( $path ) {
 			$fld = array_shift( $path );
-			$fldPath .= '/' . $fld;
+			if ( $fldPath !== '' ) {
+				$fldPath .= '/';
+			}
+			$fldPath .= $fld;
 			$newStatus = self::ERROR;
 			if ( is_string( $fld ) && !is_object( $dataRef ) ) {
 				$this->addValidationError( wfMessage( 'jsonconfig-err-object-expected', $fldPath ) );
@@ -239,13 +251,13 @@ abstract class JCObjContent extends JCContent {
 		}
 
 		if ( $validator !== null && $newStatus !== self::ERROR ) {
-			$val = call_user_func( $validator, $fldPath, $dataRef, $this );
+			$val = call_user_func( $validator, $fldPath ?: '/', $dataRef, $this );
 			if ( is_object( $val ) && get_class( $val ) === 'Message' ) {
 				$isRequired = $newStatus === self::DEFAULT_USED;
 				if ( !$isRequired ) {
 					// User supplied value, so we don't know if the value is required or not
 					// if $default passes validation, original value was optional
-					$tmp = call_user_func( $validator, $fldPath, $default, $this );
+					$tmp = call_user_func( $validator, $fldPath ?: '/', $default, $this );
 					$isRequired = is_object( $tmp ) && get_class( $tmp ) === 'Message';
 				}
 				$this->addValidationError( $val, !$isRequired );

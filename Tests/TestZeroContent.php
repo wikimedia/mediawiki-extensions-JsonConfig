@@ -69,8 +69,8 @@ END;
 				function ( $fld, $v ) {
 					if ( is_string( $v ) ) {
 						$v = array( $v );
-					} elseif ( !JCValidators::isArray( $v, false ) ||
-						!JCValidators::isArrayOfStrings( $v )
+					} elseif ( !JCValidators::isList( $v ) ||
+						!JCValidators::allValuesAreStrings( $v )
 					) {
 						return wfMessage( 'zeroconfig-admins', $fld );
 					}
@@ -128,9 +128,9 @@ END;
 						sort( $v );
 					}
 				}
-				if ( JCValidators::isArray( $v, false )
+				if ( JCValidators::isList( $v )
 					&& count( $v ) > 0
-					&& JCValidators::isArrayOfStrings( $v )
+					&& JCValidators::allValuesAreStrings( $v )
 				) {
 					return $v;
 				}
@@ -145,18 +145,18 @@ END;
 		//'name' => null,             // Map of localized partner names
 		$this->check( 'name', null,
 			function ( $fld, $v ) {
-				return JCValidators::isArray( $v, true )
+				return JCValidators::isDictionary( $v )
 						&& TestZeroContent::isArrayOfLangs( array_keys( $v ) )
-						&& JCValidators::isArrayOfStrings( $v )
+						&& JCValidators::allValuesAreStrings( $v )
 					? TestZeroContent::sortLangArray( $v ) : wfMessage( 'zeroconfig-name', $fld );
 			} );
 
 		//'banner' => null,           // Map of localized banner texts with {{PARTNER}} placeholder
 		$this->check( 'banner', array(),
 			function ( $fld, $v ) {
-				return JCValidators::isArray( $v, true )
+				return JCValidators::isDictionary( $v )
 						&& TestZeroContent::isArrayOfLangs( array_keys( $v ) )
-						&& JCValidators::isArrayOfStrings( $v )
+						&& JCValidators::allValuesAreStrings( $v )
 					? TestZeroContent::sortLangArray( $v ) : wfMessage( 'zeroconfig-banner', $fld );
 			} );
 
@@ -174,7 +174,7 @@ END;
 				if ( is_string( $v ) ) {
 					$v = array( $v );
 				}
-				if ( JCValidators::isArray( $v, false )
+				if ( JCValidators::isList( $v )
 					&& TestZeroContent::isArrayOfLangs( $v )
 					&& count( $v ) > 0
 				) {
@@ -197,7 +197,7 @@ END;
 				}
 				$data = $self->getDataWithDefaults();
 				$showLangs = array_key_exists( 'showLangs', $data ) ? $data['showLangs'] : array();
-				if ( JCValidators::isArray( $v, false )
+				if ( JCValidators::isList( $v )
 					&& TestZeroContent::isArrayOfLangs( $v )
 					&& ( count( $v ) === 0 || count( array_diff( $showLangs, $v ) ) === 0 )
 				) {
@@ -219,16 +219,16 @@ END;
 		// Orange Congo wanted to be able to override the 'kg' language name to 'Kikongo'
 		$this->check( 'langNameOverrides', array(),
 			function ( $fld, $v ) {
-				return JCValidators::isArray( $v, true )
+				return JCValidators::isDictionary( $v )
 						&& TestZeroContent::isArrayOfLangs( array_keys( $v ) )
-						&& JCValidators::isArrayOfStrings( $v )
+						&& JCValidators::allValuesAreStrings( $v )
 					? TestZeroContent::sortLangArray( $v ) : wfMessage( 'zeroconfig-lang_name_overrides', $fld );
 			} );
 
 		// List of proxies supported by the carrier, defaults to none (empty list)
 		$this->check( 'proxies', array(),
 			function ( $fld, $v, $self ) {
-				if ( JCValidators::isArray( $v, false ) ) {
+				if ( JCValidators::isList( $v ) ) {
 					/** @var JCKeyValueContent $self */
 					if ( $self->isSaving() ) {
 						// Remove duplicates while preserving original order
@@ -271,8 +271,8 @@ END;
 				function ( $fld, $v ) {
 					if ( is_string( $v ) ) {
 						$v = array( $v );
-					} elseif ( !JCValidators::isArray( $v, false ) ||
-						!JCValidators::isArrayOfStrings( $v )
+					} elseif ( !JCValidators::isList( $v ) ||
+						!JCValidators::allValuesAreStrings( $v )
 					) {
 						return wfMessage( 'zeroconfig-ips', $fld );
 					}
