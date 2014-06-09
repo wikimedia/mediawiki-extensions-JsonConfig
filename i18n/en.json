@@ -6,11 +6,15 @@
 	},
 	"jsonconfig-desc": "Allows JSON configuration to be stored in a wiki",
 	"jsonconfig-bad-json": "Unable to parse JSON configuration. Please check the syntax.",
-	"jsonconfig-optional-field": "(optional)",
 	"jsonconfig-duplicate-field": "More than one value \"$1\" found",
-	"jsonconfig-err-bool": "Parameter \"$1\" must be either set to true or false",
-	"jsonconfig-err-string": "Parameter \"$1\" must be a string",
-	"jsonconfig-err-integer": "Parameter \"$1\" must be an integer",
 	"jsonconfig-err-array": "Parameter \"$1\" must be a list, e.g. ['value1', 'value2', ...]",
-	"jsonconfig-err-assoc-array": "Parameter \"$1\" must be an associative array (dictionary), e.g. {'key': 'value', ...}"
+	"jsonconfig-err-assoc-array": "Parameter \"$1\" must be an associative array (dictionary), e.g. {'key': 'value', ...}",
+	"jsonconfig-err-bool": "Parameter \"$1\" must be either set to true or false",
+	"jsonconfig-err-integer": "Parameter \"$1\" must be an integer",
+	"jsonconfig-err-array-expected": "The value at \"$1\" was expected to be a list surrounded by the [...] brackets",
+	"jsonconfig-err-object-expected": "The value at \"$1\" was expected to be an object surrounded by the {...} braces",
+	"jsonconfig-err-root-array-expected": "JSON data should be a list, surrounded by the [...] brackets",
+	"jsonconfig-err-root-object-expected": "JSON data should be an object, surrounded by the {...} braces",
+	"jsonconfig-err-string": "Parameter \"$1\" must be a string",
+	"jsonconfig-optional-field": "(optional)"
 }

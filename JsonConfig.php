@@ -41,11 +41,11 @@ foreach ( array(
 			'JCContentView',
 			'JCDefaultContentView',
 			'JCKeyValueContent',
+			'JCObjContent',
 			'JCSingleton',
 			'JCValidators',
-		) as $class => $filename ) {
-	$cls = is_string( $class ) ? $class : $filename;
-	$wgAutoloadClasses['JsonConfig\\' . $cls] = $cwd . $filename . '.php';
+		) as $class ) {
+	$wgAutoloadClasses['JsonConfig\\' . $class] = $cwd . $class . '.php';
 }
 
 // @todo: this entry should be done only if $wgJsonConfigEnabled === true && namespace is actually used by config
