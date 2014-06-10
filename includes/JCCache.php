@@ -57,7 +57,7 @@ class JCCache {
 		if ( $this->content === null ) {
 			$value = $this->memcGet(); // Get content from the memcached
 			if ( $value === false ) {
-				if ( $this->conf->storeHere ) {
+				if ( $this->conf->store ) {
 					$this->loadLocal(); // Get it from the local wiki
 				} else {
 					$this->loadRemote(); // Get it from HTTP

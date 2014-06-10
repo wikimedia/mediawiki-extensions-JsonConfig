@@ -13,7 +13,6 @@ class JCApi extends ApiBase {
 		// explicitly list values to avoid accidental exposure of private data
 		$res = array(
 			'model' => $conf->model,
-			'storeHere' => $conf->storeHere,
 			'namespace' => $conf->namespace,
 			'nsName' => $conf->nsName,
 			'nsTalk' => isset( $conf->nsTalk ) && $conf->nsTalk ? $conf->nsTalk : 'default',
@@ -183,8 +182,9 @@ class JCApi extends ApiBase {
 
 	public function getExamples() {
 		return array(
-			'api.php?action=jsonconfig&command=reset&title=Zero:TEST',
-			'api.php?action=jsonconfig&command=reload&title=Zero:TEST',
+			'api.php?action=jsonconfig&format=jsonfm',
+			'api.php?action=jsonconfig&command=reset&title=Zero:TEST&format=jsonfm',
+			'api.php?action=jsonconfig&command=reload&title=Zero:TEST&format=jsonfm',
 		);
 	}
 }

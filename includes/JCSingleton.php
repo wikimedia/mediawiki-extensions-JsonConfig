@@ -96,9 +96,9 @@ class JCSingleton {
 			self::getConfVal( $conf, 'flaggedRevs', false );
 
 			// Decide if matching configs should be stored on this wiki
-			$conf->storeHere = $islocal || property_exists( $conf, 'store' );
+			$storeHere = $islocal || property_exists( $conf, 'store' );
 
-			if ( !$conf->storeHere ) {
+			if ( !$storeHere ) {
 				if ( false === ( $remote = self::getConfObject( $conf, 'remote', $confId ) ) ) {
 					continue;
 				}
@@ -147,7 +147,7 @@ class JCSingleton {
 					continue;
 				}
 			}
-			if ( $conf->storeHere ) {
+			if ( $storeHere ) {
 				// If nsName is given, add it to the list, together with the talk page
 				// Otherwise, create a placeholder for it
 				if ( isset( $conf->nsName ) ) {
@@ -525,7 +525,7 @@ class JCSingleton {
 			}
 
 			$conf = self::getSettings( $tv );
-			if ( $conf && $conf->storeHere ) {
+			if ( $conf && $conf->store ) {
 				$store = new JCCache( $tv, $conf, $content );
 				$store->resetCache();
 
