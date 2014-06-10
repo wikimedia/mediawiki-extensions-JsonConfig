@@ -17,7 +17,8 @@ abstract class JCContentView {
 	abstract public function valueToHtml( JCContent $content );
 
 	/**
-	 * Returns default content for this object
+	 * Returns default content for this object.
+	 * The returned valued does not have to be valid JSON
 	 * @param string $modelId
 	 * @return string
 	 */

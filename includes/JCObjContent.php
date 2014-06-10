@@ -73,8 +73,8 @@ abstract class JCObjContent extends JCContent {
 	 * @return array
 	 */
 	public function finishValidation() {
-		if ( !$this->getStatus()->isOK() ) {
-			return $this->getRawData(); // root validation failed
+		if ( !$this->getStatus()->isGood() ) {
+			return $this->getRawData(); // validation failed, do not modify
 		}
 		$this->dataWithDefaults = $this->recursiveSort( $this->dataWithDefaults, $this->dataStatus );
 		return $this->cloneNonDefault( $this->dataWithDefaults, $this->dataStatus );

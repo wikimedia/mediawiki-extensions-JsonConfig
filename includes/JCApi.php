@@ -16,7 +16,7 @@ class JCApi extends ApiBase {
 			'storeHere' => $conf->storeHere,
 			'namespace' => $conf->namespace,
 			'nsName' => $conf->nsName,
-			'nsTalk' => @$conf->nsTalk ?: 'default',
+			'nsTalk' => isset( $conf->nsTalk ) && $conf->nsTalk ? $conf->nsTalk : 'default',
 			'name' => $conf->name,
 			'isSubspace' => $conf->isSubspace,
 			'isLocal' => $conf->isLocal,
@@ -183,7 +183,7 @@ class JCApi extends ApiBase {
 
 	public function getExamples() {
 		return array(
-			'api.php?action=jsonconfig&command=clear&title=Zero:TEST',
+			'api.php?action=jsonconfig&command=reset&title=Zero:TEST',
 			'api.php?action=jsonconfig&command=reload&title=Zero:TEST',
 		);
 	}
