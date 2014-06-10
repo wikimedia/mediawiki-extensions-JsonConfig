@@ -61,17 +61,6 @@ foreach ( array(
 $wgJsonConfigs = array();
 
 /**
- * Control which configuration profiles will be stored on this wiki:
- * If true, all profiles in $wgJsonConfigs are locally stored
- * If false, all profiles are remote
- * Otherwise, host only those profiles whose IDs are listed.
- * Setting 'islocal'=>true in the config profile overrides this setting
- * Having this setting helps with multi-site configuration, allowing exactly
- * the same profile to be used at both the storing and the using wikis.
- */
-$wgJsonConfigStorage = array();
-
-/**
  * Array of model ID => content class mappings
  * Each value could either be a string - a JCContent-derived class name
  * or an array:
@@ -103,16 +92,14 @@ $wgJsonConfigCacheKeyPrefix = '';
 function jsonConfigIsStorage() {
 	static $isStorage = null;
 	if ( $isStorage === null ) {
-		global $wgJsonConfigStorage, $wgJsonConfigs;
-		if ( $wgJsonConfigStorage ) {
-			$isStorage = count( $wgJsonConfigs ) > 0;
-		} else {
-			$isStorage = false;
-			foreach ( $wgJsonConfigs as $jc ) {
-				if ( array_key_exists( 'islocal', $jc ) && $jc['islocal'] ) {
-					$isStorage = true;
-					break;
-				}
+		global $wgJsonConfigs;
+		$isStorage = false;
+		foreach ( $wgJsonConfigs as $jc ) {
+			if ( ( array_key_exists( 'isLocal', $jc ) && $jc['isLocal'] ) ||
+			     ( array_key_exists( 'store', $jc ) )
+			) {
+				$isStorage = true;
+				break;
 			}
 		}
 	}

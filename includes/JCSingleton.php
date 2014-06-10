@@ -42,7 +42,7 @@ class JCSingleton {
 			return;
 		}
 		global $wgNamespaceContentModels, $wgContentHandlers;
-		global $wgJsonConfigs, $wgJsonConfigModels, $wgJsonConfigApiUrl, $wgJsonConfigStorage;
+		global $wgJsonConfigs, $wgJsonConfigModels, $wgJsonConfigApiUrl;
 		$isInitialized = true;
 
 		$badId = null;
@@ -96,13 +96,9 @@ class JCSingleton {
 			self::getConfVal( $conf, 'flaggedRevs', false );
 
 			// Decide if matching configs should be stored on this wiki
-			$storeHere =
-				$islocal || $wgJsonConfigStorage === true ||
-				( is_array( $wgJsonConfigStorage ) && is_string( $confId ) &&
-				  in_array( $confId, $wgJsonConfigStorage ) );
-			$conf->storeHere = $storeHere;
+			$conf->storeHere = $islocal || property_exists( $conf, 'store' );
 
-			if ( !$storeHere ) {
+			if ( !$conf->storeHere ) {
 				if ( false === ( $remote = self::getConfObject( $conf, 'remote', $confId ) ) ) {
 					continue;
 				}
@@ -114,6 +110,9 @@ class JCSingleton {
 				self::getConfVal( $remote, 'username', '' );
 				self::getConfVal( $remote, 'password', '' );
 			} else {
+				if ( property_exists( $conf, 'remote' ) ) {
+					wfLogWarning( "JsonConfig: In \$wgJsonConfigs['$confId']['remote'] is set for the config that will be stored on this wiki. 'remote' parameter will be ignored." );
+				}
 				$conf->remote = null;
 				if ( false === ( $store = self::getConfObject( $conf, 'store', $confId ) ) ) {
 					continue;
@@ -148,7 +147,7 @@ class JCSingleton {
 					continue;
 				}
 			}
-			if ( $storeHere ) {
+			if ( $conf->storeHere ) {
 				// If nsName is given, add it to the list, together with the talk page
 				// Otherwise, create a placeholder for it
 				if ( isset( $conf->nsName ) ) {
@@ -262,7 +261,7 @@ class JCSingleton {
 			}
 			$val = & $value->$field;
 		}
-		if ( $val === null ) {
+		if ( $val === null || $val === true ) {
 			$val = new stdClass();
 		} elseif ( is_array( $val ) ) {
 			$val = (object)$val;

@@ -14,25 +14,25 @@ $wgJsonConfigModels['Test.JsonZeroConfig'] = 'TestZeroContent';
 //$wgJsonConfigs['Test.JsonZeroConfig'] = array(
 //	// model is the same as key
 //	'name' => 'ZeroSingle',
-//	'islocal' => true,
+//	'isLocal' => true,
 //);
 //$wgJsonConfigs['Test.Zero.Subpages'] = array(
 //	'model' => 'Test.JsonZeroConfig',
 //	'name' => 'Zero',
 //	'issubspace' => true,
-//	'islocal' => true,
+//	'isLocal' => true,
 //);
 //$wgJsonConfigs['Test.Zero.Ns'] = array(
 //	'model' => 'Test.JsonZeroConfig',
 //	'namespace' => 600,
 //	'nsname' => 'Z',
-//	'islocal' => true,
+//	'isLocal' => true,
 //);
 $wgJsonConfigs['Test.Zero.Ns'] = array(
 	'model' => 'Test.JsonZeroConfig',
 	'namespace' => NS_ZERO,
 	'nsname' => 'Zero',
-	'islocal' => false,
+	'isLocal' => false,
 	'url' => 'https://zero.wikimedia.org/w/api.php',
 	'username' => $wmgZeroRatedMobileAccessApiUserName,
 	'password' => $wmgZeroRatedMobileAccessApiPassword,

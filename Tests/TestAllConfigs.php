@@ -5,11 +5,11 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 
 $wgJsonConfigs['Test.AllConfigs'] = array(
 	'model' => null,
-	'islocal' => true,
+	'isLocal' => true,
 );
 
 $wgJsonConfigs['Test.AllConfigs'] = array(
 	'model' => null,
-	'islocal' => true,
+	'isLocal' => true,
 	'namespace' => 600, 'nsname' => 'Z'
 );
