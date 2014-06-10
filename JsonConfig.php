@@ -35,6 +35,7 @@ $wgMessagesDirs['JsonConfig'] = $cwd . 'i18n';
 
 $cwd .= 'includes' . DIRECTORY_SEPARATOR;
 foreach ( array(
+			'JCApi',
 			'JCCache',
 			'JCContent',
 			'JCContentHandler',
@@ -87,7 +88,7 @@ $wgJsonConfigDisableCache = false;
 /**
  * MediaWiki API endpoint to call to get remote configuration
  */
-$wgJsonConfigApiUrl = false;
+$wgJsonConfigApiUrl = '';
 
 /**
  * Change this value whenever the entire JsonConfig cache needs to be invalidated
@@ -121,6 +122,10 @@ function jsonConfigIsStorage() {
 
 // Registers hooks and resources which are only required on the config-hosting wiki.
 $wgExtensionFunctions[] = function () {
+	global $wgAPIModules;
+	$wgAPIModules['jsonconfig'] = 'JsonConfig\JCApi';
+
+	// The rest of the function is storage-related only
 	if ( !jsonConfigIsStorage() ) {
 		return;
 	}

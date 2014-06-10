@@ -4,6 +4,7 @@ namespace JsonConfig;
 use FormatJson;
 use MWHttpRequest;
 use MWNamespace;
+use stdClass;
 use TitleValue;
 
 /**
@@ -11,11 +12,12 @@ use TitleValue;
  * Handles retrieval (via HTTP) and memcached caching.
  */
 class JCCache {
-	private $titleValue, $key, $cache, $conf;
-	private $isCached = false;
+	private $titleValue, $key, $cache;
+	/** @var stdClass */
+	private $conf;
 
 	/** @var bool|string|JCContent */
-	private $content = false;
+	private $content = null;
 
 	/** @var int number of seconds to keep the value in cache */
 	private $cacheExpiration;
@@ -25,29 +27,28 @@ class JCCache {
 	 * ** DO NOT USE directly - call JCSingleton::getCachedStore() instead. **
 	 *
 	 * @param TitleValue $titleValue
-	 * @param array $conf
+	 * @param stdClass $conf
+	 * @param string $content
 	 */
-	function __construct( $titleValue, $conf ) {
+	function __construct( $titleValue, $conf, $content = null ) {
 		global $wgJsonConfigCacheKeyPrefix;
 		$this->titleValue = $titleValue;
 		$this->conf = $conf;
-		$flrev = $conf['flaggedrevs'];
+		$flRev = $conf->flaggedRevs;
 		$key = implode( ':', array(
 			'JsonConfig',
 			$wgJsonConfigCacheKeyPrefix,
-			( $flrev === null ? '' : ( $flrev ? 'T' : 'F' ) ),
+			$conf->cacheKey,
+			( $flRev === null ? '' : ( $flRev ? 'T' : 'F' ) ),
 			$titleValue->getNamespace(),
 			$titleValue->getDBkey() ) );
-		if ( $conf['islocal'] ) {
+		if ( $conf->isLocal ) {
 			$key = wfMemcKey( $key );
 		}
-		if ( array_key_exists( 'cacheexp', $conf ) ) {
-			$this->cacheExpiration = $conf['cacheexp'];
-		} else {
-			$this->cacheExpiration = 60 * 60 * 24;
-		}
+		$this->cacheExpiration = $conf->cacheExp;
 		$this->key = $key;
 		$this->cache = wfGetCache( CACHE_ANYTHING );
+		$this->content = $content;
 	}
 
 	/**
@@ -55,10 +56,10 @@ class JCCache {
 	 * @return string|JCContent|false: Content string/object or false if irretrievable.
 	 */
 	public function get() {
-		if ( !$this->isCached ) {
+		if ( $this->content === null ) {
 			$value = $this->memcGet(); // Get content from the memcached
 			if ( $value === false ) {
-				if ( $this->conf['storehere'] ) {
+				if ( $this->conf->storeHere ) {
 					$this->loadLocal(); // Get it from the local wiki
 				} else {
 					$this->loadRemote(); // Get it from HTTP
@@ -69,7 +70,6 @@ class JCCache {
 			} else {
 				$this->content = $value; // Content was cached
 			}
-			$this->isCached = true;
 		}
 
 		return $this->content;
@@ -106,11 +106,21 @@ class JCCache {
 
 	/**
 	 * Delete any cached information related to this config
+	 * @param null|bool $updateCacheContent controls if cache should be updated with the new content
+	 *   false = only clear cache, true = set cache to the new value, null = use configuration settings
+	 *   New content will be set only if it is present (either get() was called before, or it was set via ctor
 	 */
-	public function resetCache() {
+	public function resetCache( $updateCacheContent = null ) {
 		global $wgJsonConfigDisableCache;
 		if ( !$wgJsonConfigDisableCache ) {
-			$this->cache->delete( $this->key );
+			if ( $this->content && ( $updateCacheContent === true ||
+			                         ( $updateCacheContent === null && isset( $this->conf->store ) &&
+			                           $this->conf->store->cacheNewValue ) )
+			) {
+				$this->memcSet(); // update cache with the new value
+			} else {
+				$this->cache->delete( $this->key ); // only delete existing value
+			}
 		}
 	}
 
@@ -144,11 +154,11 @@ class JCCache {
 		wfProfileIn( __METHOD__ );
 		$req = $this->initApiRequestObj();
 		if ( $req !== false ) {
-			$ns = $this->conf['nsname']
-				? $this->conf['nsname']
+			$ns = $this->conf->nsName
+				? $this->conf->nsName
 				: MWNamespace::getCanonicalName( $this->titleValue->getNamespace() );
 			$articleName = $ns . ':' . $this->titleValue->getText();
-			$flrevs = $this->conf['flaggedrevs'];
+			$flrevs = $this->conf->flaggedRevs;
 			if ( $flrevs === false ) {
 				$query = array(
 					'format' => 'json',
@@ -203,8 +213,8 @@ class JCCache {
 	 * @return bool|\CurlHttpRequest|\PhpHttpRequest
 	 */
 	private function initApiRequestObj() {
-		$conf = $this->conf;
-		$apiUri = wfAppendQuery( $conf['url'], array( 'format' => 'json' ) );
+		$remote = $this->conf->remote;
+		$apiUri = wfAppendQuery( $remote->url, array( 'format' => 'json' ) );
 		$options = array(
 			'timeout' => 3,
 			'connectTimeout' => 'default',
@@ -212,11 +222,11 @@ class JCCache {
 		);
 		$req = MWHttpRequest::factory( $apiUri, $options );
 
-		if ( $conf['username'] !== false && $conf['password'] !== false ) {
+		if ( $remote->username !== '' && $remote->password !== '' ) {
 			$postData = array(
 				'action' => 'login',
-				'lgname' => $conf['username'],
-				'lgpassword' => $conf['password'],
+				'lgname' => $remote->username,
+				'lgpassword' => $remote->password,
 			);
 			$req->setData( $postData );
 			$status = $req->execute();
@@ -233,7 +243,7 @@ class JCCache {
 			}
 			if ( !$status->isGood() ) {
 				self::warn( "Failed to login",
-					array( 'run' => $runCount, 'url' => $conf['url'], 'user' => $conf['username'], 'status' => $status ) );
+					array( 'run' => $runCount, 'url' => $remote->url, 'user' => $remote->username, 'status' => $status ) );
 				// Ignore "OK"/"Failed" state - in case login failed, we still attempt to get data
 			}
 		}
