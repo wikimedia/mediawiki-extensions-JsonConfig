@@ -433,43 +433,50 @@ class JCSingleton {
 		return true;
 	}
 
-	/**
-	 * Handle save complete to reset cache
-	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/PageContentSaveComplete
-	 * @param \WikiPage $article
-	 * @param $user
-	 * @param $content
-	 * @param $summary
-	 * @param $isMinor
-	 * @param $isWatch
-	 * @param $section
-	 * @param $flags
-	 * @param $revision
-	 * @param $status
-	 * @param $baseRevId
-	 * @return bool
-	 */
-	public static function onPageContentSaveComplete( $article, $user, $content, $summary, $isMinor, $isWatch,
-		$section, $flags, $revision, $status, $baseRevId ) {
-		if ( is_a( $content, 'JsonConfig\JCContent' ) ) {
-			$store = self::getCachedStore( $article->getTitle()->getTitleValue(), $content );
-			if ( $store ) {
-				$store->resetCache();
-				// @todo: handle remote site notification ($conf->store->notifyUrl)
+	public static function onAbortMove( Title $title, Title $newTitle, $wgUser, &$err, $reason ) {
+		$conf = self::getSettings( $title->getTitleValue() );
+		if ( $conf ) {
+			$newConf = self::getSettings( $newTitle->getTitleValue() );
+			if ( !$newConf ) {
+				// @todo: is parse() the right func to use here?
+				$err = wfMessage( 'jsonconfig-move-aborted-ns' )->parse();
+				return false;
+			} elseif ( $conf->model !== $newConf->model ) {
+				$err = wfMessage( 'jsonconfig-move-aborted-model', $conf->model, $newConf->model )->parse();
+				return false;
 			}
 		}
 		return true;
 	}
 
+	public static function onPageContentSaveComplete( $article, $user, $content, $summary, $isMinor, $isWatch,
+		$section, $flags, $revision, $status, $baseRevId ) {
+		return self::onArticleChangeComplete( $article, $content );
+	}
+
+	public static function onArticleDeleteComplete( $article, &$user, $reason, $id, $content, $logEntry ) {
+		return self::onArticleChangeComplete( $article );
+	}
+
+	public static function onArticleUndelete( $title, $created, $comment, $oldPageId ) {
+		return self::onArticleChangeComplete( $title );
+	}
+
+	public static function onTitleMoveComplete( $title, $newTitle, $wgUser, $pageid, $redirid, $reason ) {
+		return self::onArticleChangeComplete( $title ) ||
+		       self::onArticleChangeComplete( $newTitle );
+	}
+
 	/**
 	 * Prohibit creation of the pages that are part of our namespaces but have not been explicitly allowed
+	 * Bad capitalization is due to "userCan" hook name
 	 * @param Title $title
 	 * @param $user
 	 * @param string $action
 	 * @param null $result
 	 * @return bool
 	 */
-	public static function onUserCan( &$title, &$user, $action, &$result = null ) {
+	public static function onuserCan( &$title, &$user, $action, &$result = null ) {
 		if ( $action === 'create' && self::getSettings( $title->getTitleValue() ) === null ) {
 			// prohibit creation of the pages for the namespace that we handle,
 			// if the title is not matching declared rules
@@ -477,20 +484,6 @@ class JCSingleton {
 			return false;
 		}
 		return true;
-	}
-
-	/**
-	 * Get cache object for storage and retrieval of the data under given title
-	 * @param TitleValue $titleValue
-	 * @param bool|string|JCContent $content
-	 * @return bool|JCCache Returns false if the title is not handled by the settings
-	 */
-	public static function getCachedStore( TitleValue $titleValue, $content = false ) {
-		$conf = self::getSettings( $titleValue );
-		if ( !$conf ) {
-			return false;
-		}
-		return new JCCache( $titleValue, $conf, $content );
 	}
 
 	/**
@@ -513,5 +506,46 @@ class JCSingleton {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * @param object $value
+	 * @param string $content
+	 * @return bool
+	 */
+	private static function onArticleChangeComplete( $value, $content = null ) {
+		if ( $value && ( !$content || is_a( $content, 'JsonConfig\JCContent' ) ) ) {
+			/** @var TitleValue $tv */
+			if ( method_exists( $value, 'getTitleValue') ) {
+				$tv = $value->getTitleValue();
+			} elseif ( method_exists( $value, 'getTitle')) {
+				$tv = $value->getTitle()->getTitleValue();
+			} else {
+				wfLogWarning( 'Unknown object type ' . gettype( $value ) );
+				return true;
+			}
+
+			$conf = self::getSettings( $tv );
+			if ( $conf && $conf->storeHere ) {
+				$store = new JCCache( $tv, $conf, $content );
+				$store->resetCache();
+
+				// Handle remote site notification
+				if ( $conf->store->notifyUrl ) {
+					$store = $conf->store;
+					$req =
+						JCUtils::initApiRequestObj( $store->notifyUrl, $store->notifyUsername,
+							$store->notifyPassword );
+					$query = array(
+						'format' => 'json',
+						'action' => 'jsonconfig',
+						'command' => 'reload',
+						'title' => $tv->getNamespace() . ':' . $tv->getDBkey(),
+					);
+					JCUtils::callApi( $req, $query, 'notify remote JsonConfig client' );
+				}
+			}
+		}
+		return true;
 	}
 }

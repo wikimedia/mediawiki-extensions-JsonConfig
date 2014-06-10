@@ -35,7 +35,7 @@ class JCContent extends \TextContent {
 	 */
 	public function __construct( $text, $modelId, $isSaving ) {
 		if ( $text === null ) {
-			$text = $this->getView()->getDefault( $modelId );
+			$text = $this->getView( $modelId )->getDefault( $modelId );
 		}
 		parent::__construct( $text, $modelId );
 		$this->isSaving = $isSaving;
@@ -117,7 +117,13 @@ class JCContent extends \TextContent {
 				return;
 			}
 		}
-		$this->rawData = $data;
+		if ( $this->useAssocParsing ) {
+			// @fixme: HACK - need a deep clone of the data
+			// @fixme: but doing (object)(array)$data will re-encode empty [] as {}
+			$this->rawData = FormatJson::decode( $rawText, $this->useAssocParsing );
+		} else {
+			$this->rawData = $data;
+		}
 		$this->data = $this->validate( $data );
 	}
 
@@ -153,7 +159,7 @@ class JCContent extends \TextContent {
 			$html = $status->getHTML();
 		}
 		if ( $status->isOK() ) {
-			$html .= $this->getView()->valueToHtml( $this );
+			$html .= $this->getView( $this->getModel() )->valueToHtml( $this );
 		}
 		wfProfileOut( __METHOD__ );
 
@@ -162,13 +168,13 @@ class JCContent extends \TextContent {
 
 	/**
 	 * Get a view object for this content object
+	 * @param string $modelId is required here because parent ctor might not have ran yet
 	 * @return JCContentView
 	 */
-	protected function getView() {
+	protected function getView( $modelId ) {
 		$view = $this->view;
 		if ( $view === null ) {
 			global $wgJsonConfigModels;
-			$modelId = $this->getModel();
 			if ( array_key_exists( $modelId, $wgJsonConfigModels ) ) {
 				$value = $wgJsonConfigModels[$modelId];
 				if ( is_array( $value ) && array_key_exists( 'view', $value ) ) {

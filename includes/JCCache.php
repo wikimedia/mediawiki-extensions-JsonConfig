@@ -1,8 +1,6 @@
 <?php
 namespace JsonConfig;
 
-use FormatJson;
-use MWHttpRequest;
 use MWNamespace;
 use stdClass;
 use TitleValue;
@@ -48,7 +46,7 @@ class JCCache {
 		$this->cacheExpiration = $conf->cacheExp;
 		$this->key = $key;
 		$this->cache = wfGetCache( CACHE_ANYTHING );
-		$this->content = $content;
+		$this->content = $content ?: null ; // ensure that if we don't have content, we use 'null'
 	}
 
 	/**
@@ -152,102 +150,60 @@ class JCCache {
 	 */
 	private function loadRemote() {
 		wfProfileIn( __METHOD__ );
-		$req = $this->initApiRequestObj();
-		if ( $req !== false ) {
-			$ns = $this->conf->nsName
-				? $this->conf->nsName
-				: MWNamespace::getCanonicalName( $this->titleValue->getNamespace() );
-			$articleName = $ns . ':' . $this->titleValue->getText();
-			$flrevs = $this->conf->flaggedRevs;
-			if ( $flrevs === false ) {
+		$remote = $this->conf->remote;
+		$req = JCUtils::initApiRequestObj( $remote->url, $remote->username, $remote->password );
+		$ns = $this->conf->nsName
+			? $this->conf->nsName
+			: MWNamespace::getCanonicalName( $this->titleValue->getNamespace() );
+		$articleName = $ns . ':' . $this->titleValue->getText();
+		$flrevs = $this->conf->flaggedRevs;
+		if ( $flrevs === false ) {
+			$query = array(
+				'format' => 'json',
+				'action' => 'query',
+				'titles' => $articleName,
+				'prop' => 'revisions',
+				'rvprop' => 'content',
+			);
+			$result = $this->getPageFromApi( $articleName, $req, $query );
+		} else {
+			$query = array(
+				'format' => 'json',
+				'action' => 'query',
+				'titles' => $articleName,
+				'prop' => 'info|flagged',
+			);
+			$result = $this->getPageFromApi( $articleName, $req, $query );
+			if ( $result !== false &&
+				( $flrevs === null || array_key_exists( 'flagged', $result ) )
+			) {
+				// If there is a stable flagged revision present, use it,
+				// otherwise use the latest revision that exists (unless flaggedRevs is true)
+				$revId = array_key_exists( 'flagged', $result ) ?
+					$result['flagged']['stable_revid'] :
+					$result['lastrevid'];
 				$query = array(
 					'format' => 'json',
 					'action' => 'query',
-					'titles' => $articleName,
+					'revids' => $revId,
 					'prop' => 'revisions',
 					'rvprop' => 'content',
 				);
 				$result = $this->getPageFromApi( $articleName, $req, $query );
-			} else {
-				$query = array(
-					'format' => 'json',
-					'action' => 'query',
-					'titles' => $articleName,
-					'prop' => 'info|flagged',
-				);
-				$result = $this->getPageFromApi( $articleName, $req, $query );
-				if ( $result !== false &&
-					( $flrevs === null || array_key_exists( 'flagged', $result ) )
-				) {
-					// If there is a stable flagged revision present, use it,
-					// otherwise use the latest revision that exists (unless flaggedRevs is true)
-					$revId = array_key_exists( 'flagged', $result ) ?
-						$result['flagged']['stable_revid'] :
-						$result['lastrevid'];
-					$query = array(
-						'format' => 'json',
-						'action' => 'query',
-						'revids' => $revId,
-						'prop' => 'revisions',
-						'rvprop' => 'content',
-					);
-					$result = $this->getPageFromApi( $articleName, $req, $query );
-				}
 			}
-			if ( $result !== false ) {
-				if ( isset( $result['revisions'][0]['*'] ) ) {
-					$result = $result['revisions'][0]['*'];
-				} else {
-					$result = false;
-					self::warn( 'Unable to get config content',
-						array( 'title' => $articleName, 'result' => $result ) );
-				}
-			}
-			$this->content = $result;
 		}
+		if ( $result !== false ) {
+			if ( isset( $result['revisions'][0]['*'] ) ) {
+				$result = $result['revisions'][0]['*'];
+			} else {
+				$result = false;
+				JCUtils::warn( 'Unable to get config content',
+					array( 'title' => $articleName, 'result' => $result ) );
+			}
+		}
+		$this->content = $result;
 
 		wfProfileOut( __METHOD__ );
-	}
-
-	/** Init HTTP request object to make requests to the API, and login
-	 * @return bool|\CurlHttpRequest|\PhpHttpRequest
-	 */
-	private function initApiRequestObj() {
-		$remote = $this->conf->remote;
-		$apiUri = wfAppendQuery( $remote->url, array( 'format' => 'json' ) );
-		$options = array(
-			'timeout' => 3,
-			'connectTimeout' => 'default',
-			'method' => 'POST',
-		);
-		$req = MWHttpRequest::factory( $apiUri, $options );
-
-		if ( $remote->username !== '' && $remote->password !== '' ) {
-			$postData = array(
-				'action' => 'login',
-				'lgname' => $remote->username,
-				'lgpassword' => $remote->password,
-			);
-			$req->setData( $postData );
-			$status = $req->execute();
-			$runCount = 1;
-
-			if ( $status->isGood() ) {
-				$res = json_decode( $req->getContent(), true );
-				if ( isset( $res['login']['token'] ) ) {
-					$postData['lgtoken'] = $res['login']['token'];
-					$req->setData( $postData );
-					$status = $req->execute();
-					$runCount++;
-				}
-			}
-			if ( !$status->isGood() ) {
-				self::warn( "Failed to login",
-					array( 'run' => $runCount, 'url' => $remote->url, 'user' => $remote->username, 'status' => $status ) );
-				// Ignore "OK"/"Failed" state - in case login failed, we still attempt to get data
-			}
-		}
-		return $req;
 	}
 
 	/** Given a legal set of API parameters, return page from API
@@ -257,60 +213,22 @@ class JCCache {
 	 * @return bool|mixed
 	 */
 	private function getPageFromApi( $articleName, $req, $query ) {
-		$req->setData( $query );
-		$status = $req->execute();
-		if ( !$status->isGood() ) {
-			self::warn( 'Failed to get remote config',
-				array( 'title' => $articleName, 'status' => $status, 'query' => $query ) );
-			return false;
-		}
-		$revInfo = FormatJson::decode( $req->getContent(), true );
-		if ( isset( $revInfo['warnings'] ) ) {
-			self::warn( 'Warning from API call',
-				array( 'title' => $articleName, 'query' => $query, 'warnings' => $revInfo['warnings'] ) );
-		}
+
+		$revInfo = JCUtils::callApi( $req, $query, 'get remote JsonConfig' );
 		if ( !isset( $revInfo['query']['pages'] ) ) {
-			self::warn( 'Unrecognizable API result', array( 'title' => $articleName, 'query' => $query ) );
+			JCUtils::warn( 'Unrecognizable API result', array( 'title' => $articleName, 'query' => $query ) );
 			return false;
 		}
 		$pages = $revInfo['query']['pages'];
 		if ( !is_array( $pages ) || count( $pages ) !== 1 ) {
-			self::warn( 'Unexpected "pages" element', array( 'title' => $articleName, 'query' => $query ) );
+			JCUtils::warn( 'Unexpected "pages" element', array( 'title' => $articleName, 'query' => $query ) );
 			return false;
 		}
 		$pageInfo = reset( $pages ); // get the only element of the array
 		if ( isset( $revInfo['missing'] ) ) {
-			self::warn( 'Config page does not exist', array( 'title' => $articleName, 'query' => $query ) );
+			JCUtils::warn( 'Config page does not exist', array( 'title' => $articleName, 'query' => $query ) );
 			return false;
 		}
 		return $pageInfo;
-	}
-
-	/**
-	 * Uses wfLogWarning() to report an error. All complex arguments are escaped with FormatJson::encode()
-	 * @param string $msg
-	 */
-	private static function warn( $msg, $vals ) {
-		if ( !is_array( $vals ) ) {
-			$vals = array( $vals );
-		}
-		$isFirst = true;
-		foreach ( $vals as $k => $v ) {
-			if ( $isFirst ) {
-				$isFirst = false;
-				$msg .= ': ';
-			} else {
-				$msg .= ', ';
-			}
-			if ( is_string( $k ) ) {
-				$msg .= $k . '=';
-			}
-			if ( is_string( $v ) || is_int( $v ) ) {
-				$msg .= $v;
-			} else {
-				$msg .= FormatJson::encode( $v );
-			}
-		}
-		wfLogWarning( $msg );
 	}
 }

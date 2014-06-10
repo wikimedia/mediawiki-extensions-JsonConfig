@@ -33,6 +33,9 @@ define( 'NS_CONFIG_TALK', 483 );
 $cwd = __DIR__ . DIRECTORY_SEPARATOR;
 $wgMessagesDirs['JsonConfig'] = $cwd . 'i18n';
 
+// @todo: this entry should be done only if $wgJsonConfigEnabled === true && namespace is actually used by config
+$wgExtensionMessagesFiles['JsonConfigNamespaces'] = $cwd . 'JsonConfig.namespaces.php';
+
 $cwd .= 'includes' . DIRECTORY_SEPARATOR;
 foreach ( array(
 			'JCApi',
@@ -44,14 +47,11 @@ foreach ( array(
 			'JCKeyValueContent',
 			'JCObjContent',
 			'JCSingleton',
+			'JCUtils',
 			'JCValidators',
 		) as $class ) {
 	$wgAutoloadClasses['JsonConfig\\' . $class] = $cwd . $class . '.php';
 }
-
-// @todo: this entry should be done only if $wgJsonConfigEnabled === true && namespace is actually used by config
-$cwd = __DIR__ . DIRECTORY_SEPARATOR;
-$wgExtensionMessagesFiles['JsonConfigNamespaces'] = $cwd . 'JsonConfig.namespaces.php';
 
 /**
  * Each extension should add its configuration profiles as described in the doc
@@ -138,16 +138,22 @@ $wgExtensionFunctions[] = function () {
 		'position' => 'top',
 	);
 
-	// @TODO: Handle 'AbortMove' hook to prevent pages from being moved outside of the configuration space
-
-	$hook = 'JsonConfig\JCSingleton::';
-	$wgHooks['ContentHandlerDefaultModelFor'][] = $hook . 'onContentHandlerDefaultModelFor';
-	$wgHooks['ContentHandlerForModelID'][] = $hook . 'onContentHandlerForModelID';
-	$wgHooks['CodeEditorGetPageLanguage'][] = $hook . 'onCodeEditorGetPageLanguage';
-	$wgHooks['EditFilterMergedContent'][] = $hook . 'onEditFilterMergedContent';
-	$wgHooks['BeforePageDisplay'][] = $hook . 'onBeforePageDisplay';
-	$wgHooks['PageContentSaveComplete'][] = $hook . 'onPageContentSaveComplete';
-	$wgHooks['userCan'][] = $hook . 'onUserCan';
+	$prefix = 'JsonConfig\JCSingleton::on';
+	foreach ( array(
+		          'ContentHandlerDefaultModelFor',
+		          'ContentHandlerForModelID',
+		          'CodeEditorGetPageLanguage',
+		          'EditFilterMergedContent',
+		          'BeforePageDisplay',
+		          'AbortMove',
+		          'ArticleDeleteComplete',
+		          'ArticleUndelete',
+		          'PageContentSaveComplete',
+		          'TitleMoveComplete',
+		          'userCan',
+	          ) as $hook ) {
+		$wgHooks[$hook][] = $prefix . $hook;
+	}
 };
 
 // MWNamespace::getCanonicalNamespaces() might be called before our own extension is initialized
