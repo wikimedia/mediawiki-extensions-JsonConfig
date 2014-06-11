@@ -54,7 +54,7 @@ class JCUtils {
 		);
 		$req = MWHttpRequest::factory( $apiUri, $options );
 
-		if ( $username !== '' && $password !== '' ) {
+		if ( $username && $password ) {
 			$postData = array(
 				'action' => 'login',
 				'lgname' => $username,
