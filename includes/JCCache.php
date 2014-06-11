@@ -93,13 +93,16 @@ class JCCache {
 			return true;
 		}
 		$value = $this->content;
+		$exp = $this->cacheExpiration;
 		if ( !$value ) {
 			$value = '';
+			$exp = 10; // caching an error condition for short time
+			wfLogWarning( "No content is available, caching empty '$this->titleValue' for $exp seconds" );
 		} elseif ( !is_string( $value ) ) {
 			$value = $value->getNativeData();
 		}
 
-		return $this->cache->set( $this->key, $value, $this->cacheExpiration );
+		return $this->cache->set( $this->key, $value, $exp );
 	}
 
 	/**

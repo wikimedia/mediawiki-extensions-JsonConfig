@@ -12,14 +12,9 @@ class JCValidators {
 	 * @return callable
 	 */
 	public static function getBoolValidator() {
-		static $validator = null;
-		if ( $validator === null ) {
-			$validator = function ( $fld, $v ) {
-				return is_bool( $v ) ? $v : wfMessage( 'jsonconfig-err-bool', $fld );
-			};
-		}
-
-		return $validator;
+		return function ( $fld, $v ) {
+			return is_bool( $v ) ? $v : wfMessage( 'jsonconfig-err-bool', $fld );
+		};
 	}
 
 	/**
@@ -27,14 +22,9 @@ class JCValidators {
 	 * @return callable
 	 */
 	public static function getStrValidator() {
-		static $validator = null;
-		if ( $validator === null ) {
-			$validator = function ( $fld, $v ) {
-				return is_string( $v ) ? $v : wfMessage( 'jsonconfig-err-string', $fld );
-			};
-		}
-
-		return $validator;
+		return function ( $fld, $v ) {
+			return is_string( $v ) ? $v : wfMessage( 'jsonconfig-err-string', $fld );
+		};
 	}
 
 	/**
@@ -42,14 +32,9 @@ class JCValidators {
 	 * @return callable
 	 */
 	public static function getIntValidator() {
-		static $validator = null;
-		if ( $validator === null ) {
-			$validator = function ( $fld, $v ) {
-				return is_int( $v ) ? $v : wfMessage( 'jsonconfig-err-integer', $fld );
-			};
-		}
-
-		return $validator;
+		return function ( $fld, $v ) {
+			return is_int( $v ) ? $v : wfMessage( 'jsonconfig-err-integer', $fld );
+		};
 	}
 
 	/**
@@ -57,13 +42,9 @@ class JCValidators {
 	 * @return callable
 	 */
 	public static function getArrayValidator() {
-		static $validator = null;
-		if ( $validator === null ) {
-			$validator = function ( $fld, $v ) {
-				return JCValidators::isList( $v ) ? $v : wfMessage( 'jsonconfig-err-array', $fld );
-			};
-		}
-		return $validator;
+		return function ( $fld, $v ) {
+			return JCValidators::isList( $v ) ? $v : wfMessage( 'jsonconfig-err-array', $fld );
+		};
 	}
 
 	/**
@@ -71,13 +52,9 @@ class JCValidators {
 	 * @return callable
 	 */
 	public static function getDictionaryValidator() {
-		static $validator = null;
-		if ( $validator === null ) {
-			$validator = function ( $fld, $v ) {
-				return JCValidators::isDictionary( $v ) ? $v : wfMessage( 'jsonconfig-err-assoc-array', $fld );
-			};
-		}
-		return $validator;
+		return function ( $fld, $v ) {
+			return JCValidators::isDictionary( $v ) ? $v : wfMessage( 'jsonconfig-err-assoc-array', $fld );
+		};
 	}
 
 	/**

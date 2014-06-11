@@ -77,7 +77,7 @@ $wgJsonConfigDisableCache = false;
 /**
  * Change this value whenever the entire JsonConfig cache needs to be invalidated
  */
-$wgJsonConfigCacheKeyPrefix = '';
+$wgJsonConfigCacheKeyPrefix = '1';
 
 /**
  * Quick check if the current wiki will store any configurations.
