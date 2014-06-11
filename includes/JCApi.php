@@ -26,16 +26,16 @@ class JCApi extends ApiBase {
 		if ( isset( $conf->remote ) ) {
 			$res['remote'] = array(
 				'url' => $conf->remote->url,
-				'username' => $conf->remote->username !== '' ? 'set' : 'missing',
-				'password' => $conf->remote->password !== '' ? 'set' : 'missing',
+				'username' => $conf->remote->username !== '',
+				'password' => $conf->remote->password !== '',
 			);
 		}
 		if ( isset( $conf->store ) ) {
 			$res['store'] = array(
 				'cacheNewValue' => $conf->store->cacheNewValue,
 				'notifyUrl' => $conf->store->notifyUrl,
-				'notifyUsername' => $conf->store->notifyUsername !== '' ? 'set' : 'missing',
-				'notifyPassword' => $conf->store->notifyPassword !== '' ? 'set' : 'missing',
+				'notifyUsername' => $conf->store->notifyUsername !== '',
+				'notifyPassword' => $conf->store->notifyPassword !== '',
 			);
 		}
 		return $res;

@@ -41,8 +41,7 @@ class JCSingleton {
 		if ( $isInitialized ) {
 			return;
 		}
-		global $wgNamespaceContentModels, $wgContentHandlers;
-		global $wgJsonConfigs, $wgJsonConfigModels, $wgJsonConfigApiUrl;
+		global $wgNamespaceContentModels, $wgContentHandlers, $wgJsonConfigs, $wgJsonConfigModels;
 		$isInitialized = true;
 
 		$badId = null;
@@ -99,10 +98,10 @@ class JCSingleton {
 			$storeHere = $islocal || property_exists( $conf, 'store' );
 
 			if ( !$storeHere ) {
-				if ( false === ( $remote = self::getConfObject( $conf, 'remote', $confId ) ) ) {
+				if ( false === ( $remote = self::getConfObject( $conf, 'remote', $confId, 'url' ) ) ) {
 					continue;
 				}
-				if ( self::getConfVal( $remote, 'url', $wgJsonConfigApiUrl ) === '' ) {
+				if ( self::getConfVal( $remote, 'url', '' ) === '' ) {
 					wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']['url']: " .
 					              "API URL is not set, and this config is not being stored locally" );
 					continue;
@@ -252,7 +251,7 @@ class JCSingleton {
 	/**
 	 * Helper function to check if configuration has a field set, and if not, set it to default
 	 */
-	private static function getConfObject( & $value, $field, $confId = null ) {
+	private static function getConfObject( & $value, $field, $confId = null, $treatAsField = null ) {
 		if ( !$confId ) {
 			$val = & $value;
 		} else {
@@ -265,6 +264,9 @@ class JCSingleton {
 			$val = new stdClass();
 		} elseif ( is_array( $val ) ) {
 			$val = (object)$val;
+		} elseif ( is_string( $val ) && $treatAsField !== null ) {
+			// treating this string value as a sub-field
+			$val = (object) array( $treatAsField => $val );
 		} elseif ( !is_object( $val ) ) {
 			wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs" . ( $confId ? "['$confId']" : "" ) .
 			              "['$field'], the value must be either an array or an object" );

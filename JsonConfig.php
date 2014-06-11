@@ -56,7 +56,7 @@ foreach ( array(
 /**
  * Each extension should add its configuration profiles as described in the doc
  * https://www.mediawiki.org/wiki/Requests_for_comment/Json_Config_pages_in_wiki
- * @todo @fixme: change above URL to the extension page
+ * https://www.mediawiki.org/wiki/Extension:JsonConfig
  */
 $wgJsonConfigs = array();
 
@@ -73,11 +73,6 @@ $wgJsonConfigModels = array();
  * Disable memcached caching (debugging)
  */
 $wgJsonConfigDisableCache = false;
-
-/**
- * MediaWiki API endpoint to call to get remote configuration
- */
-$wgJsonConfigApiUrl = '';
 
 /**
  * Change this value whenever the entire JsonConfig cache needs to be invalidated
