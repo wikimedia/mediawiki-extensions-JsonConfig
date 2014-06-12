@@ -290,7 +290,7 @@ class JCSingleton {
 	 * @param TitleValue $titleValue
 	 * @return stdClass|false|null
 	 */
-	public static function getSettings( TitleValue $titleValue ) {
+	public static function getSettings( $titleValue ) {
 		if ( !$titleValue ) {
 			return false; // It is possible to have a null TitleValue (bug 66555)
 		}
