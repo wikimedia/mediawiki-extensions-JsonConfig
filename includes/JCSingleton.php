@@ -291,6 +291,9 @@ class JCSingleton {
 	 * @return stdClass|false|null
 	 */
 	public static function getSettings( TitleValue $titleValue ) {
+		if ( !$titleValue ) {
+			return false; // It is possible to have a null TitleValue (bug 66555)
+		}
 		static $lastTitle = null;
 		static $lastResult = false;
 		if ( $titleValue === $lastTitle ) {
