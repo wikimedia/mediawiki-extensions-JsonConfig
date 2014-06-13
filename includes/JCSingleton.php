@@ -290,7 +290,7 @@ class JCSingleton {
 	 * @param TitleValue $titleValue
 	 * @return stdClass|false|null
 	 */
-	public static function getSettings( $titleValue ) {
+	public static function getMetadata( $titleValue ) {
 		if ( !$titleValue ) {
 			return false; // It is possible to have a null TitleValue (bug 66555)
 		}
@@ -359,7 +359,7 @@ class JCSingleton {
 	 * @return bool
 	 */
 	public static function onContentHandlerDefaultModelFor( $title, &$modelId ) {
-		$conf = self::getSettings( $title->getTitleValue() );
+		$conf = self::getMetadata( $title->getTitleValue() );
 		if ( $conf ) {
 			$modelId = $conf->model;
 			return false;
@@ -393,7 +393,7 @@ class JCSingleton {
 	 */
 	static function onCodeEditorGetPageLanguage( $title, &$lang ) {
 		$handler = ContentHandler::getForModelID( $title->getContentModel() );
-		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON || self::getSettings( $title->getTitleValue() ) ) {
+		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON || self::getMetadata( $title->getTitleValue() ) ) {
 			$lang = 'json';
 		}
 		return true;
@@ -430,7 +430,7 @@ class JCSingleton {
 		$title = $out->getTitle();
 		$handler = ContentHandler::getForModelID( $title->getContentModel() );
 		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON ||
-			self::getSettings( $title->getTitleValue() )
+			self::getMetadata( $title->getTitleValue() )
 		) {
 			$out->addModules( 'ext.jsonConfig' );
 		}
@@ -438,9 +438,9 @@ class JCSingleton {
 	}
 
 	public static function onAbortMove( Title $title, Title $newTitle, $wgUser, &$err, $reason ) {
-		$conf = self::getSettings( $title->getTitleValue() );
+		$conf = self::getMetadata( $title->getTitleValue() );
 		if ( $conf ) {
-			$newConf = self::getSettings( $newTitle->getTitleValue() );
+			$newConf = self::getMetadata( $newTitle->getTitleValue() );
 			if ( !$newConf ) {
 				// @todo: is parse() the right func to use here?
 				$err = wfMessage( 'jsonconfig-move-aborted-ns' )->parse();
@@ -481,7 +481,7 @@ class JCSingleton {
 	 * @return bool
 	 */
 	public static function onuserCan( &$title, &$user, $action, &$result = null ) {
-		if ( $action === 'create' && self::getSettings( $title->getTitleValue() ) === null ) {
+		if ( $action === 'create' && self::getMetadata( $title->getTitleValue() ) === null ) {
 			// prohibit creation of the pages for the namespace that we handle,
 			// if the title is not matching declared rules
 			$result = false;
@@ -496,7 +496,7 @@ class JCSingleton {
 	 * @return bool|JCContent Returns false if the title is not handled by the settings
 	 */
 	public static function getContent( TitleValue $titleValue ) {
-		$conf = self::getSettings( $titleValue );
+		$conf = self::getMetadata( $titleValue );
 		if ( $conf ) {
 			$store = new JCCache( $titleValue, $conf );
 			$content = $store->get();
@@ -529,7 +529,7 @@ class JCSingleton {
 				return true;
 			}
 
-			$conf = self::getSettings( $tv );
+			$conf = self::getMetadata( $tv );
 			if ( $conf && $conf->store ) {
 				$store = new JCCache( $tv, $conf, $content );
 				$store->resetCache();

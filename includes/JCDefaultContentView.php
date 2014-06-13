@@ -37,20 +37,23 @@ class JCDefaultContentView extends JCContentView {
 	 * @return string: HTML.
 	 */
 	public function toHtml( $value, $key = null, $level = 0 ) {
-		if ( is_array( $value ) && count( $value ) !== 0 ) {
+		if ( is_array( $value ) || is_object( $value ) ) {
 			$rows = array();
 			foreach ( $value as $k => $v ) {
 				$rows[] = Html::rawElement( 'tr', null,
 					$this->rowToHtml( $k, $v, $level + 1, $key, $value ) );
 			}
-			$res = Html::rawElement( 'table', array( 'class' => 'mw-jsonconfig' ),
-				Html::rawElement( 'tbody', null, join( "\n", $rows ) ) );
-		} elseif ( is_array( $value ) ) {
-			$res = '';
-		} elseif ( !is_string( $value ) ) {
-			$res = FormatJson::encode( $value );
-		} else {
+			if ( $rows ) {
+				$res =
+					Html::rawElement( 'table', array( 'class' => 'mw-jsonconfig' ),
+						Html::rawElement( 'tbody', null, join( "\n", $rows ) ) );
+			} else {
+				$res = '';
+			}
+		} elseif ( is_string( $value ) ) {
 			$res = $value;
+		} else {
+			$res = FormatJson::encode( $value );
 		}
 
 		return $res;

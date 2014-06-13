@@ -111,7 +111,7 @@ class JCApi extends ApiBase {
 				if ( $ns === null || !array_key_exists( $ns, $map ) ||
 				     ( $t = \Title::newFromText( $parts[1], $ns ) ) === null ||
 				     ( $titleValue = $t->getTitleValue() ) === null ||
-				     !( $conf = JCSingleton::getSettings( $titleValue ) )
+				     !( $conf = JCSingleton::getMetadata( $titleValue ) )
 				) {
 					$this->dieUsage( 'The "title" parameter must be in form NS:Title, where NS is either an integer or a canonical ' .
 					                 'namespace name. In either case, namespace must be defined as part of JsonConfig configuration',
