@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Imperadeiro98"
+			"Imperadeiro98",
+			"Vitorvicentevalente"
 		]
 	},
+	"jsonconfig-move-aborted-ns": "o novo título da página não está configurado para manter a configuração JSON",
 	"jsonconfig-optional-field": "(opcional)"
 }
