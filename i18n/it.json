@@ -1,14 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"Beta16"
+			"Beta16",
+			"PeppeAeco"
 		]
 	},
 	"jsonconfig-desc": "Permette di memorizzare la configurazione JSON in un wiki",
 	"jsonconfig-bad-json": "Impossibile analizzare la configurazione JSON. Per favore controlla la sintassi.",
-	"jsonconfig-optional-field": "(opzionale)",
 	"jsonconfig-duplicate-field": "Trovato più di un valore \"$1\"",
 	"jsonconfig-err-bool": "Il parametro \"$1\" deve essere impostato su true (vero) o false (falso)",
+	"jsonconfig-err-integer": "Il parametro \"$1\" deve essere un numero intero",
 	"jsonconfig-err-string": "Il parametro \"$1\" deve essere una stringa",
-	"jsonconfig-err-integer": "Il parametro \"$1\" deve essere un numero intero"
+	"jsonconfig-move-aborted-ns": "il nuovo titolo della pagina non è impostato per contenere la configurazione JSON",
+	"jsonconfig-optional-field": "(opzionale)"
 }
