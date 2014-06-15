@@ -1,9 +1,23 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ronel1"
+			"Ronel1",
+			"Amire80"
 		]
 	},
+	"jsonconfig-desc": "מאפשר לאחסן בוויקי תצורה בתסדיר JSON",
+	"jsonconfig-bad-json": "פענוח תצורה ב־JSON לא הצליח. נא לבדוק את התחביר.",
+	"jsonconfig-duplicate-field": "נמצא יותר מערך \"$1\" אחד",
 	"jsonconfig-err-array": "הפרמטר \" $1 \" חייב להיות רשימה, למשל ['value1', 'value2']",
-	"jsonconfig-err-assoc-array": "הפרמטר \" $1 \" חייב להיות מערך אסוציאטיבי (מילון), למשל {'מפתח': 'value',...}"
+	"jsonconfig-err-assoc-array": "הפרמטר \" $1 \" חייב להיות מערך אסוציאטיבי (מילון), למשל {'מפתח': 'value',...}",
+	"jsonconfig-err-bool": "פרמטר \"$1\" צריך להיות true או false",
+	"jsonconfig-err-integer": "פרמטר \"$1\" צריך להיות מספר שלם",
+	"jsonconfig-err-array-expected": "הערך של \"$1\" אמור להיות רשימה מוקפת בסוגריים מרובעיים [...]",
+	"jsonconfig-err-object-expected": "הערך של \"$1\" אמור להיות רשימה מוקפת בסוגריים מרובעיים {...}",
+	"jsonconfig-err-root-array-expected": "נתוני JSON צריכים להיות רשימה מוקפת בסוגריים מרובעים [...]",
+	"jsonconfig-err-root-object-expected": "נתוני JSON צריכים להיות עצם (object) בסוגריים מסוסלים {...}",
+	"jsonconfig-err-string": "פרמטר \"$1\" צריך להיות מחרוזת",
+	"jsonconfig-move-aborted-model": "דגם תצורת ה־JSON של הדף \"$1\" לא יתיאם לדגם החדש \"$2\"",
+	"jsonconfig-move-aborted-ns": "הכותרת החדשה של הדף הזה לא מוגרדת לאחסון תצורת JSON",
+	"jsonconfig-optional-field": "(לא חובה)"
 }
