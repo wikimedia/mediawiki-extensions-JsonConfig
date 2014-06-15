@@ -37,12 +37,12 @@ class JCSingleton {
 	 */
 	private static function init() {
 		static $isInitialized = false;
-		$defaultModelId = 'JsonConfig';
 		if ( $isInitialized ) {
 			return;
 		}
 		global $wgNamespaceContentModels, $wgContentHandlers, $wgJsonConfigs, $wgJsonConfigModels;
 		$isInitialized = true;
+		$defaultModelId = 'JsonConfig';
 
 		$badId = null;
 		foreach ( $wgJsonConfigs as $confId => &$conf ) {
@@ -160,13 +160,14 @@ class JCSingleton {
 							              "if given, nsName must be a string" );
 							continue;
 						} elseif ( array_key_exists( $ns, self::$namespaces ) &&
-							self::$namespaces[$ns] !== null
+						           self::$namespaces[$ns] !== null
 						) {
 							wfLogWarning( "JsonConfig: \$wgJsonConfigs['$confId'] - nsName has already " .
 							              "been set for namespace $ns" );
 						} else {
 							self::$namespaces[$ns] = $nsName;
-							self::$namespaces[$ns + 1] = isset( $conf->nsTalk ) ? $conf->nsTalk : ( $nsName . '_talk' );
+							self::$namespaces[$ns + 1] =
+								isset( $conf->nsTalk ) ? $conf->nsTalk : ( $nsName . '_talk' );
 						}
 					}
 				} elseif ( !array_key_exists( $ns, self::$namespaces ) ) {
@@ -177,7 +178,7 @@ class JCSingleton {
 			unset( $nsVals );
 			if ( !array_key_exists( $ns, self::$titleMap ) ) {
 				$nsVals = array();
-				self::$titleMap[$ns] = &$nsVals;
+				self::$titleMap[$ns] = & $nsVals;
 			} else {
 				$nsVals = & self::$titleMap[$ns];
 			}
@@ -191,7 +192,7 @@ class JCSingleton {
 					continue;
 				} elseif ( $nameExists ) {
 					wfLogWarning( "JsonConfig: \$wgJsonConfigs['$confId'] cannot define " .
-						"another nameless handler for namespace $ns" );
+					              "another nameless handler for namespace $ns" );
 					continue;
 				} else {
 					$nsVals[$conf->name] = $conf;
@@ -199,17 +200,17 @@ class JCSingleton {
 			} else {
 				if ( !$nameExists ) {
 					$nameVals = array();
-					$nsVals[$conf->name] = &$nameVals;
+					$nsVals[$conf->name] = & $nameVals;
 				} else {
-					$nameVals = &$nsVals[$conf->name];
+					$nameVals = & $nsVals[$conf->name];
 				}
-				$isSubspace = $conf->isSubspace ? 1 : 0;
-				if ( array_key_exists( $isSubspace, $nameVals ) ) {
+				$subKey = $conf->isSubspace ? 'sub' : 'val'; // subspace or a direct value
+				if ( array_key_exists( $subKey, $nameVals ) ) {
 					wfLogWarning( "JsonConfig: \$wgJsonConfigs['$confId'] duplicates $ns:$conf->name:isSubspace " .
 					              "value - there must be no more than one 'true' and 'false'" );
 					continue;
 				}
-				$nameVals[$isSubspace] = $conf;
+				$nameVals[$subKey] = $conf;
 			}
 			$badId = null; // Item passed validation, keep it
 		}
@@ -240,7 +241,7 @@ class JCSingleton {
 	 * @param mixed $default
 	 * @return mixed
 	 */
-	private static function getConfVal( &$conf, $field, $default ) {
+	private static function getConfVal( & $conf, $field, $default ) {
 		if ( property_exists( $conf, $field ) ) {
 			return $conf->$field;
 		}
@@ -276,6 +277,30 @@ class JCSingleton {
 	}
 
 	/**
+	 * Get content object for the given title.
+	 * Title may not contain ':' unless it is a sub-namespace separator. Namespace ID does not need to be
+	 * defined in the current wiki, as long as it is defined in $wgJsonConfigs.
+	 * @param TitleValue $titleValue
+	 * @return bool|JCContent Returns false if the title is not handled by the settings
+	 */
+	public static function getContent( TitleValue $titleValue ) {
+		$conf = self::getMetadata( $titleValue );
+		if ( $conf ) {
+			$store = new JCCache( $titleValue, $conf );
+			$content = $store->get();
+			if ( $content !== false ) {
+				// Convert string to the content object if needed
+				if ( is_string( $content ) ) {
+					$handler = new JCContentHandler( $conf->model );
+					$content = $handler->unserializeContent( $content, null, false );
+				}
+				return $content;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Mostly for debugging purposes, this function returns initialized internal JsonConfig settings
 	 * @return array
 	 */
@@ -291,40 +316,36 @@ class JCSingleton {
 	 * @return stdClass|false|null
 	 */
 	public static function getMetadata( $titleValue ) {
-		if ( !$titleValue ) {
-			return false; // It is possible to have a null TitleValue (bug 66555)
-		}
 		static $lastTitle = null;
 		static $lastResult = false;
-		if ( $titleValue === $lastTitle ) {
+		if ( !$titleValue ) {
+			return false; // It is possible to have a null TitleValue (bug 66555)
+		} elseif ( $titleValue === $lastTitle ) {
 			return $lastResult;
 		}
 		$lastTitle = $titleValue;
-		// @fixme: why check for $titleValue?
-		if ( $titleValue ) {
-			// array of:  { namespace => { name => { allows-sub-namespaces => config } } }
-			$key = $titleValue->getNamespace();
-			$map = self::getTitleMap();
-			if ( array_key_exists( $key, $map ) ) {
-				$arr = $map[$key];
-				$parts = explode( ':', $titleValue->getText(), 2 );
-				if ( array_key_exists( $parts[0], $arr ) ) {
-					$arr = $arr[$parts[0]];
-					$key = count( $parts ) == 2 ? 1 : 0;
-					if ( array_key_exists( $key, $arr ) ) {
-						$lastResult = $arr[$key];
-						return $lastResult;
-					}
-				}
-				if ( array_key_exists( '', $arr ) ) {
-					// all configs in this namespace are allowed
-					$lastResult = $arr[''];
+		$key = $titleValue->getNamespace();
+		/** @var array $map array of:  { namespace => { name => { allows-sub-namespaces => config } } } */
+		$map = self::getTitleMap();
+		if ( array_key_exists( $key, $map ) ) {
+			$arr = $map[$key];
+			$parts = explode( ':', $titleValue->getText(), 2 );
+			if ( array_key_exists( $parts[0], $arr ) ) {
+				$arr = $arr[$parts[0]];
+				$key = count( $parts ) == 2 ? 'sub' : 'val'; // subspace or a direct value
+				if ( array_key_exists( $key, $arr ) ) {
+					$lastResult = $arr[$key];
 					return $lastResult;
 				}
-				// We know about the namespace, but there is no specific configuration
-				$lastResult = null;
+			}
+			if ( array_key_exists( '', $arr ) ) {
+				// all configs in this namespace are allowed
+				$lastResult = $arr[''];
 				return $lastResult;
 			}
+			// We know about the namespace, but there is no specific configuration
+			$lastResult = null;
+			return $lastResult;
 		}
 		$lastResult = false;
 		return $lastResult;
@@ -488,28 +509,6 @@ class JCSingleton {
 			return false;
 		}
 		return true;
-	}
-
-	/**
-	 * Get content object for the given title
-	 * @param TitleValue $titleValue
-	 * @return bool|JCContent Returns false if the title is not handled by the settings
-	 */
-	public static function getContent( TitleValue $titleValue ) {
-		$conf = self::getMetadata( $titleValue );
-		if ( $conf ) {
-			$store = new JCCache( $titleValue, $conf );
-			$content = $store->get();
-			if ( $content !== false ) {
-				// Convert string to the content object if needed
-				if ( is_string( $content ) ) {
-					$handler = new JCContentHandler( $conf->model );
-					$content = $handler->unserializeContent( $content, null, false );
-				}
-				return $content;
-			}
-		}
-		return false;
 	}
 
 	/**
