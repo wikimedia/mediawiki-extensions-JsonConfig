@@ -8,9 +8,16 @@
 	"jsonconfig-desc": "Permette di memorizzare la configurazione JSON in un wiki",
 	"jsonconfig-bad-json": "Impossibile analizzare la configurazione JSON. Per favore controlla la sintassi.",
 	"jsonconfig-duplicate-field": "Trovato più di un valore \"$1\"",
+	"jsonconfig-err-array": "Il parametro \"$1\" deve essere un elenco, ad esempio ['valore1', 'valore2', ...]",
+	"jsonconfig-err-assoc-array": "Il parametro \"$1\" deve essere un array associativo (dizionario), ad esempio {'chiave': 'valore', ...}",
 	"jsonconfig-err-bool": "Il parametro \"$1\" deve essere impostato su true (vero) o false (falso)",
 	"jsonconfig-err-integer": "Il parametro \"$1\" deve essere un numero intero",
+	"jsonconfig-err-array-expected": "Il valore \"$1\" deve essere un elenco tra da parentesi quadre [...]",
+	"jsonconfig-err-object-expected": "Il valore \"$1\" deve essere un oggetto tra da parentesi graffe {...}",
+	"jsonconfig-err-root-array-expected": "I dati JSON deve essere un elenco tra da parentesi quadre [...]",
+	"jsonconfig-err-root-object-expected": "I dati JSON deve essere un elenco tra da parentesi graffe {...}",
 	"jsonconfig-err-string": "Il parametro \"$1\" deve essere una stringa",
+	"jsonconfig-move-aborted-model": "il modello di configurazione JSON \"$1\" di questa pagina non corrisponde al nuovo modello \"$2\"",
 	"jsonconfig-move-aborted-ns": "il nuovo titolo della pagina non è impostato per contenere la configurazione JSON",
 	"jsonconfig-optional-field": "(opzionale)"
 }

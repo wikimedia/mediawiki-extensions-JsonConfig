@@ -1,13 +1,23 @@
 {
 	"@metadata": {
 		"authors": [
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"Lokal Profil"
 		]
 	},
+	"jsonconfig-desc": "Tillåter JSON-konfigurationer att lagras i en wiki",
 	"jsonconfig-bad-json": "Det gick inte att tolka JSON-konfigureringen. Var god kontrollera syntaxen.",
-	"jsonconfig-optional-field": "(valfritt)",
 	"jsonconfig-duplicate-field": "Fler än ett värde \"$1\" hittades",
+	"jsonconfig-err-array": "Parameter \"$1\" måste vara en lista, dvs. ['värde1', 'värde2', ...]",
+	"jsonconfig-err-assoc-array": "Parameter \"$1\" måste vara en associerad lista (ordbok), dvs. {'nyckel':'värde', ...}",
 	"jsonconfig-err-bool": "Parametern \"$1\" måste antingen vara \"true\" eller \"false\"",
+	"jsonconfig-err-integer": "Parametern \"$1\" måste vara ett heltal",
+	"jsonconfig-err-array-expected": "Värdet vid $1 förväntades vara en lista omgiven av [...]-parenteser",
+	"jsonconfig-err-object-expected": "Värdet vid $1 förväntades vara ett objekt omgivet av {...}-parenteser",
+	"jsonconfig-err-root-array-expected": "JSON-data bör vara en lista, omgiven av [...]-parenteser",
+	"jsonconfig-err-root-object-expected": "JSON-data bör vara ett objekt, omgivet av {...}-parenteser",
 	"jsonconfig-err-string": "Parametern \"$1\" måste vara en sträng",
-	"jsonconfig-err-integer": "Parametern \"$1\" måste vara ett heltal"
+	"jsonconfig-move-aborted-model": "denna sidas JSON-konfigurationsmodell \"$1\" motsvarar inte den nya sidans modell \"$2\"",
+	"jsonconfig-move-aborted-ns": "den nya sidtiteln är inte inställd för att hålla en JSON-konfiguration",
+	"jsonconfig-optional-field": "(valfritt)"
 }

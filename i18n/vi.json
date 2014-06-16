@@ -1,6 +1,22 @@
 {
+	"@metadata": {
+		"authors": [
+			"Minh Nguyen"
+		]
+	},
+	"jsonconfig-desc": "Cho phép lưu giữ cấu hình JSON trên wiki",
 	"jsonconfig-bad-json": "Không thể phân tích cấu hình JSON. Xin vui lòng kiểm tra cú pháp.",
-	"jsonconfig-optional-field": "(tùy chọn)",
+	"jsonconfig-duplicate-field": "Đã gặp hơn một giá trị “$1”",
+	"jsonconfig-err-array": "Tham số “$1” phải là danh sách, ví dụ ['giá trị 1', 'giá trị 2', …]",
+	"jsonconfig-err-assoc-array": "Tham số “$1” phải là một mảng kết hợp (từ điển), ví dụ {'chìa khóa': 'giá trị', …}",
 	"jsonconfig-err-bool": "Tham số “$1” phải là true hoặc false",
-	"jsonconfig-err-string": "Tham số “$1” phải là chuỗi"
+	"jsonconfig-err-integer": "Tham số “$1” phải là số nguyên",
+	"jsonconfig-err-array-expected": "Giá trị của “$1” phải là danh sách được đưa vào các dấu ngoặc […]",
+	"jsonconfig-err-object-expected": "Giá trị của “$1” phải là đối tượng được đưa vào các dấu ngoặc {…}",
+	"jsonconfig-err-root-array-expected": "Dữ liệu JSON phải là danh sách được đưa vào các dấu ngoặc […]",
+	"jsonconfig-err-root-object-expected": "Dữ liệu JSON phải là đối tượng được đưa vào các dấu ngoặc {…}",
+	"jsonconfig-err-string": "Tham số “$1” phải là chuỗi",
+	"jsonconfig-move-aborted-model": "Mô hình cấu hình JSON của trang này, “$1”, sẽ không phù hợp với mô hình tại tên mới, “$2”",
+	"jsonconfig-move-aborted-ns": "Tên trang mới chưa được thiết lập để lưu giữ cấu hình JSON",
+	"jsonconfig-optional-field": "(tùy chọn)"
 }
