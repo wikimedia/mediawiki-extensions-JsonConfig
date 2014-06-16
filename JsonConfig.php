@@ -49,8 +49,9 @@ foreach ( array(
 			'JCSingleton',
 			'JCUtils',
 			'JCValidators',
-		) as $class ) {
-	$wgAutoloadClasses['JsonConfig\\' . $class] = $cwd . $class . '.php';
+			'JCMissing' => 'JCValidators',
+		) as $key => $class ) {
+	$wgAutoloadClasses['JsonConfig\\' . ( is_string( $key ) ? $key : $class )] = $cwd . $class . '.php';
 }
 
 /**

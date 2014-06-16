@@ -1,11 +1,59 @@
 <?php
 namespace JsonConfig;
+use Message;
+
+/**
+ * A singleton class to specify that there was no value
+ * Class JCMissing
+ * @package JsonConfig
+ */
+final class JCMissing {
+	/** Disallow instantiation */
+	private function __construct() {}
+
+	/** Get the singleton instance of this class
+	 * @return JCMissing
+	 */
+	public static function get() {
+		static $instance = null;
+		if ( $instance === null ) {
+			$instance = new self();
+		}
+		return $instance;
+	}
+}
 
 /**
  * Class JCValidators contains various static validation functions useful for JCKeyValueContent
  * @package JsonConfig
  */
 class JCValidators {
+
+	/**
+	 * Call one or more validator functions with the given parameters.
+	 * $value parameter may be updated.
+	 * @param array|callable $validators either a reference to a validator func, or an array of them
+	 * @param string $field name of the field, needed by the error messages
+	 * @param mixed $value this value may be modified on success
+	 * @param JCContent $content
+	 * @return bool|Message false if validated, Message object on error
+	 */
+	public static function run( $validators, $field, & $value, JCContent $content ) {
+		if ( $validators ) {
+			// function reference in php could be an array with strings
+			if ( !is_array( $validators ) || is_string( reset( $validators ) ) ) {
+				$validators = array( $validators );
+			}
+			foreach ( $validators as $validator ) {
+				$val = call_user_func( $validator, $field, $value, $content );
+				if ( is_object( $val ) && get_class( $val ) === 'Message' ) {
+					return $val;
+				}
+				$value = $val;
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * Returns a validator function to check if the value is a valid boolean (true/false)
@@ -38,7 +86,7 @@ class JCValidators {
 	}
 
 	/**
-	 * Returns a validator function to check if the value is an associative array
+	 * Returns a validator function to check if the value is an non-associative array (list)
 	 * @return callable
 	 */
 	public static function getArrayValidator() {
@@ -54,6 +102,17 @@ class JCValidators {
 	public static function getDictionaryValidator() {
 		return function ( $fld, $v ) {
 			return JCValidators::isDictionary( $v ) ? $v : wfMessage( 'jsonconfig-err-assoc-array', $fld );
+		};
+	}
+
+	/**
+	 * Returns a validator function to check if the value is an associative array
+	 * @return callable
+	 */
+	public static function getUrlValidator() {
+		return function ( $fld, $v ) {
+			return false !== filter_var( $v, FILTER_VALIDATE_URL ) ? $v
+				: wfMessage( 'jsonconfig-err-url', $fld );
 		};
 	}
 
