@@ -16,6 +16,7 @@
 	"jsonconfig-err-root-array-expected": "JSON data should be a list, surrounded by the [...] brackets",
 	"jsonconfig-err-root-object-expected": "JSON data should be an object, surrounded by the {...} braces",
 	"jsonconfig-err-string": "Parameter \"$1\" must be a string",
+	"jsonconfig-err-url": "Parameter \"$1\" must be a valid URL",
 	"jsonconfig-move-aborted-model": "this page's JSON config model \"$1\" would not match the new title's model \"$2\"",
 	"jsonconfig-move-aborted-ns": "the new page title is not set up to hold JSON configuration",
 	"jsonconfig-optional-field": "(optional)"
