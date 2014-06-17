@@ -95,31 +95,33 @@ abstract class JCObjContent extends JCContent {
 	public abstract function validateContent();
 
 	/**
-	 * Use this function to ensure a field exists in the configuration
+	 * Use this function to test a field in the data. If missing, the validator(s) will receive JCMissing
+	 * singleton as a value, and it will be up to the validator(s) to accept it or not.
 	 * @param string|array $path name of the root field to check, or a path to the field in a nested structure.
 	 *        Nested path should be in the form of [ 'field-level1', 'field-level2', ... ]. For example, if client
 	 *        needs to check validity of the 'value1' in the structure {'key':{'sub-key':['value0','value1']}},
 	 *        $field should be set to array('key','sub-key',1).
-	 * @param callable $validator callback function($value, $this)
+	 * @param callable|array $validators callback function as defined in JCValidators::run()
 	 *        The function should validate given value, and return either Message in case of an error,
 	 *        or the value to be used as the result of the field (could be original value or modified)
 	 *        or null to use the original value as is.
-	 *        If validator is not provided, any value is accepted
+	 *        If validators is not provided, any value is accepted
 	 * @return int status of the validation, or self::UNCHECKED if failed
 	 */
-	public function required( $path, $validator ) {
-		return $this->check( $path, JCMissing::get(), $validator );
+	public function test( $path, $validators ) {
+		return $this->testOptional( $path, JCMissing::get(), $validators );
 	}
 
 	/**
-	 * Use this function to perform all custom validation of the configuration
+	 * Use this function to test a value, or if the value is missing, use the default value.
+	 * The value will be tested with validator(s) if provided, even if it was the default.
 	 * @param string|array $path name of the root field to check, or a path to the field in a nested structure.
 	 *        Nested path should be in the form of [ 'field-level1', 'field-level2', ... ]. For example, if client
 	 *        needs to check validity of the 'value1' in the structure {'key':{'sub-key':['value0','value1']}},
 	 *        $field should be set to array('key','sub-key',1).
 	 * @param mixed $default value to be used in case field is not found. $default is passed to the validator
 	 *        if validation fails. If validation of the default passes, the value is considered optional.
-	 * @param callable $validator callback function($value, $this)
+	 * @param callable|array $validators callback function as defined in JCValidators::run()
 	 *        The function should validate given value, and return either Message in case of an error,
 	 *        or the value to be used as the result of the field (could be original value or modified)
 	 *        or null to use the original value as is.
@@ -127,7 +129,7 @@ abstract class JCObjContent extends JCContent {
 	 * @return int status of the validation, or self::UNCHECKED if failed
 	 * @throws \MWException if $this->initValidation() was not called.
 	 */
-	public function check( $path, $default, $validator = null ) {
+	public function testOptional( $path, $default, $validators = null ) {
 
 		if ( !$this->getStatus()->isOK() ) {
 			return self::ERROR; // skip all validation in case of a fatal error
@@ -266,14 +268,14 @@ abstract class JCObjContent extends JCContent {
 			}
 		}
 
-		if ( $validator !== null && $newStatus !== self::ERROR ) {
-			$err = JCValidators::run( $validator, $fldPath ? : '/', $dataRef, $this );
+		if ( $validators !== null && $newStatus !== self::ERROR ) {
+			$isRequired = $newStatus === self::DEFAULT_USED;
+			$err = JCValidators::run( $validators, $fldPath ? : '/', $dataRef, $this );
 			if ( $err ) {
-				$isRequired = $newStatus === self::DEFAULT_USED;
 				if ( !$isRequired ) {
 					// User supplied value, so we don't know if the value is required or not
 					// if $default passes validation, original value was optional
-					$isRequired = (bool)JCValidators::run( $validator, $fldPath ? : '/', $default, $this );
+					$isRequired = (bool)JCValidators::run( $validators, $fldPath ? : '/', $default, $this );
 				}
 				$this->addValidationError( $err, !$isRequired );
 				$newStatus = self::ERROR;

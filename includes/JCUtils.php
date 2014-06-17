@@ -104,4 +104,35 @@ class JCUtils {
 		}
 		return $res;
 	}
+
+	/**
+	 * Helper function to check if the given value is an array,
+	 * and all keys are integers (non-associative array)
+	 * @param array $array array to check
+	 * @return bool
+	 */
+	public static function isList( $array ) {
+		return is_array( $array ) &&
+		       count( array_filter( array_keys( $array ), 'is_int' ) ) === count( $array );
+	}
+
+	/**
+	 * Helper function to check if the given value is an array,
+	 * and all keys are strings (associative array)
+	 * @param array $array array to check
+	 * @return bool
+	 */
+	public static function isDictionary( $array ) {
+		return is_array( $array ) &&
+		       count( array_filter( array_keys( $array ), 'is_string' ) ) === count( $array );
+	}
+
+	/**
+	 * Helper function to check if the given value is an array and if each value in it is a string
+	 * @param array $array array to check
+	 * @return bool
+	 */
+	public static function allValuesAreStrings( $array ) {
+		return is_array( $array ) && count( array_filter( $array, 'is_string' ) ) === count( $array );
+	}
 }

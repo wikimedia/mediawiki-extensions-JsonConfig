@@ -1,5 +1,6 @@
 <?php
 namespace JsonConfig;
+use JsonConfig\JCUtils;
 use Message;
 
 /**
@@ -59,7 +60,7 @@ class JCValidators {
 	 * Returns a validator function to check if the value is a valid boolean (true/false)
 	 * @return callable
 	 */
-	public static function getBoolValidator() {
+	public static function isBool() {
 		return function ( $fld, $v ) {
 			return is_bool( $v ) ? $v : wfMessage( 'jsonconfig-err-bool', $fld );
 		};
@@ -69,7 +70,7 @@ class JCValidators {
 	 * Returns a validator function to check if the value is a valid string
 	 * @return callable
 	 */
-	public static function getStrValidator() {
+	public static function isString() {
 		return function ( $fld, $v ) {
 			return is_string( $v ) ? $v : wfMessage( 'jsonconfig-err-string', $fld );
 		};
@@ -79,7 +80,7 @@ class JCValidators {
 	 * Returns a validator function to check if the value is a valid integer
 	 * @return callable
 	 */
-	public static function getIntValidator() {
+	public static function isInt() {
 		return function ( $fld, $v ) {
 			return is_int( $v ) ? $v : wfMessage( 'jsonconfig-err-integer', $fld );
 		};
@@ -89,9 +90,9 @@ class JCValidators {
 	 * Returns a validator function to check if the value is an non-associative array (list)
 	 * @return callable
 	 */
-	public static function getArrayValidator() {
+	public static function isArray() {
 		return function ( $fld, $v ) {
-			return JCValidators::isList( $v ) ? $v : wfMessage( 'jsonconfig-err-array', $fld );
+			return JCUtils::isList( $v ) ? $v : wfMessage( 'jsonconfig-err-array', $fld );
 		};
 	}
 
@@ -99,9 +100,9 @@ class JCValidators {
 	 * Returns a validator function to check if the value is an associative array
 	 * @return callable
 	 */
-	public static function getDictionaryValidator() {
+	public static function isDictionary() {
 		return function ( $fld, $v ) {
-			return JCValidators::isDictionary( $v ) ? $v : wfMessage( 'jsonconfig-err-assoc-array', $fld );
+			return JCUtils::isDictionary( $v ) ? $v : wfMessage( 'jsonconfig-err-assoc-array', $fld );
 		};
 	}
 
@@ -109,7 +110,7 @@ class JCValidators {
 	 * Returns a validator function to check if the value is an associative array
 	 * @return callable
 	 */
-	public static function getUrlValidator() {
+	public static function isUrl() {
 		return function ( $fld, $v ) {
 			return false !== filter_var( $v, FILTER_VALIDATE_URL ) ? $v
 				: wfMessage( 'jsonconfig-err-url', $fld );
@@ -117,31 +118,17 @@ class JCValidators {
 	}
 
 	/**
-	 * Helper function to check if the given value is an array,
-	 * and all keys are integers (non-associative array)
-	 * @param array $array array to check
-	 * @return bool
+	 * Returns a validator function that will accept any default value or run other validators if non-default
+	 * @param callable|array $validators callback function as defined in JCValidators::run()
+	 * @return callable
 	 */
-	public static function isList( $array ) {
-		return is_array( $array ) && count( array_filter( array_keys( $array ), 'is_int' ) ) === count( $array );
-	}
-
-	/**
-	 * Helper function to check if the given value is an array,
-	 * and all keys are strings (associative array)
-	 * @param array $array array to check
-	 * @return bool
-	 */
-	public static function isDictionary( $array ) {
-		return is_array( $array ) && count( array_filter( array_keys( $array ), 'is_string' ) ) === count( $array );
-	}
-
-	/**
-	 * Helper function to check if the given value is an array and if each value in it is a string
-	 * @param array $array array to check
-	 * @return bool
-	 */
-	public static function allValuesAreStrings( $array ) {
-		return is_array( $array ) && count( array_filter( $array, 'is_string' ) ) === count( $array );
+	public static function allowDefault( $default, $validators ) {
+		return function ( $fld, $val, $content ) use ( $default, $validators ) {
+			if ( $val === JCMissing::get() ) {
+				return $default;
+			} else {
+				return JCValidators::run( $validators, $fld, $val, $content ) ? : $val;
+			}
+		};
 	}
 }

@@ -117,7 +117,7 @@ class JCContent extends \TextContent {
 				return;
 			}
 		}
-		if ( $this->useAssocParsing ) {
+		if ( !$this->useAssocParsing ) {
 			// @fixme: HACK - need a deep clone of the data
 			// @fixme: but doing (object)(array)$data will re-encode empty [] as {}
 			$this->rawData = FormatJson::decode( $rawText, $this->useAssocParsing );
