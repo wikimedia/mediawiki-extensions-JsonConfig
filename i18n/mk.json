@@ -16,6 +16,7 @@
 	"jsonconfig-err-root-array-expected": "Податоците за JSON треба да бидат список, обиколен со заградите [...]",
 	"jsonconfig-err-root-object-expected": "Податоците за JSON треба да бидат предмет, обиколен со заградите {...}",
 	"jsonconfig-err-string": "Параметарот „$1“ мора да биде низа",
+	"jsonconfig-err-url": "Параметарот „$1“ мора да биде важечка URL-адреса",
 	"jsonconfig-move-aborted-model": "JSON-овиот поставувачки модел „$1“ на оваа страница нема да се совпаѓа со моделот „$2“ на новиот наслов",
 	"jsonconfig-move-aborted-ns": "новиот наслов на страницата не е поставен да содржи JSON-ова поставка",
 	"jsonconfig-optional-field": "(незадолжително)"

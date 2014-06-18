@@ -16,6 +16,7 @@
 	"jsonconfig-err-root-array-expected": "JSON-Daten sollten eine Liste sein, umgeben von eckigen Klammern ([…])",
 	"jsonconfig-err-root-object-expected": "JSON-Daten sollten ein Objekt sein, umgeben von geschweiften Klammern ({…})",
 	"jsonconfig-err-string": "Parameter „$1“ muss eine Zeichenfolge sein",
+	"jsonconfig-err-url": "Parameter „$1“ muss eine gültige URL sein",
 	"jsonconfig-move-aborted-model": "Das JSON-Konfigurationsmodell „$1“ dieser Seite stimmt nicht mit dem Modell „$2“ des neuen Titels überein",
 	"jsonconfig-move-aborted-ns": "Der neue Seitentitel ist nicht zur Haltung der JSON-Konfiguration eingerichtet",
 	"jsonconfig-optional-field": "(optional)"

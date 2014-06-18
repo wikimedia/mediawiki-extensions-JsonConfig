@@ -17,6 +17,7 @@
 	"jsonconfig-err-root-array-expected": "נתוני JSON צריכים להיות רשימה מוקפת בסוגריים מרובעים [...]",
 	"jsonconfig-err-root-object-expected": "נתוני JSON צריכים להיות עצם (object) בסוגריים מסוסלים {...}",
 	"jsonconfig-err-string": "פרמטר \"$1\" צריך להיות מחרוזת",
+	"jsonconfig-err-url": "הפרמטר \"$1\" צריך להיות URL תקין",
 	"jsonconfig-move-aborted-model": "דגם תצורת ה־JSON של הדף \"$1\" לא יתיאם לדגם החדש \"$2\"",
 	"jsonconfig-move-aborted-ns": "הכותרת החדשה של הדף הזה לא מוגרדת לאחסון תצורת JSON",
 	"jsonconfig-optional-field": "(לא חובה)"
