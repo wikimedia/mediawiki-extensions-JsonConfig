@@ -279,6 +279,8 @@ abstract class JCObjContent extends JCContent {
 				}
 				$this->addValidationError( $err, !$isRequired );
 				$newStatus = self::ERROR;
+//			} elseif ( $dataRef === JCMissing::get() ) {
+//			@ fixme: if missing is returned, remove it from the data
 			}
 		}
 		if ( $newStatus === self::CHECKED ) {

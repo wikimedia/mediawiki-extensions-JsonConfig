@@ -513,7 +513,7 @@ class JCSingleton {
 
 	/**
 	 * @param object $value
-	 * @param string $content
+	 * @param JCContent $content
 	 * @return bool
 	 */
 	private static function onArticleChangeComplete( $value, $content = null ) {
