@@ -14,5 +14,6 @@
 	"jsonconfig-err-array-expected": "Se espera que el valor en «$1» esté rodeado por corchetes […]",
 	"jsonconfig-err-object-expected": "Se espera que el valor en «$1» esté rodeado por llaves {…}",
 	"jsonconfig-err-string": "El parámetro «$1» debe ser una cadena de caracteres",
+	"jsonconfig-err-url": "El parámetro «$1» debe ser un URL válido",
 	"jsonconfig-optional-field": "(opcional)"
 }
