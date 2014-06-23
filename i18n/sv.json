@@ -17,6 +17,7 @@
 	"jsonconfig-err-root-array-expected": "JSON-data bör vara en lista, omgiven av [...]-parenteser",
 	"jsonconfig-err-root-object-expected": "JSON-data bör vara ett objekt, omgivet av {...}-parenteser",
 	"jsonconfig-err-string": "Parametern \"$1\" måste vara en sträng",
+	"jsonconfig-err-url": "Parameter \"$1\" måste vara en giltig URL",
 	"jsonconfig-move-aborted-model": "denna sidas JSON-konfigurationsmodell \"$1\" motsvarar inte den nya sidans modell \"$2\"",
 	"jsonconfig-move-aborted-ns": "den nya sidtiteln är inte inställd för att hålla en JSON-konfiguration",
 	"jsonconfig-optional-field": "(valfritt)"
