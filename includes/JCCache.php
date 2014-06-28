@@ -153,57 +153,58 @@ class JCCache {
 	 */
 	private function loadRemote() {
 		wfProfileIn( __METHOD__ );
-		$remote = $this->conf->remote;
-		$req = JCUtils::initApiRequestObj( $remote->url, $remote->username, $remote->password );
-		$ns = $this->conf->nsName
-			? $this->conf->nsName
-			: MWNamespace::getCanonicalName( $this->titleValue->getNamespace() );
-		$articleName = $ns . ':' . $this->titleValue->getText();
-		$flrevs = $this->conf->flaggedRevs;
-		if ( $flrevs === false ) {
-			$query = array(
-				'format' => 'json',
-				'action' => 'query',
-				'titles' => $articleName,
-				'prop' => 'revisions',
-				'rvprop' => 'content',
-			);
-			$result = $this->getPageFromApi( $articleName, $req, $query );
-		} else {
-			$query = array(
-				'format' => 'json',
-				'action' => 'query',
-				'titles' => $articleName,
-				'prop' => 'info|flagged',
-			);
-			$result = $this->getPageFromApi( $articleName, $req, $query );
-			if ( $result !== false &&
-				( $flrevs === null || array_key_exists( 'flagged', $result ) )
+		do {
+			$result = false;
+			$remote = $this->conf->remote;
+			$req = JCUtils::initApiRequestObj( $remote->url, $remote->username, $remote->password );
+			if ( !$req ) {
+				break;
+			}
+			$ns =
+				$this->conf->nsName ? $this->conf->nsName
+					: MWNamespace::getCanonicalName( $this->titleValue->getNamespace() );
+			$articleName = $ns . ':' . $this->titleValue->getText();
+			$flrevs = $this->conf->flaggedRevs;
+			// if flaggedRevs is false, get wiki page directly, otherwise get the flagged state first
+			$res = $this->getPageFromApi( $articleName, $req, $flrevs === false
+					? array(
+						'action' => 'query',
+						'titles' => $articleName,
+						'prop' => 'revisions',
+						'rvprop' => 'content',
+					)
+					: array(
+						'action' => 'query',
+						'titles' => $articleName,
+						'prop' => 'info|flagged',
+					) );
+			if ( $res !== false &&
+			     ( $flrevs === null || ( $flrevs === true && array_key_exists( 'flagged', $res ) ) )
 			) {
-				// If there is a stable flagged revision present, use it,
-				// otherwise use the latest revision that exists (unless flaggedRevs is true)
-				$revId = array_key_exists( 'flagged', $result ) ?
-					$result['flagged']['stable_revid'] :
-					$result['lastrevid'];
-				$query = array(
-					'format' => 'json',
+				// If there is a stable flagged revision present, use it.
+				// else - if flaggedRevs is null, use the latest revision that exists
+				// otherwise, fail because flaggedRevs is true, which means we require rev to be flagged
+				$res = $this->getPageFromApi( $articleName, $req, array(
 					'action' => 'query',
-					'revids' => $revId,
+					'revids' => array_key_exists( 'flagged', $res ) ? $res['flagged']['stable_revid']
+						: $res['lastrevid'],
 					'prop' => 'revisions',
 					'rvprop' => 'content',
-				);
-				$result = $this->getPageFromApi( $articleName, $req, $query );
+				) );
 			}
-		}
-		if ( $result !== false ) {
-			if ( isset( $result['revisions'][0]['*'] ) ) {
-				$result = $result['revisions'][0]['*'];
-			} else {
-				$result = false;
+			if ( $res === false ) {
+				break;
+			}
+			if ( !isset( $res['revisions'][0]['*'] ) ) {
 				JCUtils::warn( 'Unable to get config content',
-					array( 'title' => $articleName, 'result' => $result ) );
+					array( 'title' => $articleName, 'result' => $res ) );
+				break;
 			}
-		}
+
+			$result = $res['revisions'][0]['*'];
+
+		} while( false );
+
 		$this->content = $result;
 
 		wfProfileOut( __METHOD__ );
@@ -218,18 +219,21 @@ class JCCache {
 	private function getPageFromApi( $articleName, $req, $query ) {
 
 		$revInfo = JCUtils::callApi( $req, $query, 'get remote JsonConfig' );
+		if ( $revInfo === false ) {
+			return false;
+		}
 		if ( !isset( $revInfo['query']['pages'] ) ) {
-			JCUtils::warn( 'Unrecognizable API result', array( 'title' => $articleName, 'query' => $query ) );
+			JCUtils::warn( 'Unrecognizable API result', array( 'title' => $articleName ), $query );
 			return false;
 		}
 		$pages = $revInfo['query']['pages'];
 		if ( !is_array( $pages ) || count( $pages ) !== 1 ) {
-			JCUtils::warn( 'Unexpected "pages" element', array( 'title' => $articleName, 'query' => $query ) );
+			JCUtils::warn( 'Unexpected "pages" element', array( 'title' => $articleName ), $query );
 			return false;
 		}
 		$pageInfo = reset( $pages ); // get the only element of the array
 		if ( isset( $revInfo['missing'] ) ) {
-			JCUtils::warn( 'Config page does not exist', array( 'title' => $articleName, 'query' => $query ) );
+			JCUtils::warn( 'Config page does not exist', array( 'title' => $articleName ), $query );
 			return false;
 		}
 		return $pageInfo;
