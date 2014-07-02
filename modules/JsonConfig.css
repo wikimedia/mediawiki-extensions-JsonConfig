@@ -29,9 +29,6 @@
 	font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Courier, monospace;
 }
 
-.mw-jsonconfig-info {
-}
-
 .mw-jsonconfig tr {
 	margin-bottom: 0.5em;
 }
@@ -50,9 +47,14 @@
 	font-weight: bold;
 }
 
-.mw-jsonconfig-unknown {
+.mw-jsonconfig-error {
 	color: red;
 	font-weight: bold;
+}
+
+.mw-jsonconfig-unknown {
+	color: #ffa100;
+    font-weight: bold;
 }
 
 .mw-jsonconfig caption {

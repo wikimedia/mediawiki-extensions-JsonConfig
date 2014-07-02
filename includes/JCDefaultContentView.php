@@ -17,7 +17,7 @@ class JCDefaultContentView extends JCContentView {
 	 * @return string
 	 */
 	public function valueToHtml( JCContent $content ) {
-		return $this->toHtml( $content->getData() );
+		return $this->renderValue( $content, $content->getData(), array() );
 	}
 
 	/**
@@ -31,17 +31,18 @@ class JCDefaultContentView extends JCContentView {
 
 	/**
 	 * Constructs an HTML representation of a JSON object.
-	 * @param mixed $value
-	 * @param int|string|null $key
-	 * @param int $level Tree level
+	 * @param JCContent $content
+	 * @param mixed $data
+	 * @param array $path path to this field
 	 * @return string: HTML.
 	 */
-	public function toHtml( $value, $key = null, $level = 0 ) {
-		if ( is_array( $value ) || is_object( $value ) ) {
+	public function renderValue( JCContent $content, $data, array $path ) {
+		if ( is_array( $data ) || is_object( $data ) ) {
 			$rows = array();
-			foreach ( $value as $k => $v ) {
-				$rows[] = Html::rawElement( 'tr', null,
-					$this->rowToHtml( $k, $v, $level + 1, $key, $value ) );
+			$level = count( $path );
+			foreach ( $data as $k => $v ) {
+				$path[$level] = $k;
+				$rows[] = $this->renderTableRow( $content, $v, $path );
 			}
 			if ( $rows ) {
 				$res =
@@ -50,33 +51,40 @@ class JCDefaultContentView extends JCContentView {
 			} else {
 				$res = '';
 			}
-		} elseif ( is_string( $value ) ) {
-			$res = $value;
+		} elseif ( is_string( $data ) ) {
+			$res = $data;
 		} else {
-			$res = FormatJson::encode( $value );
+			$res = FormatJson::encode( $data );
 		}
 
 		return $res;
 	}
 
 	/**
-	 * Convert array's key-value pair into a string of <th>...</th><td>...</td> elements
-	 * @param int|string $key
-	 * @param mixed $value
-	 * @param int $level
-	 * @param int|string $parentKey
-	 * @param mixed $parentValue
+	 * Convert $data into a table row, returning <tr>...</tr> element.
+	 * @param JCContent $content
+	 * @param mixed $data - treats it as opaque - renderValue will know how to handle it
+	 * @param array $path path to this field
 	 * @return string
 	 */
-	public function rowToHtml( $key, $value, $level, $parentKey, $parentValue ) {
-		if ( is_string( $key ) ) {
-			$th = Html::element( 'th', null, $key );
-		} else {
-			$th = '';
-		}
+	public function renderTableRow( JCContent $content, $data, array $path ) {
+		$content = $this->renderRowContent( $content, $data, $path );
+		return Html::rawElement( 'tr', null, $content );
+	}
 
-		$tdVal = $this->toHtml( $value, $key, $level );
+	/**
+	 * Converts $data into the content of the <tr>...</tr> tag.
+	 * By default returns <th> with the last path element and <td> with the renderValue() result.
+	 * @param JCContent $content
+	 * @param mixed $data - treats it as opaque - renderValue will know how to handle it
+	 * @param array $path
+	 * @return string
+	 */
+	public function renderRowContent( JCContent $content, $data, array $path ) {
+		$key = end( $path );
+		$th = is_string( $key ) ? Html::element( 'th', null, $key ) : '';
 
+		$tdVal = $this->renderValue( $content, $data, $path );
 		// If html begins with a '<', its a complex object, and should not have a class
 		$attribs = null;
 		if ( substr( $tdVal, 0, 1 ) !== '<' ) {
