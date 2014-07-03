@@ -170,10 +170,11 @@ abstract class JCObjContent extends JCContent {
 		$originalStatusVal = null;
 		while( $path ) {
 			$fld = array_shift( $path );
-			if ( $fldPath !== '' ) {
-				$fldPath .= '/';
+			if ( is_int( $fld ) ) {
+				$fldPath .= '[' . $fld . ']';
+			} else {
+				$fldPath .= $fldPath !== '' ? ( '/' . $fld ) : $fld;
 			}
-			$fldPath .= $fld;
 			$newStatus = self::ERROR;
 			if ( is_string( $fld ) && !is_object( $dataRef ) ) {
 				$this->addValidationError( wfMessage( 'jsonconfig-err-object-expected', $fldPath ) );
@@ -208,34 +209,23 @@ abstract class JCObjContent extends JCContent {
 			} else {
 				//
 				// We never went down this path or this path was checked as a whole
-				// check that field exists, and is not case-duplicated
+				// Check that field exists, and is not case-duplicated
 				//
 				// check for other casing of the field name
-				$duplicates = array();
+				$foundFld = false;
 				foreach ( $dataRef as $k => $v ) {
 					if ( 0 === strcasecmp( $k, $fld ) ) {
-						$duplicates[] = $k;
+						if ( $foundFld ) {
+							$this->addValidationError( wfMessage( 'jsonconfig-duplicate-field', $fldPath ) );
+							break;
+						}
+						$foundFld = $k;
 					}
 				}
-				if ( count( $duplicates ) > 1 ) {
-					$this->addValidationError( wfMessage( 'jsonconfig-duplicate-field', $fldPath ) );
-					break;
-				}
-				if ( $duplicates ) {
+				if ( $foundFld ) {
 					// Field found
 					$newStatus = $path ? array() : self::CHECKED;
-					$foundFld = $duplicates[0];
-					if ( $foundFld !== $fld ) { // Rename key
-						if ( is_object( $dataRef ) ) {
-							$tmp = $dataRef->$foundFld;
-							unset( $dataRef->$foundFld );
-							$dataRef->$fld = $tmp;
-						} else {
-							$tmp = $dataRef[$foundFld];
-							unset( $dataRef[$foundFld] );
-							$dataRef[$fld] = $tmp;
-						}
-					}
+					self::normalizeField( $dataRef, $foundFld, $fld );
 					if ( is_object( $dataRef ) ) {
 						$dataRef = & $dataRef->$fld;
 					} else {
@@ -447,5 +437,24 @@ abstract class JCObjContent extends JCContent {
 	 */
 	public static function isDictionary( $array ) {
 		return is_array( $array ) && 0 === count( array_filter( array_keys( $array ), 'is_int' ) );
+	}
+
+	/** Helper function to rename a field on an object/array
+	 * @param array|stdClass $data
+	 * @param string $oldName
+	 * @param string $newName
+	 */
+	private static function normalizeField( $data, $oldName, $newName ) {
+		if ( $oldName !== $newName ) { // key had different casing, rename it to canonical
+			if ( is_object( $data ) ) {
+				$tmp = $data->$oldName;
+				unset( $data->$oldName );
+				$data->$newName = $tmp;
+			} else {
+				$tmp = $data[$oldName];
+				unset( $data[$oldName] );
+				$data[$newName] = $tmp;
+			}
+		}
 	}
 }

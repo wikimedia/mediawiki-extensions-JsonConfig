@@ -56,8 +56,8 @@ class JCSingleton {
 				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId'], the key must be a string" );
 				continue;
 			}
-			if ( false === self::getConfObject( $conf, $confId ) ) {
-				continue;
+			if ( null === self::getConfObject( $conf, $confId ) ) {
+				continue; // warned inside the function
 			}
 
 			$modelId = isset( $conf->model ) ? ( $conf->model ? : $defaultModelId ) : $confId;
@@ -96,13 +96,13 @@ class JCSingleton {
 
 			// Decide if matching configs should be stored on this wiki
 			$storeHere = $islocal || property_exists( $conf, 'store' );
-
 			if ( !$storeHere ) {
-				if ( false === ( $remote = self::getConfObject( $conf, 'remote', $confId, 'url' ) ) ) {
-					continue;
+				$conf->store = false; // 'store' does not exist, use it as a flag to indicate remote storage
+				if ( null === ( $remote = self::getConfObject( $conf, 'remote', $confId, 'url' ) ) ) {
+					continue; // warned inside the function
 				}
 				if ( self::getConfVal( $remote, 'url', '' ) === '' ) {
-					wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']['url']: " .
+					wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']['remote']['url']: " .
 					              "API URL is not set, and this config is not being stored locally" );
 					continue;
 				}
@@ -110,11 +110,12 @@ class JCSingleton {
 				self::getConfVal( $remote, 'password', '' );
 			} else {
 				if ( property_exists( $conf, 'remote' ) ) {
+					// non-fatal -- simply ignore the 'remote' setting
 					wfLogWarning( "JsonConfig: In \$wgJsonConfigs['$confId']['remote'] is set for the config that will be stored on this wiki. 'remote' parameter will be ignored." );
 				}
 				$conf->remote = null;
-				if ( false === ( $store = self::getConfObject( $conf, 'store', $confId ) ) ) {
-					continue;
+				if ( null === ( $store = self::getConfObject( $conf, 'store', $confId ) ) ) {
+					continue; // warned inside the function
 				}
 				self::getConfVal( $store, 'cacheNewValue', true );
 				self::getConfVal( $store, 'notifyUrl', '' );
@@ -539,13 +540,15 @@ class JCSingleton {
 					$req =
 						JCUtils::initApiRequestObj( $store->notifyUrl, $store->notifyUsername,
 							$store->notifyPassword );
-					$query = array(
-						'format' => 'json',
-						'action' => 'jsonconfig',
-						'command' => 'reload',
-						'title' => $tv->getNamespace() . ':' . $tv->getDBkey(),
-					);
-					JCUtils::callApi( $req, $query, 'notify remote JsonConfig client' );
+					if ( $req ) {
+						$query = array(
+							'format' => 'json',
+							'action' => 'jsonconfig',
+							'command' => 'reload',
+							'title' => $tv->getNamespace() . ':' . $tv->getDBkey(),
+						);
+						JCUtils::callApi( $req, $query, 'notify remote JsonConfig client' );
+					}
 				}
 			}
 		}

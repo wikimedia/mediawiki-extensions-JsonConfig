@@ -14,12 +14,20 @@ class JCUtils {
 	 * Uses wfLogWarning() to report an error. All complex arguments are escaped with FormatJson::encode()
 	 * @param string $msg
 	 */
-	public static function warn( $msg, $vals ) {
+	public static function warn( $msg, $vals, $query = false ) {
 		if ( !is_array( $vals ) ) {
 			$vals = array( $vals );
 		}
+		if ( $query ) {
+			foreach ( $query as $k => &$v ) {
+				if ( stripos( $k, 'password' ) !== false ) {
+					$v = '***';
+				}
+			}
+			$vals['query'] = $query;
+		}
 		$isFirst = true;
-		foreach ( $vals as $k => $v ) {
+		foreach ( $vals as $k => &$v ) {
 			if ( $isFirst ) {
 				$isFirst = false;
 				$msg .= ': ';
@@ -43,7 +51,7 @@ class JCUtils {
 	 * @param string $username
 	 * @param string $password
 	 * @throws \MWException
-	 * @return \CurlHttpRequest|\PhpHttpRequest
+	 * @return \CurlHttpRequest|\PhpHttpRequest|false
 	 */
 	public static function initApiRequestObj( $url, $username, $password ) {
 		$apiUri = wfAppendQuery( $url, array( 'format' => 'json' ) );
@@ -55,28 +63,29 @@ class JCUtils {
 		$req = MWHttpRequest::factory( $apiUri, $options );
 
 		if ( $username && $password ) {
-			$postData = array(
+			$query = array(
 				'action' => 'login',
 				'lgname' => $username,
 				'lgpassword' => $password,
 			);
-			$req->setData( $postData );
-			$status = $req->execute();
-			$runCount = 1;
-
-			if ( $status->isGood() ) {
-				$res = json_decode( $req->getContent(), true );
+			$res = self::callApi( $req, $query, 'login' );
+			if ( $res !== false ) {
 				if ( isset( $res['login']['token'] ) ) {
-					$postData['lgtoken'] = $res['login']['token'];
-					$req->setData( $postData );
-					$status = $req->execute();
-					$runCount ++;
+					$query['lgtoken'] = $res['login']['token'];
+					$res = self::callApi( $req, $query, 'login with token' );
 				}
 			}
-			if ( !$status->isGood() ) {
-				self::warn( "Failed to login",
-					array( 'run' => $runCount, 'url' => $url, 'user' => $username, 'status' => $status ) );
-				// Ignore "OK"/"Failed" state - in case login failed, we still attempt to get data
+			if ( $res === false ) {
+				$req = false;
+			} elseif ( !isset( $res['login']['result'] ) ||
+			     $res['login']['result'] !== 'Success'
+			) {
+				self::warn( 'Failed to login', array(
+						'url' => $url,
+						'user' => $username,
+						'result' => isset( $res['login']['result'] ) ? $res['login']['result'] : '???'
+					) );
+				$req = false;
 			}
 		}
 		return $req;
@@ -87,20 +96,24 @@ class JCUtils {
 	 * @param \CurlHttpRequest|\PhpHttpRequest $req logged-in session
 	 * @param array $query api call parameters
 	 * @param string $debugMsg extra message for debug logs in case of failure
-	 * @return array api result
+	 * @return array|false api result or false on error
 	 */
 	public static function callApi( $req, $query, $debugMsg ) {
 		$req->setData( $query );
 		$status = $req->execute();
 		if ( !$status->isGood() ) {
-			self::warn( 'API call failed to ' . $debugMsg,
-				array( 'status' => $status, 'query' => $query ) );
+			self::warn( 'API call failed to ' . $debugMsg, array( 'status' => $status->getWikiText() ),
+				$query );
 			return false;
 		}
 		$res = FormatJson::decode( $req->getContent(), true );
 		if ( isset( $res['warnings'] ) ) {
 			self::warn( 'API call had warnings trying to ' . $debugMsg,
-				array( 'query' => $query, 'warnings' => $res['warnings'] ) );
+				array( 'warnings' => $res['warnings'] ), $query );
+		}
+		if ( isset( $res['error'] ) ) {
+			self::warn( 'API call failed trying to ' . $debugMsg, array( 'error' => $res['error'] ), $query );
+			return false;
 		}
 		return $res;
 	}
