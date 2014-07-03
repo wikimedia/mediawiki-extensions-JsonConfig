@@ -74,6 +74,11 @@ class JCObjContentTest extends MediaWikiTestCase {
 	public function provideValidation() {
 		$self = $this;
 		return array_merge( $this->provideValidationFirst(), array(
+
+			//
+			// $message, $initial, $expectedWithDflts, $expectedNoDflts, $validators, $errors = null
+			//
+
 			array(
 				'fldA', '{"fldA":5}', true, true,
 				function ( JCObjContent $o ) {
@@ -196,11 +201,11 @@ class JCObjContentTest extends MediaWikiTestCase {
 				'fldA->fldB', '{"fldA":5}', '{"fldB":5}', true,
 				function ( JCObjContent $o ) use ( $self ) {
 					$o->test( 'fldA',
-						function( JCValue $val, $fld, JCObjContent $cn ) use ( $self ) {
-							$new = clone( $val );
+						function( JCValue $v, array $path, JCObjContent $cn ) use ( $self ) {
+							$new = clone( $v );
 							$new->status( JCValue::CHECKED );
 							$cn->getValidationData()->setField( 'fldB', $new );
-							$val->status( JCValue::MISSING ); // delete this field
+							$v->status( JCValue::MISSING ); // delete this field
 							return true;
 						} );
 				}
@@ -209,11 +214,11 @@ class JCObjContentTest extends MediaWikiTestCase {
 				'fldA/fldB->fldB', '{"fldA":{"fldB":5}}', '{"fldB":5}', true,
 				function ( JCObjContent $o ) use ( $self ) {
 					$o->test( array( 'fldA', 'fldB' ),
-						function( JCValue $val, $fld, JCObjContent $cn ) use ( $self ) {
-							$new = clone( $val );
+						function( JCValue $v, array $path, JCObjContent $cn ) use ( $self ) {
+							$new = clone( $v );
 							$new->status( JCValue::CHECKED );
 							$cn->getValidationData()->setField( 'fldB', $new );
-							$val->status( JCValue::MISSING ); // delete this field
+							$v->status( JCValue::MISSING ); // delete this field
 							return true;
 						} );
 					$o->test( 'fldA', JCValidators::deleteField() );
@@ -269,13 +274,13 @@ class JCObjContentTest extends MediaWikiTestCase {
 			array(
 				'fld to array', '{"fldA":{"a":1,"b":2}}', true, true,
 				function ( JCObjContent $o ) {
-					$o->test( 'fldA', JCValidators::isDictionary(), function( JCValue $jcv ) {
-						$jcv->setValue( (array)$jcv->getValue() );
+					$o->test( 'fldA', JCValidators::isDictionary(), function( JCValue $v ) {
+						$v->setValue( (array)$v->getValue() );
 					} );
 				},
 			),
 			array(
-				'sort',
+				'sort1',
 				'{"unknown":1, "checked":2}',
 				array( '{"unknown":1, "checked":2, "default":0}', '{"default":0, "checked":2, "unknown":1}' ),
 				array( '{"unknown":1, "checked":2}', '{"checked":2, "unknown":1}' ),
@@ -285,7 +290,7 @@ class JCObjContentTest extends MediaWikiTestCase {
 				},
 			),
 			array(
-				'sort',
+				'sort2',
 				'{"f":[{"unknown":1, "checked":2}]}',
 				array( '{"f":[{"unknown":1, "checked":2, "default":0}]}', '{"f":[{"default":0, "checked":2, "unknown":1}]}' ),
 				array( '{"f":[{"unknown":1, "checked":2}]}', '{"f":[{"checked":2, "unknown":1}]}' ),
@@ -294,8 +299,75 @@ class JCObjContentTest extends MediaWikiTestCase {
 					$o->test( array( 'f', 0, 'checked' ), JCValidators::isInt() );
 				},
 			),
+			array(
+				'sort3',
+				'{"a":1, "b":2}', array( '{"a":1, "b":2}', '{"b":2, "a":1}' ), true,
+				function ( JCObjContent $o ) {
+					$o->test( 'a', JCValidators::isInt() );
+					$o->test( 'b', JCValidators::isInt() );
+					$o->test( 'a', null );
+				},
+			),
+			array(
+				'missing no dflt f', '{"y":5}', true, true,
+				function ( JCObjContent $o ) use ( $self ) {
+					$o->test( 'f', function ( JCValue $v ) use ( $self ) {
+						$self->assertEquals( true, $v->isMissing() );
+					} );
+				},
+			),
+			array(
+				'missing no dflt f[0]', '{"f":[]}', true, true,
+				function ( JCObjContent $o ) use ( $self ) {
+					$o->test( array( 'f', 0 ), function ( JCValue $v ) use ( $self ) {
+						$self->assertEquals( true, $v->isMissing() );
+					} );
+				},
+			),
+			array(
+				'missing no dflt f[1]', '{"f":[{"x":1}]}', true, true,
+				function ( JCObjContent $o ) use ( $self ) {
+					$o->test( array( 'f', 1 ), function ( JCValue $v ) use ( $self ) {
+						$self->assertEquals( true, $v->isMissing() );
+					} );
+				},
+			),
+			array(
+				'missing no dflt f[0]/y', '{"f":[{"x":1}]}', true, true,
+				function ( JCObjContent $o ) use ( $self ) {
+					$o->test( array( 'f', 0, 'y' ), function ( JCValue $v ) use ( $self ) {
+						$self->assertEquals( true, $v->isMissing() );
+					} );
+				},
+			),
+			array(
+				'fail val1', '{"f":1}', true, true,
+				function ( JCObjContent $o ) {
+					$o->test( 'f', JCValidators::isBool() );
+				}, 1,
+			),
+			array(
+				'fail val2', '{"f":1}', true, true,
+				function ( JCObjContent $o ) {
+					$o->test( 'f', JCValidators::isInt(), JCValidators::isBool() );
+				}, 1,
+			),
+			array(
+				'fail opt val1', '{"f":1}', true, true,
+				function ( JCObjContent $o ) {
+					$o->testOptional( 'f', true, JCValidators::isBool() );
+				}, 1,
+			),
+			array(
+				'fail opt val2', '{"f":1}', true, true,
+				function ( JCObjContent $o ) {
+					$o->testOptional( 'f', 0, JCValidators::isInt(), JCValidators::isBool() );
+				}, 1,
+			),
 
-			// Arguments: $initial, $expectedWithDflts, $expectedNoDflts, $validators, $errors = null, $thorough = null
+			//
+			// $message, $initial, $expectedWithDflts, $expectedNoDflts, $validators, $errors = null
+		    //
 		) );
 	}
 

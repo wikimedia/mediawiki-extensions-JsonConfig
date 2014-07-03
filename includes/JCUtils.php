@@ -5,6 +5,7 @@ namespace JsonConfig;
 use FormatJson;
 use MWException;
 use MWHttpRequest;
+use stdClass;
 
 /**
  * Various useful utility functions (all static)
@@ -170,5 +171,52 @@ class JCUtils {
 			}
 		}
 		return $res === '' ? '/' : $res;
+	}
+
+	/**
+	 * Recursively copies values from the data, converting JCValues into the actual values
+	 * @param mixed|JCValue $data
+	 * @param bool $skipDefaults if true, will clone all items except those marked as default
+	 * @return mixed
+	 */
+	public static function sanitize( $data, $skipDefaults = false ) {
+		if ( is_a( $data, '\JsonConfig\JCValue' ) ) {
+			$value = $data->getValue();
+			if ( $skipDefaults && $data->defaultUsed() ) {
+				return is_array( $value ) ? array() : ( is_object( $value ) ? new stdClass() : null );
+			}
+		} else {
+			$value = $data;
+		}
+		return self::sanitizeRecursive( $value, $skipDefaults );
+	}
+
+	private static function sanitizeRecursive( $data, $skipDefaults ) {
+		if ( !is_array( $data ) && !is_object( $data ) ) {
+			return $data;
+		}
+		if ( is_array( $data ) ) {
+			// do not filter lists - only subelements if they were checked
+			foreach ( $data as &$valRef ) {
+				if ( is_a( $valRef, '\JsonConfig\JCValue' ) ) {
+					/** @var JCValue $valRef */
+					$valRef = self::sanitizeRecursive( $valRef->getValue(), $skipDefaults );
+				}
+			}
+			return $data;
+		}
+		$result = new stdClass();
+		foreach ( $data as $fld => $val ) {
+			if ( is_a( $val, '\JsonConfig\JCValue' ) ) {
+				/** @var JCValue $val */
+				if ( $skipDefaults === true && $val->defaultUsed() ) {
+					continue;
+				}
+				$result->$fld = self::sanitizeRecursive( $val->getValue(), $skipDefaults );
+			} else {
+				$result->$fld = $val;
+			}
+		}
+		return $result;
 	}
 }

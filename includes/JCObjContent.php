@@ -55,7 +55,7 @@ abstract class JCObjContent extends JCContent {
 			throw new MWException( 'This method may only be called after validation is complete' );
 		}
 		if ( $this->dataWithDefaults === null ) {
-			$this->dataWithDefaults = $this->cloneData();
+			$this->dataWithDefaults = JCUtils::sanitize( $this->validationData );
 		}
 		return $this->dataWithDefaults;
 	}
@@ -109,7 +109,7 @@ abstract class JCObjContent extends JCContent {
 	/** Populate this data on-demand for efficiency */
 	public function getData() {
 		if ( $this->data === null ) {
-			$this->data = $this->cloneData( true );
+			$this->data = JCUtils::sanitize( $this->validationData, true );
 		}
 		return $this->data;
 	}
@@ -138,7 +138,7 @@ abstract class JCObjContent extends JCContent {
 	 * @param string|array $path name of the root field to check, or a path to the field in a nested structure.
 	 *        Nested path should be in the form of [ 'field-level1', 'field-level2', ... ]. For example, if client
 	 *        needs to check validity of the 'value1' in the structure {'key':{'sub-key':['value0','value1']}},
-	 *        $field should be set to array('key','sub-key',1).
+	 *        $field should be set to array( 'key', 'sub-key', 1 ).
 	 * @param mixed $default value to be used in case field is not found. $default is passed to the validator
 	 *        if validation fails. If validation of the default passes, the value is considered optional.
 	 * @param callable $validator callback function as defined in JCValidators::run().
@@ -147,18 +147,10 @@ abstract class JCObjContent extends JCContent {
 	 * @throws \MWException if $this->initValidation() was not called.
 	 */
 	public function testOptional( $path, $default, $validator = null ) {
-		if ( $validator === null ) {
-			$validators = array();
-		} elseif ( is_array( $validator ) && !is_callable( $validator, true ) ) {
-			$validators = $validator;
-		} else {
-			$validators = func_get_args();
-			array_shift( $validators ); // $path
-			array_shift( $validators ); // $default
-		}
+		$vld = self::convertValidators( $validator, func_get_args(), 2 );
 		// first validator will replace missing with the default
-		array_unshift( $validators, JCValidators::useDefault( $default ) );
-		return $this->testInt( $path, $validators );
+		array_unshift( $vld, JCValidators::useDefault( $default ) );
+		return $this->testInt( $path, $vld );
 	}
 
 	/**
@@ -167,16 +159,47 @@ abstract class JCObjContent extends JCContent {
 	 * @param string|array $path name of the root field to check, or a path to the field in a nested structure.
 	 *        Nested path should be in the form of [ 'field-level1', 'field-level2', ... ]. For example, if client
 	 *        needs to check validity of the 'value1' in the structure {'key':{'sub-key':['value0','value1']}},
-	 *        $field should be set to array('key','sub-key',1).
+	 *        $field should be set to array( 'key', 'sub-key', 1 ).
 	 * @param callable $validator callback function as defined in JCValidators::run().
 	 *        More than one validator may be given. If validators are not provided, any value is accepted
 	 * @throws \MWException
 	 * @return bool true if ok, false otherwise
 	 */
 	public function test( $path, $validator /*...*/ ) {
-		$validators = func_get_args();
-		array_shift( $validators );
-		return $this->testInt( $path, $validators );
+		$vld = self::convertValidators( $validator, func_get_args(), 1 );
+		return $this->testInt( $path, $vld );
+	}
+
+	/**
+	 * Use this function to test all values inside an array or an object at a given path.
+	 * All validators will be called for each of the sub-values. If there is no value
+	 * at the given $path, or it is not a container, no action will be taken and no errors reported
+	 * @param string|array $path path to the container field in a nested structure.
+	 *        Nested path should be in the form of [ 'field-level1', 'field-level2', ... ]. For example, if client
+	 *        needs to check validity of the 'value1' in the structure {'key':{'sub-key':['value0','value1']}},
+	 *        $field should be set to array( 'key', 'sub-key', 1 ).
+	 * @param callable $validator callback function as defined in JCValidators::run().
+	 *        More than one validator may be given. If validators are not provided, any value is accepted
+	 * @throws \MWException
+	 * @return bool true if all values tested ok, false otherwise
+	 */
+	public function testEach( $path, $validator = null /*...*/ ) {
+		$vld = self::convertValidators( $validator, func_get_args(), 1 );
+		$isOk = true;
+		$path = (array)$path;
+		$container = $this->getField( $path );
+		if ( $container ) {
+			$container = $container->getValue();
+			if ( is_array( $container ) || is_object( $container ) ) {
+				$lastIdx = count( $path );
+				foreach ( is_array( $container ) ? array_keys( $container )
+					          : array_keys( get_object_vars( $container ) ) as $k ) {
+					$path[$lastIdx] = $k;
+					$isOk &= $this->testInt( $path, $vld );
+				}
+			}
+		}
+		return $isOk;
 	}
 
 	/**
@@ -228,8 +251,9 @@ abstract class JCObjContent extends JCContent {
 			return false;
 		}
 
-		/** @var bool $reposition should the field be deleted and re-added at the end - this is only needed for presentation and saving */
-		$reposition = $this->thorough() && is_string( $fld ) && $subJcv !== false && $subJcv->isUnchecked();
+		/** @var bool $reposition - should the field be deleted and re-added at the end
+		 * this is only needed for viewing and saving */
+		$reposition = $this->thorough() && is_string( $fld ) && $subJcv !== false;
 		if ( $subJcv === false || $subJcv->isUnchecked() ) {
 			// We never went down this path before
 			// Check that field exists, and is not case-duplicated
@@ -267,7 +291,6 @@ abstract class JCObjContent extends JCContent {
 				$jcv->deleteField( $fld );
 			}
 			$jcv->setField( $fld, $subJcv );
-			$status = $jcv->status();
 			if ( $jcv->isMissing() || $jcv->isUnchecked() ) {
 				$jcv->status( JCValue::VISITED );
 			}
@@ -311,48 +334,6 @@ abstract class JCObjContent extends JCContent {
 //			}
 //		}
 		return true;
-	}
-
-	/**
-	 * Recursively copies values from the data, converting JCValues into the actual values
-	 * @param bool $skipDefaults if false, will clone all items including default. otherwise will remove them
-	 * @return mixed
-	 */
-	private function cloneData( $skipDefaults = false ) {
-		if ( $skipDefaults && $this->validationData->defaultUsed() ) {
-			return $this->isRootArray ? array() : new stdClass();
-		}
-		return $this->cloneDataInt( $this->validationData->getValue(), $skipDefaults );
-	}
-
-	private function cloneDataInt( $data, $skipDefaults ) {
-		if ( !is_array( $data ) && !is_object( $data ) ) {
-			return $data;
-		}
-		if ( is_array( $data ) ) {
-			// do not filter lists - only subelements if they were checked
-			foreach ( $data as &$valRef ) {
-				if ( is_a( $valRef, '\JsonConfig\JCValue' ) ) {
-					/** @var JCValue $valRef */
-					$valRef = $this->cloneDataInt( $valRef->getValue(), $skipDefaults );
-				}
-			}
-			return $data;
-		}
-		$result = new stdClass();
-		foreach ( $data as $fld => $val ) {
-			if ( is_a( $val, '\JsonConfig\JCValue' ) ) {
-				/** @var JCValue $val */
-				if ( $skipDefaults === true && $val->defaultUsed() ) {
-					continue;
-				}
-				$newVal = $this->cloneDataInt( $val->getValue(), $skipDefaults );
-			} else {
-				$newVal = $val;
-			}
-			$result->$fld = $newVal;
-		}
-		return $result;
 	}
 
 	/**
@@ -509,5 +490,21 @@ abstract class JCObjContent extends JCContent {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * @param null|callable|array $param first validator parameter
+	 * @param array $funcArgs result of func_get_args() call
+	 * @param int $skipArgs how many non-validator arguments to remove from the beginning of the $funcArgs
+	 * @return array of validators
+	 */
+	private static function convertValidators( $param, $funcArgs, $skipArgs ) {
+		if ( $param === null ) {
+			return array(); // no validators given
+		} elseif ( is_array( $param ) && !is_callable( $param, true ) ) {
+			return $param; // first argument is an array of validators
+		} else {
+			return array_slice( $funcArgs, $skipArgs ); // remove fixed params from the beginning
+		}
 	}
 }
