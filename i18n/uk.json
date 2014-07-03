@@ -1,14 +1,24 @@
 {
 	"@metadata": {
 		"authors": [
-			"Andriykopanytsia"
+			"Andriykopanytsia",
+			"Ата"
 		]
 	},
 	"jsonconfig-desc": "Дозволяє зберігати налаштування JSON у вікі-проекті",
 	"jsonconfig-bad-json": "Не вдалося проаналізувати конфігурацію JSON. Будь ласка, перевірте синтаксис.",
-	"jsonconfig-optional-field": "(необов'язково)",
 	"jsonconfig-duplicate-field": "Більше, ніж одне значення \"$1\" знайдено",
+	"jsonconfig-err-array": "Параметр «$1» має бути списком, наприклад ['value1', 'value2',...]",
+	"jsonconfig-err-assoc-array": "Параметр «$1» має бути асоціативним масивом (словником). Наприклад, {'key': 'value',…}",
 	"jsonconfig-err-bool": "Параметр «$1» повинен мати значення true (істина) або false (брехня)",
+	"jsonconfig-err-integer": "Параметр \"$1\" має бути цілим числом",
+	"jsonconfig-err-array-expected": "Значення в «$1» мало бути списком, взятим у квадратні дужки […]",
+	"jsonconfig-err-object-expected": "Значение в «$1» мало бути об'єктом, взятим у фігурні дужки {…}",
+	"jsonconfig-err-root-array-expected": "Дані JSON мають бути списком, взятим у квадратні дужки […]",
+	"jsonconfig-err-root-object-expected": "Дані JSON повинні бути об'єктом, взятим у фігурні дужки {…}",
 	"jsonconfig-err-string": "Параметр «$1» має бути рядком",
-	"jsonconfig-err-integer": "Параметр \"$1\" має бути цілим числом"
+	"jsonconfig-err-url": "Параметр «$1» має бути дійсним URL",
+	"jsonconfig-move-aborted-model": "модель конфігурації JSON «$1» цієї сторінки не співпаде з новою моделлю назви «$2»",
+	"jsonconfig-move-aborted-ns": "назва нової сторінки не налаштований на JSON-конфігурацію",
+	"jsonconfig-optional-field": "(необов'язково)"
 }
