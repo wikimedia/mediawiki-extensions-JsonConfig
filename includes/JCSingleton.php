@@ -252,6 +252,11 @@ class JCSingleton {
 
 	/**
 	 * Helper function to check if configuration has a field set, and if not, set it to default
+	 * @param $value
+	 * @param string $field
+	 * @param string $confId
+	 * @param string $treatAsField
+	 * @return null|object|\stdClass
 	 */
 	private static function getConfObject( & $value, $field, $confId = null, $treatAsField = null ) {
 		if ( !$confId ) {
@@ -282,19 +287,23 @@ class JCSingleton {
 	 * Title may not contain ':' unless it is a sub-namespace separator. Namespace ID does not need to be
 	 * defined in the current wiki, as long as it is defined in $wgJsonConfigs.
 	 * @param TitleValue $titleValue
+	 * @param string $jsonText if given, parses this text instead of what's stored in the database/cache
 	 * @return bool|JCContent Returns false if the title is not handled by the settings
 	 */
-	public static function getContent( TitleValue $titleValue ) {
+	public static function getContent( TitleValue $titleValue, $jsonText = null ) {
 		$conf = self::getMetadata( $titleValue );
 		if ( $conf ) {
-			$store = new JCCache( $titleValue, $conf );
-			$content = $store->get();
-			if ( $content !== false ) {
+			if ( is_string( $jsonText ) ) {
+				$content = $jsonText;
+			} else {
+				$store = new JCCache( $titleValue, $conf );
+				$content = $store->get();
+			}
+			if ( is_string( $content ) ) {
 				// Convert string to the content object if needed
-				if ( is_string( $content ) ) {
-					$handler = new JCContentHandler( $conf->model );
-					$content = $handler->unserializeContent( $content, null, false );
-				}
+				$handler = new JCContentHandler( $conf->model );
+				return $handler->unserializeContent( $content, null, false );
+			} elseif ( $content !== false ) {
 				return $content;
 			}
 		}
@@ -432,7 +441,8 @@ class JCSingleton {
 	 * @param bool $minoredit
 	 * @return bool
 	 */
-	static function onEditFilterMergedContent( $context, $content, $status, $summary, $user, $minoredit ) {
+	static function onEditFilterMergedContent( /** @noinspection PhpUnusedParameterInspection */
+		$context, $content, $status, $summary, $user, $minoredit ) {
 		if ( is_a( $content, 'JsonConfig\JCContent' ) ) {
 			$status->merge( $content->getStatus() );
 			if ( !$status->isGood() ) {
@@ -448,7 +458,7 @@ class JCSingleton {
 	 * @param \Skin &$skin
 	 * @return bool
 	 */
-	static function onBeforePageDisplay( &$out, &$skin ) {
+	static function onBeforePageDisplay( /** @noinspection PhpUnusedParameterInspection */ &$out, &$skin ) {
 		$title = $out->getTitle();
 		$handler = ContentHandler::getForModelID( $title->getContentModel() );
 		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON ||
@@ -459,7 +469,7 @@ class JCSingleton {
 		return true;
 	}
 
-	public static function onAbortMove( Title $title, Title $newTitle, $wgUser, &$err, $reason ) {
+	public static function onAbortMove( /** @noinspection PhpUnusedParameterInspection */ Title $title, Title $newTitle, $wgUser, &$err, $reason ) {
 		$conf = self::getMetadata( $title->getTitleValue() );
 		if ( $conf ) {
 			$newConf = self::getMetadata( $newTitle->getTitleValue() );
@@ -475,20 +485,20 @@ class JCSingleton {
 		return true;
 	}
 
-	public static function onPageContentSaveComplete( $article, $user, $content, $summary, $isMinor, $isWatch,
+	public static function onPageContentSaveComplete( /** @noinspection PhpUnusedParameterInspection */ $article, $user, $content, $summary, $isMinor, $isWatch,
 		$section, $flags, $revision, $status, $baseRevId ) {
 		return self::onArticleChangeComplete( $article, $content );
 	}
 
-	public static function onArticleDeleteComplete( $article, &$user, $reason, $id, $content, $logEntry ) {
+	public static function onArticleDeleteComplete( /** @noinspection PhpUnusedParameterInspection */ $article, &$user, $reason, $id, $content, $logEntry ) {
 		return self::onArticleChangeComplete( $article );
 	}
 
-	public static function onArticleUndelete( $title, $created, $comment, $oldPageId ) {
+	public static function onArticleUndelete( /** @noinspection PhpUnusedParameterInspection */ $title, $created, $comment, $oldPageId ) {
 		return self::onArticleChangeComplete( $title );
 	}
 
-	public static function onTitleMoveComplete( $title, $newTitle, $wgUser, $pageid, $redirid, $reason ) {
+	public static function onTitleMoveComplete( /** @noinspection PhpUnusedParameterInspection */ $title, $newTitle, $wgUser, $pageid, $redirid, $reason ) {
 		return self::onArticleChangeComplete( $title ) ||
 		       self::onArticleChangeComplete( $newTitle );
 	}
@@ -502,7 +512,7 @@ class JCSingleton {
 	 * @param null $result
 	 * @return bool
 	 */
-	public static function onuserCan( &$title, &$user, $action, &$result = null ) {
+	public static function onuserCan( /** @noinspection PhpUnusedParameterInspection */ &$title, &$user, $action, &$result = null ) {
 		if ( $action === 'create' && self::getMetadata( $title->getTitleValue() ) === null ) {
 			// prohibit creation of the pages for the namespace that we handle,
 			// if the title is not matching declared rules

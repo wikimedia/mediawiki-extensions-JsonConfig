@@ -51,10 +51,13 @@ class JCDefaultContentView extends JCContentView {
 			} else {
 				$res = '';
 			}
-		} elseif ( is_string( $data ) ) {
-			$res = $data;
 		} else {
-			$res = FormatJson::encode( $data );
+			if ( is_string( $data ) ) {
+				$res = $data;
+			} else {
+				$res = FormatJson::encode( $data );
+			}
+			$res = htmlspecialchars( $res );
 		}
 
 		return $res;

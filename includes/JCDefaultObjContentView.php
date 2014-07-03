@@ -39,9 +39,20 @@ class JCDefaultObjContentView extends JCDefaultContentView {
 	 * @return string
 	 */
 	public function renderTableRow( JCContent $content, $data, array $path ) {
+		$attribs = $this->getValueAttributes( $data );
+		$content = $this->renderRowContent( $content, $data, $path );
+		return Html::rawElement( 'tr', $attribs, $content );
+	}
+
+	/**
+	 * Get CSS attributes appropriate for the status of the given data
+	 * @param JCValue|mixed $data
+	 * @return array|null
+	 */
+	public function getValueAttributes( $data ) {
 		$jcv = is_a( $data, '\JsonConfig\JCValue' ) ? $data : null;
-		$attribs = null;
 		if ( $jcv ) {
+			$attribs = null;
 			if ( $jcv->error() ) {
 				$attribs = 'mw-jsonconfig-error';
 			} elseif ( $jcv->sameAsDefault() ) {
@@ -50,12 +61,11 @@ class JCDefaultObjContentView extends JCDefaultContentView {
 				$attribs = 'mw-jsonconfig-default';
 			} elseif ( $jcv->isUnchecked() ) {
 				$attribs = 'mw-jsonconfig-unknown';
+			} else {
+				return null;
 			}
-			if ( $attribs !== null ) {
-				$attribs = array( 'class' => $attribs );
-			}
+			return array( 'class' => $attribs );
 		}
-		$content = $this->renderRowContent( $content, $data, $path );
-		return Html::rawElement( 'tr', $attribs, $content );
+		return null;
 	}
 }
