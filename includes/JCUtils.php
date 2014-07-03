@@ -3,6 +3,7 @@
 namespace JsonConfig;
 
 use FormatJson;
+use MWException;
 use MWHttpRequest;
 
 /**
@@ -13,6 +14,8 @@ class JCUtils {
 	/**
 	 * Uses wfLogWarning() to report an error. All complex arguments are escaped with FormatJson::encode()
 	 * @param string $msg
+	 * @param mixed|array $vals
+	 * @param bool|array $query
 	 */
 	public static function warn( $msg, $vals, $query = false ) {
 		if ( !is_array( $vals ) ) {
@@ -121,23 +124,23 @@ class JCUtils {
 	/**
 	 * Helper function to check if the given value is an array,
 	 * and all keys are integers (non-associative array)
-	 * @param array $array array to check
+	 * @param array $value array to check
 	 * @return bool
 	 */
-	public static function isList( $array ) {
-		return is_array( $array ) &&
-		       count( array_filter( array_keys( $array ), 'is_int' ) ) === count( $array );
+	public static function isList( $value ) {
+		return is_array( $value ) &&
+		       count( array_filter( array_keys( $value ), 'is_int' ) ) === count( $value );
 	}
 
 	/**
 	 * Helper function to check if the given value is an array,
 	 * and all keys are strings (associative array)
-	 * @param array $array array to check
+	 * @param array $value array to check
 	 * @return bool
 	 */
-	public static function isDictionary( $array ) {
-		return is_array( $array ) &&
-		       count( array_filter( array_keys( $array ), 'is_string' ) ) === count( $array );
+	public static function isDictionary( $value ) {
+		return is_array( $value ) &&
+		       count( array_filter( array_keys( $value ), 'is_string' ) ) === count( $value );
 	}
 
 	/**
@@ -147,5 +150,25 @@ class JCUtils {
 	 */
 	public static function allValuesAreStrings( $array ) {
 		return is_array( $array ) && count( array_filter( $array, 'is_string' ) ) === count( $array );
+	}
+
+	/**
+	 * Converts an array representing path to a field into a string in 'a/b/c[0]/d' format
+	 * @param array $fieldPath
+	 * @throws \MWException
+	 * @return string
+	 */
+	public static function fieldPathToString( array $fieldPath ) {
+		$res = '';
+		foreach ( $fieldPath as $fld ) {
+			if ( is_int( $fld ) ) {
+				$res .= '[' . $fld . ']';
+			} elseif ( is_string( $fld ) ) {
+				$res .= $res !== '' ? ( '/' . $fld ) : $fld;
+			} else {
+				throw new MWException( 'Unexpected field type, only strings and integers are allowed' );
+			}
+		}
+		return $res === '' ? '/' : $res;
 	}
 }

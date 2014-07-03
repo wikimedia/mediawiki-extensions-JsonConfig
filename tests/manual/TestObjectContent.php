@@ -7,7 +7,7 @@ use JsonConfig\JCObjContent;
 use JsonConfig\JCValidators;
 
 class TestObjectContent extends JCObjContent {
-	public function __construct( $text, $modelId, $isSaving ) {
+	public function __construct( $text, $modelId, $thorough ) {
 		if ( $text === null ) {
 			$text = <<<END
 {
@@ -24,7 +24,7 @@ class TestObjectContent extends JCObjContent {
 }
 END;
 		}
-		parent::__construct( $text, $modelId, $isSaving );
+		parent::__construct( $text, $modelId, $thorough );
 	}
 
 	/**

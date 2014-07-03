@@ -17,12 +17,12 @@ use Status;
 class JCContent extends \TextContent {
 	/** @var array */
 	private $rawData = null;
-	/** @var array */
-	private $data = null;
+	/** @var \stdClass|array */
+	protected $data = null;
 	/** @var \Status */
 	private $status;
 	/** @var bool */
-	private $isSaving;
+	private $thorough;
 	/** If false, JSON parsing will use stdClass instead of array for "{...}" */
 	protected $useAssocParsing = false;
 	/** @var JCContentView|null contains an instance of the view class */
@@ -31,14 +31,14 @@ class JCContent extends \TextContent {
 	/**
 	 * @param string $text Json configuration. If null, default content will be inserted instead
 	 * @param string $modelId
-	 * @param bool $isSaving True if extra validation should be performed
+	 * @param bool $thorough True if extra validation should be performed
 	 */
-	public function __construct( $text, $modelId, $isSaving ) {
+	public function __construct( $text, $modelId, $thorough ) {
 		if ( $text === null ) {
 			$text = $this->getView( $modelId )->getDefault( $modelId );
 		}
 		parent::__construct( $text, $modelId );
-		$this->isSaving = $isSaving;
+		$this->thorough = $thorough;
 		$this->status = new Status();
 		$this->parse();
 	}
@@ -82,10 +82,10 @@ class JCContent extends \TextContent {
 	}
 
 	/**
-	 * @return boolean
+	 * @return boolean true if thorough validation may be needed - e.g. rendering HTML or saving new value
 	 */
-	public function isSaving() {
-		return $this->isSaving;
+	public function thorough() {
+		return $this->thorough;
 	}
 
 	/**
@@ -102,7 +102,7 @@ class JCContent extends \TextContent {
 		$rawText = $this->getNativeData();
 		$data = FormatJson::decode( $rawText, $this->useAssocParsing );
 		if ( $data === null ) {
-			if ( $this->isSaving ) {
+			if ( $this->thorough ) {
 				// The most common error is the trailing comma in a list. Attempt to remove it.
 				// We have to do it only once, as otherwise there could be an edge case like
 				// ',\n}' being part of a multi-line string value, in which case we should fail
@@ -141,7 +141,7 @@ class JCContent extends \TextContent {
 		$formatted = FormatJson::encode( $this->getData(), true, FormatJson::ALL_OK );
 		if ( $this->getNativeData() !== $formatted ) {
 			$class = get_class( $this );
-			return new $class( $formatted, $this->getModel(), $this->isSaving() );
+			return new $class( $formatted, $this->getModel(), $this->thorough() );
 		}
 		return $this;
 	}
@@ -183,10 +183,19 @@ class JCContent extends \TextContent {
 				}
 			}
 			if ( $view === null ) {
-				$view = new JCDefaultContentView();
+				$view = $this->createDefaultView();
 			}
 			$this->view = $view;
 		}
 		return $view;
+	}
+
+	/**
+	 * In case view is not associated with the model for this class, this function will instantiate a default.
+	 * Override may instantiate a more appropriate view
+	 * @return JCContentView
+	 */
+	protected function createDefaultView() {
+		return new JCDefaultContentView();
 	}
 }

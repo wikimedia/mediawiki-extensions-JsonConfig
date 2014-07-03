@@ -11,15 +11,18 @@ use stdClass;
  * @package JsonConfig
  */
 abstract class JCObjContent extends JCContent {
-	protected $dataWithDefaults;
-	protected $isRootArray = false;
-	protected $dataStatus;
 
-	const UNCHECKED = 0;
-	const ERROR = 1;
-	const CHECKED = 2;
-	const DEFAULT_USED = 3;
-	const SAME_AS_DEFAULT = 4;
+	/** @var bool if false, prevents multiple fields from having identical names that differ only by casing */
+	protected $isCaseSensitive = false;
+	/** @var bool if false, ensure the root to be an stdClass, otherwise - an array */
+	protected $isRootArray = false;
+	/** @var JCValue contains raw validation results. At first it is a parsed JSON value, with the root element
+	 * wrapped into JCValue. As validation progresses, all visited values become wrapped with JCValue. */
+	protected $validationData;
+	/** @var mixed  */
+	protected $dataWithDefaults;
+	/** @var bool|null validation status - null=before, true=during, false=done */
+	protected $isValidating = null;
 
 	/**
 	 * Override default behavior to include defaults if validation succeeded.
@@ -31,37 +34,61 @@ abstract class JCObjContent extends JCContent {
 			// If validation failed, return original text
 			return parent::getWikitextForTransclusion();
 		}
-		return \FormatJson::encode( $this->dataWithDefaults, true, \FormatJson::ALL_OK );
+		if ( !$this->thorough() && $this->validationData !== null ) {
+			// ensure that data is sorted in the right order
+			self::markUnchecked( $this->validationData );
+		}
+		return \FormatJson::encode( $this->getDataWithDefaults(), true, \FormatJson::ALL_OK );
+	}
+
+	protected function createDefaultView() {
+		return new JCDefaultObjContentView();
 	}
 
 	/**
 	 * Get configuration data with custom defaults
-	 * @return object|array
+	 * @throws \MWException in case validation is not complete
+	 * @return mixed
 	 */
 	public function getDataWithDefaults() {
+		if ( $this->isValidating !== false ) {
+			throw new MWException( 'This method may only be called after validation is complete' );
+		}
+		if ( $this->dataWithDefaults === null ) {
+			$this->dataWithDefaults = $this->cloneData();
+		}
 		return $this->dataWithDefaults;
 	}
 
 	/**
 	 * Get status array that recursively describes dataWithDefaults
-	 * @return object|array
+	 * @throws \MWException
+	 * @return JCValue
 	 */
-	public function getDataStatus() {
-		return $this->dataStatus;
+	public function getValidationData() {
+		if ( $this->isValidating === null ) {
+			throw new MWException( 'This method may only be called during or after validation has started' );
+		}
+		return $this->validationData;
 	}
 
 	/**
 	 * Call this function before performing data validation inside the derived validate()
+	 * @param $data
+	 * @throws \MWException
 	 * @return bool if true, validation should be performed, otherwise all checks will be ignored
 	 */
-	public function initValidation( $data ) {
+	protected function initValidation( $data ) {
+		if ( $this->isValidating !== null ) {
+			throw new MWException( 'This method may only be called before validation has started' );
+		}
+		$this->isValidating = true;
 		if ( !$this->isRootArray && !is_object( $data ) ) {
 			$this->getStatus()->fatal( 'jsonconfig-err-root-object-expected' );
 		} elseif ( $this->isRootArray && !is_array( $data ) ) {
 			$this->getStatus()->fatal( 'jsonconfig-err-root-array-expected' );
 		} else {
-			$this->dataWithDefaults = $data;
-			$this->dataStatus = array();
+			$this->validationData = new JCValue( JCValue::UNCHECKED, $data );
 			return true;
 		}
 		return false;
@@ -72,19 +99,30 @@ abstract class JCObjContent extends JCContent {
 	 * @throws \MWException
 	 * @return array
 	 */
-	public function finishValidation() {
+	protected function finishValidation() {
 		if ( !$this->getStatus()->isGood() ) {
 			return $this->getRawData(); // validation failed, do not modify
 		}
-		$this->dataWithDefaults = $this->recursiveSort( $this->dataWithDefaults, $this->dataStatus );
-		return $this->cloneNonDefault( $this->dataWithDefaults, $this->dataStatus );
+		return null; // Data will be filter-cloned on demand inside self::getData()
+	}
+
+	/** Populate this data on-demand for efficiency */
+	public function getData() {
+		if ( $this->data === null ) {
+			$this->data = $this->cloneData( true );
+		}
+		return $this->data;
 	}
 
 	public function validate( $data ) {
 		if ( $this->initValidation( $data ) ) {
 			$this->validateContent();
-			return $this->finishValidation();
+			$data = $this->finishValidation();
 		}
+		if ( $this->thorough() && $this->validationData !== null ) {
+			self::markUnchecked( $this->validationData );
+		}
+		$this->isValidating = false;
 		return $data;
 	}
 
@@ -95,24 +133,6 @@ abstract class JCObjContent extends JCContent {
 	public abstract function validateContent();
 
 	/**
-	 * Use this function to test a field in the data. If missing, the validator(s) will receive JCMissing
-	 * singleton as a value, and it will be up to the validator(s) to accept it or not.
-	 * @param string|array $path name of the root field to check, or a path to the field in a nested structure.
-	 *        Nested path should be in the form of [ 'field-level1', 'field-level2', ... ]. For example, if client
-	 *        needs to check validity of the 'value1' in the structure {'key':{'sub-key':['value0','value1']}},
-	 *        $field should be set to array('key','sub-key',1).
-	 * @param callable|array $validators callback function as defined in JCValidators::run()
-	 *        The function should validate given value, and return either Message in case of an error,
-	 *        or the value to be used as the result of the field (could be original value or modified)
-	 *        or null to use the original value as is.
-	 *        If validators is not provided, any value is accepted
-	 * @return int status of the validation, or self::UNCHECKED if failed
-	 */
-	public function test( $path, $validators ) {
-		return $this->testOptional( $path, JCMissing::get(), $validators );
-	}
-
-	/**
 	 * Use this function to test a value, or if the value is missing, use the default value.
 	 * The value will be tested with validator(s) if provided, even if it was the default.
 	 * @param string|array $path name of the root field to check, or a path to the field in a nested structure.
@@ -121,292 +141,275 @@ abstract class JCObjContent extends JCContent {
 	 *        $field should be set to array('key','sub-key',1).
 	 * @param mixed $default value to be used in case field is not found. $default is passed to the validator
 	 *        if validation fails. If validation of the default passes, the value is considered optional.
-	 * @param callable|array $validators callback function as defined in JCValidators::run()
-	 *        The function should validate given value, and return either Message in case of an error,
-	 *        or the value to be used as the result of the field (could be original value or modified)
-	 *        or null to use the original value as is.
-	 *        If validator is not provided, any value is accepted
-	 * @return int status of the validation, or self::UNCHECKED if failed
+	 * @param callable $validator callback function as defined in JCValidators::run().
+	 *        More than one validator may be given. If validators are not provided, any value is accepted
+	 * @return bool true if ok, false otherwise
 	 * @throws \MWException if $this->initValidation() was not called.
 	 */
-	public function testOptional( $path, $default, $validators = null ) {
-
-		if ( !$this->getStatus()->isOK() ) {
-			return self::ERROR; // skip all validation in case of a fatal error
+	public function testOptional( $path, $default, $validator = null ) {
+		if ( $validator === null ) {
+			$validators = array();
+		} elseif ( is_array( $validator ) && !is_callable( $validator, true ) ) {
+			$validators = $validator;
+		} else {
+			$validators = func_get_args();
+			array_shift( $validators ); // $path
+			array_shift( $validators ); // $default
 		}
-		if ( $this->dataWithDefaults === null ) {
+		// first validator will replace missing with the default
+		array_unshift( $validators, JCValidators::useDefault( $default ) );
+		return $this->testInt( $path, $validators );
+	}
+
+	/**
+	 * Use this function to test a field in the data. If missing, the validator(s) will receive JCMissing
+	 * singleton as a value, and it will be up to the validator(s) to accept it or not.
+	 * @param string|array $path name of the root field to check, or a path to the field in a nested structure.
+	 *        Nested path should be in the form of [ 'field-level1', 'field-level2', ... ]. For example, if client
+	 *        needs to check validity of the 'value1' in the structure {'key':{'sub-key':['value0','value1']}},
+	 *        $field should be set to array('key','sub-key',1).
+	 * @param callable $validator callback function as defined in JCValidators::run().
+	 *        More than one validator may be given. If validators are not provided, any value is accepted
+	 * @throws \MWException
+	 * @return bool true if ok, false otherwise
+	 */
+	public function test( $path, $validator /*...*/ ) {
+		$validators = func_get_args();
+		array_shift( $validators );
+		return $this->testInt( $path, $validators );
+	}
+
+	/**
+	 * @param array|string $path
+	 * @param array $validators
+	 * @return bool
+	 * @throws \MWException
+	 */
+	private function testInt( $path, $validators ) {
+		if ( !$this->getStatus()->isOK() ) {
+			return false; // skip all validation in case of a fatal error
+		}
+		if ( $this->isValidating !== true ) {
 			throw new MWException( 'This function should only be called inside the validateContent() override' );
 		}
-
-		//
-		// Status logic: $status is an array of { 'field': { 'field': FLAG, ... }}, where 'field' could also be an int
-		// When parsing $path, go through all fields in path:
-		// If field exists in $status:
-		//    status value is an array:
-		//      last field in path - error - do not check parent after child
-		//      non-last field in path - do nothing
-		//    status value is a flag:
-		//      last field in path - we are rechecking same field
-		//        UNCHECKED - replace with new flag
-		//        all other - do nothing
-		//      non-last field in path:
-		//        UNCHECKED - replace with an array
-		//        CHECKED - replace with an array
-		//        DEFAULT_USED - do nothing
-		//        SAME_AS_DEFAULT - do nothing
-		// else - if field does not exist in $status:
-		//     last field in path: set the value to the flag value
-		//     non-last field in path: set status to array()
-
-		$newStatus = self::ERROR;
-		$statusRef = & $this->dataStatus;
-		$dataRef = & $this->dataWithDefaults; // Current data container
-		$path = (array) $path;
-		$fld = null; // Name of the sub-field in $dataRef
-		$fldPath = ''; // For error reporting, path to the current field, e.g. 'fld/3/blah'
-		$unsetField = null; // If we are appending a new value, and default fails, unset this field
-		$unsetDataRef = null; // If we are appending a new value, and default fails, unset field in this data
-		$originalStatusRef = null; // Restore this Ref to $originalStatusVal
-		$originalStatusVal = null;
-		while( $path ) {
-			$fld = array_shift( $path );
-			if ( is_int( $fld ) ) {
-				$fldPath .= '[' . $fld . ']';
-			} else {
-				$fldPath .= $fldPath !== '' ? ( '/' . $fld ) : $fld;
-			}
-			$newStatus = self::ERROR;
-			if ( is_string( $fld ) && !is_object( $dataRef ) ) {
-				$this->addValidationError( wfMessage( 'jsonconfig-err-object-expected', $fldPath ) );
-				break;
-			} elseif ( is_int( $fld ) ) {
-				if( !is_array( $dataRef ) ) {
-					$this->addValidationError( wfMessage( 'jsonconfig-err-array-expected', $fldPath ) );
-					break;
-				}
-				if ( count( $dataRef ) < $fld ) { // Allow existing index or index+1 for appending last item
-					throw new MWException( "List index is too large at '$fldPath'. Index may not exceed list size." );
-				}
-			}
-
-			if ( is_array( $statusRef ) && array_key_exists( $fld, $statusRef ) ) {
-				//
-				// we have already checked this sub-path, no need to dup-check
-				//
-				$newStatus = self::CHECKED;
-				$statusRef = & $statusRef[$fld];
-				if ( !$path && is_array( $statusRef ) ) {
-					throw new MWException( "The whole field '$fldPath' cannot be checked after checking its sub-field" );
-				}
-				if ( is_object( $dataRef ) ? !property_exists( $dataRef, $fld ) : !array_key_exists( $fld, $dataRef ) ) {
-					throw new MWException( 'Logic: Status is set, but value is missing' );
-				}
-				if ( is_object( $dataRef ) ) {
-					$dataRef = & $dataRef->$fld;
-				} else {
-					$dataRef = & $dataRef[$fld];
-				}
-			} else {
-				//
-				// We never went down this path or this path was checked as a whole
-				// Check that field exists, and is not case-duplicated
-				//
-				// check for other casing of the field name
-				$foundFld = false;
-				foreach ( $dataRef as $k => $v ) {
-					if ( 0 === strcasecmp( $k, $fld ) ) {
-						if ( $foundFld ) {
-							$this->addValidationError( wfMessage( 'jsonconfig-duplicate-field', $fldPath ) );
-							break;
-						}
-						$foundFld = $k;
-					}
-				}
-				if ( $foundFld ) {
-					// Field found
-					$newStatus = $path ? array() : self::CHECKED;
-					self::normalizeField( $dataRef, $foundFld, $fld );
-					if ( is_object( $dataRef ) ) {
-						$dataRef = & $dataRef->$fld;
-					} else {
-						$dataRef = & $dataRef[$fld];
-					}
-				} else {
-					// Field not found, use default
-					if ( $unsetField === null ) {
-						$unsetField = $fld;
-						$unsetDataRef = & $dataRef;
-					}
-					$newStatus = $path ? array() : self::DEFAULT_USED;
-					if ( is_string( $fld ) ) {
-						$dataRef->$fld = $path ? new stdClass() : $default;
-						$dataRef = & $dataRef->$fld;
-					} else {
-						$dataRef[$fld] = $path ? array() : $default;
-						$dataRef = & $dataRef[$fld];
-					}
-				}
-				if ( $originalStatusRef === null ) {
-					$originalStatusRef = & $statusRef;
-					$originalStatusVal = $statusRef;
-					if ( !is_array( $statusRef ) ) {
-						$statusRef = array(); // we have checked value as a whole, checking sub-values
-					}
-				}
-				$statusRef[$fld] = $newStatus;
-				$statusRef = & $statusRef[$fld];
-			}
-		}
-
-		if ( $validators !== null && $newStatus !== self::ERROR ) {
-			$isRequired = $newStatus === self::DEFAULT_USED;
-			$err = JCValidators::run( $validators, $fldPath ? : '/', $dataRef, $this );
-			if ( $err ) {
-				if ( !$isRequired ) {
-					// User supplied value, so we don't know if the value is required or not
-					// if $default passes validation, original value was optional
-					$isRequired = (bool)JCValidators::run( $validators, $fldPath ? : '/', $default, $this );
-				}
-				$this->addValidationError( $err, !$isRequired );
-				$newStatus = self::ERROR;
-//			} elseif ( $dataRef === JCMissing::get() ) {
-//			@ fixme: if missing is returned, remove it from the data
-			}
-		}
-		if ( $newStatus === self::CHECKED ) {
-			// Check if the value is the same as default - use a cast to array hack to compare objects
-			if ( ( is_object( $dataRef ) && is_object( $default ) && (array)$dataRef === (array)$default ) ||
-				 ( !is_object( $default ) && $dataRef === $default )
-			) {
-				$newStatus = self::SAME_AS_DEFAULT;
-			}
-		}
-		if ( $newStatus !== self::ERROR ) {
-			$statusRef = $newStatus;
-		} else {
-			//
-			// Validation has failed, recover original state of the data & status objects
-			//
-			if ( $originalStatusRef !== null ) {
-				$originalStatusRef = $originalStatusVal;
-			}
-			if ( $unsetField !== null ) {
-				// This value did not exist originally, unset whatever we have added
-				if ( is_array( $unsetDataRef ) ) {
-					unset( $unsetDataRef[$unsetField] );
-				} else {
-					unset( $unsetDataRef->$unsetField );
-				}
-			}
-		}
-		return $newStatus;
+		return $this->testRecursive( (array)$path, array(), $this->validationData, $validators );
 	}
 
 	/**
-	 * Recursively add values from value2 into value1
-	 * @param array|object $value1
-	 * @param array|object|null $value2
+	 * @param array $path
+	 * @param array $fldPath For error reporting, path to the current field
+	 * @param JCValue $jcv
+	 * @param mixed $validators
 	 * @throws \MWException
-	 * @return array|object
+	 * @internal param JCValue $status
+	 * @return bool
 	 */
-	function recursiveMerge( $value1, $value2 ) {
-		if ( $value2 === null ) {
-			return $value1;
-		} elseif ( is_array( $value1 ) ) {
-			if ( !self::isList( $value1 ) || !self::isList( $value2 ) ) {
-				throw new MWException( 'Unable to merge two non-assoc arrays' );
+	private function testRecursive( array $path, array $fldPath, JCValue $jcv, $validators ) {
+		// Go recursively through all fields in path until empty, and validate last
+		if ( !$path ) {
+			// keep this branch here since we allow validation of the whole object ($path==[])
+			return $this->testValue( $fldPath, $jcv, $validators );
+		}
+		$fld = array_shift( $path );
+		if ( is_array( $jcv->getValue() ) && ctype_digit( $fld ) ) {
+			$fld = (int)$fld;
+		}
+		if ( !is_int( $fld ) && !is_string( $fld ) ) {
+			throw new MWException( 'Unexpected field type, only strings and integers are allowed' );
+		}
+		$fldPath[] = $fld;
+
+		$subJcv = $this->getField( $fld, $jcv );
+		if ( $subJcv === null ) {
+			$msg =
+				is_int( $fld ) && !is_array( $jcv->getValue() ) ? 'jsonconfig-err-array-expected'
+					: 'jsonconfig-err-object-expected';
+			$this->addValidationError( wfMessage( $msg, JCUtils::fieldPathToString( $fldPath ) ) );
+			return false;
+		}
+
+		/** @var bool $reposition should the field be deleted and re-added at the end - this is only needed for presentation and saving */
+		$reposition = $this->thorough() && is_string( $fld ) && $subJcv !== false && $subJcv->isUnchecked();
+		if ( $subJcv === false || $subJcv->isUnchecked() ) {
+			// We never went down this path before
+			// Check that field exists, and is not case-duplicated
+			if ( is_int( $fld ) && count( $jcv->getValue() ) < $fld ) {
+				// Allow existing index or index+1 for appending last item
+				throw new MWException( "List index is too large at '" .
+				                       JCUtils::fieldPathToString( $fldPath ) .
+				                       "'. Index may not exceed list size." );
 			}
-			return array_merge( $value1, $value2 );
-		} elseif ( is_object( $value1 ) ) {
-			if ( !is_object( $value2 ) ) {
-				throw new MWException( 'Unable to merge object with a non-object' );
-			}
-			$merged = new stdClass();
-			foreach ( $value1 as $k => $v ) {
-				$merged->$k = $v;
-			}
-			foreach ( $value2 as $k => $v ) {
-				if ( isset( $value1->$k ) ) {
-					$merged->$k = self::recursiveMerge( $value1->$k, $v );
-				} else {
-					$merged->$k = $v;
+			if ( !$this->isCaseSensitive && !is_int( $fld ) ) {
+				// if we didn't find it before, it could have been misnamed
+				$norm = $this->normalizeField( $jcv, $fld, $fldPath );
+				if ( $norm === null ) {
+					return false;
+				} elseif ( $norm ) {
+					$subJcv = $this->getField( $fld, $jcv );
+					$reposition = false; // normalization already does that
 				}
 			}
-			return $merged;
+			if ( $subJcv === null ) {
+				throw new MWException( 'Logic error - subJcv must be valid here' );
+			} elseif ( $subJcv === false ) {
+				// field does not exist
+				$initValue = !$path ? null : ( is_string( $path[0] ) ? new stdClass() : array() );
+				$subJcv = new JCValue( JCValue::MISSING, $initValue );
+			}
+		}
+		$isOk = $this->testRecursive( $path, $fldPath, $subJcv, $validators );
+
+		// Always remove and re-append the field
+		if ( $subJcv->isMissing() ) {
+			$jcv->deleteField( $fld );
 		} else {
-			throw new MWException( 'Unable to merge two values' );
+			if ( $reposition ) {
+				$jcv->deleteField( $fld );
+			}
+			$jcv->setField( $fld, $subJcv );
+			$status = $jcv->status();
+			if ( $jcv->isMissing() || $jcv->isUnchecked() ) {
+				$jcv->status( JCValue::VISITED );
+			}
 		}
+		return $isOk;
 	}
 
 	/**
-	 * Recursively reorder values to be in the order they were checked in
-	 * In other words - sort them in the order they appear in the status
-	 * @param array|object $data
-	 * @param array $status
-	 * @return array|object
+	 * @param array $fldPath
+	 * @param JCValue $jcv
+	 * @param array $validators
+	 * @return bool
 	 */
-	function recursiveSort( $data, $status ) {
-		$isList = null;
-		$newData = null;
-		foreach ( $status as $fld => $subStatus ) {
-			if ( $isList === null ) {
-				// if $status[0] is an integer, assume this is a list, otherwise - stdClass
-				$isList = is_int( $fld );
-				if ( $isList ) {
-					break; // Handle lists later
+	private function testValue( array $fldPath, JCValue $jcv, $validators ) {
+		// We have reached the last level of the path, test the actual value
+		if ( $validators !== null ) {
+			$isRequired = $jcv->defaultUsed();
+			JCValidators::run( $validators, $jcv, $fldPath, $this );
+			$err = $jcv->error();
+			if ( $err ) {
+				if ( is_object( $err ) ) {
+//				if ( !$isRequired ) {
+//					// User supplied value, so we don't know if the value is required or not
+//					// if $default passes validation, original value was optional
+//					$isRequired = !JCValidators::run( $validators, $fldPath, JCValue::getMissing(), $this );
+//				}
+					$this->addValidationError( $err, !$isRequired );
 				}
-				$newData = new stdClass();
-			}
-			$newData->$fld = is_array( $subStatus ) ? $this->recursiveSort( $data->$fld, $subStatus ) : $data->$fld;
-			unset( $data->$fld );
-		}
-
-		if ( $isList === false ) {
-			// For objects, copy the unchecked values as is
-			foreach ( $data as $fld => $val ) {
-				$newData->$fld = $val;
-			}
-			return $newData;
-		}
-		if ( $isList === true && is_array( $status ) ) {
-			// For lists, perform sub-value sorting in place if those values have statuses
-			foreach ( $data as $fld => & $val ) {
-				if ( array_key_exists( $fld, $status ) ) {
-					$val = $this->recursiveSort( $val, $status[$fld] );
-				}
+				return false;
+			} elseif ( $jcv->isUnchecked() ) {
+				$jcv->status( JCValue::CHECKED );
 			}
 		}
-		return $data;
+//		if ( $this->thorough() && $jcv->status() === JCValue::CHECKED ) {
+//			// Check if the value is the same as default - use a cast to array hack to compare objects
+//			$isRequired = (bool)JCValidators::run( $validators, $fldPath, JCMissing::get(), $this );
+//			if ( ( is_object( $jcv ) && is_object( $default ) && (array)$jcv === (array)$default ) ||
+//			     ( !is_object( $default ) && $jcv === $default )
+//			) {
+//				$newStatus = JCValue::SAME_AS_DEFAULT;
+//			}
+//		}
+		return true;
 	}
 
 	/**
-	 * Recursively copies the non-default values from the data
-	 * @param array|object $data
-	 * @param array $status
-	 * @return array|object
+	 * Recursively copies values from the data, converting JCValues into the actual values
+	 * @param bool $skipDefaults if false, will clone all items including default. otherwise will remove them
+	 * @return mixed
 	 */
-	function cloneNonDefault( $data, $status ) {
-		$isList = is_array( $data );
-		$newData = $isList ? array() : new stdClass();
-		foreach ( $data as $fld => $subData ) {
-			$val = $subData;
-			if ( array_key_exists( $fld, $status ) ) {
-				$subStatus = $status[$fld];
-				if ( $subStatus === self::DEFAULT_USED ) {
+	private function cloneData( $skipDefaults = false ) {
+		if ( $skipDefaults && $this->validationData->defaultUsed() ) {
+			return $this->isRootArray ? array() : new stdClass();
+		}
+		return $this->cloneDataInt( $this->validationData->getValue(), $skipDefaults );
+	}
+
+	private function cloneDataInt( $data, $skipDefaults ) {
+		if ( !is_array( $data ) && !is_object( $data ) ) {
+			return $data;
+		}
+		if ( is_array( $data ) ) {
+			// do not filter lists - only subelements if they were checked
+			foreach ( $data as &$valRef ) {
+				if ( is_a( $valRef, '\JsonConfig\JCValue' ) ) {
+					/** @var JCValue $valRef */
+					$valRef = $this->cloneDataInt( $valRef->getValue(), $skipDefaults );
+				}
+			}
+			return $data;
+		}
+		$result = new stdClass();
+		foreach ( $data as $fld => $val ) {
+			if ( is_a( $val, '\JsonConfig\JCValue' ) ) {
+				/** @var JCValue $val */
+				if ( $skipDefaults === true && $val->defaultUsed() ) {
 					continue;
 				}
-				if ( is_array( $subStatus ) ) {
-					// Only need to filter if we have checked sub-values
-					$val = $this->cloneNonDefault( $val, $subStatus );
+				$newVal = $this->cloneDataInt( $val->getValue(), $skipDefaults );
+			} else {
+				$newVal = $val;
+			}
+			$result->$fld = $newVal;
+		}
+		return $result;
+	}
+
+	/**
+	 * Recursively reorder all sub-elements - checked first, followed by unchecked.
+	 * Also, convert all sub-elements to JCValue(UNCHECKED) if at least one of them was JCValue
+	 * This is useful for HTML rendering to indicate unchecked items
+	 * @param JCValue $data
+	 */
+	private static function markUnchecked( JCValue $data ) {
+		$val = $data->getValue();
+		$isObject = is_object( $val );
+		if ( !$isObject && !is_array( $val ) ) {
+			return;
+		}
+		$result = null;
+		$firstPass = true;
+		$hasJcv = false;
+		// Two pass loop - first pass moves all checked values to the result,
+		// second pass moves the rest of of the values, possibly converting them to JCValue
+		while ( true ) {
+			foreach ( $val as $key => $subVal ) {
+				/** @var JCValue|mixed $subVal */
+				$isJcv = is_a( $subVal, '\JsonConfig\JCValue' );
+				if ( $firstPass && $isJcv ) {
+					// On the first pass, recursively process subelements if they were visited
+					self::markUnchecked( $subVal );
+					$move = $isObject && !$subVal->isUnchecked();
+					$hasJcv = true;
+				} else {
+					$move = false;
+				}
+				if ( $move || !$firstPass ) {
+					if ( !$isJcv  ) {
+						$subVal = new JCValue( JCValue::UNCHECKED, $subVal );
+					}
+					if ( $result === null ) {
+						$result = $isObject ? new stdClass() : array();
+					}
+					if ( $isObject ) {
+						$result->$key = $subVal;
+						unset( $val->$key );
+					} else {
+						// No need to unset - all values in an array are moved in the second pass
+						$result[] = $subVal;
+					}
 				}
 			}
-			if ( $isList ) {
-				$newData[$fld] = $val;
-			} else {
-				$newData->$fld = $val;
+
+			if ( ( $result === null && !$hasJcv ) || !$firstPass ) {
+				// either nothing was found, or we are done with the second pass
+				if ( $result !== null ) {
+					$data->setValue( $result );
+				}
+				return;
 			}
+			$firstPass = false;
 		}
-		return $newData;
 	}
 
 	/**
@@ -415,46 +418,96 @@ abstract class JCObjContent extends JCContent {
 	 */
 	public function addValidationError( Message $error, $isOptional = false ) {
 		$text = $error->plain();
-		if ( $isOptional ) {
-			$text .= ' ' . wfMessage( 'jsonconfig-optional-field' )->plain();
-		}
+// @TODO fixme - need to re-enable optional field detection & reporting
+//		if ( $isOptional ) {
+//			$text .= ' ' . wfMessage( 'jsonconfig-optional-field' )->plain();
+//		}
 		$this->getStatus()->error( $text );
 	}
 
-	/**
-	 * Helper function to check if the given value is an array, and all keys are integer (non-associative array)
-	 * @param array $array array to check
-	 * @return bool
+	/** Get field from data object/array
+	 * @param string|int|array $field
+	 * @param stdClass|array|JCValue $data
+	 * @throws \MWException
+	 * @return false|null|JCValue search result:
+	 *      false if not found
+	 *      null if error (argument type does not match storage)
+	 *      JCValue if the value is found
 	 */
-	public static function isList( $array ) {
-		return is_array( $array ) && count( $array ) === count( array_filter( array_keys( $array ), 'is_int' ) );
-	}
-
-	/**
-	 * Helper function to check if the given value is an array, and all keys are string (associative array)
-	 * @param array $array array to check
-	 * @return bool
-	 */
-	public static function isDictionary( $array ) {
-		return is_array( $array ) && 0 === count( array_filter( array_keys( $array ), 'is_int' ) );
-	}
-
-	/** Helper function to rename a field on an object/array
-	 * @param array|stdClass $data
-	 * @param string $oldName
-	 * @param string $newName
-	 */
-	private static function normalizeField( $data, $oldName, $newName ) {
-		if ( $oldName !== $newName ) { // key had different casing, rename it to canonical
-			if ( is_object( $data ) ) {
-				$tmp = $data->$oldName;
-				unset( $data->$oldName );
-				$data->$newName = $tmp;
+	public function getField( $field, $data = null ) {
+		if ( $data === null ) {
+			$data = $this->getValidationData();
+		}
+		foreach ( (array)$field as $fld ) {
+			if ( !is_int( $fld ) && !is_string( $fld ) ) {
+				throw new MWException( 'Field must be either int or string' );
+			}
+			if ( is_a( $data, '\JsonConfig\JCValue' ) ) {
+				$data = $data->getValue();
+			}
+			$isObject = is_object( $data );
+			$isArray = is_array( $data );
+			if ( is_string( $fld ) ? !( $isObject || $isArray ) : !$isArray ) {
+				return null;
+			}
+			$exists = $isObject ? property_exists( $data, $fld ) : array_key_exists( $fld, $data );
+			if ( !$exists ) {
+				return false;
+			}
+			if ( $isObject ) {
+				$data = $data->$fld;
 			} else {
-				$tmp = $data[$oldName];
-				unset( $data[$oldName] );
-				$data[$newName] = $tmp;
+				$data = $data[$fld];
 			}
 		}
+		if ( is_a( $data, '\JsonConfig\JCValue' ) ) {
+			return $data;
+		} else {
+			return new JCValue( JCValue::UNCHECKED, $data );
+		}
+	}
+
+	/**
+	 * @param JCValue $jcv
+	 * @param int|string $fld
+	 * @param array $fldPath
+	 * @throws \MWException
+	 * @return bool|null true if renamed, false if not found or original unchanged, null if duplicate (error)
+	 */
+	private function normalizeField( JCValue $jcv, $fld, array $fldPath ) {
+		$valueRef = $jcv->getValue();
+		$foundFld = false;
+		$isError = false;
+		foreach ( $valueRef as $k => $v ) {
+			if ( 0 === strcasecmp( $k, $fld ) ) {
+				if ( $foundFld !== false ) {
+					$isError = true;
+					break;
+				}
+				$foundFld = $k;
+			}
+		}
+		if ( $isError ) {
+			$this->addValidationError( wfMessage( 'jsonconfig-duplicate-field',
+					JCUtils::fieldPathToString( $fldPath ) ) );
+			if ( $this->thorough() ) {
+				// Mark all duplicate fields as errors
+				foreach ( $valueRef as $k => $v ) {
+					if ( 0 === strcasecmp( $k, $fld ) ) {
+						if ( !is_a( $v, '\JsonConfig\JCValue' ) ) {
+							$v = new JCValue( JCValue::UNCHECKED, $v );
+							$jcv->setField( $k, $v );
+						}
+						$v->error( true );
+					}
+				}
+			}
+			return null;
+		} elseif ( $foundFld !== false && $foundFld !== $fld ) {
+			// key had different casing, rename it to canonical
+			$jcv->setField( $fld, $jcv->deleteField( $foundFld ) );
+			return true;
+		}
+		return false;
 	}
 }

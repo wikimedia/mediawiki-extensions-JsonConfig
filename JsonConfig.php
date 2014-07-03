@@ -44,12 +44,12 @@ foreach ( array(
 			'JCContentHandler',
 			'JCContentView',
 			'JCDefaultContentView',
-			'JCKeyValueContent',
+			'JCDefaultObjContentView',
 			'JCObjContent',
 			'JCSingleton',
 			'JCUtils',
 			'JCValidators',
-			'JCMissing' => 'JCValidators',
+			'JCValue',
 		) as $key => $class ) {
 	$wgAutoloadClasses['JsonConfig\\' . ( is_string( $key ) ? $key : $class )] = $cwd . $class . '.php';
 }
@@ -134,6 +134,7 @@ $wgExtensionFunctions[] = function () {
 		          'PageContentSaveComplete',
 		          'TitleMoveComplete',
 		          'userCan',
+	              'UnitTestsList'
 	          ) as $hook ) {
 		$wgHooks[$hook][] = $prefix . $hook;
 	}
