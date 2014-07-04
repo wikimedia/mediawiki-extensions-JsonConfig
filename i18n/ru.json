@@ -16,5 +16,6 @@
 	"jsonconfig-err-root-array-expected": "Данные JSON должны быть списком, заключённым в квадратные скобки […]",
 	"jsonconfig-err-root-object-expected": "Данные JSON должны быть объектом, заключённым в фигурные скобки {…}",
 	"jsonconfig-err-string": "Параметр «$1» должен быть строкой",
+	"jsonconfig-err-url": "Параметр «$1» должен быть действительным URL-адресом",
 	"jsonconfig-optional-field": "(необязательно)"
 }
