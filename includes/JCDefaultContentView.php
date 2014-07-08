@@ -37,19 +37,31 @@ class JCDefaultContentView extends JCContentView {
 	 * @return string: HTML.
 	 */
 	public function renderValue( JCContent $content, $data, array $path ) {
-		if ( is_array( $data ) || is_object( $data ) ) {
+		$isList = $this->isList( $content, $data, $path );
+		$isContainer = !$isList && $this->isContainer( $content, $data, $path );
+		if ( $isList || $isContainer ) {
 			$rows = array();
 			$level = count( $path );
 			foreach ( $data as $k => $v ) {
 				$path[$level] = $k;
-				$rows[] = $this->renderTableRow( $content, $v, $path );
+				if ( $isList ) {
+					$rows[] = $this->renderValue( $content, $v, $path );
+				} else {
+					$rows[] = $this->renderTableRow( $content, $v, $path );
+				}
 			}
-			if ( $rows ) {
+			if ( !$rows ) {
+				$res = '';
+			} elseif ( $isList ) {
+				$res = implode( ', ', $rows );
+				// HACK: The space prevents caller from treating it as a complex value
+				if ( substr( $res, 0, 1 ) === '<' ) {
+					$res = ' ' . $res;
+				}
+			} else {
 				$res =
 					Html::rawElement( 'table', array( 'class' => 'mw-jsonconfig' ),
 						Html::rawElement( 'tbody', null, join( "\n", $rows ) ) );
-			} else {
-				$res = '';
 			}
 		} else {
 			if ( is_string( $data ) ) {
@@ -96,5 +108,42 @@ class JCDefaultContentView extends JCContentView {
 		$td = Html::rawElement( 'td', $attribs, $tdVal );
 
 		return $th . $td;
+	}
+
+	/**
+	 * Determine if data is a container and should be rendered as a complex structure
+	 * @param JCContent $content
+	 * @param $data
+	 * @param array $path
+	 * @return bool
+	 */
+	public function isContainer(
+		/** @noinspection PhpUnusedParameterInspection */
+		JCContent $content, $data, array $path
+	) {
+		return is_array( $data ) || is_object( $data );
+	}
+
+	/**
+	 * Determine if data is a special container that needs to be rendered as a comma-separated list.
+	 * By default,
+	 * @param JCContent $content
+	 * @param $data
+	 * @param array $path
+	 * @return bool
+	 */
+	public function isList(
+		/** @noinspection PhpUnusedParameterInspection */
+		JCContent $content, $data, array $path
+	) {
+		if ( !is_array( $data ) ) {
+			return false;
+		}
+		foreach ( $data as $k => $v ) {
+			if ( !is_int( $k ) || !( is_string( $v ) || is_numeric( $v ) ) ) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
