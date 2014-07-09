@@ -2,14 +2,16 @@
 	"@metadata": {
 		"authors": [
 			"Liuxinyu970226",
-			"Hudafu"
+			"Hudafu",
+			"NigelSoft"
 		]
 	},
 	"jsonconfig-desc": "允许JSON配置存储在wiki中",
 	"jsonconfig-bad-json": "无法解析JSON配置。请检查语法。",
-	"jsonconfig-optional-field": "（可选）",
 	"jsonconfig-duplicate-field": "已发现多于1个值“$1”",
 	"jsonconfig-err-bool": "参数“$1”必须设置为true或false",
+	"jsonconfig-err-integer": "参数“$1”必须是整数",
 	"jsonconfig-err-string": "参数“$1”必须是字符串",
-	"jsonconfig-err-integer": "参数“$1”必须是整数"
+	"jsonconfig-err-url": "参数“$1”必须是一个有效的 URL",
+	"jsonconfig-optional-field": "（可选）"
 }
