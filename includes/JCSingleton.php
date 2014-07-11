@@ -26,8 +26,9 @@ class JCSingleton {
 	static $titleMap = array();
 
 	/**
-	 * @var array containing all the namespaces handled by JsonConfig
-	 * Maps namespace id (int) => namespace name (string)
+	 * @var string[]|false[] containing all the namespaces handled by JsonConfig
+	 * Maps namespace id (int) => namespace name (string).
+	 * If false, presumes the namespace has been registered by core or another extension
 	 */
 	static $namespaces = array();
 
@@ -60,11 +61,15 @@ class JCSingleton {
 				continue; // warned inside the function
 			}
 
-			$modelId = isset( $conf->model ) ? ( $conf->model ? : $defaultModelId ) : $confId;
-			if ( !array_key_exists( $modelId, $wgJsonConfigModels ) && $modelId !== $defaultModelId ) {
-				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
-				              "Model '$modelId' is not defined in \$wgJsonConfigModels" );
-				continue;
+			$modelId = property_exists( $conf, 'model' ) ? ( $conf->model ? : $defaultModelId ) : $confId;
+			if ( !array_key_exists( $modelId, $wgJsonConfigModels ) ) {
+				if ( $modelId === $defaultModelId ) {
+					$wgJsonConfigModels[$defaultModelId] = null;
+				} else {
+					wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
+					              "Model '$modelId' is not defined in \$wgJsonConfigModels" );
+					continue;
+				}
 			}
 			if ( array_key_exists( $modelId, $wgContentHandlers ) ) {
 				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: Model '$modelId' is " .
@@ -93,6 +98,7 @@ class JCSingleton {
 			self::getConfVal( $conf, 'cacheExp', 24 * 60 * 60 );
 			self::getConfVal( $conf, 'cacheKey', '' );
 			self::getConfVal( $conf, 'flaggedRevs', false );
+			$isSharedNs = false;
 
 			// Decide if matching configs should be stored on this wiki
 			$storeHere = $islocal || property_exists( $conf, 'store' );
@@ -150,8 +156,14 @@ class JCSingleton {
 			if ( $storeHere ) {
 				// If nsName is given, add it to the list, together with the talk page
 				// Otherwise, create a placeholder for it
-				if ( isset( $conf->nsName ) ) {
-					if ( $ns === NS_CONFIG ) {
+				if ( property_exists( $conf, 'nsName' ) ) {
+					if ( $conf->nsName === false ) {
+						// Non JC-specific namespace, don't register it
+						if ( !array_key_exists( $ns, self::$namespaces ) ) {
+							self::$namespaces[$ns] = false;
+						}
+						$isSharedNs = true;
+				    } elseif ( $ns === NS_CONFIG ) {
 						wfLogWarning( "JsonConfig: Parameter 'nsName' in \$wgJsonConfigs['$confId'] is not " .
 						              'supported for namespace == NS_CONFIG (' . NS_CONFIG . ')' );
 					} else {
@@ -171,7 +183,7 @@ class JCSingleton {
 								isset( $conf->nsTalk ) ? $conf->nsTalk : ( $nsName . '_talk' );
 						}
 					}
-				} elseif ( !array_key_exists( $ns, self::$namespaces ) ) {
+				} elseif ( !array_key_exists( $ns, self::$namespaces ) || self::$namespaces[$ns] === false ) {
 					self::$namespaces[$ns] = null;
 				}
 			}
@@ -196,7 +208,7 @@ class JCSingleton {
 					              "another nameless handler for namespace $ns" );
 					continue;
 				} else {
-					$nsVals[$conf->name] = $conf;
+					$nsVals[''] = $conf;
 				}
 			} else {
 				if ( !$nameExists ) {
@@ -213,6 +225,11 @@ class JCSingleton {
 				}
 				$nameVals[$subKey] = $conf;
 			}
+			if ( $isSharedNs ) {
+				// this namespace is shared with core or other extensions, and has to be declared somewhere
+				$nsVals['_'] = true;
+			}
+
 			$badId = null; // Item passed validation, keep it
 		}
 		if ( $badId !== null ) {
@@ -335,7 +352,10 @@ class JCSingleton {
 		}
 		$lastTitle = $titleValue;
 		$key = $titleValue->getNamespace();
-		/** @var array $map array of:  { namespace => { name => { allows-sub-namespaces => config } } } */
+		/** @var array[] $map array of:  { namespace => { name => { allows-sub-namespaces => config } } }
+		 'name' could be: name of the page, name of the sub-namespace,
+		 * an empty string if entire namespace is taken, or a { '_' => true } to mean that namespace is shared
+		 */
 		$map = self::getTitleMap();
 		if ( array_key_exists( $key, $map ) ) {
 			$arr = $map[$key];
@@ -352,10 +372,12 @@ class JCSingleton {
 				// all configs in this namespace are allowed
 				$lastResult = $arr[''];
 				return $lastResult;
+			} if ( !array_key_exists( '_', $arr ) ) {
+				// We know about the namespace, but there is no specific configuration
+				$lastResult = null;
+				return $lastResult;
 			}
-			// We know about the namespace, but there is no specific configuration
-			$lastResult = null;
-			return $lastResult;
+			// else we know about the namespace, but it is shared with others
 		}
 		$lastResult = false;
 		return $lastResult;
@@ -368,7 +390,12 @@ class JCSingleton {
 	public static function onCanonicalNamespaces( array &$namespaces ) {
 		self::init();
 		foreach ( self::$namespaces as $ns => $name ) {
-			if ( array_key_exists( $ns, $namespaces ) ) {
+			if ( $name === false ) { // must be already declared
+				if ( !array_key_exists( $ns, $namespaces ) ) {
+					wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs: Namespace $ns " .
+					              "has not been declared by core or other extensions" );
+				}
+			} elseif ( array_key_exists( $ns, $namespaces ) ) {
 				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs: Namespace $ns => '$name' " .
 					"is already declared as '$namespaces[$ns]'" );
 			} else {
