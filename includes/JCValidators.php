@@ -130,4 +130,30 @@ class JCValidators {
 			return true;
 		};
 	}
+
+	/** Returns a validator function that will wraps a string value into an array
+	 * @return callable
+	 */
+	public static function stringToList() {
+		return function ( JCValue $v ) {
+			if ( !$v->isMissing() && is_string( $v->getValue() ) ) {
+				$v->setValue( array( $v->getValue() ) );
+			}
+			return true;
+		};
+	}
+
+	/** Returns a validator function that will ensure the list is sorted and each value is unique
+	 * @return callable
+	 */
+	public static function uniqueSortStrList() {
+		return function ( JCValue $v ) {
+			if ( !$v->isMissing() ) {
+				$arr = array_unique( $v->getValue() );
+				sort( $arr );
+				$v->setValue( $arr );
+			}
+			return true;
+		};
+	}
 }
