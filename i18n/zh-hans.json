@@ -11,6 +11,8 @@
 	"jsonconfig-duplicate-field": "已发现多于1个值“$1”",
 	"jsonconfig-err-bool": "参数“$1”必须设置为true或false",
 	"jsonconfig-err-integer": "参数“$1”必须是整数",
+	"jsonconfig-err-root-array-expected": "JSON数据应为列表，使用方括号“[...]”括起",
+	"jsonconfig-err-root-object-expected": "JSON数据应为对象，使用大括号“{...}”括起",
 	"jsonconfig-err-string": "参数“$1”必须是字符串",
 	"jsonconfig-err-url": "参数“$1”必须是一个有效的 URL",
 	"jsonconfig-optional-field": "（可选）"
