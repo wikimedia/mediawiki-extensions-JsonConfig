@@ -18,6 +18,7 @@
 	"jsonconfig-err-root-object-expected": "Данные JSON должны быть объектом, заключённым в фигурные скобки {…}",
 	"jsonconfig-err-string": "Параметр «$1» должен быть строкой",
 	"jsonconfig-err-url": "Параметр «$1» должен быть действительным URL-адресом",
+	"jsonconfig-move-aborted-model": "конфигурационная модель JSON «$1» этой страницы не соответствует модели нового заголовка «$2»",
 	"jsonconfig-move-aborted-ns": "новый заголовок страницы не настроен для хранения конфигурации JSON",
 	"jsonconfig-optional-field": "(необязательно)"
 }
