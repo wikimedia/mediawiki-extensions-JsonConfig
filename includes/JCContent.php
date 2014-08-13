@@ -44,8 +44,8 @@ class JCContent extends \TextContent {
 	}
 
 	/**
-	 * Get configuration data
-	 * @return array
+	 * Get validated data
+	 * @return array|\stdClass
 	 */
 	public function getData() {
 		return $this->data;
@@ -71,6 +71,20 @@ class JCContent extends \TextContent {
 	 */
 	public function isValid() {
 		return $this->status->isGood();
+	}
+
+	public function isEmpty() {
+		$text = trim( $this->getNativeData() );
+		return $text === '' || $text === '{}';
+	}
+
+	/*
+	 * Determines whether this content should be considered a "page" for statistics
+	 * In our case, just making sure it's not empty or a redirect
+	 *
+	 */
+	public function isCountable( $hasLinks = null ) {
+		return !$this->isEmpty() && !$this->isRedirect();
 	}
 
 	/**
