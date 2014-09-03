@@ -154,8 +154,7 @@ class JCContent extends \TextContent {
 		}
 		$formatted = FormatJson::encode( $this->getData(), true, FormatJson::ALL_OK );
 		if ( $this->getNativeData() !== $formatted ) {
-			$class = get_class( $this );
-			return new $class( $formatted, $this->getModel(), $this->thorough() );
+			return new static( $formatted, $this->getModel(), $this->thorough() );
 		}
 		return $this;
 	}
