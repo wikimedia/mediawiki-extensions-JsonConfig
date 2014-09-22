@@ -336,6 +336,27 @@ class JCSingleton {
 		return self::$titleMap;
 	}
 
+	public static function getContentClass( $modelId ) {
+		global $wgJsonConfigModels;
+		$class = null;
+		if ( array_key_exists( $modelId, $wgJsonConfigModels ) ) {
+			$value = $wgJsonConfigModels[$modelId];
+			if ( is_array( $value ) ) {
+				if ( !array_key_exists( 'class', $value ) ) {
+					wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigModels['$modelId'] array value, 'class' not found" );
+				} else {
+					$class = $value['class'];
+				}
+			} else {
+				$class = $value;
+			}
+		}
+		if ( !$class ) {
+			$class = __NAMESPACE__ . '\JCContent';
+		}
+		return $class;
+	}
+
 	/**
 	 * Returns an array with settings if the $titleValue object is handled by the JsonConfig extension,
 	 * false if unrecognized namespace, and null if namespace is handled but not this title

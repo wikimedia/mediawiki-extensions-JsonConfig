@@ -52,27 +52,10 @@ class JCContentHandler extends TextContentHandler {
 	 * @return JCContent the JsonSchemaContent object wrapping $text
 	 */
 	public function unserializeContent( $text, $format = null, $isSaving = true ) {
-		global $wgJsonConfigModels;
 		$this->checkFormat( $format );
 		$modelId = $this->getModelID();
-		$class = null;
-		if ( array_key_exists( $modelId, $wgJsonConfigModels ) ) {
-			$value = $wgJsonConfigModels[$modelId];
-			if ( is_array( $value ) ) {
-				if ( !array_key_exists( 'class', $value ) ) {
-					wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigModels['$modelId'] array value, 'class' not found" );
-				} else {
-					$class = $value['class'];
-				}
-			} else {
-				$class = $value;
-			}
-		}
-		if ( $class ) {
-			return new $class( $text, $modelId, $isSaving );
-		} else {
-			return new JCContent( $text, $modelId, $isSaving );
-		}
+		$class = JCSingleton::getContentClass( $modelId );
+		return new $class( $text, $modelId, $isSaving );
 	}
 
 	/**
