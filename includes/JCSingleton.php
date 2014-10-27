@@ -517,19 +517,31 @@ class JCSingleton {
 		return true;
 	}
 
-	public static function onAbortMove( /** @noinspection PhpUnusedParameterInspection */ Title $title, Title $newTitle, $wgUser, &$err, $reason ) {
-		$conf = self::getMetadata( $title->getTitleValue() );
+	public static function onMovePageIsValidMove( Title $oldTitle, Title $newTitle, \Status $status ) {
+		$conf = self::getMetadata( $oldTitle->getTitleValue() );
 		if ( $conf ) {
 			$newConf = self::getMetadata( $newTitle->getTitleValue() );
 			if ( !$newConf ) {
 				// @todo: is parse() the right func to use here?
-				$err = wfMessage( 'jsonconfig-move-aborted-ns' )->parse();
+				$status->fatal( 'jsonconfig-move-aborted-ns' );
 				return false;
 			} elseif ( $conf->model !== $newConf->model ) {
-				$err = wfMessage( 'jsonconfig-move-aborted-model', $conf->model, $newConf->model )->parse();
+				$status->fatal( 'jsonconfig-move-aborted-model', $conf->model, $newConf->model );
 				return false;
 			}
 		}
+
+		return true;
+	}
+
+	public static function onAbortMove( /** @noinspection PhpUnusedParameterInspection */ Title $title, Title $newTitle, $wgUser, &$err, $reason ) {
+		$status = new \Status();
+		self::onMovePageIsValidMove( $title, $newTitle, $status );
+		if ( !$status->isOK() ) {
+			$err = $status->getHTML();
+			return false;
+		}
+
 		return true;
 	}
 
