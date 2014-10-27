@@ -1,6 +1,7 @@
 {
+	"@metadata": [],
 	"jsonconfig-bad-json": "Tidak dapat mem-parsing konfigurasi JSON. Harap periksa sintaks.",
-	"jsonconfig-optional-field": "(opsional)",
 	"jsonconfig-err-bool": "Parameter \"$1\" harus benar atau salah",
-	"jsonconfig-err-string": "Parameter \"$1\" harus berupa string"
+	"jsonconfig-err-string": "Parameter \"$1\" harus berupa string",
+	"jsonconfig-optional-field": "(opsional)"
 }

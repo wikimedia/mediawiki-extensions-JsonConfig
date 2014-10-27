@@ -4,8 +4,8 @@
 			"Robby"
 		]
 	},
-	"jsonconfig-optional-field": "(fakultativ)",
 	"jsonconfig-duplicate-field": "Méi wéi ee Wäert \"$1\" fonnt",
 	"jsonconfig-err-bool": "Parameter \"$1\" muss entweder wouer oder falsch sinn",
-	"jsonconfig-err-integer": "De Parameter \"$1\" muss eng ganz Zuel sinn"
+	"jsonconfig-err-integer": "De Parameter \"$1\" muss eng ganz Zuel sinn",
+	"jsonconfig-optional-field": "(fakultativ)"
 }

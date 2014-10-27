@@ -4,9 +4,9 @@
 			"Chrumps"
 		]
 	},
-	"jsonconfig-optional-field": "(opcjonalne)",
 	"jsonconfig-duplicate-field": "Znaleziono więcej niż jedną wartość „$1”",
 	"jsonconfig-err-bool": "Parametr „$1” musi mieć wartość true (prawda) lub false (fałsz)",
+	"jsonconfig-err-integer": "Parametr „$1” musi być liczbą całkowitą",
 	"jsonconfig-err-string": "Parametr „$1” musi być ciągiem znaków",
-	"jsonconfig-err-integer": "Parametr „$1” musi być liczbą całkowitą"
+	"jsonconfig-optional-field": "(opcjonalne)"
 }

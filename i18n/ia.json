@@ -1,6 +1,7 @@
 {
+	"@metadata": [],
 	"jsonconfig-bad-json": "Impossibile processar le configuration JSON. Per favor verifica le syntaxe.",
-	"jsonconfig-optional-field": "(optional)",
 	"jsonconfig-err-bool": "Parametro \"$1\" debe esser \"true\" o \"false\"",
-	"jsonconfig-err-string": "Parametro \"$1\" debe esser un catena de characteres"
+	"jsonconfig-err-string": "Parametro \"$1\" debe esser un catena de characteres",
+	"jsonconfig-optional-field": "(optional)"
 }
