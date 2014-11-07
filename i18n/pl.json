@@ -8,5 +8,6 @@
 	"jsonconfig-err-bool": "Parametr „$1” musi mieć wartość true (prawda) lub false (fałsz)",
 	"jsonconfig-err-integer": "Parametr „$1” musi być liczbą całkowitą",
 	"jsonconfig-err-string": "Parametr „$1” musi być ciągiem znaków",
-	"jsonconfig-optional-field": "(opcjonalne)"
+	"jsonconfig-optional-field": "(opcjonalne)",
+	"apihelp-jsonconfig-example-1": "Pokaż konfigurację"
 }

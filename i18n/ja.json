@@ -10,5 +10,10 @@
 	"jsonconfig-err-bool": "パラメーター「$1」には true または false を設定しなければなりません",
 	"jsonconfig-err-integer": "パラメーター「$1」は整数でなければなりません",
 	"jsonconfig-err-string": "パラメーター「$1」は文字列でなければなりません",
-	"jsonconfig-optional-field": "(省略可能)"
+	"jsonconfig-optional-field": "(省略可能)",
+	"apihelp-jsonconfig-description": "JsonConfig サブシステムに直接アクセスできるようにします。",
+	"apihelp-jsonconfig-param-title": "処理するページ名です。",
+	"apihelp-jsonconfig-example-1": "設定内容を表示",
+	"apihelp-jsonconfig-example-2": "[[Zero:TEST]] をリセット",
+	"apihelp-jsonconfig-example-3": "[[Zero:TEST]] を再読み込み"
 }
