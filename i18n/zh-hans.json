@@ -3,7 +3,8 @@
 		"authors": [
 			"Liuxinyu970226",
 			"Hudafu",
-			"NigelSoft"
+			"NigelSoft",
+			"御坂美琴"
 		]
 	},
 	"jsonconfig-desc": "允许JSON配置存储在wiki中",
@@ -21,5 +22,6 @@
 	"jsonconfig-err-url": "参数“$1”必须是一个有效的 URL",
 	"jsonconfig-move-aborted-model": "此页面的JSON配置模块“$1”不会匹配新标题的模块“$2”",
 	"jsonconfig-move-aborted-ns": "新页面标题不会配置为兼容JSON的配置",
-	"jsonconfig-optional-field": "（可选）"
+	"jsonconfig-optional-field": "（可选）",
+	"apihelp-jsonconfig-example-1": "显示配置"
 }
