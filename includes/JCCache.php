@@ -172,11 +172,13 @@ class JCCache {
 						'titles' => $articleName,
 						'prop' => 'revisions',
 						'rvprop' => 'content',
+						'continue' => '',
 					)
 					: array(
 						'action' => 'query',
 						'titles' => $articleName,
 						'prop' => 'info|flagged',
+						'continue' => '',
 					) );
 			if ( $res !== false &&
 			     ( $flrevs === null || ( $flrevs === true && array_key_exists( 'flagged', $res ) ) )
@@ -190,6 +192,7 @@ class JCCache {
 						: $res['lastrevid'],
 					'prop' => 'revisions',
 					'rvprop' => 'content',
+					'continue' => '',
 				) );
 			}
 			if ( $res === false ) {
