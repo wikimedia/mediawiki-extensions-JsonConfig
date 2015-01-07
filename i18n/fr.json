@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Sherbrooke",
-			"Gomoko"
+			"Gomoko",
+			"0x010C"
 		]
 	},
 	"jsonconfig-desc": "Permet de stocker une configuration JSON dans un wiki",
@@ -20,5 +21,6 @@
 	"jsonconfig-err-url": "Le paramètre « $1 » doit être une URL valide",
 	"jsonconfig-move-aborted-model": "le modèle de configuration JSON de cette page, « $1 », ne correspondra pas au modèle du nouveau titre, « $2 »",
 	"jsonconfig-move-aborted-ns": "le titre de la nouvelle page n’est pas configuré pour contenir une configuration JSON",
-	"jsonconfig-optional-field": "(facultatif)"
+	"jsonconfig-optional-field": "(facultatif)",
+	"apihelp-jsonconfig-example-1": "Afficher la configuration"
 }
