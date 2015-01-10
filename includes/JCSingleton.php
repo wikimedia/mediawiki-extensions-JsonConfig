@@ -2,7 +2,7 @@
 namespace JsonConfig;
 
 use ContentHandler;
-use MWException;
+use Exception;
 use stdClass;
 use TitleValue;
 use Title;
@@ -34,7 +34,7 @@ class JCSingleton {
 
 	/**
 	 * Initializes singleton state by parsing $wgJsonConfig* values
-	 * @throws \MWException
+	 * @throws \Exception
 	 */
 	private static function init() {
 		static $isInitialized = false;

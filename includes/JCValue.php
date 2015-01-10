@@ -1,7 +1,7 @@
 <?php
 namespace JsonConfig;
 use Message;
-use MWException;
+use Exception;
 
 /**
  * A class with validation state that wraps each accessed value in the JCObjContent::validationData
@@ -105,7 +105,7 @@ final class JCValue {
 	/**
 	 * @param string|int $fld
 	 * @param mixed $value
-	 * @throws MWException
+	 * @throws Exception
 	 */
 	public function setField( $fld, $value ) {
 		if ( is_object( $this->value ) && is_string( $fld ) ) {
@@ -113,13 +113,13 @@ final class JCValue {
 		} elseif ( is_array( $this->value ) && ( is_string( $fld ) || is_int( $fld ) ) ) {
 			$this->value[$fld] = $value;
 		} else {
-			throw new MWException( 'Type mismatch for field ' . $fld );
+			throw new Exception( 'Type mismatch for field ' . $fld );
 		}
 	}
 
 	/**
 	 * @param string|int $fld
-	 * @throws \MWException
+	 * @throws \Exception
 	 * @return mixed
 	 */
 	public function deleteField( $fld ) {
@@ -135,14 +135,14 @@ final class JCValue {
 				unset( $this->value[$fld] );
 			}
 		} else {
-			throw new MWException( 'Type mismatch for field ' . $fld );
+			throw new Exception( 'Type mismatch for field ' . $fld );
 		}
 		return $tmp;
 	}
 
 	/**
 	 * @param string|int $fld
-	 * @throws \MWException
+	 * @throws \Exception
 	 * @return bool
 	 */
 	public function fieldExists( $fld ) {
@@ -151,12 +151,12 @@ final class JCValue {
 		} elseif ( is_array( $this->value ) && ( is_string( $fld ) || is_int( $fld ) ) ) {
 			return array_key_exists( $fld, $this->value );
 		}
-		throw new MWException( 'Type mismatch for field ' . $fld );
+		throw new Exception( 'Type mismatch for field ' . $fld );
 	}
 
 	/**
 	 * @param string|int $fld
-	 * @throws \MWException
+	 * @throws \Exception
 	 * @return mixed
 	 */
 	public function getField( $fld ) {
@@ -165,6 +165,6 @@ final class JCValue {
 		} elseif ( is_array( $this->value ) && ( is_string( $fld ) || is_int( $fld ) ) ) {
 			return $this->value[$fld];
 		}
-		throw new MWException( 'Type mismatch for field ' . $fld );
+		throw new Exception( 'Type mismatch for field ' . $fld );
 	}
 }

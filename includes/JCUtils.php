@@ -3,7 +3,7 @@
 namespace JsonConfig;
 
 use FormatJson;
-use MWException;
+use Exception;
 use MWHttpRequest;
 use stdClass;
 
@@ -54,7 +54,7 @@ class JCUtils {
 	 * @param string $url
 	 * @param string $username
 	 * @param string $password
-	 * @throws \MWException
+	 * @throws \Exception
 	 * @return \CurlHttpRequest|\PhpHttpRequest|false
 	 */
 	public static function initApiRequestObj( $url, $username, $password ) {
@@ -156,7 +156,7 @@ class JCUtils {
 	/**
 	 * Converts an array representing path to a field into a string in 'a/b/c[0]/d' format
 	 * @param array $fieldPath
-	 * @throws \MWException
+	 * @throws \Exception
 	 * @return string
 	 */
 	public static function fieldPathToString( array $fieldPath ) {
@@ -167,7 +167,7 @@ class JCUtils {
 			} elseif ( is_string( $fld ) ) {
 				$res .= $res !== '' ? ( '/' . $fld ) : $fld;
 			} else {
-				throw new MWException( 'Unexpected field type, only strings and integers are allowed' );
+				throw new Exception( 'Unexpected field type, only strings and integers are allowed' );
 			}
 		}
 		return $res === '' ? '/' : $res;
