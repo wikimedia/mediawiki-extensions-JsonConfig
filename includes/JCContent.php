@@ -164,7 +164,6 @@ class JCContent extends \TextContent {
 	 * @return string HTML representation.
 	 */
 	public function getHtml() {
-		wfProfileIn( __METHOD__ );
 		$status = $this->getStatus();
 		if ( $status->isGood() ) {
 			$html = '';
@@ -174,7 +173,6 @@ class JCContent extends \TextContent {
 		if ( $status->isOK() ) {
 			$html .= $this->getView( $this->getModel() )->valueToHtml( $this );
 		}
-		wfProfileOut( __METHOD__ );
 
 		return $html;
 	}
