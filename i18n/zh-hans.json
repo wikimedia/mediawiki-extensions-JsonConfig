@@ -25,6 +25,7 @@
 	"jsonconfig-optional-field": "（可选）",
 	"apihelp-jsonconfig-description": "允许直接访问JsonConfig子系统。",
 	"apihelp-jsonconfig-param-title": "要进行的标题。",
+	"apihelp-jsonconfig-param-content": "对于$1command=reload，使用此内容。",
 	"apihelp-jsonconfig-example-1": "显示配置",
 	"apihelp-jsonconfig-example-2": "重置[[Zero:TEST]]",
 	"apihelp-jsonconfig-example-3": "重新加载[[Zero:TEST]]"
