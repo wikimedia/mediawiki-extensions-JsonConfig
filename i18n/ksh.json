@@ -6,5 +6,11 @@
 	},
 	"jsonconfig-bad-json": "Mer kunnte de <code lang=\"en\">JSON</code>-verpackte Daate vun de Eschtällong nit ussenein klamüüsere. Bes_esu_jood_un donn doh ens de Süntax prööve.",
 	"jsonconfig-err-bool": "Dä Parramehter „$1“ moß <i xml:lang=\"en\" lang=\"en\">true</i> för „wohr“ udder <i xml:lang=\"en\" lang=\"en\">false</i> for „verkeht“ sin, un kann och fott blihve.",
-	"jsonconfig-err-string": "Dä Parrameeter „$1“ moss_en Aanzahl Zeische sin, un kann och fott bliive"
+	"jsonconfig-err-integer": "Dä Parramehter „$1“ moss en jannze Zahl sin",
+	"jsonconfig-err-string": "Dä Parrameeter „$1“ moss_en Aanzahl Zeische sin, un kann och fott bliive",
+	"jsonconfig-err-url": "Dä Parramehter „$1“ moss en jöltejje <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"Uniform Ressource Locator\">URL</i> sin",
+	"jsonconfig-optional-field": "(kann fott blihve)",
+	"apihelp-jsonconfig-example-1": "Ennschtällonge aanzeije",
+	"apihelp-jsonconfig-example-2": "[[Zero:TEST]] neu aanloufe lohße",
+	"apihelp-jsonconfig-example-3": "[[Zero:TEST]] neu lahde"
 }
