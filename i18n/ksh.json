@@ -4,12 +4,21 @@
 			"Purodha"
 		]
 	},
+	"jsonconfig-desc": "Määd et müjjelesch, <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"JavaScript Object Notation\">JSON</i>-Enschtällonge em Wikki faßzehallde.",
 	"jsonconfig-bad-json": "Mer kunnte de <code lang=\"en\">JSON</code>-verpackte Daate vun de Eschtällong nit ussenein klamüüsere. Bes_esu_jood_un donn doh ens de Süntax prööve.",
+	"jsonconfig-duplicate-field": "Mer han mih wi eine „$1“-Wäät jefonge.",
+	"jsonconfig-err-array": "Dä Parramehter „$1“ moss en Leß sin, för e Beijschpell ['Wääd1', 'Wääd2', …]",
+	"jsonconfig-err-assoc-array": "Dä Parramehter „$1“ moss e su jenannt Wööterbohch sin, för e Beijschpell {'Schößel': 'Wäät', …}",
 	"jsonconfig-err-bool": "Dä Parramehter „$1“ moß <i xml:lang=\"en\" lang=\"en\">true</i> för „wohr“ udder <i xml:lang=\"en\" lang=\"en\">false</i> for „verkeht“ sin, un kann och fott blihve.",
 	"jsonconfig-err-integer": "Dä Parramehter „$1“ moss en jannze Zahl sin",
+	"jsonconfig-err-array-expected": "För dä Parramehter „$1“ ham_mer en Leß äwahd, met […] Klammere drömeröm.",
+	"jsonconfig-err-object-expected": "För dä Parramehter „$1“ ham_mer en Objäk äwahd, met {…} Klammere drömeröm.",
+	"jsonconfig-err-root-array-expected": "De <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"JavaScript Object Notation\">JSON</i>-Dahte sullte en Leß sin, met […] Klammere drömeröm.",
+	"jsonconfig-err-root-object-expected": "De <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"JavaScript Object Notation\">JSON</i>-Dahte sullte en Objäk sin, met {…} Klammere drömeröm.",
 	"jsonconfig-err-string": "Dä Parrameeter „$1“ moss_en Aanzahl Zeische sin, un kann och fott bliive",
 	"jsonconfig-err-url": "Dä Parramehter „$1“ moss en jöltejje <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"Uniform Ressource Locator\">URL</i> sin",
 	"jsonconfig-optional-field": "(kann fott blihve)",
+	"apihelp-jsonconfig-param-title": "De Övverschreff zom Verärbeide.",
 	"apihelp-jsonconfig-example-1": "Ennschtällonge aanzeije",
 	"apihelp-jsonconfig-example-2": "[[Zero:TEST]] neu aanloufe lohße",
 	"apihelp-jsonconfig-example-3": "[[Zero:TEST]] neu lahde"
