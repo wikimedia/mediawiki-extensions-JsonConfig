@@ -5,10 +5,11 @@
 			"Shirayuki",
 			"Yuri Astrakhan",
 			"Siebrand",
-			"Amire80"
+			"Amire80",
+			"Umherirrender"
 		]
 	},
-	"jsonconfig-desc": "{{desc|name=JsonConfig|url=http://www.mediawiki.org/wiki/Extension:JsonConfig}}",
+	"jsonconfig-desc": "{{desc|name=JsonConfig|url=https://www.mediawiki.org/wiki/Extension:JsonConfig}}",
 	"jsonconfig-bad-json": "Text on the page is not in a valid JSON format, and there is not much more we can do with it.",
 	"jsonconfig-duplicate-field": "Field (<code>$1</code>) was present more than once but with different capitalization in the JSON, e.g. \"field\" and \"Field\".\n\nParameters:\n* $1 - field name",
 	"jsonconfig-err-array": "A field named \"$1\" is not a valid non-associative array (not a list). Parameters:\n* $1 - field name",
