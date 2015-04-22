@@ -11,6 +11,7 @@
 	"jsonconfig-err-bool": "O parámetro \"$1\" debe ser verdadeiro ou falso",
 	"jsonconfig-err-integer": "O parámetro \"$1\" debe ser un número enteiro",
 	"jsonconfig-err-string": "O parámetro \"$1\" debe ser unha cadea de texto",
+	"jsonconfig-err-url": "O parámetro \"$1\" debe ser un enderezo URL válido",
 	"jsonconfig-optional-field": "(opcional)",
 	"apihelp-jsonconfig-example-1": "Amosar configuración"
 }
