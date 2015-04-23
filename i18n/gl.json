@@ -1,15 +1,22 @@
 {
 	"@metadata": {
 		"authors": [
-			"Banjo"
+			"Banjo",
+			"Elisardojm",
+			"Toliño"
 		]
 	},
 	"jsonconfig-desc": "Permite que a configuración JSON se garde nunha wiki",
 	"jsonconfig-bad-json": "Non se puido analizar a configuración JSON. Comprobe a sintaxe.",
 	"jsonconfig-duplicate-field": "Atopouse máis dun valor \"$1\"",
 	"jsonconfig-err-array": "O parámetro \"$1\" debe ser unha lista, p.e. ['valor1', 'valor2', ...]",
+	"jsonconfig-err-assoc-array": "O parámetro \"$1\" debe ser unha matriz asociativa (dicionario), p. ex. {'clave':'valor', ...}",
 	"jsonconfig-err-bool": "O parámetro \"$1\" debe ser verdadeiro ou falso",
 	"jsonconfig-err-integer": "O parámetro \"$1\" debe ser un número enteiro",
+	"jsonconfig-err-array-expected": "O valor en \"$1\" esperábase que fose unha lista rodeada por corchetes [...]",
+	"jsonconfig-err-object-expected": "O valor en \"$1\" esperábase que fose unha lista rodeada por chaves {...}",
+	"jsonconfig-err-root-array-expected": "Os datos JSON deben ser unha lista rodeada por corchetes [...]",
+	"jsonconfig-err-root-object-expected": "Os datos JSON deben ser un obxecto rodeado por chaves {...}",
 	"jsonconfig-err-string": "O parámetro \"$1\" debe ser unha cadea de texto",
 	"jsonconfig-err-url": "O parámetro \"$1\" debe ser un enderezo URL válido",
 	"jsonconfig-optional-field": "(opcional)",
