@@ -19,6 +19,9 @@
 	"jsonconfig-err-root-object-expected": "Os datos JSON deben ser un obxecto rodeado por chaves {...}",
 	"jsonconfig-err-string": "O parámetro \"$1\" debe ser unha cadea de texto",
 	"jsonconfig-err-url": "O parámetro \"$1\" debe ser un enderezo URL válido",
+	"jsonconfig-move-aborted-ns": "o título da páxina nova non está configurado para conter unha configuración JSON",
 	"jsonconfig-optional-field": "(opcional)",
+	"apihelp-jsonconfig-description": "Permite o acceso directo ó subsistema JsonConfig.",
+	"apihelp-jsonconfig-param-title": "Título a procesar.",
 	"apihelp-jsonconfig-example-1": "Amosar configuración"
 }
