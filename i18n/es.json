@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Csbotero",
-			"Fitoschido"
+			"Fitoschido",
+			"Ryo567"
 		]
 	},
 	"jsonconfig-desc": "Permite que la configuración JASON sea almacenada en un wiki",
@@ -15,5 +16,7 @@
 	"jsonconfig-err-object-expected": "Se espera que el valor en «$1» esté rodeado por llaves {…}",
 	"jsonconfig-err-string": "El parámetro «$1» debe ser una cadena de caracteres",
 	"jsonconfig-err-url": "El parámetro «$1» debe ser un URL válido",
-	"jsonconfig-optional-field": "(opcional)"
+	"jsonconfig-optional-field": "(opcional)",
+	"apihelp-jsonconfig-param-title": "Título a procesar.",
+	"apihelp-jsonconfig-example-1": "Mostrar configuración"
 }
