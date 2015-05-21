@@ -19,9 +19,14 @@
 	"jsonconfig-err-root-object-expected": "Os datos JSON deben ser un obxecto rodeado por chaves {...}",
 	"jsonconfig-err-string": "O parámetro \"$1\" debe ser unha cadea de texto",
 	"jsonconfig-err-url": "O parámetro \"$1\" debe ser un enderezo URL válido",
+	"jsonconfig-move-aborted-model": "o modelo de configuración JSOn desta páxina, \"$1\", non se corresponde co novo modelo de título, \"$2\"",
 	"jsonconfig-move-aborted-ns": "o título da páxina nova non está configurado para conter unha configuración JSON",
 	"jsonconfig-optional-field": "(opcional)",
 	"apihelp-jsonconfig-description": "Permite o acceso directo ó subsistema JsonConfig.",
+	"apihelp-jsonconfig-param-command": "Que subacción realizar en JsonConfig:\n;status:Mostra a configuración JsonConfig.\n;reset:Limpa a configuración da caché. Require o parámetro $1title e o permiso jsonconfig-reset.\n;reload:Recarga e carga na caché as configuracións dende o almacén de configuración. Require o parámetro $1title e o permiso jsonconfig-reset.",
 	"apihelp-jsonconfig-param-title": "Título a procesar.",
-	"apihelp-jsonconfig-example-1": "Amosar configuración"
+	"apihelp-jsonconfig-param-content": "Para $1command=reload, use no seu lugar este contido.",
+	"apihelp-jsonconfig-example-1": "Amosar configuración",
+	"apihelp-jsonconfig-example-2": "Restablecer [[Zero:TEST]]",
+	"apihelp-jsonconfig-example-3": "Recargar [[Zero:TEST]]"
 }

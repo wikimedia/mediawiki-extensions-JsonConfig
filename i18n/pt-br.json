@@ -1,7 +1,15 @@
 {
-	"@metadata": [],
+	"@metadata": {
+		"authors": [
+			"Araceletorres"
+		]
+	},
 	"jsonconfig-bad-json": "Não se pôde analisar a configuração JSON. Por favor confira a sintaxe.",
 	"jsonconfig-err-bool": "Parâmetro \"$1\" deve ser verdadeiro ou falso",
 	"jsonconfig-err-string": "Parâmetro \"$1\" deve ser uma cadeia de texto",
-	"jsonconfig-optional-field": "(opcional)"
+	"jsonconfig-optional-field": "(opcional)",
+	"apihelp-jsonconfig-param-title": "Título para processar.",
+	"apihelp-jsonconfig-example-1": "Mostrar configuração",
+	"apihelp-jsonconfig-example-2": "Redefinir [[Zero:TEST]]",
+	"apihelp-jsonconfig-example-3": "Recarregar [[Zero:TEST]]"
 }
