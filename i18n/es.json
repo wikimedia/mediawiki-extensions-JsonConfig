@@ -11,7 +11,7 @@
 	"jsonconfig-bad-json": "No se puede analizar la configuración JSON. Por favor comprueba la sintaxis.",
 	"jsonconfig-duplicate-field": "Más de un valor \" $1 \" encontrado",
 	"jsonconfig-err-array": "El parámetro «$1» debe ser una lista, p. ej., ['valor1', 'valor2', …]",
-	"jsonconfig-err-assoc-array": "El parámetro \"$1\" debe ser un arreglo asociativo (diccionario), p. ej. {'clave': 'valor', ...}",
+	"jsonconfig-err-assoc-array": "El parámetro «$1» debe ser una matriz asociativa (diccionario), p. ej., {'clave': 'valor', ...}",
 	"jsonconfig-err-bool": "El parámetro \" $1 \" debe establecerse como verdadero o falso",
 	"jsonconfig-err-integer": "El parámetro «$1» debe ser un número entero",
 	"jsonconfig-err-array-expected": "Se espera que el valor en «$1» esté rodeado por corchetes […]",
