@@ -20,5 +20,12 @@
 	"jsonconfig-err-url": "הפרמטר \"$1\" צריך להיות URL תקין",
 	"jsonconfig-move-aborted-model": "דגם תצורת ה־JSON של הדף \"$1\" לא יתיאם לדגם החדש \"$2\"",
 	"jsonconfig-move-aborted-ns": "הכותרת החדשה של הדף הזה לא מוגרדת לאחסון תצורת JSON",
-	"jsonconfig-optional-field": "(לא חובה)"
+	"jsonconfig-optional-field": "(לא חובה)",
+	"apihelp-jsonconfig-description": "מאפשר גישה ישירה לתת־מערכת JsonConfig.",
+	"apihelp-jsonconfig-param-command": "איזו תת־פעולה לבצע ב־JsonConfig:\n;status:הצגת הגדרות JsonConfig.\n;reset:ניקוי הגדרות מהמטמון. דורש את הפרמטר $1title ואת ההרשאה jsonconfig-reset.\n;reload:מרענן ומטמין את ההגדרות ממאגר ההגדרות. דורש את הפרמטר $1title ואת ההרשאה jsonconfig-reset.",
+	"apihelp-jsonconfig-param-title": "איזו כותרת לעבד.",
+	"apihelp-jsonconfig-param-content": "עבור $1command=reload, להשתמש בתוכן הזה במקום.",
+	"apihelp-jsonconfig-example-1": "הצגת הגדרות",
+	"apihelp-jsonconfig-example-2": "איפוס [[Zero:TEST]]",
+	"apihelp-jsonconfig-example-3": "רענון [[Zero:TEST]]"
 }
