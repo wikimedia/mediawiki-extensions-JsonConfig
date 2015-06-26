@@ -20,5 +20,12 @@
 	"jsonconfig-err-url": "Параметр «$1» має бути дійсним URL",
 	"jsonconfig-move-aborted-model": "модель конфігурації JSON «$1» цієї сторінки не співпаде з новою моделлю назви «$2»",
 	"jsonconfig-move-aborted-ns": "назва нової сторінки не налаштований на JSON-конфігурацію",
-	"jsonconfig-optional-field": "(необов'язково)"
+	"jsonconfig-optional-field": "(необов'язково)",
+	"apihelp-jsonconfig-description": "Забезпечує прямий доступ до підсистеми JsonConfig.",
+	"apihelp-jsonconfig-param-command": "Яку субдію виконати у JsonConfig:\n;status:Показує конфігурацію JsonConfig.\n;reset:Очищує кеш конфігурацій. Вимагає параметр $1title і право jsonconfig-reset.\n;reload:Перезавантажує і кешує конфігурації з config store. Вимагає параметр $1title і право jsonconfig-reset.",
+	"apihelp-jsonconfig-param-title": "Заголовок для обробки.",
+	"apihelp-jsonconfig-param-content": "Для $1command=reload використовуйте натомість цей вміст.",
+	"apihelp-jsonconfig-example-1": "Показати конфігурацію",
+	"apihelp-jsonconfig-example-2": "Скинути [[Zero:TEST]]",
+	"apihelp-jsonconfig-example-3": "Перезавантажити [[Zero:TEST]]"
 }
