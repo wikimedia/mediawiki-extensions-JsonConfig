@@ -25,7 +25,7 @@
 	"jsonconfig-move-aborted-ns": "le titre de la nouvelle page n’est pas configuré pour contenir une configuration JSON",
 	"jsonconfig-optional-field": "(facultatif)",
 	"apihelp-jsonconfig-description": "Permet l'accès direct au sous-système JsonConfig.",
-	"apihelp-jsonconfig-param-command": "Quelle sous-action effectuer sur JsonConfig :\n;status : affiche la configuration de JsonConfig.\n;reset : efface les configurations de cache. Nécessite  le paramètre de titre $1 et les droits de réinitialiser Jsonconfig.\n;reload : recharge et met en cache des configurations du dépôt config. Nécessite le paramètre de titre $1 et les droits de réinitialiser Jsonconfig.",
+	"apihelp-jsonconfig-param-command": "Quelle sous-action effectuer sur JsonConfig :\n;status : affiche la configuration de JsonConfig.\n;reset : efface les configurations du cache. Nécessite  le paramètre de titre $1 et les droits de réinitialiser Jsonconfig.\n;reload : recharge et met en cache des configurations du dépôt config. Nécessite le paramètre de titre $1 et les droits de réinitialiser Jsonconfig.",
 	"apihelp-jsonconfig-param-title": "Titre à traiter.",
 	"apihelp-jsonconfig-param-content": "Pour la commande $1=recharger, utiliser ce contenu à la place.",
 	"apihelp-jsonconfig-example-1": "Afficher la configuration",
