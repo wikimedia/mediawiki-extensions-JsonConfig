@@ -20,6 +20,7 @@
 	"jsonconfig-move-aborted-model": "this page's JSON config model \"$1\" would not match the new title's model \"$2\"",
 	"jsonconfig-move-aborted-ns": "the new page title is not set up to hold JSON configuration",
 	"jsonconfig-optional-field": "(optional)",
+	"right-jsonconfig-flush": "Manipulate JsonConfig via API",
 	"apihelp-jsonconfig-description": "Allows direct access to JsonConfig subsystem.",
 	"apihelp-jsonconfig-param-command": "Which sub-action to perform on JsonConfig:\n;status:Shows JsonConfig configuration.\n;reset:Clears configurations from cache. Requires $1title parameter and jsonconfig-reset right.\n;reload:Reloads and caches configurations from config store. Requires $1title parameter and jsonconfig-reset right.",
 	"apihelp-jsonconfig-param-title": "Title to process.",

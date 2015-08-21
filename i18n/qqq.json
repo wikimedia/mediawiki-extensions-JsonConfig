@@ -26,6 +26,7 @@
 	"jsonconfig-move-aborted-model": "JSON configuration page is being renamed to a new title, and that title (namespace) contains configurations of a different type (model).\n\nParameters:\n* $1 - current model\n* $2 - default model for the new title",
 	"jsonconfig-move-aborted-ns": "the new article name is not valid for json configuration",
 	"jsonconfig-optional-field": "A short suffix appended to one of these messages to indicate that the field is optional.\n* {{msg-mw|Jsonconfig-err-bool}}\n* {{msg-mw|Jsonconfig-err-string}}\n* {{msg-mw|Jsonconfig-err-integer}}\n* Or any other field error message provided by another extension\n{{Identical|Optional}}",
+	"right-jsonconfig-flush": "{{doc-right|jsonconfig-flush}}",
 	"apihelp-jsonconfig-description": "{{doc-apihelp-description|jsonconfig}}",
 	"apihelp-jsonconfig-param-command": "The \"config store\" is the new way to store the MediaWiki configuration outside <code>LocalSettings.php</code>, namely in JSON files. \n----\n{{doc-apihelp-param|jsonconfig|command}}",
 	"apihelp-jsonconfig-param-title": "{{doc-apihelp-param|jsonconfig|title}}",
