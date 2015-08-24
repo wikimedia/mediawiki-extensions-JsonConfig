@@ -20,6 +20,7 @@
 	"jsonconfig-move-aborted-model": "el modelu de configuración JSON d'esta páxina «$1» nun casaría col nuevu modelu de títulu «$2»",
 	"jsonconfig-move-aborted-ns": "el títulu de la páxina nueva nun ta configuráu pa tener configuración JSON",
 	"jsonconfig-optional-field": "(opcional)",
+	"right-jsonconfig-flush": "Tresformar JsonConfig pela API",
 	"apihelp-jsonconfig-description": "Permite l'accesu direutu al subsistema JsonConfig.",
 	"apihelp-jsonconfig-param-command": "Qué sub-aición facer en JsonConfig:\n;status:Amuesa la configuración de JsonConfig.\n;reset:Llimpia les configuraciones de la caché. Necesita'l parámetru $1title ya'l permisu jsonconfig-reset.\n;reload:Recarga y pon na caché les configuraciones dende l'almacén de configuraciones. Necesita'l parámetru $1title ya'l permisu jsonconfig-reset.",
 	"apihelp-jsonconfig-param-title": "Títulu a procesar.",
