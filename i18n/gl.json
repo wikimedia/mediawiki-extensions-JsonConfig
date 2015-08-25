@@ -22,6 +22,7 @@
 	"jsonconfig-move-aborted-model": "o modelo de configuración JSOn desta páxina, \"$1\", non se corresponde co novo modelo de título, \"$2\"",
 	"jsonconfig-move-aborted-ns": "o título da páxina nova non está configurado para conter unha configuración JSON",
 	"jsonconfig-optional-field": "(opcional)",
+	"right-jsonconfig-flush": "Manipular JsonConfig a través da API",
 	"apihelp-jsonconfig-description": "Permite o acceso directo ó subsistema JsonConfig.",
 	"apihelp-jsonconfig-param-command": "Que subacción realizar en JsonConfig:\n;status:Mostra a configuración JsonConfig.\n;reset:Limpa a configuración da caché. Require o parámetro $1title e o permiso jsonconfig-reset.\n;reload:Recarga e carga na caché as configuracións dende o almacén de configuración. Require o parámetro $1title e o permiso jsonconfig-reset.",
 	"apihelp-jsonconfig-param-title": "Título a procesar.",
