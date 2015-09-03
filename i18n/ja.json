@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Shirayuki"
+			"Shirayuki",
+			"Otokoume"
 		]
 	},
 	"jsonconfig-bad-json": "JSON 形式の設定を構文解析できません。構文を確認してください。",
@@ -11,6 +12,7 @@
 	"jsonconfig-err-integer": "パラメーター「$1」は整数でなければなりません",
 	"jsonconfig-err-string": "パラメーター「$1」は文字列でなければなりません",
 	"jsonconfig-optional-field": "(省略可能)",
+	"right-jsonconfig-flush": "API を経由して JsonConfig を操作する",
 	"apihelp-jsonconfig-description": "JsonConfig サブシステムに直接アクセスできるようにします。",
 	"apihelp-jsonconfig-param-title": "処理するページ名です。",
 	"apihelp-jsonconfig-example-1": "設定内容を表示",
