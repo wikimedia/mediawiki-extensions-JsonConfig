@@ -21,6 +21,7 @@
 	"jsonconfig-move-aborted-ns": "Der neue Seitentitel ist nicht zur Haltung der JSON-Konfiguration eingerichtet",
 	"jsonconfig-optional-field": "(optional)",
 	"right-jsonconfig-flush": "JSON-Konfiguration über die API verändern",
+	"apihelp-jsonconfig-description": "Ermöglicht direkten Zugriff auf das JsonConfig-Subsystem.",
 	"apihelp-jsonconfig-param-title": "Zu verarbeitender Titel.",
 	"apihelp-jsonconfig-example-1": "Konfiguration anzeigen",
 	"apihelp-jsonconfig-example-2": "[[Zero:TEST]] zurücksetzen",
