@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Aftab1995"
+			"Aftab1995",
+			"Aftabuzzaman"
 		]
 	},
 	"jsonconfig-bad-json": "জেএসওএন কনফিগারেশন বিশ্লেষণ করতে অক্ষম। দয়া করে সিনট্যাক্স পরীক্ষা করুন।",
