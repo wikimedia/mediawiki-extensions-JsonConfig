@@ -23,6 +23,7 @@
 	"right-jsonconfig-flush": "JSON-Konfiguration über die API verändern",
 	"apihelp-jsonconfig-description": "Ermöglicht direkten Zugriff auf das JsonConfig-Subsystem.",
 	"apihelp-jsonconfig-param-title": "Zu verarbeitender Titel.",
+	"apihelp-jsonconfig-param-content": "Für $1command=reload, stattdessen diesen Inhalt verwenden.",
 	"apihelp-jsonconfig-example-1": "Konfiguration anzeigen",
 	"apihelp-jsonconfig-example-2": "[[Zero:TEST]] zurücksetzen",
 	"apihelp-jsonconfig-example-3": "[[Zero:TEST]] neu laden"
