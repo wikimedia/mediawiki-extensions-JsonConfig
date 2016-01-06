@@ -516,6 +516,10 @@ class JCSingleton {
 	 * @param array $namespaces
 	 */
 	public static function onCanonicalNamespaces( array &$namespaces ) {
+		if ( !self::jsonConfigIsStorage() ) {
+			return true;
+		}
+
 		self::init();
 		foreach ( self::$namespaces as $ns => $name ) {
 			if ( $name === false ) { // must be already declared
@@ -545,6 +549,10 @@ class JCSingleton {
 	 * @return bool
 	 */
 	public static function onContentHandlerDefaultModelFor( $title, &$modelId ) {
+		if ( !self::jsonConfigIsStorage() ) {
+			return true;
+		}
+
 		$jct = self::parseTitle( $title );
 		if ( $jct ) {
 			$modelId = $jct->getConfig()->model;
@@ -560,6 +568,10 @@ class JCSingleton {
 	 * @return bool
 	 */
 	public static function onContentHandlerForModelID( $modelId, &$handler ) {
+		if ( !self::jsonConfigIsStorage() ) {
+			return true;
+		}
+
 		self::init();
 		global $wgJsonConfigModels;
 		if ( array_key_exists( $modelId, $wgJsonConfigModels ) ) {
@@ -578,6 +590,10 @@ class JCSingleton {
 	 * @return bool
 	 */
 	static function onCodeEditorGetPageLanguage( $title, &$lang ) {
+		if ( !self::jsonConfigIsStorage() ) {
+			return true;
+		}
+
 		// todo/fixme? We should probably add 'json' lang to only those pages that pass parseTitle()
 		$handler = ContentHandler::getForModelID( $title->getContentModel() );
 		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON || self::parseTitle( $title ) ) {
@@ -599,6 +615,10 @@ class JCSingleton {
 	 */
 	static function onEditFilterMergedContent( /** @noinspection PhpUnusedParameterInspection */
 		$context, $content, $status, $summary, $user, $minoredit ) {
+		if ( !self::jsonConfigIsStorage() ) {
+			return true;
+		}
+
 		if ( is_a( $content, 'JsonConfig\JCContent' ) ) {
 			$status->merge( $content->getStatus() );
 			if ( !$status->isGood() ) {
@@ -615,6 +635,10 @@ class JCSingleton {
 	 * @return bool
 	 */
 	static function onBeforePageDisplay( /** @noinspection PhpUnusedParameterInspection */ &$out, &$skin ) {
+		if ( !self::jsonConfigIsStorage() ) {
+			return true;
+		}
+
 		$title = $out->getTitle();
 		// todo/fixme? We should probably add ext.jsonConfig style to only those pages that pass parseTitle()
 		$handler = ContentHandler::getForModelID( $title->getContentModel() );
@@ -627,6 +651,10 @@ class JCSingleton {
 	}
 
 	public static function onMovePageIsValidMove( Title $oldTitle, Title $newTitle, Status $status ) {
+		if ( !self::jsonConfigIsStorage() ) {
+			return true;
+		}
+
 		$jctOld = self::parseTitle( $oldTitle );
 		if ( $jctOld ) {
 			$jctNew = self::parseTitle( $newTitle );
@@ -644,6 +672,10 @@ class JCSingleton {
 	}
 
 	public static function onAbortMove( /** @noinspection PhpUnusedParameterInspection */ Title $title, Title $newTitle, $wgUser, &$err, $reason ) {
+		if ( !self::jsonConfigIsStorage() ) {
+			return true;
+		}
+
 		$status = new \Status();
 		self::onMovePageIsValidMove( $title, $newTitle, $status );
 		if ( !$status->isOK() ) {
@@ -682,6 +714,10 @@ class JCSingleton {
 	 * @return bool
 	 */
 	public static function onuserCan( /** @noinspection PhpUnusedParameterInspection */ &$title, &$user, $action, &$result = null ) {
+		if ( !self::jsonConfigIsStorage() ) {
+			return true;
+		}
+
 		if ( $action === 'create' && self::parseTitle( $title ) === null ) {
 			// prohibit creation of the pages for the namespace that we handle,
 			// if the title is not matching declared rules
@@ -697,6 +733,10 @@ class JCSingleton {
 	 * @return bool
 	 */
 	private static function onArticleChangeComplete( $value, $content = null ) {
+		if ( !self::jsonConfigIsStorage() ) {
+			return true;
+		}
+
 		if ( $value && ( !$content || is_a( $content, 'JsonConfig\JCContent' ) ) ) {
 
 			if ( method_exists( $value, 'getTitle' ) ) {
@@ -728,8 +768,25 @@ class JCSingleton {
 		return true;
 	}
 
-	public static function onUnitTestsList( &$files ) {
-		$files = array_merge( $files, glob( __DIR__ . '/../tests/phpunit/*Test.php' ) );
-		return true;
+	/**
+	 * Quick check if the current wiki will store any configurations.
+	 * Faster than doing a full parsing of the $wgJsonConfigs in the JCSingleton::init()
+	 * @return bool
+	 */
+	private static function jsonConfigIsStorage() {
+		static $isStorage = null;
+		if ( $isStorage === null ) {
+			global $wgJsonConfigs;
+			$isStorage = false;
+			foreach ( $wgJsonConfigs as $jc ) {
+				if ( ( !array_key_exists( 'isLocal', $jc ) || $jc['isLocal'] ) ||
+					 ( array_key_exists( 'store', $jc ) )
+				) {
+					$isStorage = true;
+					break;
+				}
+			}
+		}
+		return $isStorage;
 	}
 }

@@ -15,6 +15,8 @@ $namespaceNames = array();
 $namespaceNames['en'] = array(
 	482 => 'Config',
 	483 => 'Config_talk',
+	486 => 'Data',
+	487 => 'Data_talk',
 );
 
 $namespaceNames['vi'] = array(

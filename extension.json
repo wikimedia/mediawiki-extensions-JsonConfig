@@ -1,0 +1,130 @@
+{
+	"name": "JsonConfig",
+	"version": "1.1.0",
+	"author": [
+		"Yuri Astrakhan"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:JsonConfig",
+	"descriptionmsg": "jsonconfig-desc",
+	"type": "other",
+	"license-name": "GPL-2.0+",
+	"namespaces": [
+		{
+			"id": 482,
+			"constant": "NS_CONFIG",
+			"name": "Config",
+			"conditional": true
+		},
+		{
+			"id": 483,
+			"constant": "NS_CONFIG_TALK",
+			"name": "Config_talk",
+			"conditional": true
+		},
+		{
+			"id": 486,
+			"constant": "NS_DATA",
+			"name": "Data",
+			"conditional": true
+		},
+		{
+			"id": 487,
+			"constant": "NS_DATA_TALK",
+			"name": "Data_talk",
+			"conditional": true
+		}
+	],
+	"MessagesDirs": {
+		"JsonConfig": [
+			"i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"JsonConfigNamespaces": "JsonConfig.namespaces.php"
+	},
+	"AutoloadClasses": {
+		"JsonConfig\\JCApi": "includes/JCApi.php",
+		"JsonConfig\\JCCache": "includes/JCCache.php",
+		"JsonConfig\\JCContent": "includes/JCContent.php",
+		"JsonConfig\\JCContentHandler": "includes/JCContentHandler.php",
+		"JsonConfig\\JCContentView": "includes/JCContentView.php",
+		"JsonConfig\\JCDataContent": "includes/JCDataContent.php",
+		"JsonConfig\\JCDefaultContentView": "includes/JCDefaultContentView.php",
+		"JsonConfig\\JCDefaultObjContentView": "includes/JCDefaultObjContentView.php",
+		"JsonConfig\\JCLuaLibrary": "includes/JCLuaLibrary.php",
+		"JsonConfig\\JCObjContent": "includes/JCObjContent.php",
+		"JsonConfig\\JCSingleton": "includes/JCSingleton.php",
+		"JsonConfig\\JCTabularContent": "includes/JCTabularContent.php",
+		"JsonConfig\\JCTabularContentView": "includes/JCTabularContentView.php",
+		"JsonConfig\\JCTitle": "includes/JCTitle.php",
+		"JsonConfig\\JCUtils": "includes/JCUtils.php",
+		"JsonConfig\\JCValidators": "includes/JCValidators.php",
+		"JsonConfig\\JCValue": "includes/JCValue.php"
+	},
+	"APIModules": {
+		"jsonconfig": "JsonConfig\\JCApi"
+	},
+	"ResourceModules": {
+		"ext.jsonConfig": {
+			"styles": "JsonConfig.css",
+			"position": "top"
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "modules",
+		"remoteExtPath": "JsonConfig/modules"
+	},
+	"Hooks": {
+		"CanonicalNamespaces": [
+			"JsonConfig\\JCSingleton::onCanonicalNamespaces"
+		],
+		"ScribuntoExternalLibraries": [
+			"JsonConfig\\JCLuaLibrary::onScribuntoExternalLibraries"
+		],
+		"ContentHandlerDefaultModelFor": [
+			"JsonConfig\\JCSingleton::onContentHandlerDefaultModelFor"
+		],
+		"ContentHandlerForModelID": [
+			"JsonConfig\\JCSingleton::onContentHandlerForModelID"
+		],
+		"CodeEditorGetPageLanguage": [
+			"JsonConfig\\JCSingleton::onCodeEditorGetPageLanguage"
+		],
+		"EditFilterMergedContent": [
+			"JsonConfig\\JCSingleton::onEditFilterMergedContent"
+		],
+		"BeforePageDisplay": [
+			"JsonConfig\\JCSingleton::onBeforePageDisplay"
+		],
+		"MovePageIsValidMove": [
+			"JsonConfig\\JCSingleton::onMovePageIsValidMove"
+		],
+		"AbortMove": [
+			"JsonConfig\\JCSingleton::onAbortMove"
+		],
+		"ArticleDeleteComplete": [
+			"JsonConfig\\JCSingleton::onArticleDeleteComplete"
+		],
+		"ArticleUndelete": [
+			"JsonConfig\\JCSingleton::onArticleUndelete"
+		],
+		"PageContentSaveComplete": [
+			"JsonConfig\\JCSingleton::onPageContentSaveComplete"
+		],
+		"TitleMoveComplete": [
+			"JsonConfig\\JCSingleton::onTitleMoveComplete"
+		],
+		"userCan": [
+			"JsonConfig\\JCSingleton::onuserCan"
+		]
+	},
+	"config": {
+		"JsonConfigs": [],
+		"JsonConfigModels": [],
+		"JsonConfigDisableCache": false,
+		"JsonConfigCacheKeyPrefix": "1",
+		"JsonConfigEnableLuaSupport": false,
+		"JsonConfigInterwikiPrefix": "commons"
+	},
+	"manifest_version": 1
+}
