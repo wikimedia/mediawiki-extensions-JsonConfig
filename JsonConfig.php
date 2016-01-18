@@ -25,6 +25,7 @@ $wgExtensionCredits['other'][] = array(
 	'author' => array( 'Yuri Astrakhan' ),
 	'descriptionmsg' => 'jsonconfig-desc',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:JsonConfig',
+	'license-name' => 'GNU-2.0',
 );
 
 define( 'NS_CONFIG', 482 );
