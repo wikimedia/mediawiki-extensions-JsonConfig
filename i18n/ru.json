@@ -24,6 +24,7 @@
 	"right-jsonconfig-flush": "Управлять JsonConfig через API",
 	"apihelp-jsonconfig-description": "Обеспечивает прямой доступ к подсистеме JsonConfig.",
 	"apihelp-jsonconfig-param-title": "Заголовок для обработки.",
+	"apihelp-jsonconfig-param-content": "Для $1command=reload использовать вместо этого данный контент.",
 	"apihelp-jsonconfig-example-1": "Показать настройки",
 	"apihelp-jsonconfig-example-2": "Сбросить [[Zero:TEST]]",
 	"apihelp-jsonconfig-example-3": "Перегрузить [[Zero:TEST]]"
