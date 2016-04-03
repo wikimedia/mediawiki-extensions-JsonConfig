@@ -41,75 +41,83 @@ class JCSingleton {
 		if ( $isInitialized ) {
 			return;
 		}
-		global $wgNamespaceContentModels, $wgContentHandlers, $wgJsonConfigs, $wgJsonConfigModels;
 		$isInitialized = true;
+		global $wgNamespaceContentModels, $wgContentHandlers, $wgJsonConfigs, $wgJsonConfigModels;
+		list( self::$titleMap, self::$namespaces ) = self::parseConfiguration(
+			$wgNamespaceContentModels, $wgContentHandlers, $wgJsonConfigs, $wgJsonConfigModels );
+	}
+
+	/**
+	 * @param array $namespaceContentModels $wgNamespaceContentModels
+	 * @param array $contentHandlers $wgContentHandlers
+	 * @param array $configs $wgJsonConfigs
+	 * @param array $models $wgJsonConfigModels
+	 * @param bool $warn if true, calls wfLogWarning() for all errors
+	 * @return array [ $titleMap, $namespaces ]
+	 */
+	public static function parseConfiguration( array $namespaceContentModels, array $contentHandlers,
+											   array $configs, array $models, $warn = true ) {
 		$defaultModelId = 'JsonConfig';
+		$warnFunc = $warn ? 'wfLogWarning' : function() {};
 
-		$badId = null;
-		foreach ( $wgJsonConfigs as $confId => &$conf ) {
-			// Unset previous iteration item if it failed validation ('continue' was used)
-			if ( $badId !== null ) {
-				unset( $wgJsonConfigs[$badId] );
-			}
-			$badId = $confId;
-
+		$namespaces = array();
+		$titleMap = array();
+		foreach ( $configs as $confId => &$conf ) {
 			if ( !is_string( $confId ) ) {
-				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId'], the key must be a string" );
+				$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs['$confId'], the key must be a string" );
 				continue;
 			}
-			if ( null === self::getConfObject( $conf, $confId ) ) {
+			if ( null === self::getConfObject( $warnFunc, $conf, $confId ) ) {
 				continue; // warned inside the function
 			}
 
 			$modelId = property_exists( $conf, 'model' ) ? ( $conf->model ? : $defaultModelId ) : $confId;
-			if ( !array_key_exists( $modelId, $wgJsonConfigModels ) ) {
+			if ( !array_key_exists( $modelId, $models ) ) {
 				if ( $modelId === $defaultModelId ) {
-					$wgJsonConfigModels[$defaultModelId] = null;
+					$models[$defaultModelId] = null;
 				} else {
-					wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
-					              "Model '$modelId' is not defined in \$wgJsonConfigModels" );
+					$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
+							   "Model '$modelId' is not defined in \$wgJsonConfigModels" );
 					continue;
 				}
 			}
-			if ( array_key_exists( $modelId, $wgContentHandlers ) ) {
-				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: Model '$modelId' is " .
-				              "already registered in \$wgContentHandlers to {$wgContentHandlers[$modelId]}" );
+			if ( array_key_exists( $modelId, $contentHandlers ) ) {
+				$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: Model '$modelId' is " .
+						   "already registered in \$contentHandlers to {$contentHandlers[$modelId]}" );
 				continue;
 			}
 			$conf->model = $modelId;
 
 			$ns = self::getConfVal( $conf, 'namespace', NS_CONFIG );
 			if ( !is_int( $ns ) || $ns % 2 !== 0 ) {
-				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
-				              "Namespace $ns should be an even number" );
+				$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
+						   "Namespace $ns should be an even number" );
 				continue;
 			}
 			// Even though we might be able to override default content model for namespace, lets keep things clean
-			if ( array_key_exists( $ns, $wgNamespaceContentModels ) ) {
-				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: Namespace $ns is already " .
-				              "set to handle model '$wgNamespaceContentModels[$ns]'" );
+			if ( array_key_exists( $ns, $namespaceContentModels ) ) {
+				$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: Namespace $ns is already " .
+						   "set to handle model '$namespaceContentModels[$ns]'" );
 				continue;
 			}
 
 			// nsName & nsTalk are handled later
-			self::getConfVal( $conf, 'name', '' );
-			self::getConfVal( $conf, 'isSubspace', false );
-			$islocal = self::getConfVal( $conf, 'isLocal', false );
+			self::getConfVal( $conf, 'pattern', '' );
 			self::getConfVal( $conf, 'cacheExp', 24 * 60 * 60 );
 			self::getConfVal( $conf, 'cacheKey', '' );
 			self::getConfVal( $conf, 'flaggedRevs', false );
-			$isSharedNs = false;
+			$islocal = self::getConfVal( $conf, 'isLocal', true );
 
 			// Decide if matching configs should be stored on this wiki
 			$storeHere = $islocal || property_exists( $conf, 'store' );
 			if ( !$storeHere ) {
 				$conf->store = false; // 'store' does not exist, use it as a flag to indicate remote storage
-				if ( null === ( $remote = self::getConfObject( $conf, 'remote', $confId, 'url' ) ) ) {
+				if ( null === ( $remote = self::getConfObject( $warnFunc, $conf, 'remote', $confId, 'url' ) ) ) {
 					continue; // warned inside the function
 				}
 				if ( self::getConfVal( $remote, 'url', '' ) === '' ) {
-					wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']['remote']['url']: " .
-					              "API URL is not set, and this config is not being stored locally" );
+					$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs['$confId']['remote']['url']: " .
+							   "API URL is not set, and this config is not being stored locally" );
 					continue;
 				}
 				self::getConfVal( $remote, 'username', '' );
@@ -117,10 +125,10 @@ class JCSingleton {
 			} else {
 				if ( property_exists( $conf, 'remote' ) ) {
 					// non-fatal -- simply ignore the 'remote' setting
-					wfLogWarning( "JsonConfig: In \$wgJsonConfigs['$confId']['remote'] is set for the config that will be stored on this wiki. 'remote' parameter will be ignored." );
+					$warnFunc( "JsonConfig: In \$wgJsonConfigs['$confId']['remote'] is set for the config that will be stored on this wiki. 'remote' parameter will be ignored." );
 				}
 				$conf->remote = null;
-				if ( null === ( $store = self::getConfObject( $conf, 'store', $confId ) ) ) {
+				if ( null === ( $store = self::getConfObject( $warnFunc, $conf, 'store', $confId ) ) ) {
 					continue; // warned inside the function
 				}
 				self::getConfVal( $store, 'cacheNewValue', true );
@@ -130,18 +138,18 @@ class JCSingleton {
 			}
 
 			// Too lazy to write proper error messages for all parameters.
-			if ( ( isset( $conf->nsTalk ) && !is_string( $conf->nsTalk ) ) || !is_string( $conf->name ) ||
-			     !is_bool( $conf->isSubspace ) || !is_bool( $islocal ) || !is_int( $conf->cacheExp ) ||
+			if ( ( isset( $conf->nsTalk ) && !is_string( $conf->nsTalk ) ) || !is_string( $conf->pattern ) ||
+			     !is_bool( $islocal ) || !is_int( $conf->cacheExp ) ||
 			     !is_string( $conf->cacheKey ) || !is_bool( $conf->flaggedRevs )
 			) {
-				wfLogWarning( "JsonConfig: Invalid type of one of the parameters in \$wgJsonConfigs['$confId'], please check documentation" );
+				$warnFunc( "JsonConfig: Invalid type of one of the parameters in \$wgJsonConfigs['$confId'], please check documentation" );
 				continue;
 			}
 			if ( isset( $remote ) ) {
 				if ( !is_string( $remote->url ) || !is_string( $remote->username ) ||
 				     !is_string( $remote->password )
 				) {
-					wfLogWarning( "JsonConfig: Invalid type of one of the parameters in \$wgJsonConfigs['$confId']['remote'], please check documentation" );
+					$warnFunc( "JsonConfig: Invalid type of one of the parameters in \$wgJsonConfigs['$confId']['remote'], please check documentation" );
 					continue;
 				}
 			}
@@ -149,7 +157,7 @@ class JCSingleton {
 				if ( !is_bool( $store->cacheNewValue ) || !is_string( $store->notifyUrl ) ||
 				     !is_string( $store->notifyUsername ) || !is_string( $store->notifyPassword )
 				) {
-					wfLogWarning( "JsonConfig: Invalid type of one of the parameters in \$wgJsonConfigs['$confId']['store'], please check documentation" );
+					$warnFunc( "JsonConfig: Invalid type of one of the parameters in \$wgJsonConfigs['$confId']['store'], please check documentation" );
 					continue;
 				}
 			}
@@ -159,97 +167,62 @@ class JCSingleton {
 				if ( property_exists( $conf, 'nsName' ) ) {
 					if ( $conf->nsName === false ) {
 						// Non JC-specific namespace, don't register it
-						if ( !array_key_exists( $ns, self::$namespaces ) ) {
-							self::$namespaces[$ns] = false;
+						if ( !array_key_exists( $ns, $namespaces ) ) {
+							$namespaces[$ns] = false;
 						}
-						$isSharedNs = true;
 				    } elseif ( $ns === NS_CONFIG ) {
-						wfLogWarning( "JsonConfig: Parameter 'nsName' in \$wgJsonConfigs['$confId'] is not " .
-						              'supported for namespace == NS_CONFIG (' . NS_CONFIG . ')' );
+						$warnFunc( "JsonConfig: Parameter 'nsName' in \$wgJsonConfigs['$confId'] is not " .
+								   "supported for namespace == NS_CONFIG ($ns)" );
 					} else {
 						$nsName = $conf->nsName;
+						$nsTalk = isset( $conf->nsTalk ) ? $conf->nsTalk : ( $nsName . '_talk' );
 						if ( !is_string( $nsName ) || $nsName === '' ) {
-							wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
-							              "if given, nsName must be a string" );
+							$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
+									   "if given, nsName must be a string" );
 							continue;
-						} elseif ( array_key_exists( $ns, self::$namespaces ) &&
-						           self::$namespaces[$ns] !== null
+						} elseif ( array_key_exists( $ns, $namespaces ) &&
+						           $namespaces[$ns] !== null
 						) {
-							wfLogWarning( "JsonConfig: \$wgJsonConfigs['$confId'] - nsName has already " .
-							              "been set for namespace $ns" );
+							if ( $namespaces[$ns] !== $nsName ||
+								 $namespaces[$ns + 1] !== $nsTalk
+							) {
+								$warnFunc( "JsonConfig: \$wgJsonConfigs['$confId'] - " .
+										   "nsName has already been set for namespace $ns" );
+							}
 						} else {
-							self::$namespaces[$ns] = $nsName;
-							self::$namespaces[$ns + 1] =
+							$namespaces[$ns] = $nsName;
+							$namespaces[$ns + 1] =
 								isset( $conf->nsTalk ) ? $conf->nsTalk : ( $nsName . '_talk' );
 						}
 					}
-				} elseif ( !array_key_exists( $ns, self::$namespaces ) || self::$namespaces[$ns] === false ) {
-					self::$namespaces[$ns] = null;
+				} elseif ( !array_key_exists( $ns, $namespaces ) || $namespaces[$ns] === false ) {
+					$namespaces[$ns] = null;
 				}
 			}
 
-			unset( $nsVals );
-			if ( !array_key_exists( $ns, self::$titleMap ) ) {
-				$nsVals = array();
-				self::$titleMap[$ns] = & $nsVals;
+			if ( !array_key_exists( $ns, $titleMap ) ) {
+				$titleMap[$ns] = array( $conf );
 			} else {
-				$nsVals = & self::$titleMap[$ns];
+				$titleMap[$ns][] = $conf;
 			}
-
-			unset( $nameVals );
-			$nameExists = array_key_exists( $conf->name, $nsVals );
-			if ( $conf->name === '' ) {
-				// Wildcard - the entire namespace is handled by this modelId, unless more specific name is set
-				if ( $conf->isSubspace ) {
-					wfLogWarning( "JsonConfig: \$wgJsonConfigs['$confId']->isSubspace is true, but name is not set" );
-					continue;
-				} elseif ( $nameExists ) {
-					wfLogWarning( "JsonConfig: \$wgJsonConfigs['$confId'] cannot define " .
-					              "another nameless handler for namespace $ns" );
-					continue;
-				} else {
-					$nsVals[''] = $conf;
-				}
-			} else {
-				if ( !$nameExists ) {
-					$nameVals = array();
-					$nsVals[$conf->name] = & $nameVals;
-				} else {
-					$nameVals = & $nsVals[$conf->name];
-				}
-				$subKey = $conf->isSubspace ? 'sub' : 'val'; // subspace or a direct value
-				if ( array_key_exists( $subKey, $nameVals ) ) {
-					wfLogWarning( "JsonConfig: \$wgJsonConfigs['$confId'] duplicates $ns:$conf->name:isSubspace " .
-					              "value - there must be no more than one 'true' and 'false'" );
-					continue;
-				}
-				$nameVals[$subKey] = $conf;
-			}
-			if ( $isSharedNs ) {
-				// this namespace is shared with core or other extensions, and has to be declared somewhere
-				$nsVals['_'] = true;
-			}
-
-			$badId = null; // Item passed validation, keep it
-		}
-		if ( $badId !== null ) {
-			unset( $wgJsonConfigs[$badId] );
 		}
 
 		// Add all undeclared namespaces
 		$missingNs = 1;
-		foreach ( self::$namespaces as $ns => $nsName ) {
+		foreach ( $namespaces as $ns => $nsName ) {
 			if ( $nsName === null ) {
 				$nsName = 'Config';
 				if ( $ns !== NS_CONFIG ) {
 					$nsName .= $missingNs;
-					wfLogWarning( "JsonConfig: Namespace $ns does not have 'nsName' defined, using '$nsName'" );
+					$warnFunc( "JsonConfig: Namespace $ns does not have 'nsName' defined, using '$nsName'" );
 					$missingNs += 1;
 				}
-				self::$namespaces[$ns] = $nsName;
-				self::$namespaces[$ns + 1] = $nsName . '_talk';
+				$namespaces[$ns] = $nsName;
+				$namespaces[$ns + 1] = $nsName . '_talk';
 			}
 		}
+
+		return [ $titleMap, $namespaces ];
 	}
 
 	/**
@@ -269,13 +242,14 @@ class JCSingleton {
 
 	/**
 	 * Helper function to check if configuration has a field set, and if not, set it to default
+	 * @param $warnFunc
 	 * @param $value
 	 * @param string $field
 	 * @param string $confId
 	 * @param string $treatAsField
-	 * @return null|object|\stdClass
+	 * @return null|object|stdClass
 	 */
-	private static function getConfObject( & $value, $field, $confId = null, $treatAsField = null ) {
+	private static function getConfObject( $warnFunc, & $value, $field, $confId = null, $treatAsField = null ) {
 		if ( !$confId ) {
 			$val = & $value;
 		} else {
@@ -292,8 +266,8 @@ class JCSingleton {
 			// treating this string value as a sub-field
 			$val = (object) array( $treatAsField => $val );
 		} elseif ( !is_object( $val ) ) {
-			wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs" . ( $confId ? "['$confId']" : "" ) .
-			              "['$field'], the value must be either an array or an object" );
+			$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs" . ( $confId ? "['$confId']" : "" ) .
+					   "['$field'], the value must be either an array or an object" );
 			return null;
 		}
 		return $val;
@@ -372,33 +346,21 @@ class JCSingleton {
 			return $lastResult;
 		}
 		$lastTitle = $titleValue;
-		$key = $titleValue->getNamespace();
-		/** @var array[] $map array of:  { namespace => { name => { allows-sub-namespaces => config } } }
-		 'name' could be: name of the page, name of the sub-namespace,
-		 * an empty string if entire namespace is taken, or a { '_' => true } to mean that namespace is shared
-		 */
+		$ns = $titleValue->getNamespace();
+		/** @var array[] $map array of:  { namespace => [ configs ] } */
 		$map = self::getTitleMap();
-		if ( array_key_exists( $key, $map ) ) {
-			$arr = $map[$key];
-			$parts = explode( ':', $titleValue->getText(), 2 );
-			if ( array_key_exists( $parts[0], $arr ) ) {
-				$arr = $arr[$parts[0]];
-				$key = count( $parts ) == 2 ? 'sub' : 'val'; // subspace or a direct value
-				if ( array_key_exists( $key, $arr ) ) {
-					$lastResult = $arr[$key];
+		if ( array_key_exists( $ns, $map ) ) {
+			$text = $titleValue->getText();
+			foreach ( $map[$ns] as $conf ) {
+				$re = $conf->pattern;
+				if ( !$re || preg_match( $re, $text ) ) {
+					$lastResult = $conf;
 					return $lastResult;
 				}
 			}
-			if ( array_key_exists( '', $arr ) ) {
-				// all configs in this namespace are allowed
-				$lastResult = $arr[''];
-				return $lastResult;
-			} if ( !array_key_exists( '_', $arr ) ) {
-				// We know about the namespace, but there is no specific configuration
-				$lastResult = null;
-				return $lastResult;
-			}
-			// else we know about the namespace, but it is shared with others
+			// We know about the namespace, but there is no specific configuration
+			$lastResult = null;
+			return $lastResult;
 		}
 		$lastResult = false;
 		return $lastResult;

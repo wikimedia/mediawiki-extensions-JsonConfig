@@ -21,7 +21,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'JsonConfig',
-	'version' => '0.1.0',
+	'version' => '1.0.0',
 	'author' => array( 'Yuri Astrakhan' ),
 	'descriptionmsg' => 'jsonconfig-desc',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:JsonConfig',
@@ -30,6 +30,8 @@ $wgExtensionCredits['other'][] = array(
 
 define( 'NS_CONFIG', 482 );
 define( 'NS_CONFIG_TALK', 483 );
+define( 'NS_DATA', 486 );
+define( 'NS_DATA_TALK', 487 );
 
 $cwd = __DIR__ . DIRECTORY_SEPARATOR;
 $wgMessagesDirs['JsonConfig'] = $cwd . 'i18n';

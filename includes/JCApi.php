@@ -16,8 +16,6 @@ class JCApi extends ApiBase {
 			'namespace' => $conf->namespace,
 			'nsName' => $conf->nsName,
 			'nsTalk' => isset( $conf->nsTalk ) && $conf->nsTalk ? $conf->nsTalk : 'default',
-			'name' => $conf->name,
-			'isSubspace' => $conf->isSubspace,
 			'isLocal' => $conf->isLocal,
 			'cacheExp' => $conf->cacheExp,
 			'cacheKey' => $conf->cacheKey,
@@ -56,18 +54,10 @@ class JCApi extends ApiBase {
 				$result->addValue( null, 'models', $wgJsonConfigModels );
 
 				$data = array();
-				$map = JCSingleton::getTitleMap();
-				foreach ( $map as $ns => $nsVal ) {
+				foreach ( JCSingleton::getTitleMap() as $ns => $confs ) {
 					$vals = array();
-					foreach ( $nsVal as $subNs => $subVal ) {
-						if ( $subNs !== '' ) {
-							foreach ( $subVal as $t => $conf ) {
-								$vals[$subNs][$t] = self::addStatusConf( $conf );
-							}
-						}
-					}
-					if ( array_key_exists( '', $nsVal ) ) {
-						$vals['all'] = self::addStatusConf( $nsVal[''] );
+					foreach ( $confs as $conf ) {
+						$vals[] = self::addStatusConf( $conf );
 					}
 					$data[$ns] = $vals;
 				}
@@ -89,7 +79,6 @@ class JCApi extends ApiBase {
 				if ( !isset( $params['title'] ) ) {
 					$this->dieUsage( 'Parameter "title" is required for this command', 'badparam-title' );
 				}
-				$map = JCSingleton::getTitleMap();
 
 				// Manual title parsing - each title must have a non-localized namespace, but an integer can be used
 				$ns = null;
@@ -108,7 +97,7 @@ class JCApi extends ApiBase {
 				// for example, they should not be checked for interwiki prefixes
 				// Need to rework it to check for invalid characters (e.g. '#'), normalization ('_' vs ' '),
 				// extra whitespaces at either end.
-				if ( $ns === null || !array_key_exists( $ns, $map ) ||
+				if ( $ns === null || !array_key_exists( $ns, JCSingleton::getTitleMap() ) ||
 				     ( $t = \Title::newFromText( $parts[1], $ns ) ) === null ||
 				     ( $titleValue = $t->getTitleValue() ) === null ||
 				     !( $conf = JCSingleton::getMetadata( $titleValue ) )
