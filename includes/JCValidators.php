@@ -210,4 +210,86 @@ class JCValidators {
 			return false;
 		};
 	}
+
+	/** Returns a validator function to check if the value is a valid header string
+	 * @return callable
+	 */
+	public static function isHeaderString() {
+		return function ( JCValue $v, array $path ) {
+			$value = $v->getValue();
+			// must be a string, begins with a letter or '_', and only has letters/digits/'_'
+			if ( !is_string( $value ) || !preg_match( '/^[\pL_][\pL\pN_]*$/ui', $value ) ) {
+				$v->error( 'jsonconfig-err-bad-header-string', $path );
+				return false;
+			}
+			return true;
+		};
+	}
+
+	/** Returns a validator function to check if value is a list of unique strings
+	 * @return callable
+	 */
+	public static function listHasUniqueStrings() {
+		return function ( JCValue $v, array $path ) {
+			$value = $v->getValue();
+			if ( is_array( $value ) &&
+				 count( $value ) !== count( array_unique( array_map( function ( JCValue $vv ) {
+					return $vv->getValue();
+				}, $value ) ) )
+			) {
+				$v->error( 'jsonconfig-err-unique-strings', $path );
+				return false;
+			}
+			return true;
+		};
+	}
+
+	/** Returns a validator function to check if value is a list of a given size
+	 * @return callable
+	 */
+	public static function checkListSize( $count, $field ) {
+		return function ( JCValue $v, array $path ) use ( $count, $field ) {
+			$list = $v->getValue();
+			if ( is_array( $list ) && count( $list ) !== $count ) {
+				$v->error( 'jsonconfig-err-array-count', $path, count( $list ), $count, $field );
+				return false;
+			}
+			return true;
+		};
+	}
+
+	/** Returns a validator function asserting a string to be one of the valid data types.
+	 * Additionally, a validator function for that data type is appended to the $validators array.
+	 * @param array $validators
+	 * @return Closure
+	 */
+	public static function validateDataType( &$validators ) {
+		return function ( JCValue $v, array $path ) use ( & $validators ) {
+			$value = $v->getValue();
+			$validator = false;
+			if ( is_string( $value ) ) {
+				switch ( $value ) {
+					case 'string':
+						$validator = JCValidators::isString();
+						break;
+					case 'boolean':
+						$validator = JCValidators::isBool();
+						break;
+					case 'number':
+						$validator = JCValidators::isNumber();
+						break;
+					case 'localized':
+						$validator = JCValidators::isLocalizedString();
+						break;
+				}
+			}
+			if ( $validator === false ) {
+				$v->error( 'jsonconfig-err-bad-type', $path );
+				return false;
+			}
+			$validators[] = $validator;
+			return true;
+		};
+	}
+
 }

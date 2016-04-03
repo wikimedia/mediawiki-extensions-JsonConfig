@@ -51,6 +51,8 @@ foreach ( array(
 			'JCDefaultObjContentView',
 			'JCObjContent',
 			'JCSingleton',
+			'JCTabularContent',
+			'JCTabularContentView',
 			'JCUtils',
 			'JCValidators',
 			'JCValue',
