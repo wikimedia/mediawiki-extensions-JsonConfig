@@ -196,21 +196,12 @@ class JCValidators {
 	 */
 	public static function isLocalizedString( $maxlength = 400 ) {
 		return function ( JCValue $jcv, array $path ) use ( $maxlength ) {
-			if ( $jcv->isMissing() ) {
-				$v = [];
-			} else {
+			if ( !$jcv->isMissing() ) {
 				$v = $jcv->getValue();
 				if ( is_object( $v ) ) {
 					$v = (array)$v;
 				}
-			}
-			if ( is_array( $v ) ) {
-				if ( !empty( $v ) &&
-					 JCUtils::isListOfLangs( array_keys( $v ) ) &&
-					 count( array_filter( $v, function ( $str ) use ( $maxlength ) {
-						 return JCUtils::isValidLineString( $str, $maxlength );
-					 } ) ) === count( $v )
-				) {
+				if ( JCUtils::isLocalizedArray( $v, $maxlength ) ) {
 					// Sort array so that the values are sorted alphabetically
 					ksort( $v );
 					$jcv->setValue( (object)$v );
