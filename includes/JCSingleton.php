@@ -512,7 +512,7 @@ class JCSingleton {
 		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON ||
 			self::getMetadata( $title->getTitleValue() )
 		) {
-			$out->addModules( 'ext.jsonConfig' );
+			$out->addModuleStyles( 'ext.jsonConfig' );
 		}
 		return true;
 	}
