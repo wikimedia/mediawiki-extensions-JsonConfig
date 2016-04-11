@@ -192,9 +192,10 @@ abstract class JCObjContent extends JCContent {
 			$container = $containerField->getValue();
 			if ( is_array( $container ) || is_object( $container ) ) {
 				$lastIdx = count( $path );
-				foreach ( array_keys(
-							  is_array( $container ) ? $container : get_object_vars( $container )
-						  ) as $k ) {
+				if ( is_object( $container ) ) {
+					$container = get_object_vars( $container );
+				}
+				foreach ( array_keys( $container ) as $k ) {
 					$path[$lastIdx] = $k;
 					$isOk &= $this->testInt( $path, $vld );
 				}
