@@ -128,7 +128,7 @@ abstract class JCObjContent extends JCContent {
 
 	/**
 	 * Derived classes must implement this method to perform custom validation
-	 * using the check(...) calls
+	 * using the test(...) calls
 	 */
 	public abstract function validateContent();
 
@@ -187,13 +187,14 @@ abstract class JCObjContent extends JCContent {
 		$vld = self::convertValidators( $validator, func_get_args(), 1 );
 		$isOk = true;
 		$path = (array)$path;
-		$container = $this->getField( $path );
-		if ( $container ) {
-			$container = $container->getValue();
+		$containerField = $this->getField( $path );
+		if ( $containerField ) {
+			$container = $containerField->getValue();
 			if ( is_array( $container ) || is_object( $container ) ) {
 				$lastIdx = count( $path );
-				foreach ( is_array( $container ) ? array_keys( $container )
-					          : array_keys( get_object_vars( $container ) ) as $k ) {
+				foreach ( array_keys(
+							  is_array( $container ) ? $container : get_object_vars( $container )
+						  ) as $k ) {
 					$path[$lastIdx] = $k;
 					$isOk &= $this->testInt( $path, $vld );
 				}
@@ -257,13 +258,14 @@ abstract class JCObjContent extends JCContent {
 		if ( $subJcv === false || $subJcv->isUnchecked() ) {
 			// We never went down this path before
 			// Check that field exists, and is not case-duplicated
-			if ( is_int( $fld ) && count( $jcv->getValue() ) < $fld ) {
-				// Allow existing index or index+1 for appending last item
-				throw new Exception( "List index is too large at '" .
-				                       JCUtils::fieldPathToString( $fldPath ) .
-				                       "'. Index may not exceed list size." );
-			}
-			if ( !$this->isCaseSensitive && !is_int( $fld ) ) {
+			if ( is_int( $fld ) ) {
+				if ( count( $jcv->getValue() ) < $fld ) {
+					// Allow existing index or index+1 for appending last item
+					throw new Exception( "List index is too large at '" .
+										 JCUtils::fieldPathToString( $fldPath ) .
+										 "'. Index may not exceed list size." );
+				}
+			} elseif ( !$this->isCaseSensitive ) {
 				// if we didn't find it before, it could have been misnamed
 				$norm = $this->normalizeField( $jcv, $fld, $fldPath );
 				if ( $norm === null ) {
