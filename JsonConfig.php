@@ -94,7 +94,7 @@ function jsonConfigIsStorage() {
 		global $wgJsonConfigs;
 		$isStorage = false;
 		foreach ( $wgJsonConfigs as $jc ) {
-			if ( ( array_key_exists( 'isLocal', $jc ) && $jc['isLocal'] ) ||
+			if ( ( !array_key_exists( 'isLocal', $jc ) || $jc['isLocal'] ) ||
 			     ( array_key_exists( 'store', $jc ) )
 			) {
 				$isStorage = true;
