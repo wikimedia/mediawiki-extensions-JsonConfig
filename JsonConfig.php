@@ -46,6 +46,7 @@ foreach ( array(
 			'JCContent',
 			'JCContentHandler',
 			'JCContentView',
+			'JCDataContent',
 			'JCDefaultContentView',
 			'JCDefaultObjContentView',
 			'JCObjContent',

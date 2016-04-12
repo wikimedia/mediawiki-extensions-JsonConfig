@@ -29,6 +29,11 @@
 	font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Courier, monospace;
 }
 
+.mw-jsonconfig-info, .mw-jsonconfig-license {
+	display: inline-block;
+	font-style: italic;
+}
+
 .mw-jsonconfig tr {
 	margin-bottom: 0.5em;
 }
