@@ -4,6 +4,7 @@ namespace JsonConfig;
 
 use FormatJson;
 use Exception;
+use Language;
 use MWHttpRequest;
 use stdClass;
 
@@ -218,5 +219,44 @@ class JCUtils {
 			}
 		}
 		return $result;
+	}
+
+
+	/**
+	 * Returns true if each of the array's values is a valid language code
+	 * @param array $arr
+	 * @return bool
+	 */
+	public static function isListOfLangs( $arr ) {
+		return count( $arr ) === count( array_filter( $arr, function ( $v ) {
+			return Language::isValidCode( $v );
+		} ) );
+	}
+
+	/**
+	 * Find a message in a dictionary for the given language,
+	 * or use language fallbacks if message is not defined.
+	 * @param stdClass $map Dictionary of languageCode => string
+	 * @param Language $lang language object
+	 * @return string message from the dictionary or "" if nothing found
+	 */
+	public static function pickLocalizedString( stdClass $map, $lang ) {
+		$langCode = $lang->getCode();
+		if ( property_exists( $map, $langCode ) ) {
+			return $map->$langCode;
+		}
+		foreach ( $lang->getFallbackLanguages() as $l ) {
+			if ( property_exists( $map, $l ) ) {
+				return $map->$l;
+			}
+		}
+		// If fallbacks fail, check if english is defined
+		if ( property_exists( $map, 'en' ) ) {
+			return $map->en;
+		}
+		// Return first available value, or an empty string
+		// There might be a better way to get the first value from an object
+		$map = (array)$map;
+		return reset( $map ) ? : '';
 	}
 }

@@ -1,5 +1,6 @@
 <?php
 namespace JsonConfig;
+use Closure;
 
 /**
  * Class JCValidators contains various static validation functions
@@ -66,6 +67,19 @@ class JCValidators {
 		};
 	}
 
+	/** Returns a validator function to check if the value is a valid integer
+	 * @return callable
+	 */
+	public static function isNumber() {
+		return function ( JCValue $v, array $path ) {
+			if ( !is_double( $v->getValue() ) && !is_int( $v->getValue() ) ) {
+				$v->error( 'jsonconfig-err-number', $path );
+				return false;
+			}
+			return true;
+		};
+	}
+
 	/** Returns a validator function to check if the value is an non-associative array (list)
 	 * @return callable
 	 */
@@ -106,13 +120,16 @@ class JCValidators {
 	}
 
 	/** Returns a validator function that will substitute missing value with default
-	 * @param mixed $default value to use in case field is not present
+	 * @param mixed $default value to use in case field is not present, or a closure function to generate that value
 	 * @param bool $validateDefault if true, the default value will be verified by the validators
 	 * @return callable
 	 */
 	public static function useDefault( $default, $validateDefault = true ) {
 		return function ( JCValue $v ) use ( $default, $validateDefault ) {
 			if ( $v->isMissing() ) {
+				if ( is_object( $default ) && ( $default instanceof Closure ) ) {
+					$default = $default();
+				}
 				$v->setValue( $default );
 				return $validateDefault;
 			}
@@ -131,12 +148,12 @@ class JCValidators {
 		};
 	}
 
-	/** Returns a validator function that will wraps a string value into an array
+	/** Returns a validator function that will wrap a string value into an array
 	 * @return callable
 	 */
 	public static function stringToList() {
 		return function ( JCValue $v ) {
-			if ( !$v->isMissing() && is_string( $v->getValue() ) ) {
+			if ( is_string( $v->getValue() ) ) {
 				$v->setValue( array( $v->getValue() ) );
 			}
 			return true;
@@ -154,6 +171,43 @@ class JCValidators {
 				$v->setValue( $arr );
 			}
 			return true;
+		};
+	}
+
+	public static function isLocalizedString() {
+		return function ( JCValue $jcv, array $path ) {
+			if ( $jcv->isMissing() ) {
+				$v = array();
+			} else {
+				$v = $jcv->getValue();
+				if ( is_object( $v ) ) {
+					$v = (array)$v;
+				}
+			}
+			if ( is_array( $v ) ) {
+				if ( JCUtils::isListOfLangs( array_keys( $v ) ) &&
+					 JCUtils::allValuesAreStrings( $v )
+				) {
+					// Sort array so that the values are sorted alphabetically,
+					// except 'en' which will be shown first
+					uksort( $v,
+						function ( $a, $b ) {
+							if ( $a === $b ) {
+								return 0;
+							} elseif ( $a === 'en' ) {
+								return -1;
+							} elseif ( $b === 'en' ) {
+								return 1;
+							} else {
+								return strcasecmp( $a, $b );
+							}
+						} );
+					$jcv->setValue( (object)$v );
+					return true;
+				}
+			}
+			$jcv->error( 'jsonconfig-err-localized', $path );
+			return false;
 		};
 	}
 }

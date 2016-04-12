@@ -17,6 +17,8 @@
 	"jsonconfig-err-assoc-array": "A field named \"$1\" is not a valid associative array (not a dictionary). Parameters:\n* $1 - field name",
 	"jsonconfig-err-bool": "A field named \"$1\" is not a valid boolean. Parameters:\n* $1 - parameter name",
 	"jsonconfig-err-integer": "A field named \"$1\" is not a valid integer. Parameters:\n* $1 - field name",
+	"jsonconfig-err-number": "A field named \"$1\" is not a valid number. Parameters:\n* $1 - field name",
+	"jsonconfig-err-localized": "A field named \"$1\" is not a valid localized string (string available in multiple languages). Parameters:\n* $1 - field name.",
 	"jsonconfig-err-array-expected": "The field named \"$1\" is not a valid list",
 	"jsonconfig-err-object-expected": "The field named \"$1\" is not a valid object",
 	"jsonconfig-err-root-array-expected": "Entire JSON data was not a list surrounded by the [...] brackets",
