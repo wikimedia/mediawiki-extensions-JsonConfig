@@ -3,6 +3,8 @@
 namespace JsonConfig;
 
 use FormatJson;
+use ParserOptions;
+use ParserOutput;
 use Title;
 use Status;
 
@@ -159,22 +161,30 @@ class JCContent extends \TextContent {
 		return $this;
 	}
 
-	/**
-	 * Generates HTML representation of the content.
-	 * @return string HTML representation.
-	 */
-	public function getHtml() {
-		$status = $this->getStatus();
-		if ( $status->isGood() ) {
-			$html = '';
-		} else {
-			$html = $status->getHTML();
-		}
-		if ( $status->isOK() ) {
-			$html .= $this->getView( $this->getModel() )->valueToHtml( $this );
+	protected function fillParserOutput( Title $title, $revId, ParserOptions $options,
+										 $generateHtml, ParserOutput &$output ) {
+		if ( !$generateHtml ) {
+			return;
 		}
 
-		return $html;
+		$status = $this->getStatus();
+		if ( !$status->isGood() ) {
+			// Use user's language, and split parser cache.  This should not have a big
+			// impact because data namespace is rarely viewed, but viewing it localized
+			// will be valuable
+			$lang = $options->getUserLangObj();
+			$html = $status->getHTML( false, false, $lang );
+		} else {
+			$html = '';
+		}
+
+		if ( $status->isOK() ) {
+			$html .= $this
+				->getView( $this->getModel() )
+				->valueToHtml( $this, $title, $revId, $options, $generateHtml, $output );
+		}
+
+		$output->setText( $html );
 	}
 
 	/**

@@ -4,6 +4,9 @@ namespace JsonConfig;
 
 use FormatJson;
 use Html;
+use ParserOptions;
+use ParserOutput;
+use Title;
 
 /**
  * This class is used in case when there is no custom view defined for JCContent object
@@ -13,10 +16,21 @@ class JCDefaultContentView extends JCContentView {
 
 	/**
 	 * Render JCContent object as HTML
+	 * Called from an override of AbstractContent::fillParserOutput()
+	 *
+	 * Render JCContent object as HTML - replaces valueToHtml()
 	 * @param JCContent $content
+	 * @param Title $title Context title for parsing
+	 * @param int|null $revId Revision ID (for {{REVISIONID}})
+	 * @param ParserOptions $options Parser options
+	 * @param bool $generateHtml Whether or not to generate HTML
+	 * @param ParserOutput &$output The output object to fill (reference).
 	 * @return string
 	 */
-	public function valueToHtml( JCContent $content ) {
+	public function valueToHtml(
+		JCContent $content, Title $title, $revId, ParserOptions $options, $generateHtml,
+		 ParserOutput &$output
+	) {
 		return $this->renderValue( $content, $content->getData(), array() );
 	}
 
