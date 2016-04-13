@@ -15,6 +15,8 @@
 	"jsonconfig-err-assoc-array": "Le paramètre « $1 » doit être un tableau associatif (dictionnaire), par ex. {'clé': 'valeur', …}",
 	"jsonconfig-err-bool": "Paramètre « $1 » doit être vrai ou faux",
 	"jsonconfig-err-integer": "Le paramètre « $1 » doit être un nombre entier",
+	"jsonconfig-err-number": "Le paramètre « $1 » doit être un nombre",
+	"jsonconfig-err-localized": "Le paramètre « $1 » doit être un objet qui fait correspondre des codes de langue valides à des chaînes, par ex. { \"en\":\"Chaîne en anglais\", … }",
 	"jsonconfig-err-array-expected": "La valeur en « $1 » était censée être une liste entourée de crochets […]",
 	"jsonconfig-err-object-expected": "La valeur en «$1 » était censée être un objet entouré d’accolades {…}",
 	"jsonconfig-err-root-array-expected": "Les données JSON devraient être une liste entourée de crochets […]",

@@ -12,6 +12,8 @@
 	"jsonconfig-err-assoc-array": "הפרמטר \" $1 \" חייב להיות מערך אסוציאטיבי (מילון), למשל {'מפתח': 'value',...}",
 	"jsonconfig-err-bool": "פרמטר \"$1\" צריך להיות true או false",
 	"jsonconfig-err-integer": "פרמטר \"$1\" צריך להיות מספר שלם",
+	"jsonconfig-err-number": "הפרמטר \"$1\" צריך להיות מספר",
+	"jsonconfig-err-localized": "הפרמטר \"$1\" צריך להיות עצם שממפה קודי שפה תקינים למחרוזות, למשל { \"en\":\"String in English\", ... }",
 	"jsonconfig-err-array-expected": "הערך של \"$1\" אמור להיות רשימה מוקפת בסוגריים מרובעיים [...]",
 	"jsonconfig-err-object-expected": "הערך של \"$1\" אמור להיות רשימה מוקפת בסוגריים מרובעיים {...}",
 	"jsonconfig-err-root-array-expected": "נתוני JSON צריכים להיות רשימה מוקפת בסוגריים מרובעים [...]",

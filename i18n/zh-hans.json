@@ -14,6 +14,8 @@
 	"jsonconfig-err-assoc-array": "参数“$1”必须是关联数组（字典），例如{'key': 'value', ...}",
 	"jsonconfig-err-bool": "参数“$1”必须设置为true或false",
 	"jsonconfig-err-integer": "参数“$1”必须是整数",
+	"jsonconfig-err-number": "参数“$1”必须是数字",
+	"jsonconfig-err-localized": "参数“$1”必须是映射有效语言代码至字符串的对象。例如：{ \"zh\":\"中文字符串\", ... }",
 	"jsonconfig-err-array-expected": "在“$1”的值预期是被方括号“[XXX]”括住的列表",
 	"jsonconfig-err-object-expected": "在“$1”的值预期是被大括号“{XXX}”括住的对象",
 	"jsonconfig-err-root-array-expected": "JSON数据应为列表，使用方括号“[...]”括起",

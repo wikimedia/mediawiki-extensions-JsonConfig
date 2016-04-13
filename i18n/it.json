@@ -12,6 +12,8 @@
 	"jsonconfig-err-assoc-array": "Il parametro \"$1\" deve essere un array associativo (dizionario), ad esempio {'chiave': 'valore', ...}",
 	"jsonconfig-err-bool": "Il parametro \"$1\" deve essere impostato su true (vero) o false (falso)",
 	"jsonconfig-err-integer": "Il parametro \"$1\" deve essere un numero intero",
+	"jsonconfig-err-number": "Il parametro \"$1\" deve essere un numero",
+	"jsonconfig-err-localized": "Il parametro \"$1\" deve essere un oggetto che mappa codici di lingua validi in stringhe. Ad esempio: { \"it\":\"Stringa in italiano\", ... }",
 	"jsonconfig-err-array-expected": "Il valore \"$1\" deve essere un elenco tra da parentesi quadre [...]",
 	"jsonconfig-err-object-expected": "Il valore \"$1\" deve essere un oggetto tra da parentesi graffe {...}",
 	"jsonconfig-err-root-array-expected": "I dati JSON deve essere un elenco tra da parentesi quadre [...]",
