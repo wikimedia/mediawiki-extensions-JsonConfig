@@ -4,7 +4,8 @@
 			"Csbotero",
 			"Fitoschido",
 			"Ryo567",
-			"Macofe"
+			"Macofe",
+			"Lemondoge"
 		]
 	},
 	"jsonconfig-desc": "Permite que la configuración JSON sea almacenada en un wiki",
@@ -14,6 +15,8 @@
 	"jsonconfig-err-assoc-array": "El parámetro «$1» debe ser una matriz asociativa (diccionario), p. ej., {'clave': 'valor', ...}",
 	"jsonconfig-err-bool": "El parámetro \"$1\" debe establecerse como true (verdadero) o false (falso)",
 	"jsonconfig-err-integer": "El parámetro «$1» debe ser un número entero",
+	"jsonconfig-err-number": "El parámetro \"$1\" debe ser un número",
+	"jsonconfig-err-localized": "El parámetro \"$1\" debe ser un objeto que se asigna códigos de idiomas válidos para las cadenas, por ejemplo, { \"es\":\"String en inglés\", ... }",
 	"jsonconfig-err-array-expected": "Se espera que el valor en «$1» esté rodeado por corchetes […]",
 	"jsonconfig-err-object-expected": "Se espera que el valor en «$1» esté rodeado por llaves {…}",
 	"jsonconfig-err-root-array-expected": "Los datos JSON deben ser una lista, rodeada por corchetes [...]",
