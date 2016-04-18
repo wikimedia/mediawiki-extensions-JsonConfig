@@ -5,6 +5,7 @@
 			"Vitorvicentevalente"
 		]
 	},
+	"jsonconfig-err-number": "O parâmetro \"$1\" deve ser um número",
 	"jsonconfig-move-aborted-ns": "o novo título da página não está configurado para manter a configuração JSON",
 	"jsonconfig-optional-field": "(opcional)"
 }
