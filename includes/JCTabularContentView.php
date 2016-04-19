@@ -56,7 +56,7 @@ class JCTabularContentView extends JCContentView {
 			$index = 0;
 			foreach ( $headers as $column ) {
 				list( $column, $columnAttrs ) = self::split( $column );
-				$type = $types && array_key_exists( $index, $types ) ? $types[$index] : 'invalid';
+				$type = !empty( $types[$index] ) ? $types[$index] : 'invalid';
 				$typeClass = $infoClass;
 				$typeClass['title'] = wfMessage( 'jsonconfig-type-name-' . $type )->plain();
 				$typeAbbr = wfMessage( 'jsonconfig-type-abbr-' . $type )->plain();
