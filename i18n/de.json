@@ -8,6 +8,7 @@
 	"jsonconfig-bad-json": "Die JSON-Konfiguration konnte nicht geparst werden. Bitte die Syntax überprüfen.",
 	"jsonconfig-duplicate-field": "Es wurde mehr als ein Wert „$1“ gefunden",
 	"jsonconfig-err-array": "Parameter „$1“ muss eine Liste sein, z.&nbsp;B. ['Wert1', 'Wert2', …]",
+	"jsonconfig-err-array-count": "Die Liste „$1“ hat {{PLURAL:$2|einen Wert|$2 Werte}}, muss aber {{PLURAL:$3|einen Wert|$3 Werte}} haben, die gleiche Anzahl von Werten als „$4“.",
 	"jsonconfig-err-assoc-array": "Parameter „$1“ muss ein assoziatives Array (Wörterbuch) sein, z.&nbsp;B. {'Schlüssel': 'Wert', …}",
 	"jsonconfig-err-bool": "Parameter „$1“ muss entweder wahr oder falsch sein",
 	"jsonconfig-err-integer": "Parameter „$1“ muss eine ganze Zahl sein",

@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hjalmtyr"
+		]
+	},
+	"jsonconfig-err-bad-type": "Viðfang \"$1\" verður að vera löglegt tag, eins og \"string\", \"number\" eða \"boolean\"",
+	"jsonconfig-type-name-invalid": "ógilt",
+	"jsonconfig-type-name-string": "strengur",
+	"jsonconfig-type-name-localized": "staðvært",
+	"jsonconfig-type-name-number": "tala",
+	"jsonconfig-type-name-boolean": "rökgildi"
+}

@@ -8,6 +8,8 @@
 	"jsonconfig-err-bool": "Parameter \"$1\" muss entweder wouer oder falsch sinn",
 	"jsonconfig-err-integer": "De Parameter \"$1\" muss eng ganz Zuel sinn",
 	"jsonconfig-optional-field": "(fakultativ)",
+	"jsonconfig-type-name-invalid": "net valabel",
+	"jsonconfig-type-name-number": "Zuel",
 	"right-jsonconfig-flush": "JsonConfig iwwer d'API manipuléieren",
 	"apihelp-jsonconfig-example-1": "Astellung weisen",
 	"apihelp-jsonconfig-example-2": "[[Zero:TEST]] zrécksetzen",
