@@ -58,11 +58,6 @@ class JCTabularContent extends JCDataContent {
 
 		parent::validateContent();
 
-		if ( !$this->thorough() ) {
-			// We are not doing any modifications to the original, so no need to validate it
-			return;
-		}
-
 		$validators = [ JCValidators::isList() ];
 		if ( $this->test( 'headers', JCValidators::isList() ) &&
 			 $this->testEach( 'headers', JCValidators::isHeaderString() ) &&
@@ -83,6 +78,11 @@ class JCTabularContent extends JCDataContent {
 			if ( !$this->testEach( 'types', JCValidators::validateDataType( $typeValidators ) ) ) {
 				$typeValidators = false;
 			}
+		}
+
+		if ( !$this->thorough() ) {
+			// We are not doing any modifications to the rows, so no need to validate it
+			return;
 		}
 
 		$this->test( 'rows', JCValidators::isList() );

@@ -39,6 +39,8 @@ $wgMessagesDirs['JsonConfig'] = $cwd . 'i18n';
 // @todo: this entry should be done only if $wgJsonConfigEnabled === true && namespace is actually used by config
 $wgExtensionMessagesFiles['JsonConfigNamespaces'] = $cwd . 'JsonConfig.namespaces.php';
 
+$wgHooks['ScribuntoExternalLibraries'][] = 'JsonConfig\JCLuaLibrary::onScribuntoExternalLibraries';
+
 $cwd .= 'includes' . DIRECTORY_SEPARATOR;
 foreach ( array(
 			'JCApi',
@@ -49,6 +51,7 @@ foreach ( array(
 			'JCDataContent',
 			'JCDefaultContentView',
 			'JCDefaultObjContentView',
+			'JCLuaLibrary',
 			'JCObjContent',
 			'JCSingleton',
 			'JCTabularContent',
@@ -95,6 +98,12 @@ $wgJsonConfigDisableCache = false;
  * Change this value whenever the entire JsonConfig cache needs to be invalidated
  */
 $wgJsonConfigCacheKeyPrefix = '1';
+
+/**
+ * If true, enable Scribunto lua functions
+ * TODO: make this true by default, after updating InitialSettings.php
+ */
+$wgJsonConfigEnableLuaSupport = false;
 
 /**
  * Quick check if the current wiki will store any configurations.
