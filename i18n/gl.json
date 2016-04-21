@@ -10,7 +10,7 @@
 	"jsonconfig-bad-json": "Non se puido analizar a configuración JSON. Comprobe a sintaxe.",
 	"jsonconfig-duplicate-field": "Atopouse máis dun valor \"$1\"",
 	"jsonconfig-err-array": "O parámetro \"$1\" debe ser unha lista, p.e. ['valor1', 'valor2', ...]",
-	"jsonconfig-err-array-count": "A lista \"$1\" ten $2 {{plural:$2|valor|valores}}, pero debe ter $3, o mesmo número de valores que \"$4\".",
+	"jsonconfig-err-array-count": "A lista \"$1\" ten $2 {{PLURAL:$2|valor|valores}}, pero debe ter {{PLURAL:$3|valor|valores}}, o mesmo número de valores que \"$4\".",
 	"jsonconfig-err-assoc-array": "O parámetro \"$1\" debe ser unha matriz asociativa (dicionario), p. ex. {'clave':'valor', ...}",
 	"jsonconfig-err-bool": "O parámetro \"$1\" debe ser verdadeiro ou falso",
 	"jsonconfig-err-integer": "O parámetro \"$1\" debe ser un número enteiro",

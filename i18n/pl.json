@@ -9,6 +9,7 @@
 	"jsonconfig-err-integer": "Parametr „$1” musi być liczbą całkowitą",
 	"jsonconfig-err-number": "Parametr „$1” musi być liczbą",
 	"jsonconfig-err-string": "Parametr „$1” musi być ciągiem znaków",
+	"jsonconfig-err-bad-header-string": "Nagłówek „$1” może zawierać wyłącznie litery, cyfry i znak podkreślenia oraz nie może rozpoczynać się cyfrą.",
 	"jsonconfig-optional-field": "(opcjonalne)",
 	"apihelp-jsonconfig-example-1": "Pokaż konfigurację"
 }
