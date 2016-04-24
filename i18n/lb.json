@@ -7,6 +7,7 @@
 	"jsonconfig-duplicate-field": "Méi wéi ee Wäert \"$1\" fonnt",
 	"jsonconfig-err-bool": "Parameter \"$1\" muss entweder wouer oder falsch sinn",
 	"jsonconfig-err-integer": "De Parameter \"$1\" muss eng ganz Zuel sinn",
+	"jsonconfig-err-number": "De Parameter \"$1\" muss eng Zuel sinn",
 	"jsonconfig-optional-field": "(fakultativ)",
 	"jsonconfig-type-name-invalid": "net valabel",
 	"jsonconfig-type-name-string": "Zeecheketten",
