@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Zygimantus"
+		]
+	},
+	"jsonconfig-type-name-invalid": "neteisingas",
+	"jsonconfig-type-name-number": "skaičius",
+	"jsonconfig-type-name-boolean": "loginė reikšmė"
+}
