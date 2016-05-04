@@ -275,8 +275,8 @@ class JCSingleton {
 
 	/**
 	 * Get content object for the given title.
-	 * Title may not contain ':' unless it is a sub-namespace separator. Namespace ID does not need to be
-	 * defined in the current wiki, as long as it is defined in $wgJsonConfigs.
+	 * Namespace ID does not need to be defined in the current wiki,
+	 * as long as it is defined in $wgJsonConfigs.
 	 * @param TitleValue $titleValue
 	 * @param string $jsonText if given, parses this text instead of what's stored in the database/cache
 	 * @return bool|JCContent Returns false if the title is not handled by the settings
