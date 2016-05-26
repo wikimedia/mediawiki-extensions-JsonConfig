@@ -278,10 +278,13 @@ class JCSingleton {
 	 * Namespace ID does not need to be defined in the current wiki,
 	 * as long as it is defined in $wgJsonConfigs.
 	 * @param TitleValue $titleValue
-	 * @param string $jsonText if given, parses this text instead of what's stored in the database/cache
+	 * @param string $jsonText obsolete, use parseContent() instead. If given, parses this text instead of what's stored in the database/cache
 	 * @return bool|JCContent Returns false if the title is not handled by the settings
 	 */
 	public static function getContent( TitleValue $titleValue, $jsonText = null ) {
+
+		// TODO: remove $jsonText -- parseContent() should be used instead
+
 		$conf = self::getMetadata( $titleValue );
 		if ( $conf ) {
 			if ( is_string( $jsonText ) ) {
@@ -298,6 +301,25 @@ class JCSingleton {
 				return $content;
 			}
 		}
+		return false;
+	}
+
+	/**
+	 * Parse json text into a content object for the given title.
+	 * Namespace ID does not need to be defined in the current wiki,
+	 * as long as it is defined in $wgJsonConfigs.
+	 * @param TitleValue $titleValue
+	 * @param string $jsonText json content
+	 * @return bool|JCContent Returns false if the title is not handled by the settings
+	 */
+	public static function parseContent( TitleValue $titleValue, $jsonText ) {
+
+		$conf = self::getMetadata( $titleValue );
+		if ( $conf ) {
+			$handler = new JCContentHandler( $conf->model );
+			return $handler->unserializeContent( $jsonText, null, false );
+		}
+
 		return false;
 	}
 
