@@ -3,6 +3,7 @@ namespace JsonConfig;
 
 use ContentHandler;
 use Exception;
+use MapCacheLRU;
 use stdClass;
 use TitleValue;
 use Title;
@@ -31,6 +32,11 @@ class JCSingleton {
 	 * If false, presumes the namespace has been registered by core or another extension
 	 */
 	static $namespaces = array();
+
+	/**
+	 * @var MapCacheLRU[] contains a cache of recently requested content objects as namespace => cache
+	 */
+	static $mapCacheLru = array();
 
 	/**
 	 * Initializes singleton state by parsing $wgJsonConfig* values
@@ -274,34 +280,55 @@ class JCSingleton {
 	}
 
 	/**
+	 * Get content object from the local LRU cache, or null if doesn't exist
+	 * @param TitleValue $titleValue
+	 * @return null|JCContent
+	 */
+	public static function getContentFromLocalCache( TitleValue $titleValue ) {
+		// Some of the titleValues are remote, and their namespace might not be declared
+		// in the current wiki. Since TitleValue is a content object, it does not validate
+		// the existence of namespace, hence we use it as a simple storage.
+		// Producing an artificial string key by appending (namespaceID . ':' . titleDbKey)
+		// seems wasteful and redundant, plus most of the time there will be just a single
+		// namespace declared, so this structure seems efficient and easy enough.
+		if ( !array_key_exists( $titleValue->getNamespace(), self::$mapCacheLru ) ) {
+			// TBD: should cache size be a config value?
+			self::$mapCacheLru[$titleValue->getNamespace()] = $cache = new MapCacheLRU( 10 );
+		} else {
+			$cache = self::$mapCacheLru[$titleValue->getNamespace()];
+		}
+
+		return $cache->get( $titleValue->getDBkey() );
+	}
+
+	/**
 	 * Get content object for the given title.
 	 * Namespace ID does not need to be defined in the current wiki,
 	 * as long as it is defined in $wgJsonConfigs.
 	 * @param TitleValue $titleValue
-	 * @param string $jsonText obsolete, use parseContent() instead. If given, parses this text instead of what's stored in the database/cache
 	 * @return bool|JCContent Returns false if the title is not handled by the settings
 	 */
-	public static function getContent( TitleValue $titleValue, $jsonText = null ) {
+	public static function getContent( TitleValue $titleValue ) {
 
-		// TODO: remove $jsonText -- parseContent() should be used instead
+		$content = self::getContentFromLocalCache( $titleValue );
 
-		$conf = self::getMetadata( $titleValue );
-		if ( $conf ) {
-			if ( is_string( $jsonText ) ) {
-				$content = $jsonText;
-			} else {
+		if ( $content === null ) {
+			$conf = self::getMetadata( $titleValue );
+			if ( $conf ) {
 				$store = new JCCache( $titleValue, $conf );
 				$content = $store->get();
+				if ( is_string( $content ) ) {
+					// Convert string to the content object if needed
+					$handler = new JCContentHandler( $conf->model );
+					$content = $handler->unserializeContent( $content, null, false );
+				}
+			} else {
+				$content = false;
 			}
-			if ( is_string( $content ) ) {
-				// Convert string to the content object if needed
-				$handler = new JCContentHandler( $conf->model );
-				return $handler->unserializeContent( $content, null, false );
-			} elseif ( $content !== false ) {
-				return $content;
-			}
+			self::$mapCacheLru[$titleValue->getNamespace()]->set( $titleValue->getDBkey(), $content );
 		}
-		return false;
+
+		return $content;
 	}
 
 	/**
