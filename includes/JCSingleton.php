@@ -3,7 +3,14 @@ namespace JsonConfig;
 
 use ContentHandler;
 use Exception;
+use GenderCache;
+use Language;
+use MalformedTitleException;
 use MapCacheLRU;
+use MediaWiki\Linker\LinkTarget;
+use MediaWikiTitleCodec;
+use TitleParser;
+use Status;
 use stdClass;
 use TitleValue;
 use Title;
@@ -34,13 +41,23 @@ class JCSingleton {
 	static $namespaces = array();
 
 	/**
-	 * @var MapCacheLRU[] contains a cache of recently requested content objects as namespace => cache
+	 * @var MapCacheLRU[] contains a cache of recently resolved JCTitle's as namespace => MapCacheLRU
+	 */
+	static $titleMapCacheLru = array();
+
+	/**
+	 * @var MapCacheLRU[] contains a cache of recently requested content objects as namespace => MapCacheLRU
 	 */
 	static $mapCacheLru = array();
 
 	/**
+	 * @var TitleParser cached invariant title parser
+	 */
+	static $titleParser;
+
+	/**
 	 * Initializes singleton state by parsing $wgJsonConfig* values
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	private static function init() {
 		static $isInitialized = false;
@@ -305,7 +322,7 @@ class JCSingleton {
 	 * Get content object for the given title.
 	 * Namespace ID does not need to be defined in the current wiki,
 	 * as long as it is defined in $wgJsonConfigs.
-	 * @param TitleValue $titleValue
+	 * @param TitleValue|JCTitle $titleValue
 	 * @return bool|JCContent Returns false if the title is not handled by the settings
 	 */
 	public static function getContent( TitleValue $titleValue ) {
@@ -313,13 +330,13 @@ class JCSingleton {
 		$content = self::getContentFromLocalCache( $titleValue );
 
 		if ( $content === null ) {
-			$conf = self::getMetadata( $titleValue );
-			if ( $conf ) {
-				$store = new JCCache( $titleValue, $conf );
+			$jct = self::parseTitle( $titleValue );
+			if ( $jct ) {
+				$store = new JCCache( $jct );
 				$content = $store->get();
 				if ( is_string( $content ) ) {
 					// Convert string to the content object if needed
-					$handler = new JCContentHandler( $conf->model );
+					$handler = new JCContentHandler( $jct->getConfig()->model );
 					$content = $handler->unserializeContent( $content, null, false );
 				}
 			} else {
@@ -341,9 +358,9 @@ class JCSingleton {
 	 */
 	public static function parseContent( TitleValue $titleValue, $jsonText ) {
 
-		$conf = self::getMetadata( $titleValue );
-		if ( $conf ) {
-			$handler = new JCContentHandler( $conf->model );
+		$jct = self::parseTitle( $titleValue );
+		if ( $jct ) {
+			$handler = new JCContentHandler( $jct->getConfig()->model );
 			return $handler->unserializeContent( $jsonText, null, false );
 		}
 
@@ -352,7 +369,7 @@ class JCSingleton {
 
 	/**
 	 * Mostly for debugging purposes, this function returns initialized internal JsonConfig settings
-	 * @return array
+	 * @return array[] map of namespaceIDs to list of configurations
 	 */
 	public static function getTitleMap() {
 		self::init();
@@ -381,38 +398,115 @@ class JCSingleton {
 	}
 
 	/**
+	 * Given a title (either a user-given string, or as an object), return JCTitle
+	 * @param Title|TitleValue|string $value
+	 * @param int|null $namespace Only used when title is a string
+	 * @return JCTitle|null|false false if unrecognized namespace,
+	 * and null if namespace is handled but does not match this title
+	 * @throws Exception
+	 */
+	public static function parseTitle( $value, $namespace = null ) {
+		if ( $value === null || $value === '' || $value === false ) {
+			// In some weird cases $value is null
+			return false;
+		} elseif ( $value instanceof JCTitle ) {
+			// Nothing to do
+			return $value;
+		} elseif ( $namespace !== null && !is_integer( $namespace ) ) {
+			throw new Exception( '$namespace parameter must be either null or an integer' );
+		}
+
+		// figure out the namespace ID (int) - we don't need to parse the string if ns is unknown
+		if ( $value instanceof LinkTarget ) {
+			if ( $namespace === null ) {
+				$namespace = $value->getNamespace();
+			}
+		} elseif ( is_string( $value ) ) {
+			if ( $namespace === null ) {
+				throw new Exception( '$namespace parameter is missing for string $value' );
+			}
+		} else {
+			wfLogWarning( 'Unexpected title param type ' . gettype( $value ) );
+			return false;
+		}
+
+		// Search title map for the matching configuration
+		$map = self::getTitleMap();
+		if ( array_key_exists( $namespace, $map ) ) {
+
+			// Get appropriate LRU cache object
+			if ( !array_key_exists( $namespace, self::$titleMapCacheLru ) ) {
+				self::$titleMapCacheLru[$namespace] = $cache = new MapCacheLRU( 20 );
+			} else {
+				$cache = self::$titleMapCacheLru[$namespace];
+			}
+
+			// Parse string if needed
+			// TODO: should the string parsing also be cached?
+			if ( is_string( $value ) ) {
+				if ( !self::$titleParser ) {
+					self::$titleParser =
+						new MediaWikiTitleCodec( Language::factory( 'en' ), new GenderCache() );
+				}
+				// Major hack, but until MediaWikiTitleCodec has global state, I can't think of a
+				// better way. Interwiki prefixes are a special case for title parsing:
+				// first letter is not capitalized, namespaces are not resolved, etc.
+				// So we prepend an interwiki prefix to fool title codec, and later remove it.
+				global $wgJsonConfigInterwikiPrefix;
+				try {
+					$value = $wgJsonConfigInterwikiPrefix . ':' . $value;
+					$parts = self::$titleParser->splitTitleString( $value );
+					if ( $parts['dbkey'] === '' || $parts['namespace'] !== 0 ||
+						 $parts['fragment'] !== '' || $parts['local_interwiki'] !== false ||
+						 $parts['interwiki'] !== $wgJsonConfigInterwikiPrefix
+					) {
+						return null;
+					}
+				} catch ( MalformedTitleException $e ) {
+					return null;
+				}
+				$dbKey = $parts['dbkey'];
+			} else {
+				$dbKey = $value->getDBkey();
+			}
+
+			// A bit weird here: cache will store JCTitle objects or false if the namespace
+			// is known to JsonConfig but the dbkey does not match. But in case the title is not
+			// handled, this function returns null instead of false if the namespace is known, and false otherwise
+			$result = $cache->get( $dbKey );
+			if ( $result === null ) {
+
+				$result = false;
+				foreach ( $map[$namespace] as $conf ) {
+					$re = $conf->pattern;
+					if ( !$re || preg_match( $re, $dbKey ) ) {
+						$result = new JCTitle( $namespace, $dbKey, $conf );
+						break;
+					}
+				}
+
+				$cache->set( $dbKey, $result );
+			}
+
+			// return null if the given namespace is mentioned in the config, but title doesn't match
+			return $result ?: null;
+
+		} else {
+			// return false if JC doesn't know anything about this namespace
+			return false;
+		}
+	}
+
+	/**
 	 * Returns an array with settings if the $titleValue object is handled by the JsonConfig extension,
 	 * false if unrecognized namespace, and null if namespace is handled but not this title
 	 * @param TitleValue $titleValue
 	 * @return stdClass|false|null
+	 * @deprecated use JCSingleton::parseTitle() instead
 	 */
 	public static function getMetadata( $titleValue ) {
-		static $lastTitle = null;
-		static $lastResult = false;
-		if ( !$titleValue ) {
-			return false; // It is possible to have a null TitleValue (bug 66555)
-		} elseif ( $titleValue === $lastTitle ) {
-			return $lastResult;
-		}
-		$lastTitle = $titleValue;
-		$ns = $titleValue->getNamespace();
-		/** @var array[] $map array of:  { namespace => [ configs ] } */
-		$map = self::getTitleMap();
-		if ( array_key_exists( $ns, $map ) ) {
-			$text = $titleValue->getText();
-			foreach ( $map[$ns] as $conf ) {
-				$re = $conf->pattern;
-				if ( !$re || preg_match( $re, $text ) ) {
-					$lastResult = $conf;
-					return $lastResult;
-				}
-			}
-			// We know about the namespace, but there is no specific configuration
-			$lastResult = null;
-			return $lastResult;
-		}
-		$lastResult = false;
-		return $lastResult;
+		$jct = JCSingleton::parseTitle( $titleValue );
+		return $jct ? $jct->getConfig() : $jct;
 	}
 
 	/**
@@ -449,9 +543,9 @@ class JCSingleton {
 	 * @return bool
 	 */
 	public static function onContentHandlerDefaultModelFor( $title, &$modelId ) {
-		$conf = self::getMetadata( $title->getTitleValue() );
-		if ( $conf ) {
-			$modelId = $conf->model;
+		$jct = self::parseTitle( $title );
+		if ( $jct ) {
+			$modelId = $jct->getConfig()->model;
 			return false;
 		}
 		return true;
@@ -482,8 +576,9 @@ class JCSingleton {
 	 * @return bool
 	 */
 	static function onCodeEditorGetPageLanguage( $title, &$lang ) {
+		// todo/fixme? We should probably add 'json' lang to only those pages that pass parseTitle()
 		$handler = ContentHandler::getForModelID( $title->getContentModel() );
-		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON || self::getMetadata( $title->getTitleValue() ) ) {
+		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON || self::parseTitle( $title ) ) {
 			$lang = 'json';
 		}
 		return true;
@@ -505,7 +600,7 @@ class JCSingleton {
 		if ( is_a( $content, 'JsonConfig\JCContent' ) ) {
 			$status->merge( $content->getStatus() );
 			if ( !$status->isGood() ) {
-				$status->ok = false;
+				$status->setResult( false, $status->getValue() );
 			}
 		}
 		return true;
@@ -519,25 +614,26 @@ class JCSingleton {
 	 */
 	static function onBeforePageDisplay( /** @noinspection PhpUnusedParameterInspection */ &$out, &$skin ) {
 		$title = $out->getTitle();
+		// todo/fixme? We should probably add ext.jsonConfig style to only those pages that pass parseTitle()
 		$handler = ContentHandler::getForModelID( $title->getContentModel() );
 		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON ||
-			self::getMetadata( $title->getTitleValue() )
+			self::parseTitle( $title )
 		) {
 			$out->addModuleStyles( 'ext.jsonConfig' );
 		}
 		return true;
 	}
 
-	public static function onMovePageIsValidMove( Title $oldTitle, Title $newTitle, \Status $status ) {
-		$conf = self::getMetadata( $oldTitle->getTitleValue() );
-		if ( $conf ) {
-			$newConf = self::getMetadata( $newTitle->getTitleValue() );
-			if ( !$newConf ) {
-				// @todo: is parse() the right func to use here?
+	public static function onMovePageIsValidMove( Title $oldTitle, Title $newTitle, Status $status ) {
+		$jctOld = self::parseTitle( $oldTitle );
+		if ( $jctOld ) {
+			$jctNew = self::parseTitle( $newTitle );
+			if ( !$jctNew ) {
 				$status->fatal( 'jsonconfig-move-aborted-ns' );
 				return false;
-			} elseif ( $conf->model !== $newConf->model ) {
-				$status->fatal( 'jsonconfig-move-aborted-model', $conf->model, $newConf->model );
+			} elseif ( $jctOld->getConfig()->model !== $jctNew->getConfig()->model ) {
+				$status->fatal( 'jsonconfig-move-aborted-model', $jctOld->getConfig()->model,
+					$jctNew->getConfig()->model );
 				return false;
 			}
 		}
@@ -584,7 +680,7 @@ class JCSingleton {
 	 * @return bool
 	 */
 	public static function onuserCan( /** @noinspection PhpUnusedParameterInspection */ &$title, &$user, $action, &$result = null ) {
-		if ( $action === 'create' && self::getMetadata( $title->getTitleValue() ) === null ) {
+		if ( $action === 'create' && self::parseTitle( $title ) === null ) {
 			// prohibit creation of the pages for the namespace that we handle,
 			// if the title is not matching declared rules
 			$result = false;
@@ -600,24 +696,18 @@ class JCSingleton {
 	 */
 	private static function onArticleChangeComplete( $value, $content = null ) {
 		if ( $value && ( !$content || is_a( $content, 'JsonConfig\JCContent' ) ) ) {
-			/** @var TitleValue $tv */
-			if ( method_exists( $value, 'getTitleValue') ) {
-				$tv = $value->getTitleValue();
-			} elseif ( method_exists( $value, 'getTitle')) {
-				$tv = $value->getTitle()->getTitleValue();
-			} else {
-				wfLogWarning( 'Unknown object type ' . gettype( $value ) );
-				return true;
-			}
 
-			$conf = self::getMetadata( $tv );
-			if ( $conf && $conf->store ) {
-				$store = new JCCache( $tv, $conf, $content );
+			if ( method_exists( $value, 'getTitle' ) ) {
+				$value = $value->getTitle();
+			}
+			$jct = self::parseTitle( $value );
+			if ( $jct && $jct->getConfig()->store ) {
+				$store = new JCCache( $jct, $content );
 				$store->resetCache();
 
 				// Handle remote site notification
-				if ( $conf->store->notifyUrl ) {
-					$store = $conf->store;
+				$store = $jct->getConfig()->store;
+				if ( $store->notifyUrl ) {
 					$req =
 						JCUtils::initApiRequestObj( $store->notifyUrl, $store->notifyUsername,
 							$store->notifyPassword );
@@ -626,7 +716,7 @@ class JCSingleton {
 							'format' => 'json',
 							'action' => 'jsonconfig',
 							'command' => 'reload',
-							'title' => $tv->getNamespace() . ':' . $tv->getDBkey(),
+							'title' => $jct->getNamespace() . ':' . $jct->getDBkey(),
 						);
 						JCUtils::callApi( $req, $query, 'notify remote JsonConfig client' );
 					}

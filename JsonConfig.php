@@ -21,7 +21,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'JsonConfig',
-	'version' => '1.0.0',
+	'version' => '1.1.0',
 	'author' => array( 'Yuri Astrakhan' ),
 	'descriptionmsg' => 'jsonconfig-desc',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:JsonConfig',
@@ -53,12 +53,22 @@ foreach ( array(
 			'JCSingleton',
 			'JCTabularContent',
 			'JCTabularContentView',
+			'JCTitle',
 			'JCUtils',
 			'JCValidators',
 			'JCValue',
 		) as $key => $class ) {
 	$wgAutoloadClasses['JsonConfig\\' . ( is_string( $key ) ? $key : $class )] = $cwd . $class . '.php';
 }
+
+/**
+ * Use this prefix when parsing remote titles. This prefix + ':' will be prepended to title strings
+ * in JCSingleton::parseTitle(), passed through the english TitleParser, and prefix removed.
+ * "commons" seems to be a fairly safe bet, as it is auto-setup in Vagrant and in many wikis.
+ * Make sure this prefix exists in the interwiki table, but not as a local interwiki:
+ *   http://.../w/api.php?action=query&meta=siteinfo&siprop=interwikimap
+ */
+$wgJsonConfigInterwikiPrefix = 'commons';
 
 /**
  * Each extension should add its configuration profiles as described in the doc

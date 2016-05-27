@@ -93,23 +93,20 @@ class JCApi extends ApiBase {
 						$ns = \MWNamespace::getCanonicalIndex( strtolower( $parts[0] ) );
 					}
 				}
-				// @todo/fixme: in theory, this might not be the best way to parse titles:
-				// for example, they should not be checked for interwiki prefixes
+				// @todo/fixme: use parseTitle's title string parsing instead
 				// Need to rework it to check for invalid characters (e.g. '#'), normalization ('_' vs ' '),
 				// extra whitespaces at either end.
 				if ( $ns === null || !array_key_exists( $ns, JCSingleton::getTitleMap() ) ||
 				     ( $t = \Title::newFromText( $parts[1], $ns ) ) === null ||
-				     ( $titleValue = $t->getTitleValue() ) === null ||
-				     !( $conf = JCSingleton::getMetadata( $titleValue ) )
+				     !( $jct = JCSingleton::parseTitle( $t ) )
 				) {
 					$this->dieUsage( 'The "title" parameter must be in form NS:Title, where NS is either an integer or a canonical ' .
 					                 'namespace name. In either case, namespace must be defined as part of JsonConfig configuration',
 						'badparam-titles' );
 				}
 
-				/** @var \stdClass $conf */
-				/** @var \TitleValue $titleValue */
-				$handler = new JCContentHandler( $conf->model );
+				/** @var JCTitle $jct */
+				$handler = new JCContentHandler( $jct->getConfig()->model );
 
 				if ( isset( $params['content'] ) && $params['content'] !== '' ) {
 					if ( $command !== 'reload ' ) {
@@ -122,7 +119,7 @@ class JCApi extends ApiBase {
 					$content = false;
 				}
 
-				$jc = new JCCache( $titleValue, $conf, $content );
+				$jc = new JCCache( $jct, $content );
 				if ( $command === 'reset' ) {
 					$jc->resetCache( false ); // clear cache
 				} elseif ( $content ) {

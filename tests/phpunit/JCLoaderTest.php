@@ -33,8 +33,8 @@ class JCLoaderTest extends MediaWikiTestCase {
 				[], self::getExpectedObj( [], true, false )
 			],
 			[
-				[ 'pattern' => '^.+\.json$' ],
-				self::getExpectedObj( [ 'pattern' => '^.+\.json$' ], true, false )
+				[ 'pattern' => '/\.json$/' ],
+				self::getExpectedObj( [ 'pattern' => '/\.json$/' ], true, false )
 			],
 			[
 				[ 'namespace' => 400, 'nsName' => 'abc' ],

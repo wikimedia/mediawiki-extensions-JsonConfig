@@ -2,8 +2,6 @@
 namespace JsonConfig;
 
 use MWNamespace;
-use stdClass;
-use TitleValue;
 
 /**
  * Represents a json blob on a remote wiki.
@@ -11,8 +9,6 @@ use TitleValue;
  */
 class JCCache {
 	private $titleValue, $key, $cache;
-	/** @var stdClass */
-	private $conf;
 
 	/** @var bool|string|JCContent */
 	private $content = null;
@@ -24,14 +20,13 @@ class JCCache {
 	 * Constructor for JCCache
 	 * ** DO NOT USE directly - call JCSingleton::getCachedStore() instead. **
 	 *
-	 * @param TitleValue $titleValue
-	 * @param stdClass $conf
+	 * @param JCTitle $titleValue
 	 * @param JCContent $content
 	 */
-	function __construct( $titleValue, $conf, $content = null ) {
+	function __construct( JCTitle $titleValue, $content = null ) {
 		global $wgJsonConfigCacheKeyPrefix;
 		$this->titleValue = $titleValue;
-		$this->conf = $conf;
+		$conf = $this->titleValue->getConfig();
 		$flRev = $conf->flaggedRevs;
 		$key = implode( ':', array(
 			'JsonConfig',
@@ -57,7 +52,7 @@ class JCCache {
 		if ( $this->content === null ) {
 			$value = $this->memcGet(); // Get content from the memcached
 			if ( $value === false ) {
-				if ( $this->conf->store ) {
+				if ( $this->titleValue->getConfig()->store ) {
 					$this->loadLocal(); // Get it from the local wiki
 				} else {
 					$this->loadRemote(); // Get it from HTTP
@@ -114,9 +109,10 @@ class JCCache {
 	public function resetCache( $updateCacheContent = null ) {
 		global $wgJsonConfigDisableCache;
 		if ( !$wgJsonConfigDisableCache ) {
+			$conf = $this->titleValue->getConfig();
 			if ( $this->content && ( $updateCacheContent === true ||
-			                         ( $updateCacheContent === null && isset( $this->conf->store ) &&
-			                           $this->conf->store->cacheNewValue ) )
+									 ( $updateCacheContent === null && isset( $conf->store ) &&
+									   $conf->store->cacheNewValue ) )
 			) {
 				$this->memcSet(); // update cache with the new value
 			} else {
@@ -152,16 +148,17 @@ class JCCache {
 	private function loadRemote() {
 		do {
 			$result = false;
-			$remote = $this->conf->remote;
+			$conf = $this->titleValue->getConfig();
+			$remote = $conf->remote;
 			$req = JCUtils::initApiRequestObj( $remote->url, $remote->username, $remote->password );
 			if ( !$req ) {
 				break;
 			}
 			$ns =
-				$this->conf->nsName ? $this->conf->nsName
+				$conf->nsName ? $conf->nsName
 					: MWNamespace::getCanonicalName( $this->titleValue->getNamespace() );
 			$articleName = $ns . ':' . $this->titleValue->getText();
-			$flrevs = $this->conf->flaggedRevs;
+			$flrevs = $conf->flaggedRevs;
 			// if flaggedRevs is false, get wiki page directly, otherwise get the flagged state first
 			$res = $this->getPageFromApi( $articleName, $req, $flrevs === false
 					? array(
