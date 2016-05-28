@@ -24,16 +24,16 @@ class JCApi extends ApiBase {
 		if ( isset( $conf->remote ) ) {
 			$res['remote'] = array(
 				'url' => $conf->remote->url,
-				'username' => $conf->remote->username !== '',
-				'password' => $conf->remote->password !== '',
+				'username' => $conf->remote->username !== '', // true or false
+				'password' => $conf->remote->password !== '', // true or false
 			);
 		}
 		if ( isset( $conf->store ) ) {
 			$res['store'] = array(
 				'cacheNewValue' => $conf->store->cacheNewValue,
 				'notifyUrl' => $conf->store->notifyUrl,
-				'notifyUsername' => $conf->store->notifyUsername !== '',
-				'notifyPassword' => $conf->store->notifyPassword !== '',
+				'notifyUsername' => $conf->store->notifyUsername !== '', // true or false
+				'notifyPassword' => $conf->store->notifyPassword !== '', // true or false
 			);
 		}
 		return $res;
@@ -70,51 +70,36 @@ class JCApi extends ApiBase {
 			case 'reset':
 			case 'reload':
 
+				// FIXME: this should be POSTed, not GETed.
+				// This code should match JCSingleton::onArticleChangeComplete()
+				// Currently, that action is not used because in production store->notifyUrl is null
+				// Can MW API allow both for the same action, or should it be a separate action?
+
 				$this->getMain()->setCacheMaxAge( 1 ); // seconds
 				$this->getMain()->setCacheMode( 'private' );
 				if ( !$this->getUser()->isAllowed( 'jsonconfig-flush' ) ) {
 					$this->dieUsage( "Must be authenticated with jsonconfig-flush right to use this API",
 						'login', 401 );
 				}
+				if ( !isset( $params['namespace'] ) ) {
+					$this->dieUsage( 'Parameter "namespace" is required for this command', 'badparam-namespace' );
+				}
 				if ( !isset( $params['title'] ) ) {
 					$this->dieUsage( 'Parameter "title" is required for this command', 'badparam-title' );
 				}
 
-				// Manual title parsing - each title must have a non-localized namespace, but an integer can be used
-				$ns = null;
-				$parts = explode( ':', $params['title'], 2 );
-				if ( count( $parts ) === 2 ) {
-					if ( is_numeric( $parts[0] ) ) {
-						$ns = intval( $parts[0] );
-						if ( (string)$ns !== $parts[0] ) {
-							$ns = null;
-						}
-					} else {
-						$ns = \MWNamespace::getCanonicalIndex( strtolower( $parts[0] ) );
-					}
-				}
-				// @todo/fixme: use parseTitle's title string parsing instead
-				// Need to rework it to check for invalid characters (e.g. '#'), normalization ('_' vs ' '),
-				// extra whitespaces at either end.
-				if ( $ns === null || !array_key_exists( $ns, JCSingleton::getTitleMap() ) ||
-				     ( $t = \Title::newFromText( $parts[1], $ns ) ) === null ||
-				     !( $jct = JCSingleton::parseTitle( $t ) )
-				) {
-					$this->dieUsage( 'The "title" parameter must be in form NS:Title, where NS is either an integer or a canonical ' .
-					                 'namespace name. In either case, namespace must be defined as part of JsonConfig configuration',
+				$jct = JCSingleton::parseTitle( $params['title'], $params['namespace'] );
+				if ( !$jct ) {
+					$this->dieUsage( 'The page specified by "namespace" and "title" parameters is either invalid or is not registered in JsonConfig configuration',
 						'badparam-titles' );
 				}
-
-				/** @var JCTitle $jct */
-				$handler = new JCContentHandler( $jct->getConfig()->model );
 
 				if ( isset( $params['content'] ) && $params['content'] !== '' ) {
 					if ( $command !== 'reload ' ) {
 						$this->dieUsage( 'The "content" parameter may only be used with command=reload',
 							'badparam-content' );
 					}
-					$text = $params['content'];
-					$content = $handler->unserializeContent( $text, null, true );
+					$content = JCSingleton::parseContent( $jct, $params['content'], true );
 				} else {
 					$content = false;
 				}
@@ -142,42 +127,11 @@ class JCApi extends ApiBase {
 					'reload',
 				)
 			),
+			'namespace' => array(
+				ApiBase::PARAM_TYPE => 'integer',
+			),
 			'title' => '',
 			'content' => '',
-		);
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getParamDescription() {
-		return array(
-			'command' => array(
-				'What sub-action to perform on JsonConfig:',
-				'  status - shows JsonConfig configuration',
-				'  reset  - clears configurations from cache. Requires title parameter and jsonconfig-reset right',
-				'  reload - reloads and caches configurations from config store. Requires title parameter and jsonconfig-reset right',
-			),
-			'title' => 'title to process',
-			'content' => 'For command=reload, use this content instead',
-		);
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getDescription() {
-		return 'Allows direct access to JsonConfig subsystem';
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getExamples() {
-		return array(
-			'api.php?action=jsonconfig&format=jsonfm',
-			'api.php?action=jsonconfig&command=reset&title=Zero:TEST&format=jsonfm',
-			'api.php?action=jsonconfig&command=reload&title=Zero:TEST&format=jsonfm',
 		);
 	}
 
@@ -188,9 +142,9 @@ class JCApi extends ApiBase {
 		return array(
 			'action=jsonconfig&format=jsonfm'
 				=> 'apihelp-jsonconfig-example-1',
-			'action=jsonconfig&command=reset&title=Zero:TEST&format=jsonfm'
+			'api.php?action=jsonconfig&command=reset&namespace=480&title=TEST&format=jsonfm'
 				=> 'apihelp-jsonconfig-example-2',
-			'action=jsonconfig&command=reload&title=Zero:TEST&format=jsonfm'
+			'api.php?action=jsonconfig&command=reload&namespace=480&title=TEST&format=jsonfm'
 				=> 'apihelp-jsonconfig-example-3',
 		);
 	}

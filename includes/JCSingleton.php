@@ -354,14 +354,16 @@ class JCSingleton {
 	 * as long as it is defined in $wgJsonConfigs.
 	 * @param TitleValue $titleValue
 	 * @param string $jsonText json content
+	 * @param bool $isSaving if true, performs extensive validation during unserialization
 	 * @return bool|JCContent Returns false if the title is not handled by the settings
+	 * @throws Exception
 	 */
-	public static function parseContent( TitleValue $titleValue, $jsonText ) {
+	public static function parseContent( TitleValue $titleValue, $jsonText, $isSaving = false ) {
 
 		$jct = self::parseTitle( $titleValue );
 		if ( $jct ) {
 			$handler = new JCContentHandler( $jct->getConfig()->model );
-			return $handler->unserializeContent( $jsonText, null, false );
+			return $handler->unserializeContent( $jsonText, null, $isSaving );
 		}
 
 		return false;
