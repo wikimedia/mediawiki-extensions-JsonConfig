@@ -34,7 +34,7 @@
 	"right-jsonconfig-flush": "Manipular JsonConfig a través de la API",
 	"apihelp-jsonconfig-description": "Permite el acceso directo al subsistema JsonConfig.",
 	"apihelp-jsonconfig-param-command": "Qué subacción realizad sobre JsonConfig:\n;status:muestra la configuración JsonConfig.\n;reset:borra configuraciones del caché. Requiere el parámetro $1title y el permiso jsonconfig-reset\n;reload:recarga y guarda en caché configuraciones del almacén de configuraciones. Requiere el parámetro $1title y el permiso jsonconfig-reset.",
-	"apihelp-jsonconfig-param-title": "Título que procesar.",
+	"apihelp-jsonconfig-param-title": "Título que procesar sin el prefijo de espacio de nombres.",
 	"apihelp-jsonconfig-param-content": "Para $1command=reload, usa este contenido en su lugar.",
 	"apihelp-jsonconfig-example-1": "Mostrar configuración",
 	"apihelp-jsonconfig-example-2": "Restablecer [[Zero:TEST]]",
