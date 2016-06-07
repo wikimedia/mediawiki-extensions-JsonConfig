@@ -1,7 +1,13 @@
 {
-	"@metadata": [],
+	"@metadata": {
+		"authors": [
+			"Rachmat.Wahidi"
+		]
+	},
 	"jsonconfig-bad-json": "Tidak dapat mem-parsing konfigurasi JSON. Harap periksa sintaks.",
 	"jsonconfig-err-bool": "Parameter \"$1\" harus benar atau salah",
 	"jsonconfig-err-string": "Parameter \"$1\" harus berupa string",
-	"jsonconfig-optional-field": "(opsional)"
+	"jsonconfig-optional-field": "(opsional)",
+	"apihelp-jsonconfig-param-namespace": "Nomor ruangnama judul akan diproses.",
+	"apihelp-jsonconfig-param-title": "Judul untuk diproses tanpa awalan ruangnama."
 }
