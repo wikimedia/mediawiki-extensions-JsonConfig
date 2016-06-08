@@ -33,7 +33,7 @@
 	"jsonconfig-type-name-localized": "מתורגם",
 	"jsonconfig-type-name-number": "מחרוזת",
 	"jsonconfig-type-name-boolean": "בוליאני",
-	"right-jsonconfig-flush": "טיפול ב־JsonConfig דרך API",
+	"right-jsonconfig-flush": "טיפול ב־JsonConfig באמצעות API",
 	"apihelp-jsonconfig-description": "מאפשר גישה ישירה לתת־מערכת JsonConfig.",
 	"apihelp-jsonconfig-param-command": "איזו תת־פעולה לבצע ב־JsonConfig:\n;status:הצגת הגדרות JsonConfig.\n;reset:ניקוי הגדרות מהמטמון. דורש את הפרמטר $1title ואת ההרשאה jsonconfig-reset.\n;reload:מרענן ומטמין את ההגדרות ממאגר ההגדרות. דורש את הפרמטר $1title ואת ההרשאה jsonconfig-reset.",
 	"apihelp-jsonconfig-param-namespace": "מספר מרחב שם של הכותרת לעיבוד.",
