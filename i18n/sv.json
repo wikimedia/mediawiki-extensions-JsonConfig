@@ -27,7 +27,7 @@
 	"jsonconfig-type-name-boolean": "boolesk",
 	"apihelp-jsonconfig-description": "Ger direkt åtkomst till JsonConfig-undersystemet.",
 	"apihelp-jsonconfig-param-command": "Wilken underåtgärd som ska utföras på JsonConfig:\n;status:Visar JsonConfig-konfiguration.\n;reset:Rensar konfigurationer från cache. Kräver $1title parametern och jsonconfig-reset-rättighet.\n;reload:Ladda om och cachar konfigurationer från config-lagringen.  Kräver $1title parametern och jsonconfig-reset-rättighet.",
-	"apihelp-jsonconfig-param-title": "Titel att bearbeta.",
+	"apihelp-jsonconfig-param-title": "Titel att bearbeta utan namnrymdsprefix.",
 	"apihelp-jsonconfig-param-content": "För $1command=reload, använd detta innehåll istället.",
 	"apihelp-jsonconfig-example-1": "Visa konfiguration",
 	"apihelp-jsonconfig-example-2": "Återställ [[Zero:TEST]]",
