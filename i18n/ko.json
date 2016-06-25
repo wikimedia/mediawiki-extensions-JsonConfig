@@ -2,13 +2,14 @@
 	"@metadata": {
 		"authors": [
 			"Keysuck",
-			"Jonghaya"
+			"Jonghaya",
+			"Ykhwong"
 		]
 	},
 	"jsonconfig-bad-json": "JSON 설정을 구문 분석할 수 없습니다. 구문을 확인하세요.",
 	"jsonconfig-err-bool": "변수 \"$1\" true나 false여야 합니다",
 	"jsonconfig-err-string": "변수 \"$1\" 문자열이어야 합니다",
 	"jsonconfig-optional-field": "(선택 사항)",
-	"apihelp-jsonconfig-param-namespace": "처리중인 타이틀의 네임스페이스 숫자�",
+	"apihelp-jsonconfig-param-namespace": "처리할 제목의 이름공간 숫자.",
 	"apihelp-jsonconfig-param-title": "네임스페이스의 어미가 없는 타이틀"
 }
