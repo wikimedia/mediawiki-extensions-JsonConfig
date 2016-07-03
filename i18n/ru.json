@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Okras",
-			"Meshkov.a"
+			"Meshkov.a",
+			"NBS"
 		]
 	},
 	"jsonconfig-desc": "Позволяет хранить настройки JSON в вики-проекте",
@@ -21,7 +22,7 @@
 	"jsonconfig-move-aborted-model": "конфигурационная модель JSON «$1» этой страницы не соответствует модели нового заголовка «$2»",
 	"jsonconfig-move-aborted-ns": "новый заголовок страницы не настроен для хранения конфигурации JSON",
 	"jsonconfig-optional-field": "(необязательно)",
-	"right-jsonconfig-flush": "Управлять JsonConfig через API",
+	"right-jsonconfig-flush": "управление JsonConfig через API",
 	"apihelp-jsonconfig-description": "Обеспечивает прямой доступ к подсистеме JsonConfig.",
 	"apihelp-jsonconfig-param-title": "Заголовок для обработки без префикса пространства имён.",
 	"apihelp-jsonconfig-param-content": "Для $1command=reload использовать вместо этого данный контент.",
