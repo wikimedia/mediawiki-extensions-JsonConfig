@@ -23,7 +23,7 @@
 	"right-jsonconfig-flush": "Tresformar JsonConfig pela API",
 	"apihelp-jsonconfig-description": "Permite l'accesu direutu al subsistema JsonConfig.",
 	"apihelp-jsonconfig-param-command": "Qué sub-aición facer en JsonConfig:\n;status:Amuesa la configuración de JsonConfig.\n;reset:Llimpia les configuraciones de la caché. Necesita'l parámetru $1title ya'l permisu jsonconfig-reset.\n;reload:Recarga y pon na caché les configuraciones dende l'almacén de configuraciones. Necesita'l parámetru $1title ya'l permisu jsonconfig-reset.",
-	"apihelp-jsonconfig-param-title": "Títulu a procesar.",
+	"apihelp-jsonconfig-param-title": "Títulu a procesar ensin el prefixu d'espaciu de nomes.",
 	"apihelp-jsonconfig-param-content": "Pa $1command=reload, usa esti conteníu nel so llugar.",
 	"apihelp-jsonconfig-example-1": "Amosar configuración",
 	"apihelp-jsonconfig-example-2": "Reaniciar [[Zero:TEST]]",
