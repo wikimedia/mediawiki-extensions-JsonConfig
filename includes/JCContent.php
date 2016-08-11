@@ -197,9 +197,9 @@ class JCContent extends \TextContent {
 	protected function getView( $modelId ) {
 		$view = $this->view;
 		if ( $view === null ) {
-			global $wgJsonConfigModels;
-			if ( array_key_exists( $modelId, $wgJsonConfigModels ) ) {
-				$value = $wgJsonConfigModels[$modelId];
+			$configModels = \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' );
+			if ( array_key_exists( $modelId, $configModels ) ) {
+				$value = $configModels[$modelId];
 				if ( is_array( $value ) && array_key_exists( 'view', $value ) ) {
 					$class = $value['view'];
 					$view = new $class();

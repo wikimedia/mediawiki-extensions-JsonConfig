@@ -50,8 +50,11 @@ class JCApi extends ApiBase {
 				$this->getMain()->setCacheMaxAge( 1 * 30 ); // seconds
 				$this->getMain()->setCacheMode( 'public' );
 
-				global $wgJsonConfigModels;
-				$result->addValue( null, 'models', $wgJsonConfigModels );
+				$result->addValue(
+					null,
+					'models',
+					\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' )
+				);
 
 				$data = array();
 				foreach ( JCSingleton::getTitleMap() as $ns => $confs ) {

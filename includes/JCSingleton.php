@@ -65,9 +65,13 @@ class JCSingleton {
 			return;
 		}
 		$isInitialized = true;
-		global $wgNamespaceContentModels, $wgContentHandlers, $wgJsonConfigs, $wgJsonConfigModels;
+		global $wgNamespaceContentModels, $wgContentHandlers;
 		list( self::$titleMap, self::$namespaces ) = self::parseConfiguration(
-			$wgNamespaceContentModels, $wgContentHandlers, $wgJsonConfigs, $wgJsonConfigModels );
+			$wgNamespaceContentModels,
+			$wgContentHandlers,
+			\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ),
+			\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' )
+		);
 	}
 
 	/**
@@ -379,10 +383,10 @@ class JCSingleton {
 	}
 
 	public static function getContentClass( $modelId ) {
-		global $wgJsonConfigModels;
+		$configModels = \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' );
 		$class = null;
-		if ( array_key_exists( $modelId, $wgJsonConfigModels ) ) {
-			$value = $wgJsonConfigModels[$modelId];
+		if ( array_key_exists( $modelId, $configModels ) ) {
+			$value = $configModels[$modelId];
 			if ( is_array( $value ) ) {
 				if ( !array_key_exists( 'class', $value ) ) {
 					wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigModels['$modelId'] array value, 'class' not found" );
@@ -573,8 +577,7 @@ class JCSingleton {
 		}
 
 		self::init();
-		global $wgJsonConfigModels;
-		if ( array_key_exists( $modelId, $wgJsonConfigModels ) ) {
+		if ( array_key_exists( $modelId, \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ) ) ) {
 			// This is one of our model IDs
 			$handler = new JCContentHandler( $modelId );
 			return false;
@@ -776,9 +779,8 @@ class JCSingleton {
 	private static function jsonConfigIsStorage() {
 		static $isStorage = null;
 		if ( $isStorage === null ) {
-			global $wgJsonConfigs;
 			$isStorage = false;
-			foreach ( $wgJsonConfigs as $jc ) {
+			foreach ( \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ) as $jc ) {
 				if ( ( !array_key_exists( 'isLocal', $jc ) || $jc['isLocal'] ) ||
 					 ( array_key_exists( 'store', $jc ) )
 				) {
