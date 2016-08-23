@@ -29,6 +29,7 @@
 	"jsonconfig-err-root-array-expected": "Entire JSON data was not a list surrounded by the [...] brackets",
 	"jsonconfig-err-root-object-expected": "Entire JSON data was not an object, surrounded by the {...} braces",
 	"jsonconfig-err-string": "A field named \"$1\" is not a valid string. Parameters:\n* $1 - field name",
+	"jsonconfig-err-stringline": "A field named \"$1\" is not a valid single line string. Parameters:\n* $1 - field name\n* $2 - maximum allowed string length",
 	"jsonconfig-err-unique-strings": "A list named \"$1\" must only contain non-empty strings that do not repeat. Parameters:\n* $1 - field name",
 	"jsonconfig-err-url": "A field named \"$1\" is not a valid URL. Parameters:\n* $1 - field name",
 	"jsonconfig-move-aborted-model": "JSON configuration page is being renamed to a new title, and that title (namespace) contains configurations of a different type (model).\n\nParameters:\n* $1 - current model\n* $2 - default model for the new title",

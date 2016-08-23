@@ -54,6 +54,21 @@ class JCValidators {
 		};
 	}
 
+	/** Returns a validator function to check if the value is a valid single line string
+	 * @param int $maxlength maximum allowed string size
+	 * @return callable
+	 */
+	public static function isStringLine( $maxlength = 400 ) {
+		return function ( JCValue $v, array $path ) use ( $maxlength ) {
+			$str = $v->getValue();
+			if ( !JCUtils::isValidLineString( $str, $maxlength ) ) {
+				$v->error( 'jsonconfig-err-stringline', $path, $maxlength );
+				return false;
+			}
+			return true;
+		};
+	}
+
 	/** Returns a validator function to check if the value is a valid integer
 	 * @return callable
 	 */
@@ -174,8 +189,13 @@ class JCValidators {
 		};
 	}
 
-	public static function isLocalizedString() {
-		return function ( JCValue $jcv, array $path ) {
+	/** Returns a validator function that will ensure that the given value is a non-empty object,
+	 * with each key being an allowed language code, and each value being a single line string.
+	 * @param int $maxlength
+	 * @return Closure
+	 */
+	public static function isLocalizedString( $maxlength = 400 ) {
+		return function ( JCValue $jcv, array $path ) use ( $maxlength ) {
 			if ( $jcv->isMissing() ) {
 				$v = array();
 			} else {
@@ -187,22 +207,12 @@ class JCValidators {
 			if ( is_array( $v ) ) {
 				if ( !empty( $v ) &&
 					 JCUtils::isListOfLangs( array_keys( $v ) ) &&
-					 JCUtils::allValuesAreStrings( $v )
+					 count( array_filter( $v, function ( $str ) use ( $maxlength ) {
+						 return JCUtils::isValidLineString( $str, $maxlength );
+					 } ) ) === count( $v )
 				) {
-					// Sort array so that the values are sorted alphabetically,
-					// except 'en' which will be shown first
-					uksort( $v,
-						function ( $a, $b ) {
-							if ( $a === $b ) {
-								return 0;
-							} elseif ( $a === 'en' ) {
-								return -1;
-							} elseif ( $b === 'en' ) {
-								return 1;
-							} else {
-								return strcasecmp( $a, $b );
-							}
-						} );
+					// Sort array so that the values are sorted alphabetically
+					ksort( $v );
 					$jcv->setValue( (object)$v );
 					return true;
 				}
@@ -273,7 +283,7 @@ class JCValidators {
 			if ( is_string( $value ) ) {
 				switch ( $value ) {
 					case 'string':
-						$validator = JCValidators::isString();
+						$validator = JCValidators::isStringLine();
 						break;
 					case 'boolean':
 						$validator = JCValidators::isBool();

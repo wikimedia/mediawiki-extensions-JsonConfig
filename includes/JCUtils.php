@@ -155,6 +155,17 @@ class JCUtils {
 		return is_array( $array ) && count( array_filter( $array, 'is_string' ) ) === count( $array );
 	}
 
+	/** Helper function to check if the given value is a valid string no longer than maxlength,
+	 * that it has no tabs or new line chars, and that it does not begin or end with spaces
+	 * @param $str
+	 * @param int $maxlength
+	 * @return bool
+	 */
+	public static function isValidLineString( $str, $maxlength ) {
+		return is_string( $str ) && mb_strlen( $str ) <= $maxlength &&
+			   !preg_match( '/^\s|[\r\n\t]|\s$/', $str );
+	}
+
 	/**
 	 * Converts an array representing path to a field into a string in 'a/b/c[0]/d' format
 	 * @param array $fieldPath

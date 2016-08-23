@@ -22,7 +22,7 @@ abstract class JCDataContent extends JCObjContent {
 			return;
 		}
 
-		$this->test( 'license', JCValidators::isString(), self::isValidLicense() );
+		$this->test( 'license', JCValidators::isStringLine(), self::isValidLicense() );
 		$this->testOptional( 'info', [ 'en' => '' ], JCValidators::isLocalizedString() );
 	}
 
