@@ -154,7 +154,9 @@ class JCContent extends \TextContent {
 		if ( !$this->isValidJson() ) {
 			return $this; // Invalid JSON - can't do anything with it
 		}
-		$formatted = FormatJson::encode( $this->getData(), true, FormatJson::ALL_OK );
+		$formatted = self::normalizeLineEndings(
+			FormatJson::encode( $this->getData(), true, FormatJson::ALL_OK )
+		);
 		if ( $this->getNativeData() !== $formatted ) {
 			return new static( $formatted, $this->getModel(), $this->thorough() );
 		}
