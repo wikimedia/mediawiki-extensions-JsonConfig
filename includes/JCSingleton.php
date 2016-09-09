@@ -65,12 +65,12 @@ class JCSingleton {
 			return;
 		}
 		$isInitialized = true;
-		global $wgNamespaceContentModels, $wgContentHandlers;
+		global $wgNamespaceContentModels, $wgContentHandlers, $wgJsonConfigs, $wgJsonConfigModels;
 		list( self::$titleMap, self::$namespaces ) = self::parseConfiguration(
 			$wgNamespaceContentModels,
 			$wgContentHandlers,
-			\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ),
-			\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' )
+			\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ) + $wgJsonConfigs,
+			\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ) + $wgJsonConfigModels
 		);
 	}
 
@@ -383,7 +383,8 @@ class JCSingleton {
 	}
 
 	public static function getContentClass( $modelId ) {
-		$configModels = \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' );
+		global $wgJsonConfigModels;
+		$configModels = \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ) + $wgJsonConfigModels;
 		$class = null;
 		if ( array_key_exists( $modelId, $configModels ) ) {
 			$value = $configModels[$modelId];
@@ -572,12 +573,14 @@ class JCSingleton {
 	 * @return bool
 	 */
 	public static function onContentHandlerForModelID( $modelId, &$handler ) {
+		global $wgJsonConfigModels;
 		if ( !self::jsonConfigIsStorage() ) {
 			return true;
 		}
 
 		self::init();
-		if ( array_key_exists( $modelId, \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ) ) ) {
+		$models = \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ) + $wgJsonConfigModels;
+		if ( array_key_exists( $modelId, $models ) ) {
 			// This is one of our model IDs
 			$handler = new JCContentHandler( $modelId );
 			return false;
@@ -779,8 +782,10 @@ class JCSingleton {
 	private static function jsonConfigIsStorage() {
 		static $isStorage = null;
 		if ( $isStorage === null ) {
+			global $wgJsonConfigs;
 			$isStorage = false;
-			foreach ( \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ) as $jc ) {
+			$configs = \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ) + $wgJsonConfigs;
+			foreach ( $configs as $jc ) {
 				if ( ( !array_key_exists( 'isLocal', $jc ) || $jc['isLocal'] ) ||
 					 ( array_key_exists( 'store', $jc ) )
 				) {
