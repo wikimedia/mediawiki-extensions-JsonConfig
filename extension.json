@@ -119,9 +119,7 @@
 		]
 	},
 	"config": {
-		"JsonConfigs": {
-			"_merge_strategy": "array_merge_recursive"
-		},
+		"JsonConfigs": [],
 		"JsonConfigModels": [],
 		"JsonConfigDisableCache": false,
 		"JsonConfigCacheKeyPrefix": "1",
