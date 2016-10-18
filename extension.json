@@ -119,12 +119,26 @@
 		]
 	},
 	"config": {
-		"JsonConfigs": [],
-		"JsonConfigModels": [],
-		"JsonConfigDisableCache": false,
-		"JsonConfigCacheKeyPrefix": "1",
-		"JsonConfigEnableLuaSupport": false,
-		"JsonConfigInterwikiPrefix": "commons"
+		"JsonConfigs": {
+			"merge_strategy": "array_replace_recursive",
+			"value": {}
+		},
+		"JsonConfigModels": {
+			"merge_strategy": "array_replace_recursive",
+			"value": {}
+		},
+		"JsonConfigDisableCache": {
+			"value": false
+		},
+		"JsonConfigCacheKeyPrefix": {
+			"value": "1"
+		},
+		"JsonConfigEnableLuaSupport": {
+			"value": false
+		},
+		"JsonConfigInterwikiPrefix": {
+			"value": "commons"
+		}
 	},
-	"manifest_version": 1
+	"manifest_version": 2
 }

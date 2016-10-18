@@ -69,8 +69,8 @@ class JCSingleton {
 		list( self::$titleMap, self::$namespaces ) = self::parseConfiguration(
 			$wgNamespaceContentModels,
 			$wgContentHandlers,
-			\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ) + $wgJsonConfigs,
-			\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ) + $wgJsonConfigModels
+			array_replace_recursive( \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ), $wgJsonConfigs ),
+			array_replace_recursive( \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ), $wgJsonConfigModels )
 		);
 	}
 
@@ -384,7 +384,7 @@ class JCSingleton {
 
 	public static function getContentClass( $modelId ) {
 		global $wgJsonConfigModels;
-		$configModels = \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ) + $wgJsonConfigModels;
+		$configModels = array_replace_recursive( \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ), $wgJsonConfigModels );
 		$class = null;
 		if ( array_key_exists( $modelId, $configModels ) ) {
 			$value = $configModels[$modelId];
@@ -579,7 +579,7 @@ class JCSingleton {
 		}
 
 		self::init();
-		$models = \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ) + $wgJsonConfigModels;
+		$models = array_replace_recursive( \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ), $wgJsonConfigModels );
 		if ( array_key_exists( $modelId, $models ) ) {
 			// This is one of our model IDs
 			$handler = new JCContentHandler( $modelId );
@@ -784,7 +784,7 @@ class JCSingleton {
 		if ( $isStorage === null ) {
 			global $wgJsonConfigs;
 			$isStorage = false;
-			$configs = \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ) + $wgJsonConfigs;
+			$configs = array_replace_recursive( \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ), $wgJsonConfigs );
 			foreach ( $configs as $jc ) {
 				if ( ( !array_key_exists( 'isLocal', $jc ) || $jc['isLocal'] ) ||
 					 ( array_key_exists( 'store', $jc ) )
