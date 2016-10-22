@@ -1,0 +1,8 @@
+{
+    "license": "CC0-1.0",
+    "headers": ["col1"],
+    "types": ["string"],
+    "rows": [
+    	[]
+    ]
+}

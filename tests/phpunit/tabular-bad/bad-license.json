@@ -1,0 +1,6 @@
+{
+    "license": {"en": "blah"},
+    "headers": ["col1"],
+    "types": ["string"],
+    "rows": []
+}

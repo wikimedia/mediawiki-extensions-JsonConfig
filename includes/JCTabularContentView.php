@@ -39,6 +39,16 @@ class JCTabularContentView extends JCContentView {
 
 		if ( property_exists( $data, 'headers' ) ) {
 			list( $headers, $headersAttrs ) = self::split( $data->headers );
+
+			$titles = [ ];
+			$titlesAttrs = '';
+			if ( property_exists( $data, 'titles' ) ) {
+				list( $titlesVals, $titlesAttrs ) = self::split( $data->titles );
+				if ( !$titlesAttrs ) {
+					$titles = $titlesVals;
+				}
+			}
+
 			$vals = [ ];
 			$types = [ ];
 			if ( property_exists( $data, 'types' ) ) {
@@ -53,19 +63,33 @@ class JCTabularContentView extends JCContentView {
 					}, $tmp );
 				}
 			}
+
 			$index = 0;
-			foreach ( $headers as $column ) {
-				list( $column, $columnAttrs ) = self::split( $column );
+			foreach ( $headers as $colHeader ) {
+				list( $colHeader, $columnAttrs ) = self::split( $colHeader );
+				if ( !empty( $titles[$index] ) ) {
+					list( $colTitle, $colTitleAttrs ) = self::split( $titles[$index] );
+					if ( $colTitleAttrs ) {
+						$colTitle = $colHeader;
+					} else {
+						$colTitle = JCUtils::pickLocalizedString( $colTitle, $lang );
+					}
+				} else {
+					$colTitle = $colHeader;
+					$colTitleAttrs = '';
+				}
+
 				$type = !empty( $types[$index] ) ? $types[$index] : 'invalid';
 				$typeClass = $infoClass;
 				$typeClass['title'] = wfMessage( 'jsonconfig-type-name-' . $type )->plain();
 				$typeAbbr = wfMessage( 'jsonconfig-type-abbr-' . $type )->plain();
-				$column = htmlspecialchars( $column ) .
+
+				$colTitle = htmlspecialchars( $colTitle ) .
 						  Html::element( 'span', $typeClass, $typeAbbr );
-				$vals[] = Html::rawElement( 'th', $columnAttrs, $column );
+				$vals[] = Html::rawElement( 'th', $columnAttrs ?: $colTitleAttrs, $colTitle );
 				$index++;
 			}
-			$result = [ Html::rawElement( 'tr', $headersAttrs, implode( '', $vals ) ) ];
+			$result = [ Html::rawElement( 'tr', $headersAttrs ?: $titlesAttrs, implode( '', $vals ) ) ];
 		} else {
 			$result = [];
 		}
@@ -83,6 +107,10 @@ class JCTabularContentView extends JCContentView {
 								  Html::element( 'span', $infoClass, "($valueSize)" );
 						$vals[] = Html::rawElement( 'td', $columnAttrs, $column );
 					} else {
+						if ( is_bool( $column ) ) {
+							$column = $column ? '☑' : '☐';
+						}
+						// TODO: We should probably introduce one CSS class per type
 						$vals[] = Html::element( 'td', $columnAttrs, $column );
 					}
 				}
@@ -126,10 +154,27 @@ class JCTabularContentView extends JCContentView {
 	public function getDefault( $modelId ) {
 		return <<<EOT
 {
-  "headers": [ "header1", "header2" ],
-  "rows": [
-    [1, 42]
-  ]
+    // All comments will be automatically deleted on save
+
+    // Mandatory "license" field. Only CC-0 (public domain dedication) is supported.
+    "license": "CC0-1.0",
+
+    // Mandatory list of headers. Each header must be a valid identifier with consisting of A..Z, a..z, 0..9, and _
+    "headers": ["header1","header2" ],
+    
+    // Optional localized description of each column 
+    "titles": [
+        {"en": "header 1"},
+        {"en": "header 2"}
+    ],
+    
+    // Optional column types. Allowed values are number, string, boolean, and localized. Uses string by default. 
+    "types": ["number", "string" ],
+    
+    // array of rows, with each row being an array of values
+    "rows": [
+        [ 42, "peace" ]
+    ]
 }
 EOT;
 

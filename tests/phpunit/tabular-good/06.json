@@ -1,0 +1,9 @@
+{
+    "license": "CC0-1.0",
+    "info": {"en": "data info"},
+    "headers": ["_1", "col_2", "Col3", "__col4__"],
+    "types": ["string", "number", "boolean", "localized"],
+    "rows": [
+    	["a", 10.2, true, {"en": "foo"}]
+    ]
+}

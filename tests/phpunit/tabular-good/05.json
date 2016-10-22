@@ -1,0 +1,10 @@
+{
+    "license": "CC0-1.0",
+    "info": {"en": "data info", "fr": ""},
+    "headers": ["col1"],
+    "types": ["string"],
+    "titles": [{"en": "column 1" }],
+    "rows": [
+    	["val 1"]
+    ]
+}

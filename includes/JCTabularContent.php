@@ -2,10 +2,6 @@
 
 namespace JsonConfig;
 
-use ParserOptions;
-use ParserOutput;
-use Title;
-
 /**
  * @package JsonConfig
  */
@@ -63,18 +59,28 @@ class JCTabularContent extends JCDataContent {
 			 $this->testEach( 'headers', JCValidators::isHeaderString() ) &&
 			 $this->test( 'headers', JCValidators::listHasUniqueStrings() )
 		) {
-			$headerCount = count( $this->getField( 'headers' )->getValue() );
+			$headers = $this->getField( 'headers' )->getValue();
+			$headerCount = count( $headers );
 			$countValidator = JCValidators::checkListSize( $headerCount, 'headers' );
 			$validators[] = $countValidator;
 		} else {
+			$headers = false;
 			$headerCount = false;
 		}
 
-		$makeDefaultTypes = function () use ( $headerCount ) {
-			return $headerCount === false ? array() : array_fill( 0, $headerCount, 'string' );
+		$makeDefaultTitles = function () use ( $headers ) {
+			return $headers === false
+				? []
+				: array_map( function ( /** @var JCValue $header */ $header ) {
+					return [ 'en' => $header->getValue() ];
+				}, $headers );
 		};
+		if ( $this->testOptional( 'titles', $makeDefaultTitles, $validators ) ) {
+			$this->testEach( 'titles', JCValidators::isLocalizedString() );
+		}
+
 		$typeValidators = [];
-		if ( $this->testOptional( 'types', $makeDefaultTypes, $validators ) ) {
+		if ( $this->test( 'types', $validators ) ) {
 			if ( !$this->testEach( 'types', JCValidators::validateDataType( $typeValidators ) ) ) {
 				$typeValidators = false;
 			}
@@ -88,6 +94,7 @@ class JCTabularContent extends JCDataContent {
 		$this->test( 'rows', JCValidators::isList() );
 		$this->testEach( 'rows', $validators );
 		if ( $typeValidators ) {
+			/** @noinspection PhpUnusedParameterInspection */
 			$this->testEach( 'rows', function ( JCValue $v, array $path ) use ( $typeValidators ) {
 				$isOk = true;
 				$lastIdx = count( $path );
