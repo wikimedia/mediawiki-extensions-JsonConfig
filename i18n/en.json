@@ -5,7 +5,6 @@
 		]
 	},
 	"jsonconfig-desc": "Allows JSON configuration to be stored in a wiki",
-	"jsonconfig-bad-json": "Unable to parse JSON configuration. Please check the syntax.",
 	"jsonconfig-duplicate-field": "More than one value \"$1\" found",
 	"jsonconfig-err-array": "Parameter \"$1\" must be a list, e.g. ['value1', 'value2', ...]",
 	"jsonconfig-err-array-count": "List \"$1\" has $2 {{PLURAL:$2|value|values}}, but must have $3 {{PLURAL:$3|value|values}}, the same number of values as \"$4\"",

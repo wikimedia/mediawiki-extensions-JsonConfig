@@ -116,27 +116,21 @@ class JCContent extends \TextContent {
 	 */
 	private function parse() {
 		$rawText = $this->getNativeData();
-		$data = FormatJson::decode( $rawText, $this->useAssocParsing );
-		if ( $data === null ) {
-			if ( $this->thorough ) {
-				// The most common error is the trailing comma in a list. Attempt to remove it.
-				// We have to do it only once, as otherwise there could be an edge case like
-				// ',\n}' being part of a multi-line string value, in which case we should fail
-				$count = 0;
-				$rawText = preg_replace( '/,[ \t]*([\r\n]*[ \t]*[\]}])/', '$1', $rawText, 1, $count );
-				if ( $count > 0 ) {
-					$data = FormatJson::decode( $rawText, $this->useAssocParsing );
-				}
-			}
-			if ( $data === null ) {
-				$this->status->fatal( 'jsonconfig-bad-json' );
-				return;
-			}
+		$parseOpts = FormatJson::STRIP_COMMENTS + FormatJson::TRY_FIXING;
+		if ( $this->useAssocParsing ) {
+			$parseOpts += FormatJson::FORCE_ASSOC;
 		}
+		$status = FormatJson::parse( $rawText, $parseOpts );
+		if ( !$status->isOK() ) {
+			$this->status = $status;
+			return;
+		}
+		$data = $status->getValue();
 		if ( !$this->useAssocParsing ) {
 			// @fixme: HACK - need a deep clone of the data
 			// @fixme: but doing (object)(array)$data will re-encode empty [] as {}
-			$this->rawData = FormatJson::decode( $rawText, $this->useAssocParsing );
+			// @performance: re-encoding is likely faster than stripping comments in PHP twice
+			$this->rawData = FormatJson::decode( FormatJson::encode( $data, FormatJson::ALL_OK ), true );
 		} else {
 			$this->rawData = $data;
 		}
