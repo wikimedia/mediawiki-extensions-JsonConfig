@@ -185,7 +185,8 @@ class JCValidators {
 				}
 			}
 			if ( is_array( $v ) ) {
-				if ( JCUtils::isListOfLangs( array_keys( $v ) ) &&
+				if ( !empty( $v ) &&
+					 JCUtils::isListOfLangs( array_keys( $v ) ) &&
 					 JCUtils::allValuesAreStrings( $v )
 				) {
 					// Sort array so that the values are sorted alphabetically,
