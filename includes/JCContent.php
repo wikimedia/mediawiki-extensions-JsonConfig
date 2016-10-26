@@ -106,6 +106,8 @@ class JCContent extends \TextContent {
 
 	/**
 	 * Override this method to perform additional data validation
+	 * @param mixed $data
+	 * @return mixed
 	 */
 	public function validate( $data ) {
 		return $data;

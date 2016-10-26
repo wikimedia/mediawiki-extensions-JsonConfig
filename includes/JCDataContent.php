@@ -3,6 +3,8 @@
 namespace JsonConfig;
 
 use Html;
+use Language;
+use stdClass;
 
 /**
  * @package JsonConfig
@@ -37,6 +39,39 @@ abstract class JCDataContent extends JCObjContent {
 			}
 			return true;
 		};
+	}
+
+	/**
+	 * Get data as localized for the given language
+	 * @param Language $lang
+	 * @return mixed
+	 */
+	public function getLocalizedData( Language $lang ) {
+		if ( !$this->isValid() ) {
+			return null;
+		}
+		$result = new stdClass();
+		$this->localizeData( $result, $lang );
+		return $result;
+	}
+
+	/**
+	 * Resolve any override-specific localizations, and add it to $result
+	 * @param object $result
+	 * @param Language $lang
+	 */
+	protected function localizeData( $result, Language $lang ) {
+		$data = $this->getData();
+		if ( property_exists( $data, 'info' ) ) {
+			$result->info = JCUtils::pickLocalizedString( $data->info, $lang );
+		}
+		if ( property_exists( $data, 'license' ) ) {
+			$result->license = (object)[
+				'code' => $data->license,
+				'text' => wfMessage( 'jsonconfig-license-' . $data->license )->plain(),
+				'url' => wfMessage( 'jsonconfig-license-url-' . $data->license )->plain(),
+			];
+		}
 	}
 
 	public function renderInfo( $lang ) {

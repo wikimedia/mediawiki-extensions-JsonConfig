@@ -1,6 +1,7 @@
 <?php
 
 namespace JsonConfig;
+use Language;
 
 /**
  * @package JsonConfig
@@ -60,12 +61,10 @@ class JCTabularContent extends JCDataContent {
 			 $this->test( 'headers', JCValidators::listHasUniqueStrings() )
 		) {
 			$headers = $this->getField( 'headers' )->getValue();
-			$headerCount = count( $headers );
-			$countValidator = JCValidators::checkListSize( $headerCount, 'headers' );
+			$countValidator = JCValidators::checkListSize( count( $headers ), 'headers' );
 			$validators[] = $countValidator;
 		} else {
 			$headers = false;
-			$headerCount = false;
 		}
 
 		$makeDefaultTitles = function () use ( $headers ) {
@@ -104,6 +103,42 @@ class JCTabularContent extends JCDataContent {
 				}
 				return $isOk;
 			} );
+		}
+	}
+
+	/**
+	 * Resolve any override-specific localizations, and add it to $result
+	 * @param object $result
+	 * @param Language $lang
+	 */
+	protected function localizeData( $result, Language $lang ) {
+		parent::localizeData( $result, $lang );
+
+		$data = $this->getData();
+		$localize = function ( $value ) use ( $lang ) {
+			return JCUtils::pickLocalizedString( $value, $lang );
+		};
+
+		$result->headers = $data->headers;
+		$result->types = $data->types;
+		$result->titles = array_map( $localize, $data->titles );
+		if ( !in_array( 'localized', $data->types ) ) {
+			// There are no localized strings in the data, optimize
+			$result->rows = $data->rows;
+		} else {
+			// Make a list of all columns that need to be localized
+			$isLocalized = [];
+			foreach ( $data->types as $ind => $type ) {
+				if ( $type === 'localized' ) {
+					$isLocalized[] = $ind;
+				}
+			}
+			$result->rows = array_map( function ( $row ) use ( $localize, $isLocalized ) {
+				foreach ( $isLocalized as $ind ) {
+					$row[$ind] = $localize( $row[$ind] );
+				}
+				return $row;
+			}, $data->rows );
 		}
 	}
 }

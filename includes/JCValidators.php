@@ -246,6 +246,8 @@ class JCValidators {
 	}
 
 	/** Returns a validator function to check if value is a list of a given size
+	 * @param integer $count
+	 * @param string $field
 	 * @return callable
 	 */
 	public static function checkListSize( $count, $field ) {

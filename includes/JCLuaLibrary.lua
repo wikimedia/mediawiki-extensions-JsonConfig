@@ -18,8 +18,8 @@ function object.setupInterface( options )
     package.loaded['mw.ext.data'] = object
 end
 
-function object.get( title )
-    return php.get( title )
+function object.get( title, language )
+    return php.get( title, language )
 end
 
 return object
