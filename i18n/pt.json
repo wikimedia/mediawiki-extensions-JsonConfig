@@ -6,8 +6,10 @@
 			"Hamilton Abreu"
 		]
 	},
+	"jsonconfig-err-license": "O parâmetro é \"$1\" deve ser um dos códigos de licença válidos, por exemplo, $2",
 	"jsonconfig-err-number": "O parâmetro \"$1\" deve ser um número",
 	"jsonconfig-move-aborted-ns": "o novo título da página não está configurado para manter a configuração JSON",
 	"jsonconfig-optional-field": "(opcional)",
+	"jsonconfig-license-CC0-1.0": "Creative Commons Zero v1.0 Universal ou versão posterior",
 	"apihelp-jsonconfig-description": "Permite o acesso direto ao subsistema JsonConfig."
 }
