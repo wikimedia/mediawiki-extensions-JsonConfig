@@ -2,17 +2,18 @@
 	"@metadata": {
 		"authors": [
 			"Siebrand",
-			"Sjoerddebruin"
+			"Sjoerddebruin",
+			"Hex"
 		]
 	},
 	"jsonconfig-desc": "Maakt het mogelijk JSON-instellingen op te slaan in een wiki",
-	"jsonconfig-bad-json": "Het was niet mogelijk de JSON-instellingen te verwerken. Controleer de syntaxis.",
 	"jsonconfig-duplicate-field": "Meer dan één waarde \"$1\" aangetroffen",
 	"jsonconfig-err-array": "Parameter \"$1\" moet een lijst zijn, bijvoorbeeld ['waarde1', 'waarde2', ...]",
+	"jsonconfig-err-array-expected": "De verwachting was dat \"$1\" een lijst was omringd door haakjes[...]",
 	"jsonconfig-err-assoc-array": "Parameter \"$1\" moet een must be an associatieve array (dictionary) zijn, bijvoorbeeld {'sleutel': 'waarde', ...}",
 	"jsonconfig-err-bool": "Parameter \"$1\" moet op waar of onwaar zijn ingesteld",
 	"jsonconfig-err-integer": "Parameter \"$1\" moet een integer zijn",
-	"jsonconfig-err-array-expected": "De verwachting was dat \"$1\" een lijst was omringd door haakjes[...]",
+	"jsonconfig-err-license": "Parameter \"$1\" moet één van de geldige licentiecodes zijn, bijvoorbeeld $2",
 	"jsonconfig-err-object-expected": "De verwachting was dat \"$1\" een object was, omringd door accolades {...}",
 	"jsonconfig-err-root-array-expected": "JSON-gegevens moeten een lijst zijn, omringd door haakjes [...]",
 	"jsonconfig-err-root-object-expected": "JSON-gegevens moeten een object zijn, omringd door accolades {...}",
