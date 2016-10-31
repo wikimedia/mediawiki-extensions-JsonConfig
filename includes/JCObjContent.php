@@ -138,7 +138,7 @@ abstract class JCObjContent extends JCContent {
 	 * @param string|array $path name of the root field to check, or a path to the field in a nested structure.
 	 *        Nested path should be in the form of [ 'field-level1', 'field-level2', ... ]. For example, if client
 	 *        needs to check validity of the 'value1' in the structure {'key':{'sub-key':['value0','value1']}},
-	 *        $field should be set to array( 'key', 'sub-key', 1 ).
+	 *        $field should be set to [ 'key', 'sub-key', 1 ].
 	 * @param mixed $default value to be used in case field is not found. $default is passed to the validator
 	 *        if validation fails. If validation of the default passes, the value is considered optional.
 	 * @param callable $validator callback function as defined in JCValidators::run().
@@ -159,7 +159,7 @@ abstract class JCObjContent extends JCContent {
 	 * @param string|array $path name of the root field to check, or a path to the field in a nested structure.
 	 *        Nested path should be in the form of [ 'field-level1', 'field-level2', ... ]. For example, if client
 	 *        needs to check validity of the 'value1' in the structure {'key':{'sub-key':['value0','value1']}},
-	 *        $field should be set to array( 'key', 'sub-key', 1 ).
+	 *        $field should be set to [ 'key', 'sub-key', 1 ].
 	 * @param callable $validator callback function as defined in JCValidators::run().
 	 *        More than one validator may be given. If validators are not provided, any value is accepted
 	 * @throws \Exception
@@ -177,7 +177,7 @@ abstract class JCObjContent extends JCContent {
 	 * @param string|array $path path to the container field in a nested structure.
 	 *        Nested path should be in the form of [ 'field-level1', 'field-level2', ... ]. For example, if client
 	 *        needs to check validity of the 'value1' in the structure {'key':{'sub-key':['value0','value1']}},
-	 *        $field should be set to array( 'key', 'sub-key', 1 ).
+	 *        $field should be set to [ 'key', 'sub-key', 1 ].
 	 * @param callable $validator callback function as defined in JCValidators::run().
 	 *        More than one validator may be given. If validators are not provided, any value is accepted
 	 * @throws \Exception
@@ -217,7 +217,7 @@ abstract class JCObjContent extends JCContent {
 		if ( $this->isValidating !== true ) {
 			throw new Exception( 'This function should only be called inside the validateContent() override' );
 		}
-		return $this->testRecursive( (array)$path, array(), $this->validationData, $validators );
+		return $this->testRecursive( (array)$path, [], $this->validationData, $validators );
 	}
 
 	/**
@@ -280,7 +280,7 @@ abstract class JCObjContent extends JCContent {
 				throw new Exception( 'Logic error - subJcv must be valid here' );
 			} elseif ( $subJcv === false ) {
 				// field does not exist
-				$initValue = !$path ? null : ( is_string( $path[0] ) ? new stdClass() : array() );
+				$initValue = !$path ? null : ( is_string( $path[0] ) ? new stdClass() : [] );
 				$subJcv = new JCValue( JCValue::MISSING, $initValue );
 			}
 		}
@@ -373,7 +373,7 @@ abstract class JCObjContent extends JCContent {
 						$subVal = new JCValue( JCValue::UNCHECKED, $subVal );
 					}
 					if ( $result === null ) {
-						$result = $isObject ? new stdClass() : array();
+						$result = $isObject ? new stdClass() : [];
 					}
 					if ( $isObject ) {
 						$result->$key = $subVal;
@@ -503,7 +503,7 @@ abstract class JCObjContent extends JCContent {
 	 */
 	private static function convertValidators( $param, $funcArgs, $skipArgs ) {
 		if ( $param === null ) {
-			return array(); // no validators given
+			return []; // no validators given
 		} elseif ( is_array( $param ) && !is_callable( $param, true ) ) {
 			return $param; // first argument is an array of validators
 		} else {

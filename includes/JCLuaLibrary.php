@@ -29,7 +29,7 @@ class JCLuaLibrary extends Scribunto_LuaLibraryBase {
 	public function register() {
 		$functions = [ 'get' => [ $this, 'get' ] ];
 		$moduleFileName = __DIR__ . DIRECTORY_SEPARATOR . 'JCLuaLibrary.lua';
-		return $this->getEngine()->registerInterface( $moduleFileName, $functions, array() );
+		return $this->getEngine()->registerInterface( $moduleFileName, $functions, [] );
 	}
 
 	/**

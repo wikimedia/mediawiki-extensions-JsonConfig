@@ -169,7 +169,7 @@ class JCValidators {
 	public static function stringToList() {
 		return function ( JCValue $v ) {
 			if ( is_string( $v->getValue() ) ) {
-				$v->setValue( array( $v->getValue() ) );
+				$v->setValue( [ $v->getValue() ] );
 			}
 			return true;
 		};
@@ -197,7 +197,7 @@ class JCValidators {
 	public static function isLocalizedString( $maxlength = 400 ) {
 		return function ( JCValue $jcv, array $path ) use ( $maxlength ) {
 			if ( $jcv->isMissing() ) {
-				$v = array();
+				$v = [];
 			} else {
 				$v = $jcv->getValue();
 				if ( is_object( $v ) ) {

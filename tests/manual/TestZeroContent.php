@@ -8,24 +8,24 @@ define( 'NS_ZERO_TALK', 481 );
 
 $wgJsonConfigModels['Test.JsonZeroConfig'] = 'TestZeroContent';
 
-//$wgJsonConfigs['Test.JsonZeroConfig'] = array(
+//$wgJsonConfigs['Test.JsonZeroConfig'] = [
 //	// model is the same as key
 //	'name' => 'ZeroSingle',
 //	'isLocal' => true,
-//);
-//$wgJsonConfigs['Test.Zero.Subpages'] = array(
+//];
+//$wgJsonConfigs['Test.Zero.Subpages'] = [
 //	'model' => 'Test.JsonZeroConfig',
 //	'name' => 'Zero',
 //	'issubspace' => true,
 //	'isLocal' => true,
-//);
-//$wgJsonConfigs['Test.Zero.Ns'] = array(
+//];
+//$wgJsonConfigs['Test.Zero.Ns'] = [
 //	'model' => 'Test.JsonZeroConfig',
 //	'namespace' => 600,
 //	'nsname' => 'Z',
 //	'isLocal' => true,
-//);
-$wgJsonConfigs['Test.Zero.Ns'] = array(
+//];
+$wgJsonConfigs['Test.Zero.Ns'] = [
 	'model' => 'Test.JsonZeroConfig',
 	'namespace' => NS_ZERO,
 	'nsname' => 'Zero',
@@ -33,7 +33,7 @@ $wgJsonConfigs['Test.Zero.Ns'] = array(
 	'url' => 'https://zero.wikimedia.org/w/api.php',
 	'username' => $wmgZeroPortalApiUserName,
 	'password' => $wmgZeroPortalApiPassword,
-);
+];
 
 $wgExtensionFunctions[] = function() {
 

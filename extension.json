@@ -75,30 +75,6 @@
 		"remoteExtPath": "JsonConfig/modules"
 	},
 	"Hooks": {
-		"CanonicalNamespaces": [
-			"JsonConfig\\JCSingleton::onCanonicalNamespaces"
-		],
-		"ScribuntoExternalLibraries": [
-			"JsonConfig\\JCLuaLibrary::onScribuntoExternalLibraries"
-		],
-		"ContentHandlerDefaultModelFor": [
-			"JsonConfig\\JCSingleton::onContentHandlerDefaultModelFor"
-		],
-		"ContentHandlerForModelID": [
-			"JsonConfig\\JCSingleton::onContentHandlerForModelID"
-		],
-		"CodeEditorGetPageLanguage": [
-			"JsonConfig\\JCSingleton::onCodeEditorGetPageLanguage"
-		],
-		"EditFilterMergedContent": [
-			"JsonConfig\\JCSingleton::onEditFilterMergedContent"
-		],
-		"BeforePageDisplay": [
-			"JsonConfig\\JCSingleton::onBeforePageDisplay"
-		],
-		"MovePageIsValidMove": [
-			"JsonConfig\\JCSingleton::onMovePageIsValidMove"
-		],
 		"AbortMove": [
 			"JsonConfig\\JCSingleton::onAbortMove"
 		],
@@ -108,8 +84,32 @@
 		"ArticleUndelete": [
 			"JsonConfig\\JCSingleton::onArticleUndelete"
 		],
+		"BeforePageDisplay": [
+			"JsonConfig\\JCSingleton::onBeforePageDisplay"
+		],
+		"CanonicalNamespaces": [
+			"JsonConfig\\JCSingleton::onCanonicalNamespaces"
+		],
+		"CodeEditorGetPageLanguage": [
+			"JsonConfig\\JCSingleton::onCodeEditorGetPageLanguage"
+		],
+		"ContentHandlerDefaultModelFor": [
+			"JsonConfig\\JCSingleton::onContentHandlerDefaultModelFor"
+		],
+		"ContentHandlerForModelID": [
+			"JsonConfig\\JCSingleton::onContentHandlerForModelID"
+		],
+		"EditFilterMergedContent": [
+			"JsonConfig\\JCSingleton::onEditFilterMergedContent"
+		],
+		"MovePageIsValidMove": [
+			"JsonConfig\\JCSingleton::onMovePageIsValidMove"
+		],
 		"PageContentSaveComplete": [
 			"JsonConfig\\JCSingleton::onPageContentSaveComplete"
+		],
+		"ScribuntoExternalLibraries": [
+			"JsonConfig\\JCLuaLibrary::onScribuntoExternalLibraries"
 		],
 		"TitleMoveComplete": [
 			"JsonConfig\\JCSingleton::onTitleMoveComplete"

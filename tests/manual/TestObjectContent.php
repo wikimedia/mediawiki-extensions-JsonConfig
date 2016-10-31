@@ -32,13 +32,13 @@ END;
 	 * using the check(...) calls
 	 */
 	public function validateContent() {
-//		$this->check( 'emptylist', array() );
+//		$this->check( 'emptylist', [] );
 //		$this->check( 'emptydict', new stdClass() );
-//		$this->check( array( 'dict', 'string' ), "" );
-		$this->testOptional( array( 'emptydict', 'new1' ), new stdClass() );
-//		$this->check( array( 'emptydict', 1 ), new stdClass() );
-		$this->testOptional( array( 'emptydict', 'new1', 'blah', 2 ), new stdClass(), function() { return wfMessage( 'fail' ); } );
-//		$this->check( array( 'emptydict', 'newObj', 'newInt' ), 1 );
+//		$this->check( [ 'dict', 'string' ], "" );
+		$this->testOptional( [ 'emptydict', 'new1' ], new stdClass() );
+//		$this->check( [ 'emptydict', 1 ], new stdClass() );
+		$this->testOptional( [ 'emptydict', 'new1', 'blah', 2 ], new stdClass(), function() { return wfMessage( 'fail' ); } );
+//		$this->check( [ 'emptydict', 'newObj', 'newInt' ], 1 );
 	}
 }
 

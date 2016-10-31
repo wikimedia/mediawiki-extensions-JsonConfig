@@ -2,7 +2,6 @@
 namespace JsonConfig;
 
 use ApiBase;
-use MWNamespace;
 
 /**
  * Allows JsonConfig to be manipulated via API
@@ -11,7 +10,7 @@ class JCApi extends ApiBase {
 
 	private static function addStatusConf( $conf ) {
 		// explicitly list values to avoid accidental exposure of private data
-		$res = array(
+		$res = [
 			'model' => $conf->model,
 			'namespace' => $conf->namespace,
 			'nsName' => $conf->nsName,
@@ -20,21 +19,21 @@ class JCApi extends ApiBase {
 			'cacheExp' => $conf->cacheExp,
 			'cacheKey' => $conf->cacheKey,
 			'flaggedRevs' => $conf->flaggedRevs,
-		);
+		];
 		if ( isset( $conf->remote ) ) {
-			$res['remote'] = array(
+			$res['remote'] = [
 				'url' => $conf->remote->url,
 				'username' => $conf->remote->username !== '', // true or false
 				'password' => $conf->remote->password !== '', // true or false
-			);
+			];
 		}
 		if ( isset( $conf->store ) ) {
-			$res['store'] = array(
+			$res['store'] = [
 				'cacheNewValue' => $conf->store->cacheNewValue,
 				'notifyUrl' => $conf->store->notifyUrl,
 				'notifyUsername' => $conf->store->notifyUsername !== '', // true or false
 				'notifyPassword' => $conf->store->notifyPassword !== '', // true or false
-			);
+			];
 		}
 		return $res;
 	}
@@ -58,9 +57,9 @@ class JCApi extends ApiBase {
 					+ $wgJsonConfigModels
 				);
 
-				$data = array();
+				$data = [];
 				foreach ( JCSingleton::getTitleMap() as $ns => $confs ) {
-					$vals = array();
+					$vals = [];
 					foreach ( $confs as $conf ) {
 						$vals[] = self::addStatusConf( $conf );
 					}
@@ -123,34 +122,34 @@ class JCApi extends ApiBase {
 	}
 
 	public function getAllowedParams() {
-		return array(
-			'command' => array(
+		return [
+			'command' => [
 				ApiBase::PARAM_DFLT => 'status',
-				ApiBase::PARAM_TYPE => array(
+				ApiBase::PARAM_TYPE => [
 					'status',
 					'reset',
 					'reload',
-				)
-			),
-			'namespace' => array(
+				]
+			],
+			'namespace' => [
 				ApiBase::PARAM_TYPE => 'integer',
-			),
+			],
 			'title' => '',
 			'content' => '',
-		);
+		];
 	}
 
 	/**
 	 * @see ApiBase::getExamplesMessages()
 	 */
 	protected function getExamplesMessages() {
-		return array(
+		return [
 			'action=jsonconfig&format=jsonfm'
 				=> 'apihelp-jsonconfig-example-1',
 			'api.php?action=jsonconfig&command=reset&namespace=480&title=TEST&format=jsonfm'
 				=> 'apihelp-jsonconfig-example-2',
 			'api.php?action=jsonconfig&command=reload&namespace=480&title=TEST&format=jsonfm'
 				=> 'apihelp-jsonconfig-example-3',
-		);
+		];
 	}
 }

@@ -10,16 +10,16 @@
  * @license GNU General Public Licence 2.0 or later
  */
 
-$namespaceNames = array();
+$namespaceNames = [];
 
-$namespaceNames['en'] = array(
+$namespaceNames['en'] = [
 	482 => 'Config',
 	483 => 'Config_talk',
 	486 => 'Data',
 	487 => 'Data_talk',
-);
+];
 
-$namespaceNames['vi'] = array(
+$namespaceNames['vi'] = [
 	482 => 'Cấu_hình',
 	483 => 'Thảo_luận_Cấu_hình',
-);
+];

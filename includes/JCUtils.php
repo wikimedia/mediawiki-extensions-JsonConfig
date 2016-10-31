@@ -22,7 +22,7 @@ class JCUtils {
 	 */
 	public static function warn( $msg, $vals, $query = false ) {
 		if ( !is_array( $vals ) ) {
-			$vals = array( $vals );
+			$vals = [ $vals ];
 		}
 		if ( $query ) {
 			foreach ( $query as $k => &$v ) {
@@ -60,20 +60,20 @@ class JCUtils {
 	 * @return \CurlHttpRequest|\PhpHttpRequest|false
 	 */
 	public static function initApiRequestObj( $url, $username, $password ) {
-		$apiUri = wfAppendQuery( $url, array( 'format' => 'json' ) );
-		$options = array(
+		$apiUri = wfAppendQuery( $url, [ 'format' => 'json' ] );
+		$options = [
 			'timeout' => 3,
 			'connectTimeout' => 'default',
 			'method' => 'POST',
-		);
+		];
 		$req = MWHttpRequest::factory( $apiUri, $options );
 
 		if ( $username && $password ) {
-			$query = array(
+			$query = [
 				'action' => 'login',
 				'lgname' => $username,
 				'lgpassword' => $password,
-			);
+			];
 			$res = self::callApi( $req, $query, 'login' );
 			if ( $res !== false ) {
 				if ( isset( $res['login']['token'] ) ) {
@@ -86,11 +86,11 @@ class JCUtils {
 			} elseif ( !isset( $res['login']['result'] ) ||
 			     $res['login']['result'] !== 'Success'
 			) {
-				self::warn( 'Failed to login', array(
+				self::warn( 'Failed to login', [
 						'url' => $url,
 						'user' => $username,
 						'result' => isset( $res['login']['result'] ) ? $res['login']['result'] : '???'
-					) );
+				] );
 				$req = false;
 			}
 		}
@@ -108,17 +108,17 @@ class JCUtils {
 		$req->setData( $query );
 		$status = $req->execute();
 		if ( !$status->isGood() ) {
-			self::warn( 'API call failed to ' . $debugMsg, array( 'status' => $status->getWikiText() ),
+			self::warn( 'API call failed to ' . $debugMsg, [ 'status' => $status->getWikiText() ],
 				$query );
 			return false;
 		}
 		$res = FormatJson::decode( $req->getContent(), true );
 		if ( isset( $res['warnings'] ) ) {
 			self::warn( 'API call had warnings trying to ' . $debugMsg,
-				array( 'warnings' => $res['warnings'] ), $query );
+				[ 'warnings' => $res['warnings'] ], $query );
 		}
 		if ( isset( $res['error'] ) ) {
-			self::warn( 'API call failed trying to ' . $debugMsg, array( 'error' => $res['error'] ), $query );
+			self::warn( 'API call failed trying to ' . $debugMsg, [ 'error' => $res['error'] ], $query );
 			return false;
 		}
 		return $res;
@@ -196,7 +196,7 @@ class JCUtils {
 		if ( is_a( $data, '\JsonConfig\JCValue' ) ) {
 			$value = $data->getValue();
 			if ( $skipDefaults && $data->defaultUsed() ) {
-				return is_array( $value ) ? array() : ( is_object( $value ) ? new stdClass() : null );
+				return is_array( $value ) ? [] : ( is_object( $value ) ? new stdClass() : null );
 			}
 		} else {
 			$value = $data;

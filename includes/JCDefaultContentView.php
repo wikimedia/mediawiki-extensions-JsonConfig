@@ -31,7 +31,7 @@ class JCDefaultContentView extends JCContentView {
 		JCContent $content, Title $title, $revId, ParserOptions $options, $generateHtml,
 		 ParserOutput &$output
 	) {
-		return $this->renderValue( $content, $content->getData(), array() );
+		return $this->renderValue( $content, $content->getData(), [] );
 	}
 
 	/**
@@ -54,7 +54,7 @@ class JCDefaultContentView extends JCContentView {
 		$isList = $this->isList( $content, $data, $path );
 		$isContainer = !$isList && $this->isContainer( $content, $data, $path );
 		if ( $isList || $isContainer ) {
-			$rows = array();
+			$rows = [];
 			$level = count( $path );
 			foreach ( $data as $k => $v ) {
 				$path[$level] = $k;
@@ -74,7 +74,7 @@ class JCDefaultContentView extends JCContentView {
 				}
 			} else {
 				$res =
-					Html::rawElement( 'table', array( 'class' => 'mw-jsonconfig' ),
+					Html::rawElement( 'table', [ 'class' => 'mw-jsonconfig' ],
 						Html::rawElement( 'tbody', null, join( "\n", $rows ) ) );
 			}
 		} else {
@@ -117,7 +117,7 @@ class JCDefaultContentView extends JCContentView {
 		// If html begins with a '<', its a complex object, and should not have a class
 		$attribs = null;
 		if ( substr( $tdVal, 0, 1 ) !== '<' ) {
-			$attribs = array( 'class' => 'mw-jsonconfig-value' );
+			$attribs = [ 'class' => 'mw-jsonconfig-value' ];
 		}
 		$td = Html::rawElement( 'td', $attribs, $tdVal );
 

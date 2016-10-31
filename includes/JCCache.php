@@ -28,13 +28,14 @@ class JCCache {
 		$this->titleValue = $titleValue;
 		$conf = $this->titleValue->getConfig();
 		$flRev = $conf->flaggedRevs;
-		$key = implode( ':', array(
+		$key = implode( ':', [
 			'JsonConfig',
 			$wgJsonConfigCacheKeyPrefix,
 			$conf->cacheKey,
 			( $flRev === null ? '' : ( $flRev ? 'T' : 'F' ) ),
 			$titleValue->getNamespace(),
-			$titleValue->getDBkey() ) );
+			$titleValue->getDBkey()
+		] );
 		if ( $conf->isLocal ) {
 			$key = wfMemcKey( $key );
 		}
@@ -161,40 +162,40 @@ class JCCache {
 			$flrevs = $conf->flaggedRevs;
 			// if flaggedRevs is false, get wiki page directly, otherwise get the flagged state first
 			$res = $this->getPageFromApi( $articleName, $req, $flrevs === false
-					? array(
+					? [
 						'action' => 'query',
 						'titles' => $articleName,
 						'prop' => 'revisions',
 						'rvprop' => 'content',
 						'continue' => '',
-					)
-					: array(
+					]
+					: [
 						'action' => 'query',
 						'titles' => $articleName,
 						'prop' => 'info|flagged',
 						'continue' => '',
-					) );
+					] );
 			if ( $res !== false &&
 			     ( $flrevs === null || ( $flrevs === true && array_key_exists( 'flagged', $res ) ) )
 			) {
 				// If there is a stable flagged revision present, use it.
 				// else - if flaggedRevs is null, use the latest revision that exists
 				// otherwise, fail because flaggedRevs is true, which means we require rev to be flagged
-				$res = $this->getPageFromApi( $articleName, $req, array(
+				$res = $this->getPageFromApi( $articleName, $req, [
 					'action' => 'query',
 					'revids' => array_key_exists( 'flagged', $res ) ? $res['flagged']['stable_revid']
 						: $res['lastrevid'],
 					'prop' => 'revisions',
 					'rvprop' => 'content',
 					'continue' => '',
-				) );
+				] );
 			}
 			if ( $res === false ) {
 				break;
 			}
 			if ( !isset( $res['revisions'][0]['*'] ) ) {
 				JCUtils::warn( 'Unable to get config content',
-					array( 'title' => $articleName, 'result' => $res ) );
+					[ 'title' => $articleName, 'result' => $res ] );
 				break;
 			}
 
@@ -218,17 +219,17 @@ class JCCache {
 			return false;
 		}
 		if ( !isset( $revInfo['query']['pages'] ) ) {
-			JCUtils::warn( 'Unrecognizable API result', array( 'title' => $articleName ), $query );
+			JCUtils::warn( 'Unrecognizable API result', [ 'title' => $articleName ], $query );
 			return false;
 		}
 		$pages = $revInfo['query']['pages'];
 		if ( !is_array( $pages ) || count( $pages ) !== 1 ) {
-			JCUtils::warn( 'Unexpected "pages" element', array( 'title' => $articleName ), $query );
+			JCUtils::warn( 'Unexpected "pages" element', [ 'title' => $articleName ], $query );
 			return false;
 		}
 		$pageInfo = reset( $pages ); // get the only element of the array
 		if ( isset( $revInfo['missing'] ) ) {
-			JCUtils::warn( 'Config page does not exist', array( 'title' => $articleName ), $query );
+			JCUtils::warn( 'Config page does not exist', [ 'title' => $articleName ], $query );
 			return false;
 		}
 		return $pageInfo;

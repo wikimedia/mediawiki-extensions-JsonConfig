@@ -31,7 +31,7 @@ class JCDefaultObjContentView extends JCDefaultContentView {
 		JCContent $content, Title $title, $revId, ParserOptions $options, $generateHtml,
 		ParserOutput &$output
 	) {
-		return $this->renderValue( $content, $content->getValidationData(), array() );
+		return $this->renderValue( $content, $content->getValidationData(), [] );
 	}
 
 	/**
@@ -89,7 +89,7 @@ class JCDefaultObjContentView extends JCDefaultContentView {
 		} else {
 			return null;
 		}
-		return array( 'class' => $attribs );
+		return [ 'class' => $attribs ];
 	}
 
 	/**

@@ -31,24 +31,24 @@ class JCSingleton {
 	 * The structure is an array of array of ...:
 	 * { int_namespace => { name => { allows-sub-namespaces => configuration_array } } }
 	 */
-	static $titleMap = array();
+	static $titleMap = [];
 
 	/**
 	 * @var string[]|false[] containing all the namespaces handled by JsonConfig
 	 * Maps namespace id (int) => namespace name (string).
 	 * If false, presumes the namespace has been registered by core or another extension
 	 */
-	static $namespaces = array();
+	static $namespaces = [];
 
 	/**
 	 * @var MapCacheLRU[] contains a cache of recently resolved JCTitle's as namespace => MapCacheLRU
 	 */
-	static $titleMapCacheLru = array();
+	static $titleMapCacheLru = [];
 
 	/**
 	 * @var MapCacheLRU[] contains a cache of recently requested content objects as namespace => MapCacheLRU
 	 */
-	static $mapCacheLru = array();
+	static $mapCacheLru = [];
 
 	/**
 	 * @var TitleParser cached invariant title parser
@@ -87,8 +87,8 @@ class JCSingleton {
 		$defaultModelId = 'JsonConfig';
 		$warnFunc = $warn ? 'wfLogWarning' : function() {};
 
-		$namespaces = array();
-		$titleMap = array();
+		$namespaces = [];
+		$titleMap = [];
 		foreach ( $configs as $confId => &$conf ) {
 			if ( !is_string( $confId ) ) {
 				$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs['$confId'], the key must be a string" );
@@ -228,7 +228,7 @@ class JCSingleton {
 			}
 
 			if ( !array_key_exists( $ns, $titleMap ) ) {
-				$titleMap[$ns] = array( $conf );
+				$titleMap[$ns] = [ $conf ];
 			} else {
 				$titleMap[$ns][] = $conf;
 			}
@@ -291,7 +291,7 @@ class JCSingleton {
 			$val = (object)$val;
 		} elseif ( is_string( $val ) && $treatAsField !== null ) {
 			// treating this string value as a sub-field
-			$val = (object) array( $treatAsField => $val );
+			$val = (object) [ $treatAsField => $val ];
 		} elseif ( !is_object( $val ) ) {
 			$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs" . ( $confId ? "['$confId']" : "" ) .
 					   "['$field'], the value must be either an array or an object" );
@@ -595,7 +595,7 @@ class JCSingleton {
 	 * @param string &$lang Page language.
 	 * @return bool
 	 */
-	static function onCodeEditorGetPageLanguage( $title, &$lang ) {
+	public static function onCodeEditorGetPageLanguage( $title, &$lang ) {
 		if ( !self::jsonConfigIsStorage() ) {
 			return true;
 		}
@@ -619,7 +619,7 @@ class JCSingleton {
 	 * @param bool $minoredit
 	 * @return bool
 	 */
-	static function onEditFilterMergedContent( /** @noinspection PhpUnusedParameterInspection */
+	public static function onEditFilterMergedContent( /** @noinspection PhpUnusedParameterInspection */
 		$context, $content, $status, $summary, $user, $minoredit ) {
 		if ( !self::jsonConfigIsStorage() ) {
 			return true;
@@ -640,7 +640,7 @@ class JCSingleton {
 	 * @param \Skin &$skin
 	 * @return bool
 	 */
-	static function onBeforePageDisplay( /** @noinspection PhpUnusedParameterInspection */ &$out, &$skin ) {
+	public static function onBeforePageDisplay( /** @noinspection PhpUnusedParameterInspection */ &$out, &$skin ) {
 		if ( !self::jsonConfigIsStorage() ) {
 			return true;
 		}
@@ -760,12 +760,12 @@ class JCSingleton {
 						JCUtils::initApiRequestObj( $store->notifyUrl, $store->notifyUsername,
 							$store->notifyPassword );
 					if ( $req ) {
-						$query = array(
+						$query = [
 							'format' => 'json',
 							'action' => 'jsonconfig',
 							'command' => 'reload',
 							'title' => $jct->getNamespace() . ':' . $jct->getDBkey(),
-						);
+						];
 						JCUtils::callApi( $req, $query, 'notify remote JsonConfig client' );
 					}
 				}

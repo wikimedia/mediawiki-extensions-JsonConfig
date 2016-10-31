@@ -19,13 +19,13 @@ class JCContentHandler extends TextContentHandler {
 	 * @param string $modelId
 	 */
 	public function __construct( $modelId ) {
-		parent::__construct( $modelId, array( CONTENT_FORMAT_JSON ) );
+		parent::__construct( $modelId, [ CONTENT_FORMAT_JSON ] );
 	}
 
 	/**
 	 * Returns the content's text as-is.
 	 *
-	 * @param \Content|\JsonConfig\JCContent $content This is actually a Content object
+	 * @param \Content|JCContent $content This is actually a Content object
 	 * @param $format string|null
 	 * @return mixed
 	 */

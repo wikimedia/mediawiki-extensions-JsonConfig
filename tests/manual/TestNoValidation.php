@@ -4,7 +4,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 }
 
 $wgJsonConfigModels['Test.NoValidation'] = null;
-$wgJsonConfigs['Test.NoValidation'] = array(
+$wgJsonConfigs['Test.NoValidation'] = [
 	'name' => 'NoValidation',
 	'isLocal' => true,
-);
+];
