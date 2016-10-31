@@ -2,6 +2,7 @@
 namespace JsonConfig;
 
 use ApiModuleManager;
+use Article;
 use ContentHandler;
 use Exception;
 use GenderCache;
@@ -15,6 +16,7 @@ use Status;
 use stdClass;
 use TitleValue;
 use Title;
+use User;
 
 /**
  * Static utility methods and configuration page hook handlers for JsonConfig extension.
@@ -592,6 +594,30 @@ class JCSingleton {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * CustomEditor hook handler
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/CustomEditor
+	 *
+	 * @param Article $article
+	 * @param User $user
+	 * @return bool
+	 */
+	public static function onCustomEditor( $article, $user ) {
+		if ( !$article || !self::jsonConfigIsStorage() ) {
+			return true;
+		}
+		$jct = self::parseTitle( $article->getTitle() );
+		if ( !$jct ) {
+			return true;
+		}
+
+		$editor = new \EditPage( $article );
+		$editor->contentFormat = JCContentHandler::CONTENT_FORMAT_JSON_PRETTY;
+		$editor->edit();
+
+		return false;
 	}
 
 	/**

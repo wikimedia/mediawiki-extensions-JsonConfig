@@ -52,6 +52,7 @@
 		"JsonConfig\\JCDataContent": "includes/JCDataContent.php",
 		"JsonConfig\\JCDefaultContentView": "includes/JCDefaultContentView.php",
 		"JsonConfig\\JCDefaultObjContentView": "includes/JCDefaultObjContentView.php",
+		"JsonConfig\\JCJsonDifferenceEngine": "includes/JCJsonDifferenceEngine.php",
 		"JsonConfig\\JCLuaLibrary": "includes/JCLuaLibrary.php",
 		"JsonConfig\\JCMapDataContent": "includes/JCMapDataContent.php",
 		"JsonConfig\\JCMapDataContentView": "includes/JCMapDataContentView.php",
@@ -104,6 +105,9 @@
 		],
 		"ContentHandlerForModelID": [
 			"JsonConfig\\JCSingleton::onContentHandlerForModelID"
+		],
+		"CustomEditor": [
+			"JsonConfig\\JCSingleton::onCustomEditor"
 		],
 		"EditFilterMergedContent": [
 			"JsonConfig\\JCSingleton::onEditFilterMergedContent"
