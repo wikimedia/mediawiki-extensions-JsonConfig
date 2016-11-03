@@ -52,6 +52,8 @@
 		"JsonConfig\\JCDefaultContentView": "includes/JCDefaultContentView.php",
 		"JsonConfig\\JCDefaultObjContentView": "includes/JCDefaultObjContentView.php",
 		"JsonConfig\\JCLuaLibrary": "includes/JCLuaLibrary.php",
+		"JsonConfig\\JCMapDataContent": "includes/JCMapDataContent.php",
+		"JsonConfig\\JCMapDataContentView": "includes/JCMapDataContentView.php",
 		"JsonConfig\\JCObjContent": "includes/JCObjContent.php",
 		"JsonConfig\\JCSingleton": "includes/JCSingleton.php",
 		"JsonConfig\\JCTabularContent": "includes/JCTabularContent.php",

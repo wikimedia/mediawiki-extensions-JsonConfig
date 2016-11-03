@@ -233,7 +233,6 @@ class JCUtils {
 		return $result;
 	}
 
-
 	/**
 	 * Returns true if each of the array's values is a valid language code
 	 * @param array $arr
@@ -243,6 +242,27 @@ class JCUtils {
 		return count( $arr ) === count( array_filter( $arr, function ( $v ) {
 			return is_string( $v ) && Language::isValidBuiltInCode( $v );
 		} ) );
+	}
+
+	/**
+	 * Returns true if the array is a valid key->value localized nonempty array
+	 * @param array $arr
+	 * @param int $maxlength
+	 * @return bool
+	 */
+	public static function isLocalizedArray( $arr, $maxlength ) {
+		if ( is_array( $arr ) &&
+			   $arr &&
+			   self::isListOfLangs( array_keys( $arr ) )
+		) {
+			$validStrCount = count( array_filter( $arr, function ( $str ) use ( $maxlength ) {
+				return self::isValidLineString( $str, $maxlength );
+			} ) );
+			if ( $validStrCount === count( $arr ) ) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
