@@ -16,6 +16,7 @@
 	"jsonconfig-err-array-expected": "La valeur en « $1 » était censée être une liste entourée de crochets […]",
 	"jsonconfig-err-assoc-array": "Le paramètre « $1 » doit être un tableau associatif (dictionnaire), par ex. {'clé': 'valeur', …}",
 	"jsonconfig-err-bad-header-string": "L’entête « $1 » doit être constituée uniquement de lettres, chiffres et caractères souligné, et ne doit pas commencer par un chiffre",
+	"jsonconfig-err-bad-geojson": "Le paramètre « $1 » doit être une donnée GeoJSON valide, ou un tableau d’objets GeoJSON. Si le champ « properties » contient « title » ou « description », ils doivent être des chaînes sur une seule ligne sans tabulations ni espaces à la fin, ou des objets multilingues de ce genre de chaînes, par ex. { \"en\":\"Chaîne en anglais\", … }",
 	"jsonconfig-err-bad-type": "Le paramètre « $1 » doit être un type valide, comme « string », « number » ou « boolean »",
 	"jsonconfig-err-bool": "Paramètre « $1 » doit être vrai ou faux",
 	"jsonconfig-err-integer": "Le paramètre « $1 » doit être un nombre entier",

@@ -11,6 +11,7 @@
 	"jsonconfig-err-array-expected": "Es wird erwartet, dass der Wert bei „$1“ eine Liste umgeben von eckigen Klammern ([…]) ist",
 	"jsonconfig-err-assoc-array": "Parameter „$1“ muss ein assoziatives Array (Wörterbuch) sein, z.&nbsp;B. {'Schlüssel': 'Wert', …}",
 	"jsonconfig-err-bad-header-string": "Der Header „$1“ darf nur aus Buchstaben, Zahlen und Unterstrichen bestehen und nicht mit einer Zahl beginnen.",
+	"jsonconfig-err-bad-geojson": "Der Parameter „$1“ muss ein gültiges GeoJSON-Datenobjekt sein oder eine Reihe von GeoJSON-Objekten. Falls das Feld „Eigenschaften“ „Titel“ oder „Beschreibung“ enthält, müssen sie entweder einzelne Zeilenzeichenfolgen sein ohne Tabulatoren oder anschließende Leerzeichen oder mehrsprachige Objekte solcher Zeichenfolgen, z.&nbsp;B. { \"de\":\"Zeichenfolge in Deutsch\", … }",
 	"jsonconfig-err-bad-type": "Der Parameter „$1“ muss ein gültiger Typ wie „Zeichenfolge“, „Zahl“ oder „boolesch“ sein.",
 	"jsonconfig-err-bool": "Parameter „$1“ muss entweder wahr oder falsch sein",
 	"jsonconfig-err-integer": "Parameter „$1“ muss eine ganze Zahl sein",
