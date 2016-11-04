@@ -14,6 +14,7 @@
 	"jsonconfig-err-array-expected": "在“$1”的值预期是被方括号“[XXX]”括住的列表",
 	"jsonconfig-err-assoc-array": "参数“$1”必须是关联数组（字典），例如{'key': 'value', ...}",
 	"jsonconfig-err-bad-header-string": "标头“$1”必须只包含字母、数字和下划线字符，且必须不以数字开头",
+	"jsonconfig-err-bad-geojson": "参数“$1”必须是一个有效的GeoJSON数据对象，或GeoJSON对象的数组。如果“properties”字段包含“title”或“description”，就必须是没有制表符或末尾空格的单行字符串，或是此类字符串的多语言对象，例如{ \"zh\":\"中文字符串\", ... }",
 	"jsonconfig-err-bad-type": "参数“$1”必须是一个有效类型，例如“string”、“number”或“boolean”",
 	"jsonconfig-err-bool": "参数“$1”必须设置为true或false",
 	"jsonconfig-err-integer": "参数“$1”必须是整数",
