@@ -48,6 +48,7 @@
 		"JsonConfig\\JCContent": "includes/JCContent.php",
 		"JsonConfig\\JCContentHandler": "includes/JCContentHandler.php",
 		"JsonConfig\\JCContentView": "includes/JCContentView.php",
+		"JsonConfig\\JCDataApi": "includes/JCDataApi.php",
 		"JsonConfig\\JCDataContent": "includes/JCDataContent.php",
 		"JsonConfig\\JCDefaultContentView": "includes/JCDefaultContentView.php",
 		"JsonConfig\\JCDefaultObjContentView": "includes/JCDefaultObjContentView.php",
@@ -79,6 +80,9 @@
 	"Hooks": {
 		"AbortMove": [
 			"JsonConfig\\JCSingleton::onAbortMove"
+		],
+		"ApiMain::moduleManager": [
+			"JsonConfig\\JCSingleton::onApiMainModuleManager"
 		],
 		"ArticleDeleteComplete": [
 			"JsonConfig\\JCSingleton::onArticleDeleteComplete"
