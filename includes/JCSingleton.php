@@ -1,6 +1,7 @@
 <?php
 namespace JsonConfig;
 
+use ApiModuleManager;
 use ContentHandler;
 use Exception;
 use GenderCache;
@@ -382,6 +383,11 @@ class JCSingleton {
 		return self::$titleMap;
 	}
 
+	/**
+	 * Get the name of the class for a given content model
+	 * @param string $modelId
+	 * @return null|string
+	 */
 	public static function getContentClass( $modelId ) {
 		global $wgJsonConfigModels;
 		$configModels = array_replace_recursive( \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ), $wgJsonConfigModels );
@@ -689,6 +695,21 @@ class JCSingleton {
 			return false;
 		}
 
+		return true;
+	}
+
+	/**
+	 * Conditionally load API module 'jsondata' depending on whether or not
+	 * this wiki stores any jsonconfig data
+	 *
+	 * @param ApiModuleManager $moduleManager Module manager instance
+	 * @return bool
+	 */
+	public static function onApiMainModuleManager( ApiModuleManager $moduleManager ) {
+		global $wgJsonConfigEnableLuaSupport;
+		if ( $wgJsonConfigEnableLuaSupport ) {
+			$moduleManager->addModule( 'jsondata', 'action', 'JsonConfig\\JCDataApi' );
+		}
 		return true;
 	}
 

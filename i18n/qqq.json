@@ -56,5 +56,9 @@
 	"apihelp-jsonconfig-param-content": "{{doc-apihelp-param|jsonconfig|content}}",
 	"apihelp-jsonconfig-example-1": "{{doc-apihelp-example|jsonconfig}}",
 	"apihelp-jsonconfig-example-2": "{{doc-apihelp-example|jsonconfig}}",
-	"apihelp-jsonconfig-example-3": "{{doc-apihelp-example|jsonconfig}}"
+	"apihelp-jsonconfig-example-3": "{{doc-apihelp-example|jsonconfig}}",
+	"apihelp-jsondata-description": "{{doc-apihelp-description|jsondata}}",
+	"apihelp-jsondata-param-title": "{{doc-apihelp-param|jsondata|title}}",
+	"apihelp-jsondata-example-1": "{{doc-apihelp-example|jsondata}}",
+	"apihelp-jsondata-example-2": "{{doc-apihelp-example|jsondata}}"
 }
