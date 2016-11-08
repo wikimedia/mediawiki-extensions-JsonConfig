@@ -43,5 +43,9 @@
 	"apihelp-jsonconfig-param-content": "Para $1command=reload, use no seu lugar este contido.",
 	"apihelp-jsonconfig-example-1": "Amosar configuración",
 	"apihelp-jsonconfig-example-2": "Restablecer [[Zero:TEST]]",
-	"apihelp-jsonconfig-example-3": "Recargar [[Zero:TEST]]"
+	"apihelp-jsonconfig-example-3": "Recargar [[Zero:TEST]]",
+	"apihelp-jsondata-description": "Recuperar os datos JSON localizados. Esta API só permite format=json e formatversion=2 ou posteriores.",
+	"apihelp-jsondata-param-title": "Título a recuperar. Por defecto asume que o espazo de nomes é \"Data:\"",
+	"apihelp-jsondata-example-1": "Obter o contido JSON da páxina Sample.tab, localizada para a lingua do usuario",
+	"apihelp-jsondata-example-2": "Obter o contido JSON da páxina Sample.tab localizada en francés"
 }

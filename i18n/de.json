@@ -41,5 +41,9 @@
 	"apihelp-jsonconfig-param-content": "Für $1command=reload, stattdessen diesen Inhalt verwenden.",
 	"apihelp-jsonconfig-example-1": "Konfiguration anzeigen",
 	"apihelp-jsonconfig-example-2": "[[Zero:TEST]] zurücksetzen",
-	"apihelp-jsonconfig-example-3": "[[Zero:TEST]] neu laden"
+	"apihelp-jsonconfig-example-3": "[[Zero:TEST]] neu laden",
+	"apihelp-jsondata-description": "Ruft lokalisierte JSON-Daten ab. Diese API unterstützt nur format=json und formatversion=2 oder neuer.",
+	"apihelp-jsondata-param-title": "Abzurufender Titel. Standardmäßig wird der Namensraum „Data:“ angenommen.",
+	"apihelp-jsondata-example-1": "Ruft den JSON-Inhalt für die Seite Sample.tab, lokalisiert in die Benutzersprache, ab.",
+	"apihelp-jsondata-example-2": "Ruft den JSON-Inhalt für die Seite Sample.tab, lokalisiert in Französisch, ab."
 }
