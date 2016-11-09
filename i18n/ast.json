@@ -42,5 +42,9 @@
 	"apihelp-jsonconfig-param-content": "Pa $1command=reload, usa esti conteníu nel so llugar.",
 	"apihelp-jsonconfig-example-1": "Amosar configuración",
 	"apihelp-jsonconfig-example-2": "Reaniciar [[Zero:TEST]]",
-	"apihelp-jsonconfig-example-3": "Recargar [[Zero:TEST]]"
+	"apihelp-jsonconfig-example-3": "Recargar [[Zero:TEST]]",
+	"apihelp-jsondata-description": "Recuperar datos JSON llocalizaos. Esta API sólo tien encontu pa format=json y formatversion=2 o posteriores.",
+	"apihelp-jsondata-param-title": "Títulu a recuperar. De mou predetermináu asume que l'espaciu de nomes ye \"Data:\"",
+	"apihelp-jsondata-example-1": "Llograr el conteníu JSON de la páxina Sample.tab, llocalizáu na llingua del usuariu",
+	"apihelp-jsondata-example-2": "Llograr el conteníu JSON de la páxina Sample.tab llocalizáu en francés"
 }
