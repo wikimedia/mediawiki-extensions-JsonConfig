@@ -49,7 +49,7 @@
 	"apihelp-jsonconfig-example-1": "Show configuration",
 	"apihelp-jsonconfig-example-2": "Reset [[Zero:TEST]]",
 	"apihelp-jsonconfig-example-3": "Reload [[Zero:TEST]]",
-	"apihelp-jsondata-description": "Retrieve localized JSON data. This API only supports format=json and formatversion=2 or later.",
+	"apihelp-jsondata-description": "Retrieve localized JSON data.",
 	"apihelp-jsondata-param-title": "Title to get. By default assumes namespace to be \"Data:\"",
 	"apihelp-jsondata-example-1": "Get JSON content of the Sample.tab page, localized to user's language",
 	"apihelp-jsondata-example-2": "Get JSON content of the Sample.tab page localized to French"

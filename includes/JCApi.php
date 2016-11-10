@@ -146,9 +146,9 @@ class JCApi extends ApiBase {
 		return [
 			'action=jsonconfig&format=jsonfm'
 				=> 'apihelp-jsonconfig-example-1',
-			'api.php?action=jsonconfig&command=reset&namespace=480&title=TEST&format=jsonfm'
+			'action=jsonconfig&command=reset&namespace=480&title=TEST&format=jsonfm'
 				=> 'apihelp-jsonconfig-example-2',
-			'api.php?action=jsonconfig&command=reload&namespace=480&title=TEST&format=jsonfm'
+			'action=jsonconfig&command=reload&namespace=480&title=TEST&format=jsonfm'
 				=> 'apihelp-jsonconfig-example-3',
 		];
 	}
