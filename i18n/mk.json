@@ -48,5 +48,9 @@
 	"apihelp-jsonconfig-param-content": "За $1command=reload, користете ја оваа содржина.",
 	"apihelp-jsonconfig-example-1": "Прикажи поставеност",
 	"apihelp-jsonconfig-example-2": "Врати го [[Zero:TEST]] по основно",
-	"apihelp-jsonconfig-example-3": "Превчитај го [[Zero:TEST]]"
+	"apihelp-jsonconfig-example-3": "Превчитај го [[Zero:TEST]]",
+	"apihelp-jsondata-description": "Повикува локализирани JSON-податоци.",
+	"apihelp-jsondata-param-title": "Наслов за повикување. По основно се претпоставува дека именскиот простор е „Data:“",
+	"apihelp-jsondata-example-1": "Дава JSON-содржина на страницата Sample.tab page, локализирана на јазикот на корисникот",
+	"apihelp-jsondata-example-2": "Дава JSON-содржина на страницата Sample.tab, локализирана на француски"
 }
