@@ -14,5 +14,5 @@
 	"jsonconfig-type-name-number": "liczba",
 	"jsonconfig-type-name-boolean": "wartość logiczna",
 	"apihelp-jsonconfig-example-1": "Pokaż konfigurację",
-	"apihelp-jsondata-description": "Odbierz zlokalizowane dane JSON. Ten API obsługuje wyłącznie format=json i formatversion=2 lub nowszy."
+	"apihelp-jsondata-description": "Odbierz zlokalizowane dane JSON."
 }

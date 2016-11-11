@@ -9,5 +9,6 @@
 	"jsonconfig-type-name-invalid": "neteisingas",
 	"jsonconfig-type-name-string": "eilutė",
 	"jsonconfig-type-name-number": "skaičius",
-	"jsonconfig-type-name-boolean": "loginė reikšmė"
+	"jsonconfig-type-name-boolean": "loginė reikšmė",
+	"apihelp-jsondata-description": "Gauti lokalizuotus JSON duomenys."
 }

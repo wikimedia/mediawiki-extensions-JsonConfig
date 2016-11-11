@@ -46,7 +46,7 @@
 	"apihelp-jsonconfig-example-1": "显示配置",
 	"apihelp-jsonconfig-example-2": "重置[[Zero:TEST]]",
 	"apihelp-jsonconfig-example-3": "重新加载[[Zero:TEST]]",
-	"apihelp-jsondata-description": "取得本地化JSON数据。此API只支持format=json和formatversion=2及以上。",
+	"apihelp-jsondata-description": "取得本地化JSON数据。",
 	"apihelp-jsondata-param-title": "要获取的标题。默认假设名字空间为“Data:”",
 	"apihelp-jsondata-example-1": "获取Sample.tab页面的JSON内容，以用户的语言本地化",
 	"apihelp-jsondata-example-2": "获取Sample.tab页面的JSON内容，本地化为法语"
