@@ -48,7 +48,7 @@
 	"apihelp-jsonconfig-example-1": "Afficher la configuration",
 	"apihelp-jsonconfig-example-2": "Reinitialiser [[Zero:TEST]]",
 	"apihelp-jsonconfig-example-3": "Recharger [[Zero:TEST]]",
-	"apihelp-jsondata-description": "Récupérer les données JSONN localisée. Cette API supporte uniquement format=json et formatversion=2 ou plus.",
+	"apihelp-jsondata-description": "Récupérer les données JSON localisées.",
 	"apihelp-jsondata-param-title": "Titre à récupérer. Par défaut, l’espace de noms est supposé être « Data: »",
 	"apihelp-jsondata-example-1": "Obtenir le contenu JSON de la page Sample.tab, localisée dans la langue de l’utilisateur",
 	"apihelp-jsondata-example-2": "Obtenir le contenu JSON de la page Sample.tab localisée en français"
