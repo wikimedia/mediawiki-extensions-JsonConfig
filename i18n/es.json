@@ -39,6 +39,6 @@
 	"apihelp-jsonconfig-example-1": "Mostrar configuración",
 	"apihelp-jsonconfig-example-2": "Restablecer [[Zero:TEST]]",
 	"apihelp-jsonconfig-example-3": "Restablecer [[Zero:TEST]]",
-	"apihelp-jsondata-param-title": "Título a obtener. Por defecto, asume espacio de nombres como \"Dato:\"",
+	"apihelp-jsondata-param-title": "Título que obtener. De manera predeterminada, asume que el espacio de nombres es «Data:»",
 	"apihelp-jsondata-example-2": "Obtener el contenido JSON de la página Sample.tab localizada en francés"
 }
