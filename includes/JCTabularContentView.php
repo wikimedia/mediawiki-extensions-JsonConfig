@@ -118,10 +118,13 @@ class JCTabularContentView extends JCContentView {
 			}
 		}
 
+		global $wgParser;
+
 		$html =
 			$content->renderInfo( $lang ) .
 			Html::rawElement( 'table', $dataAttrs,
 				Html::rawElement( 'tbody', null, implode( "\n", $result ) ) ) .
+			$content->renderSources( $wgParser->getFreshParser(), $title, $revId, $options ) .
 			$content->renderLicense();
 
 		return $html;
@@ -154,8 +157,14 @@ class JCTabularContentView extends JCContentView {
 	public function getDefault( $modelId ) {
 		return <<<EOT
 {
-    // All comments will be automatically deleted on save
+    // !!!!! All comments will be automatically deleted on save !!!!!
 
+    // Optional "info" field to describe this data
+    "info": {"en": "table description"},
+
+    // Optional "sources" field to describe the sources of the data.  Can use Wiki Markup
+    "sources": "Copied from [http://example.com Example Data Source]",
+    
     // Mandatory "license" field. Only CC-0 (public domain dedication) is supported.
     "license": "CC0-1.0",
 

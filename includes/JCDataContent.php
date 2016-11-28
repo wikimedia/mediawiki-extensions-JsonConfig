@@ -4,7 +4,10 @@ namespace JsonConfig;
 
 use Html;
 use Language;
+use Parser;
+use ParserOptions;
 use stdClass;
+use Title;
 
 /**
  * @package JsonConfig
@@ -24,6 +27,7 @@ abstract class JCDataContent extends JCObjContent {
 
 		$this->test( 'license', JCValidators::isStringLine(), self::isValidLicense() );
 		$this->testOptional( 'info', [ 'en' => '' ], JCValidators::isLocalizedString() );
+		$this->testOptional( 'sources', '', JCValidators::isString() );
 	}
 
 	/** Returns a validator function to check if the value is a valid string
@@ -72,6 +76,9 @@ abstract class JCDataContent extends JCObjContent {
 				'url' => wfMessage( 'jsonconfig-license-url-' . $data->license )->plain(),
 			];
 		}
+		if ( property_exists( $data, 'sources' ) ) {
+			$result->sources = $data->sources;
+		}
 	}
 
 	public function renderInfo( $lang ) {
@@ -97,6 +104,20 @@ abstract class JCDataContent extends JCObjContent {
 			], wfMessage( 'jsonconfig-license-' . $license->getValue() )->plain() );
 
 			$html = Html::rawElement( 'p', [ 'class' => 'mw-jsonconfig-license' ], $text );
+		} else {
+			$html = '';
+		}
+
+		return $html;
+	}
+
+	public function renderSources( Parser $parser, Title $title, $revId, ParserOptions $options ) {
+		$sources = $this->getField( 'sources' );
+
+		if ( $sources && !$sources->error() ) {
+			$markup = $sources->getValue();
+			$html = Html::rawElement( 'p', [ 'class' => 'mw-jsonconfig-sources' ],
+				$parser->parse( $markup, $title, $options, true, true, $revId )->getRawText() );
 		} else {
 			$html = '';
 		}
