@@ -29,6 +29,8 @@ class JCMapDataContentView extends JCContentView {
 								 $generateHtml, ParserOutput &$output ) {
 		global $wgParser;
 
+		$parser = $wgParser->getFreshParser();
+
 		$localizedData = $content->getLocalizedData( $options->getUserLangObj() );
 		if ( $localizedData ) {
 
@@ -67,12 +69,13 @@ EOT;
 				}
 			}
 			$output =
-				$wgParser->getFreshParser()->parse( $text, $title, $options, true, true, $revId );
+				$parser->parse( $text, $title, $options, true, true, $revId );
 		}
 
 		return
 			$content->renderInfo( $options->getUserLangObj() ) . '<br>' .
 			$output->getRawText() . '<br clear=all>' .
+			$content->renderSources( $parser, $title, $revId, $options ) .
 			$content->renderLicense();
 	}
 
@@ -85,13 +88,24 @@ EOT;
 	public function getDefault( $modelId ) {
 		return <<<EOT
 {
-	"info": { "en": "description" },
-	"license": "CC0-1.0",
+    // !!!!! All comments will be automatically deleted on save !!!!!
+
+    // Optional "info" field to describe this map
+    "info": {"en": "map description"},
+
+    // Optional "sources" field to describe the sources of the map.  Can use Wiki Markup
+    "sources": "Copied from [http://example.com Example Map Source]",
+    
+    // Mandatory "license" field. Only CC-0 (public domain dedication) is supported.
+    "license": "CC0-1.0",
+
 	"zoom": 3,
 	"latitude": 0,
 	"longitude": 0,
 	"data": {
-		...
+		
+		... GeoJSON ...
+		
 	}
 }
 EOT;
