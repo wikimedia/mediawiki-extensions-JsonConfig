@@ -1,6 +1,14 @@
 {
-    "license": {"en": "blah"},
-    "headers": ["col1"],
-    "types": ["string"],
-    "rows": []
+    "license": {
+        "en": "blah"
+    },
+    "schema": {
+        "fields": [
+            {
+                "name": "col1",
+                "type": "string"
+            }
+        ]
+    },
+    "data": []
 }

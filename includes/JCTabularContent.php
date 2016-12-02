@@ -35,10 +35,12 @@ class JCTabularContent extends JCDataContent {
 		$result = "{| class='wikitable sortable'\n";
 
 		// Create header
-		$result .= '!' . implode( "!!", array_map( $toWiki, $data->headers ) ) . "\n";
+		$result .= '!' . implode( "!!", array_map( function ( $field ) use ( $toWiki ) {
+				return $toWiki( $field->title ? : $field->name );
+			}, $data->schema->fields ) ) . "\n";
 
 		// Create table content
-		foreach ( $data->rows as $row ) {
+		foreach ( $data->data as $row ) {
 			$result .= "|-\n|" . implode( '||', array_map( $toWiki, $row ) ) . "\n";
 		}
 
@@ -56,45 +58,52 @@ class JCTabularContent extends JCDataContent {
 		parent::validateContent();
 
 		$validators = [ JCValidators::isList() ];
-		if ( $this->test( 'headers', JCValidators::isList() ) &&
-			 $this->testEach( 'headers', JCValidators::isHeaderString() ) &&
-			 $this->test( 'headers', JCValidators::listHasUniqueStrings() )
-		) {
-			$headers = $this->getField( 'headers' )->getValue();
-			$countValidator = JCValidators::checkListSize( count( $headers ), 'headers' );
-			$validators[] = $countValidator;
-		} else {
-			$headers = false;
-		}
-
-		$makeDefaultTitles = function () use ( $headers ) {
-			return $headers === false
-				? []
-				: array_map( function ( /** @var JCValue $header */ $header ) {
-					return [ 'en' => $header->getValue() ];
-				}, $headers );
-		};
-		if ( $this->testOptional( 'titles', $makeDefaultTitles, $validators ) ) {
-			$this->testEach( 'titles', JCValidators::isLocalizedString() );
-		}
-
 		$typeValidators = [];
-		if ( $this->test( 'types', $validators ) ) {
-			if ( !$this->testEach( 'types', JCValidators::validateDataType( $typeValidators ) ) ) {
-				$typeValidators = false;
+		$fieldsPath = [ 'schema', 'fields' ];
+		if ( $this->test( 'schema', JCValidators::isDictionary() ) &&
+			 $this->test( $fieldsPath, JCValidators::isList() ) &&
+			 $this->testEach( $fieldsPath, JCValidators::isDictionary() )
+		) {
+			$hasError = false;
+			$allHeaders = [];
+			$fieldCount = count( $this->getField( $fieldsPath )->getValue() );
+			for ( $idx = 0; $idx < $fieldCount; $idx++ ) {
+				$header = false;
+				$hasError |= !$this->test( [ 'schema', 'fields', $idx, 'name' ],
+					JCValidators::isHeaderString( $allHeaders ),
+					function ( JCValue $jcv ) use ( &$header ) {
+						$header = $jcv->getValue();
+						return true;
+					} );
+				$hasError |= !$this->test( [ 'schema', 'fields', $idx, 'type' ],
+					JCValidators::validateDataType( $typeValidators ) );
+				if ( $header ) {
+					$hasError |= !$this->testOptional( [ 'schema', 'fields', $idx, 'title' ],
+						function () use ( $header ) {
+							return (object)[ 'en' => $header ];
+						}, JCValidators::isLocalizedString() );
+				}
+			}
+			$countValidator = JCValidators::checkListSize( $fieldCount, 'schema/fields' );
+			$validators[] = $countValidator;
+
+			if ( !$hasError ) {
+				$this->testEach( $fieldsPath, JCValidators::noExtraValues() );
 			}
 		}
+		$this->test( 'schema', JCValidators::noExtraValues() );
 
 		if ( !$this->thorough() ) {
-			// We are not doing any modifications to the rows, so no need to validate it
+			// We are not doing any modifications to the data, so no need to validate it
 			return;
 		}
 
-		$this->test( 'rows', JCValidators::isList() );
-		$this->testEach( 'rows', $validators );
+		$this->test( 'data', JCValidators::isList() );
+		$this->test( [ ], JCValidators::noExtraValues() );
+		$this->testEach( 'data', $validators );
 		if ( $typeValidators ) {
 			/** @noinspection PhpUnusedParameterInspection */
-			$this->testEach( 'rows', function ( JCValue $v, array $path ) use ( $typeValidators ) {
+			$this->testEach( 'data', function ( JCValue $v, array $path ) use ( $typeValidators ) {
 				$isOk = true;
 				$lastIdx = count( $path );
 				foreach ( array_keys( $typeValidators ) as $k ) {
@@ -119,26 +128,30 @@ class JCTabularContent extends JCDataContent {
 			return JCUtils::pickLocalizedString( $value, $lang );
 		};
 
-		$result->headers = $data->headers;
-		$result->types = $data->types;
-		$result->titles = array_map( $localize, $data->titles );
-		if ( !in_array( 'localized', $data->types ) ) {
-			// There are no localized strings in the data, optimize
-			$result->rows = $data->rows;
-		} else {
-			// Make a list of all columns that need to be localized
-			$isLocalized = [];
-			foreach ( $data->types as $ind => $type ) {
-				if ( $type === 'localized' ) {
-					$isLocalized[] = $ind;
-				}
+		$isLocalized = [];
+		$result->schema = (object)[];
+		$result->schema->fields = [];
+		foreach ( $data->schema->fields as $ind => $fld ) {
+			if ( $fld->type === 'localized' ) {
+				$isLocalized[] = $ind;
 			}
-			$result->rows = array_map( function ( $row ) use ( $localize, $isLocalized ) {
+			$result->schema->fields[] = (object)[
+				'name' => $fld->name,
+				'type' => $fld->type,
+				'title' => property_exists( $fld, 'title' ) ? $localize( $fld->title ) : $fld->name
+			];
+		}
+
+		if ( !$isLocalized ) {
+			// There are no localized strings in the data, optimize
+			$result->data = $data->data;
+		} else {
+			$result->data = array_map( function ( $row ) use ( $localize, $isLocalized ) {
 				foreach ( $isLocalized as $ind ) {
 					$row[$ind] = $localize( $row[$ind] );
 				}
 				return $row;
-			}, $data->rows );
+			}, $data->data );
 		}
 	}
 }

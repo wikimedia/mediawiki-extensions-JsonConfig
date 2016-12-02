@@ -36,7 +36,7 @@
 	color: #800080;
 }
 
-.mw-jsonconfig-info, .mw-jsonconfig-license {
+.mw-jsonconfig-description, .mw-jsonconfig-license {
 	display: inline-block;
 	font-style: italic;
 }

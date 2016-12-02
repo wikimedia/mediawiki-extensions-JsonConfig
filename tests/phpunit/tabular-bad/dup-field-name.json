@@ -5,10 +5,12 @@
             {
                 "name": "col1",
                 "type": "string"
+            },
+            {
+                "name": "col1",
+                "type": "string"
             }
         ]
     },
-    "data": [
-        []
-    ]
+    "data": []
 }

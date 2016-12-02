@@ -3,12 +3,11 @@
     "schema": {
         "fields": [
             {
-                "name": "col1",
-                "type": "string"
+                "name": "a",
+                "type": "string",
+                "extra": ""
             }
         ]
     },
-    "data": [
-        []
-    ]
+    "data": []
 }

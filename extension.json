@@ -147,7 +147,7 @@
 			"value": false
 		},
 		"JsonConfigAllowedLicenses": {
-			"value": [ "CC0-1.0" ]
+			"value": [ "CC0-1.0+" ]
 		},
 		"JsonConfigInterwikiPrefix": {
 			"value": "commons"

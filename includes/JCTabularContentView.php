@@ -32,71 +32,55 @@ class JCTabularContentView extends JCContentView {
 		// impact because data namespace is rarely viewed, but viewing it localized
 		// will be valuable
 		$lang = $options->getUserLangObj();
+
+		$okClass = [ ];
 		$infoClass = [ 'class' => 'mw-jsonconfig-value-info' ];
+		$errorClass = [ 'class' => 'mw-jsonconfig-error' ];
+		$result = [ ];
 
-		list( $data, $dataAttrs ) = self::split(
-			$content->getValidationData(), 'mw-jsonconfig sortable' );
-
-		if ( property_exists( $data, 'headers' ) ) {
-			list( $headers, $headersAttrs ) = self::split( $data->headers );
-
-			$titles = [ ];
-			$titlesAttrs = '';
-			if ( property_exists( $data, 'titles' ) ) {
-				list( $titlesVals, $titlesAttrs ) = self::split( $data->titles );
-				if ( !$titlesAttrs ) {
-					$titles = $titlesVals;
-				}
-			}
-
+		$dataAttrs = [ 'class' => 'mw-jsonconfig sortable' ];
+		if ( !$content->getValidationData() || $content->getValidationData()->error() ) {
+			$dataAttrs['class'] .= ' mw-jsonconfig-error';
+		}
+		$flds = $content->getField( [ 'schema', 'fields' ] );
+		if ( $flds && !$flds->error() ) {
 			$vals = [ ];
-			$types = [ ];
-			if ( property_exists( $data, 'types' ) ) {
-				$tmp = self::split( $data->types )[0];
-				if ( is_array( $tmp ) ) {
-					$types = array_map( function ( $v ) {
-						/** @var JCValue|mixed $v */
-						if ( is_a( $v, '\JsonConfig\JCValue' ) ) {
-							return $v->error() ? '' : $v->getValue();
-						}
-						return $v;
-					}, $tmp );
-				}
-			}
+			foreach ( $flds->getValue() as $fld ) {
+				$name = $content->getField( 'name', $fld );
+				$type = $content->getField( 'type', $fld );
+				$label = $content->getField( 'title', $fld );
 
-			$index = 0;
-			foreach ( $headers as $colHeader ) {
-				list( $colHeader, $columnAttrs ) = self::split( $colHeader );
-				if ( !empty( $titles[$index] ) ) {
-					list( $colTitle, $colTitleAttrs ) = self::split( $titles[$index] );
-					if ( $colTitleAttrs ) {
-						$colTitle = $colHeader;
-					} else {
-						$colTitle = JCUtils::pickLocalizedString( $colTitle, $lang );
-					}
+				if ( $name && !$name->error() && $type && !$type->error() &&
+					 ( !$label || !$label->error() )
+				) {
+					$labelAttrs = $okClass;
 				} else {
-					$colTitle = $colHeader;
-					$colTitleAttrs = '';
+					$labelAttrs = $errorClass;
 				}
 
-				$type = !empty( $types[$index] ) ? $types[$index] : 'invalid';
-				$typeClass = $infoClass;
-				$typeClass['title'] = wfMessage( 'jsonconfig-type-name-' . $type )->plain();
+				if ( $label && !$label->error() ) {
+					$label = JCUtils::pickLocalizedString( $label->getValue(), $lang );
+				} elseif ( $name && !$name->error() ) {
+					$label = $name->getValue();
+				} else {
+					$label = '';
+				}
+
+				$type = !$type || $type->error() ? 'invalid' : $type->getValue();
+				$typeAttrs = $infoClass;
+				$typeAttrs['title'] = wfMessage( 'jsonconfig-type-name-' . $type )->plain();
 				$typeAbbr = wfMessage( 'jsonconfig-type-abbr-' . $type )->plain();
 
-				$colTitle = htmlspecialchars( $colTitle ) .
-						  Html::element( 'span', $typeClass, $typeAbbr );
-				$vals[] = Html::rawElement( 'th', $columnAttrs ?: $colTitleAttrs, $colTitle );
-				$index++;
+				$label = htmlspecialchars( $label ) .
+						  Html::element( 'span', $typeAttrs, $typeAbbr );
+				$vals[] = Html::rawElement( 'th', $labelAttrs, $label );
 			}
-			$result = [ Html::rawElement( 'tr', $headersAttrs ?: $titlesAttrs, implode( '', $vals ) ) ];
-		} else {
-			$result = [];
+			$result[] = Html::rawElement( 'tr', $okClass, implode( '', $vals ) );
 		}
 
-		if ( property_exists( $data, 'rows' ) ) {
-			$rows = self::split( $data->rows )[0];
-			foreach ( $rows as $row ) {
+		$data = $content->getField( 'data' );
+		if ( $data && !$data->error() ) {
+			foreach ( $data->getValue() as $row ) {
 				list( $row, $rowAttrs ) = self::split( $row );
 				$vals = [ ];
 				foreach ( $row as $column ) {
@@ -121,7 +105,7 @@ class JCTabularContentView extends JCContentView {
 		global $wgParser;
 
 		$html =
-			$content->renderInfo( $lang ) .
+			$content->renderDescription( $lang ) .
 			Html::rawElement( 'table', $dataAttrs,
 				Html::rawElement( 'tbody', null, implode( "\n", $result ) ) ) .
 			$content->renderSources( $wgParser->getFreshParser(), $title, $revId, $options ) .
@@ -159,29 +143,37 @@ class JCTabularContentView extends JCContentView {
 {
     // !!!!! All comments will be automatically deleted on save !!!!!
 
-    // Optional "info" field to describe this data
-    "info": {"en": "table description"},
+    // Optional "description" field to describe this data
+    "description": {"en": "table description"},
 
     // Optional "sources" field to describe the sources of the data.  Can use Wiki Markup
     "sources": "Copied from [http://example.com Example Data Source]",
-    
-    // Mandatory "license" field. Only CC-0 (public domain dedication) is supported.
-    "license": "CC0-1.0",
 
-    // Mandatory list of headers. Each header must be a valid identifier with consisting of A..Z, a..z, 0..9, and _
-    "headers": ["header1","header2" ],
-    
-    // Optional localized description of each column 
-    "titles": [
-        {"en": "header 1"},
-        {"en": "header 2"}
-    ],
-    
-    // Optional column types. Allowed values are number, string, boolean, and localized. Uses string by default. 
-    "types": ["number", "string" ],
-    
-    // array of rows, with each row being an array of values
-    "rows": [
+    // Mandatory "license" field. Only CC-0 (public domain dedication) is supported.
+    "license": "CC0-1.0+",
+
+    // Mandatory fields schema. Each field must be an object with
+    //   "name" being a valid identifier with consisting of letters, digits, and "_"
+    //   "type" being one of the allowed types like "number", "string", "boolean", "localized"
+    "schema": {
+        "fields": [
+            {
+                "name": "header1",
+                "type": "number",
+                // Optional label for this field
+                "title": {"en": "header 1"},
+            },
+            {
+                "name": "header2",
+                "type": "string",
+                // Optional label for this field
+                "title": {"en": "header 2"},
+            }
+        ]
+    },
+
+    // array of data, with each row being an array of values
+    "data": [
         [ 42, "peace" ]
     ]
 }

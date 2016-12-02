@@ -1,6 +1,7 @@
 {
     "license": "",
-    "headers": ["col1"],
-    "types": ["string"],
-    "rows": []
+    "schema": {
+        "fields": []
+    },
+    "data": []
 }

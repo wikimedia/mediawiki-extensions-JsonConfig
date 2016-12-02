@@ -1,5 +1,6 @@
 {
-    "license": "CC0-1.0",
-    "types": ["string"],
-    "headers": ["col1"]
+    "license": "CC0-1.0+",
+    "schema": {
+        "fields": []
+    }
 }
