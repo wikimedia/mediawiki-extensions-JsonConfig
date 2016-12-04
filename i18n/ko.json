@@ -6,7 +6,8 @@
 			"Ykhwong"
 		]
 	},
-	"jsonconfig-bad-json": "JSON 설정을 구문 분석할 수 없습니다. 구문을 확인하세요.",
+	"jsonconfig-err-array": "\"$1\" 변수는 리스트여야 합니다. (예: [\"값1\", \"값2\", ...])",
+	"jsonconfig-err-assoc-array": "\"$1\" 변수는 연관 배열(사전)이어야 합니다. (예:{\"키\": \"값\", ...})",
 	"jsonconfig-err-bool": "변수 \"$1\" true나 false여야 합니다",
 	"jsonconfig-err-string": "변수 \"$1\" 문자열이어야 합니다",
 	"jsonconfig-optional-field": "(선택 사항)",

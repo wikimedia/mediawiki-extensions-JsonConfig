@@ -1,15 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"Xuacu"
+			"Xuacu",
+			"Yurik"
 		]
 	},
 	"jsonconfig-desc": "Permite guardar la configuración JSON nuna wiki",
 	"jsonconfig-duplicate-field": "Alcontróse más d'un valor «$1»",
-	"jsonconfig-err-array": "El parámetru «$1» tien de ser una llista, p. ex., ['valor1', 'valor2', ...]",
+	"jsonconfig-err-array": "El parámetru «$1» tien de ser una llista, p. ex. [\"valor1\", \"valor2\", ...]",
 	"jsonconfig-err-array-count": "La llista «$1» tien $2 {{PLURAL:$2|valor|valores}}, pero tien de tener $3 {{PLURAL:$3|valor|valores}}, el mesmu númberu de valores que «$4»",
 	"jsonconfig-err-array-expected": "Esperábase que'l valor en «$1» fuera una llista rodiada por corchetes […]",
-	"jsonconfig-err-assoc-array": "El parámetru «$1» tien de ser una matríz asociativa (diccionariu), p. ex. {'clave': 'valor', ...}",
+	"jsonconfig-err-assoc-array": "El parámetru «$1» tien de ser una matríz asociativa (diccionariu), p. ex. {\"clave\": \"valor\", ...}",
 	"jsonconfig-err-bad-header-string": "La testera «$1» sólo tien de tener lletres, númberos y carácteres de sorrayáu, y nun tien de principiar con un númberu",
 	"jsonconfig-err-bad-geojson": "El parámetru «$1» tien de ser un oxetu de datos GeoJSON válidu, o un conxuntu d'oxetos GeoJSON. Si nel campu \"properties\" contienen \"title\" o \"description\", tienen de ser cadenes de llinies simples sin tabulaciones o espacios finales, o oxetos multillingües como cadenes, p.ex. { \"en\":\"String in English\", ... }",
 	"jsonconfig-err-bad-type": "El parámetru «$1» tien de ser d'un tipu válidu como \"string\" (cadena de carauteres), \"number\" (númberu), o \"boolean\" (lóxicu)",
@@ -43,7 +44,7 @@
 	"apihelp-jsonconfig-example-1": "Amosar configuración",
 	"apihelp-jsonconfig-example-2": "Reaniciar [[Zero:TEST]]",
 	"apihelp-jsonconfig-example-3": "Recargar [[Zero:TEST]]",
-	"apihelp-jsondata-description": "Recuperar datos JSON llocalizaos. Esta API sólo tien encontu pa format=json y formatversion=2 o posteriores.",
+	"apihelp-jsondata-description": "Recuperar datos JSON llocalizaos.",
 	"apihelp-jsondata-param-title": "Títulu a recuperar. De mou predetermináu asume que l'espaciu de nomes ye \"Data:\"",
 	"apihelp-jsondata-example-1": "Llograr el conteníu JSON de la páxina Sample.tab, llocalizáu na llingua del usuariu",
 	"apihelp-jsondata-example-2": "Llograr el conteníu JSON de la páxina Sample.tab llocalizáu en francés"

@@ -4,12 +4,12 @@
 			"Shirayuki",
 			"Otokoume",
 			"Akki-102525",
-			"Thibaut120094"
+			"Thibaut120094",
+			"Yurik"
 		]
 	},
-	"jsonconfig-bad-json": "JSON 形式の設定を構文解析できません。構文を確認してください。",
-	"jsonconfig-err-array": "パラメーター「$1」はリストでなければなりません。例: ['値1', '値2', ...]",
-	"jsonconfig-err-assoc-array": "パラメーター「$1」は連想配列 (辞書) でなければなりません。例: {'キー': '値', ...}",
+	"jsonconfig-err-array": "パラメーター「$1」はリストでなければなりません。例: [\"値1\", \"値2\", ...]",
+	"jsonconfig-err-assoc-array": "パラメーター「$1」は連想配列 (辞書) でなければなりません。例: {\"キー\": \"値\", ...}",
 	"jsonconfig-err-bool": "パラメーター「$1」には true または false を設定しなければなりません",
 	"jsonconfig-err-integer": "パラメーター「$1」は整数でなければなりません",
 	"jsonconfig-err-string": "パラメーター「$1」は文字列でなければなりません",

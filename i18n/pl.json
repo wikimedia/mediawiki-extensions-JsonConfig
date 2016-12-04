@@ -5,6 +5,8 @@
 		]
 	},
 	"jsonconfig-duplicate-field": "Znaleziono więcej niż jedną wartość „$1”",
+	"jsonconfig-err-array": "Parametr „$1” musi być listą, np. [„wartość1”, „wartość2”, ...]",
+	"jsonconfig-err-assoc-array": "Parametr „$1” musi być tablicą asocjacyjną (słownikiem), np. {„klucz”: „wartość”, ...}",
 	"jsonconfig-err-bad-header-string": "Nagłówek „$1” może zawierać wyłącznie litery, cyfry i znak podkreślenia oraz nie może rozpoczynać się cyfrą.",
 	"jsonconfig-err-bool": "Parametr „$1” musi mieć wartość true (prawda) lub false (fałsz)",
 	"jsonconfig-err-integer": "Parametr „$1” musi być liczbą całkowitą",

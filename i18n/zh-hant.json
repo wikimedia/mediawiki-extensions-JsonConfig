@@ -2,17 +2,17 @@
 	"@metadata": {
 		"authors": [
 			"Liuxinyu970226",
-			"Cwlin0416"
+			"Cwlin0416",
+			"Yurik"
 		]
 	},
 	"jsonconfig-desc": "允許在 Wiki 儲存 JSON 設定",
-	"jsonconfig-bad-json": "無法解析 JSON 設定。請檢查語法。",
 	"jsonconfig-duplicate-field": "發現值 \"$1\" 超過一個",
-	"jsonconfig-err-array": "參數 \"$1\" 必須為清單，如：['value1', 'value2', ...]",
-	"jsonconfig-err-assoc-array": "參數 \"$1\" 必須為關聯陣列 (字典)，如：{'key': 'value', ...}",
+	"jsonconfig-err-array": "參數 \"$1\" 必須為清單，如：[\"value1\", \"value2\", ...]",
+	"jsonconfig-err-array-expected": "預期值 \"$1\" 為清單，使用 [...] 括號",
+	"jsonconfig-err-assoc-array": "參數 \"$1\" 必須為關聯陣列 (字典)，如：{\"key\": \"value\", ...}",
 	"jsonconfig-err-bool": "參數 \"$1\" 必須為 true 或 false",
 	"jsonconfig-err-integer": "參數 \"$1\" 必須為整數",
-	"jsonconfig-err-array-expected": "預期值 \"$1\" 為清單，使用 [...] 括號",
 	"jsonconfig-err-object-expected": "預期值 \"$1\" 為物件，使用 {...} 括號",
 	"jsonconfig-err-root-array-expected": "JSON 資料應為清單，使用 [...] 括號",
 	"jsonconfig-err-root-object-expected": "JSON 資料應為物件，使用 {...} 括號",

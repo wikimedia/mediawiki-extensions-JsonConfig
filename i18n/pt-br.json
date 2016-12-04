@@ -1,17 +1,17 @@
 {
 	"@metadata": {
 		"authors": [
-			"Araceletorres"
+			"Araceletorres",
+			"Yurik"
 		]
 	},
 	"jsonconfig-desc": "Permite que a configuração JSON seja armazenada na wiki",
-	"jsonconfig-bad-json": "Não se pôde analisar a configuração JSON. Por favor confira a sintaxe.",
 	"jsonconfig-duplicate-field": "Mais de um valor \"$1\" encontrado",
-	"jsonconfig-err-array": "O parâmetro \"$1\" deve ser uma lista, por exemplo, ['value1', 'value2', ...]",
-	"jsonconfig-err-assoc-array": "O parâmetro \"$1\" deve ser uma matriz associativa (dicionário), por exemplo, {'chave': 'valor', ...}",
+	"jsonconfig-err-array": "O parâmetro \"$1\" deve ser uma lista, por exemplo, [\"value1\", \"value2\", ...]",
+	"jsonconfig-err-array-expected": "O valor em \"$1\" era esperado para ser uma lista cercada por colchetes [...]",
+	"jsonconfig-err-assoc-array": "O parâmetro \"$1\" deve ser uma matriz associativa (dicionário), por exemplo, {\"chave\": \"valor\", ...}",
 	"jsonconfig-err-bool": "Parâmetro \"$1\" deve ser verdadeiro ou falso",
 	"jsonconfig-err-integer": "O parâmetro \"$1\" deve ser um número inteiro",
-	"jsonconfig-err-array-expected": "O valor em \"$1\" era esperado para ser uma lista cercada por colchetes [...]",
 	"jsonconfig-err-object-expected": "O valor em \"$1\" era esperado para ser um objeto cercado por chaves {...}",
 	"jsonconfig-err-root-array-expected": "Os dados JSON devem ser uma lista, rodeados por colchetes [...]",
 	"jsonconfig-err-root-object-expected": "Os dados JSON devem ser um objeto, cercados por chaves {...}",

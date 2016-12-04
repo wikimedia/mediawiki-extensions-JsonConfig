@@ -2,14 +2,15 @@
 	"@metadata": {
 		"authors": [
 			"WikiPhoenix",
-			"Lokal Profil"
+			"Lokal Profil",
+			"Yurik"
 		]
 	},
 	"jsonconfig-desc": "Tillåter JSON-konfigurationer att lagras i en wiki",
 	"jsonconfig-duplicate-field": "Fler än ett värde \"$1\" hittades",
 	"jsonconfig-err-array": "Parameter \"$1\" måste vara en lista, dvs. ['värde1', 'värde2', ...]",
 	"jsonconfig-err-array-expected": "Värdet vid $1 förväntades vara en lista omgiven av [...]-parenteser",
-	"jsonconfig-err-assoc-array": "Parameter \"$1\" måste vara en associerad lista (ordbok), dvs. {'nyckel':'värde', ...}",
+	"jsonconfig-err-assoc-array": "Parameter \"$1\" måste vara en associerad lista (ordbok), dvs. {\"nyckel\": \"värde\", ...}",
 	"jsonconfig-err-bool": "Parametern \"$1\" måste antingen vara \"true\" eller \"false\"",
 	"jsonconfig-err-integer": "Parametern \"$1\" måste vara ett heltal",
 	"jsonconfig-err-object-expected": "Värdet vid $1 förväntades vara ett objekt omgivet av {...}-parenteser",

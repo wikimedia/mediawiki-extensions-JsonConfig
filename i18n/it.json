@@ -2,15 +2,16 @@
 	"@metadata": {
 		"authors": [
 			"Beta16",
-			"PeppeAeco"
+			"PeppeAeco",
+			"Yurik"
 		]
 	},
 	"jsonconfig-desc": "Permette di memorizzare la configurazione JSON in un wiki",
 	"jsonconfig-duplicate-field": "Trovato più di un valore \"$1\"",
-	"jsonconfig-err-array": "Il parametro \"$1\" deve essere un elenco, ad esempio ['valore1', 'valore2', ...]",
+	"jsonconfig-err-array": "Il parametro \"$1\" deve essere un elenco, ad esempio [\"valore1\", \"valore2\", ...]",
 	"jsonconfig-err-array-count": "L'elenco \"$1\" ha $2 {{PLURAL:$2|valore|valori}}, ma dovrebbe averne $3 {{PLURAL:$3|valore|valori}}, lo stesso numero di valori di \"$4\"",
 	"jsonconfig-err-array-expected": "Il valore \"$1\" deve essere un elenco tra da parentesi quadre [...]",
-	"jsonconfig-err-assoc-array": "Il parametro \"$1\" deve essere un array associativo (dizionario), ad esempio {'chiave': 'valore', ...}",
+	"jsonconfig-err-assoc-array": "Il parametro \"$1\" deve essere un array associativo (dizionario), ad esempio {\"chiave\": \"valore\", ...}",
 	"jsonconfig-err-bad-header-string": "L'intestazione \"$1\" deve essere composta solo da lettere, numeri e caratteri di sottolineatura, e non deve iniziare con un numero",
 	"jsonconfig-err-bad-type": "Il parametro \"$1\" deve essere di un tipo valido come \"stringa\", \"numero\", o \"booleano\"",
 	"jsonconfig-err-bool": "Il parametro \"$1\" deve essere impostato su true (vero) o false (falso)",
