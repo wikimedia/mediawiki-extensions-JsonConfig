@@ -41,8 +41,8 @@ class JCMapDataContentView extends JCContentView {
 				$zoom = $content->getField( 'zoom' );
 				$lat = $content->getField( 'latitude' );
 				$lon = $content->getField( 'longitude' );
-				if ( $zoom && $lat && $lon &&
-					 !$zoom->error() && !$lat->error() && !$lon->error()
+				if ( $zoom && $lat && $lon && !$zoom->error() && !$lat->error() &&
+					 !$lon->error()
 				) {
 					$zoom = $zoom->getValue();
 					$lat = $lat->getValue();
@@ -68,15 +68,13 @@ EOT;
 					$text = "<pre>\n$jsonText\n</pre>";
 				}
 			}
-			$output =
-				$parser->parse( $text, $title, $options, true, true, $revId );
+			$output = $parser->parse( $text, $title, $options, true, true, $revId );
 		}
 
-		return
-			$content->renderInfo( $options->getUserLangObj() ) . '<br>' .
-			$output->getRawText() . '<br clear=all>' .
-			$content->renderSources( $parser, $title, $revId, $options ) .
-			$content->renderLicense();
+		return $content->renderDescription( $options->getUserLangObj() ) . '<br>' .
+			   $output->getRawText() . '<br clear=all>' .
+			   $content->renderSources( $parser, $title, $revId, $options ) .
+			   $content->renderLicense();
 	}
 
 	/**
@@ -90,23 +88,23 @@ EOT;
 {
     // !!!!! All comments will be automatically deleted on save !!!!!
 
-    // Optional "info" field to describe this map
-    "info": {"en": "map description"},
+    // Optional "description" field to describe this map
+    "description": {"en": "map description"},
 
     // Optional "sources" field to describe the sources of the map.  Can use Wiki Markup
     "sources": "Copied from [http://example.com Example Map Source]",
-    
-    // Mandatory "license" field. Only CC-0 (public domain dedication) is supported.
-    "license": "CC0-1.0",
 
-	"zoom": 3,
-	"latitude": 0,
-	"longitude": 0,
-	"data": {
-		
-		... GeoJSON ...
-		
-	}
+    // Mandatory "license" field. Only CC-0 (public domain dedication) is supported.
+    "license": "CC0-1.0+",
+
+    "zoom": 3,
+    "latitude": 0,
+    "longitude": 0,
+    "data": {
+
+        ... GeoJSON ...
+
+    }
 }
 EOT;
 	}

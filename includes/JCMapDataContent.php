@@ -21,6 +21,8 @@ class JCMapDataContent extends JCDataContent {
 		$this->testOptional( 'longitude', 0, JCValidators::isNumber() );
 
 		$this->test( 'data', self::isValidData() );
+
+		$this->test( [ ], JCValidators::noExtraValues() );
 	}
 
 	private static function isValidData() {

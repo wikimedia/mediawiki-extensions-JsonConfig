@@ -1,6 +1,12 @@
 {
-    "license": "CC0-1.0",
-    "headers": ["a-b"],
-    "types": ["string"],
-    "rows": []
+    "license": "CC0-1.0+",
+    "schema": {
+        "fields": [
+            {
+                "name": "a-b",
+                "type": "string"
+            }
+        ]
+    },
+    "data": []
 }

@@ -26,7 +26,7 @@ abstract class JCDataContent extends JCObjContent {
 		}
 
 		$this->test( 'license', JCValidators::isStringLine(), self::isValidLicense() );
-		$this->testOptional( 'info', [ 'en' => '' ], JCValidators::isLocalizedString() );
+		$this->testOptional( 'description', [ 'en' => '' ], JCValidators::isLocalizedString() );
 		$this->testOptional( 'sources', '', JCValidators::isString() );
 	}
 
@@ -66,14 +66,20 @@ abstract class JCDataContent extends JCObjContent {
 	 */
 	protected function localizeData( $result, Language $lang ) {
 		$data = $this->getData();
-		if ( property_exists( $data, 'info' ) ) {
-			$result->info = JCUtils::pickLocalizedString( $data->info, $lang );
+		if ( property_exists( $data, 'description' ) ) {
+			$result->description = JCUtils::pickLocalizedString( $data->description, $lang );
 		}
-		if ( property_exists( $data, 'license' ) ) {
+		$license = $this->getLicenseObject();
+		if ( $license ) {
+			$text = $license['text']->inLanguage( $lang )->plain();
+			if ( $license['laterVersion'] ) {
+				$text = wfMessage( 'jsonconfig-license-or-later', $text )
+					->inLanguage( $lang )->plain();
+			}
 			$result->license = (object)[
-				'code' => $data->license,
-				'text' => wfMessage( 'jsonconfig-license-' . $data->license )->plain(),
-				'url' => wfMessage( 'jsonconfig-license-url-' . $data->license )->plain(),
+				'code' => $license['code'],
+				'text' => $text,
+				'url' => $license['url']->inLanguage( $lang )->plain(),
 			];
 		}
 		if ( property_exists( $data, 'sources' ) ) {
@@ -81,12 +87,12 @@ abstract class JCDataContent extends JCObjContent {
 		}
 	}
 
-	public function renderInfo( $lang ) {
-		$info = $this->getField( 'info' );
+	public function renderDescription( $lang ) {
+		$description = $this->getField( 'description' );
 
-		if ( $info && !$info->error() ) {
-			$info = JCUtils::pickLocalizedString( $info->getValue(), $lang );
-			$html = Html::element( 'p', [ 'class' => 'mw-jsonconfig-info' ], $info );
+		if ( $description && !$description->error() ) {
+			$description = JCUtils::pickLocalizedString( $description->getValue(), $lang );
+			$html = Html::element( 'p', [ 'class' => 'mw-jsonconfig-description' ], $description );
 		} else {
 			$html = '';
 		}
@@ -94,14 +100,21 @@ abstract class JCDataContent extends JCObjContent {
 		return $html;
 	}
 
+	/**
+	 * Renders license HTML, including optional "or later version" clause
+	 *     <a href="...">Creative Commons 1.0</a>, or later version
+	 * @return string
+	 */
 	public function renderLicense() {
-		$license = $this->getField( 'license' );
-
-		if ( $license && !$license->error() ) {
-
+		$license = $this->getLicenseObject();
+		if ( $license ) {
 			$text = Html::element( 'a', [
-				'href' => wfMessage( 'jsonconfig-license-url-' . $license->getValue() )->plain()
-			], wfMessage( 'jsonconfig-license-' . $license->getValue() )->plain() );
+				'href' => $license['url']->plain()
+			], $license['text']->plain() );
+
+			if ( $license['laterVersion'] ) {
+				$text = wfMessage( 'jsonconfig-license-or-later', $text )->plain();
+			}
 
 			$html = Html::rawElement( 'p', [ 'class' => 'mw-jsonconfig-license' ], $text );
 		} else {
@@ -109,6 +122,23 @@ abstract class JCDataContent extends JCObjContent {
 		}
 
 		return $html;
+	}
+
+	private function getLicenseObject() {
+		$license = $this->getField( 'license' );
+		if ( $license && !$license->error() ) {
+			$code = $license->getValue();
+			$laterVersion = substr( $code, -1 ) === '+';
+			$baseCode = $laterVersion ? substr( $code, 0, - 1 ) : $code;
+
+			return [
+				'code' => $code,
+				'laterVersion' => $laterVersion,
+				'text' => wfMessage( 'jsonconfig-license-' . $baseCode ),
+				'url' => wfMessage( 'jsonconfig-license-url-' . $baseCode ),
+			];
+		}
+		return false;
 	}
 
 	public function renderSources( Parser $parser, Title $title, $revId, ParserOptions $options ) {

@@ -216,31 +216,36 @@ class JCValidators {
 	/** Returns a validator function to check if the value is a valid header string
 	 * @return callable
 	 */
-	public static function isHeaderString() {
-		return function ( JCValue $v, array $path ) {
+	public static function isHeaderString( &$allHeaders ) {
+		return function ( JCValue $v, array $path ) use ( &$allHeaders ) {
 			$value = $v->getValue();
 			// must be a string, begins with a letter or '_', and only has letters/digits/'_'
 			if ( !is_string( $value ) || !preg_match( '/^[\pL_][\pL\pN_]*$/ui', $value ) ) {
 				$v->error( 'jsonconfig-err-bad-header-string', $path );
-				return false;
+			} elseif ( in_array( $value, $allHeaders ) ) {
+				$v->error( 'jsonconfig-err-duplicate-header', $path, $value );
+			} else {
+				$allHeaders[] = $value;
+				return true;
 			}
-			return true;
+			return false;
 		};
 	}
 
-	/** Returns a validator function to check if value is a list of unique strings
+	/** Returns a validator function to check if the dictionary value contains any unexpected vals
+	 * This should be called after all values inside an object have already been tested
 	 * @return callable
 	 */
-	public static function listHasUniqueStrings() {
+	public static function noExtraValues() {
 		return function ( JCValue $v, array $path ) {
 			$value = $v->getValue();
-			if ( is_array( $value ) &&
-				 count( $value ) !== count( array_unique( array_map( function ( JCValue $vv ) {
-					return $vv->getValue();
-				}, $value ) ) )
-			) {
-				$v->error( 'jsonconfig-err-unique-strings', $path );
-				return false;
+			if ( is_object( $value ) ) {
+				foreach ( $value as $key => $subVal ) {
+					if ( !is_a( $subVal, '\JsonConfig\JCValue' ) ) {
+						$v->error( 'jsonconfig-err-unexpected-key', $path, $key );
+						return false;
+					}
+				}
 			}
 			return true;
 		};
