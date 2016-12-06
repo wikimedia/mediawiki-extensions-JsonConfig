@@ -25,7 +25,6 @@
 	"jsonconfig-err-root-object-expected": "Os datos JSON deben ser un obxecto rodeado por chaves {...}",
 	"jsonconfig-err-string": "O parámetro \"$1\" debe ser unha cadea de texto",
 	"jsonconfig-err-stringline": "O parámetro \"$1\" debe ser unha liña simple que non teña máis de $2 caracteres, sen tabulacións, e non pode comezar nin rematar cun espazo",
-	"jsonconfig-err-unique-strings": "O parámetro \"$1\" debe ser unha lista de cadeas de texto non baleiras únicas",
 	"jsonconfig-err-url": "O parámetro \"$1\" debe ser un enderezo URL válido",
 	"jsonconfig-move-aborted-model": "o modelo de configuración JSOn desta páxina, \"$1\", non se corresponde co novo modelo de título, \"$2\"",
 	"jsonconfig-move-aborted-ns": "o título da páxina nova non está configurado para conter unha configuración JSON",

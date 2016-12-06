@@ -24,7 +24,6 @@
 	"jsonconfig-err-root-object-expected": "Los datos JSON tienen de ser un oxetu, rodiáu por llaves {...}",
 	"jsonconfig-err-string": "El parámetru «$1» tien de ser una cadena",
 	"jsonconfig-err-stringline": "El parámetru «$1» tien de ser una cadena non mayor de $2 caráuteres, sin tabuladores, nin tien de principiar o acabar con espaciu",
-	"jsonconfig-err-unique-strings": "El parámetru \"$1\" tien de ser una llista de cadenes de testu úniques non baleres",
 	"jsonconfig-err-url": "El parámetru «$1» tien de ser una URL válida",
 	"jsonconfig-move-aborted-model": "el modelu de configuración JSON d'esta páxina «$1» nun casaría col nuevu modelu de títulu «$2»",
 	"jsonconfig-move-aborted-ns": "el títulu de la páxina nueva nun ta configuráu pa tener configuración JSON",

@@ -23,7 +23,7 @@
 	"jsonconfig-err-root-array-expected": "I dati JSON deve essere un elenco tra da parentesi quadre [...]",
 	"jsonconfig-err-root-object-expected": "I dati JSON deve essere un elenco tra da parentesi graffe {...}",
 	"jsonconfig-err-string": "Il parametro \"$1\" deve essere una stringa",
-	"jsonconfig-err-unique-strings": "Il parametro \"$1\" deve essere un elenco di stringhe univoche non vuote",
+	"jsonconfig-err-unexpected-key": "L'oggetto \"$1\" contiene un campo non previsto \"$2\"",
 	"jsonconfig-err-url": "Il parametro \"$1\" deve essere un URL valido",
 	"jsonconfig-move-aborted-model": "il modello di configurazione JSON \"$1\" di questa pagina non corrisponde al nuovo modello \"$2\"",
 	"jsonconfig-move-aborted-ns": "il nuovo titolo della pagina non è impostato per contenere la configurazione JSON",
@@ -33,7 +33,8 @@
 	"jsonconfig-type-name-localized": "localizzato",
 	"jsonconfig-type-name-number": "numero",
 	"jsonconfig-type-name-boolean": "booleano",
-	"jsonconfig-license-CC0-1.0": "Creative Commons Zero v1.0 Universale o versione successiva",
+	"jsonconfig-license-or-later": "$1, o (a propria scelta) una versione successiva",
+	"jsonconfig-license-CC0-1.0": "Creative Commons Zero v1.0 Universale",
 	"apihelp-jsonconfig-description": "Consente l'accesso diretto al sottosistema JsonConfig.",
 	"apihelp-jsonconfig-param-namespace": "Numero namespace del titolo da elaborare.",
 	"apihelp-jsonconfig-param-title": "Titolo da elaborare senza prefisso namespace."

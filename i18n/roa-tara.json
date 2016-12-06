@@ -5,8 +5,8 @@
 		]
 	},
 	"jsonconfig-desc": "Permette 'a confugurazione JSON de essere reggistrate jndr'à 'na uicchi",
-	"jsonconfig-bad-json": "Non ge pozze analizzà 'a configurazione JSON. Pe piacere condrolle 'a sindase.",
 	"jsonconfig-err-bool": "Parametre \"$1\" adda essere vere o fause",
 	"jsonconfig-err-string": "Parametre \"$1\" adda essere 'na stringhe",
-	"jsonconfig-optional-field": "(opzionale)"
+	"jsonconfig-optional-field": "(opzionale)",
+	"jsonconfig-license-CC0-1.0": "Creative Commons Zero v1.0 Universale"
 }

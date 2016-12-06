@@ -24,7 +24,6 @@
 	"jsonconfig-err-root-object-expected": "Dữ liệu JSON phải là đối tượng được đưa vào các dấu ngoặc {…}",
 	"jsonconfig-err-string": "Tham số “$1” phải là chuỗi",
 	"jsonconfig-err-stringline": "Tham số “$1” phải là chuỗi một dòng không dài hơn $2 ký tự, không có tab, không bắt đầu hoặc kết thúc bằng dấu cách",
-	"jsonconfig-err-unique-strings": "Tham số “$1” phải là danh sách chuỗi không rỗng khác nhau",
 	"jsonconfig-err-url": "Tham số “$1” phải là URL hợp lệ",
 	"jsonconfig-move-aborted-model": "Mô hình cấu hình JSON của trang này, “$1”, sẽ không phù hợp với mô hình tại tên mới, “$2”",
 	"jsonconfig-move-aborted-ns": "Tên trang mới chưa được thiết lập để lưu giữ cấu hình JSON",
