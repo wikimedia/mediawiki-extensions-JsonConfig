@@ -72,11 +72,6 @@ abstract class JCDataContent extends JCObjContent {
 		$license = $this->getLicenseObject();
 		if ( $license ) {
 			$text = $license['text']->inLanguage( $lang )->plain();
-			// Legal suggested we don't add this just yet
-//			if ( $license['laterVersion'] ) {
-//				$text = wfMessage( 'jsonconfig-license-or-later', $text )
-//					->inLanguage( $lang )->plain();
-//			}
 			$result->license = (object)[
 				'code' => $license['code'],
 				'text' => $text,
@@ -113,11 +108,6 @@ abstract class JCDataContent extends JCObjContent {
 				'href' => $license['url']->plain()
 			], $license['text']->plain() );
 
-			// Legal suggested we don't add this just yet
-//			if ( $license['laterVersion'] ) {
-//				$text = wfMessage( 'jsonconfig-license-or-later', $text )->plain();
-//			}
-
 			$text = wfMessage( 'jsonconfig-license' )->rawParams( $text )->parse();
 
 			$html = Html::rawElement( 'p', [ 'class' => 'mw-jsonconfig-license' ], $text );
@@ -132,14 +122,11 @@ abstract class JCDataContent extends JCObjContent {
 		$license = $this->getField( 'license' );
 		if ( $license && !$license->error() ) {
 			$code = $license->getValue();
-			$laterVersion = substr( $code, -1 ) === '+';
-			$baseCode = $laterVersion ? substr( $code, 0, - 1 ) : $code;
 
 			return [
 				'code' => $code,
-				'laterVersion' => $laterVersion,
-				'text' => wfMessage( 'jsonconfig-license-' . $baseCode ),
-				'url' => wfMessage( 'jsonconfig-license-url-' . $baseCode ),
+				'text' => wfMessage( 'jsonconfig-license-name-' . $code ),
+				'url' => wfMessage( 'jsonconfig-license-url-' . $code ),
 			];
 		}
 		return false;

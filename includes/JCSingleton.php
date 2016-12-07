@@ -6,6 +6,7 @@ use Article;
 use ContentHandler;
 use Exception;
 use GenderCache;
+use Html;
 use Language;
 use MalformedTitleException;
 use MapCacheLRU;
@@ -136,6 +137,7 @@ class JCSingleton {
 			self::getConfVal( $conf, 'cacheExp', 24 * 60 * 60 );
 			self::getConfVal( $conf, 'cacheKey', '' );
 			self::getConfVal( $conf, 'flaggedRevs', false );
+			self::getConfVal( $conf, 'license', false );
 			$islocal = self::getConfVal( $conf, 'isLocal', true );
 
 			// Decide if matching configs should be stored on this wiki
@@ -661,6 +663,80 @@ class JCSingleton {
 			$status->merge( $content->getStatus() );
 			if ( !$status->isGood() ) {
 				$status->setResult( false, $status->getValue() );
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Override a per-page specific edit page copyright warning
+	 *
+	 * @param Title $title
+	 * @param string[] $msg
+	 *
+	 * @return bool
+	 */
+	public static function onEditPageCopyrightWarning( $title, &$msg ) {
+		if ( self::jsonConfigIsStorage() ) {
+			$jct = self::parseTitle( $title );
+			if ( $jct ) {
+				$code = $jct->getConfig()->license;
+				if ( $code ) {
+					$msg = [ 'jsonconfig-license-copyrightwarning-' . $code ];
+					return false; // Do not allow any other hook handler to override this
+				}
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Display a page-specific edit notice
+	 *
+	 * @param Title $title
+	 * @param integer $oldid
+	 * @param array &$notices
+	 * @return bool
+	 */
+	public static function onTitleGetEditNotices( Title $title, $oldid, array &$notices ) {
+		if ( self::jsonConfigIsStorage() ) {
+			$jct = self::parseTitle( $title );
+			if ( $jct ) {
+				$code = $jct->getConfig()->license;
+				if ( $code ) {
+					$noticeText = wfMessage( 'jsonconfig-license-notice-' . $code )->parse();
+					$notices['jsonconfig'] =
+						wfMessage( 'jsonconfig-license-notice-box-' . $code )
+							->rawParams( $noticeText )
+							->parseAsBlock();
+				}
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Override with per-page specific copyright message
+	 *
+	 * @param Title $title
+	 * @param string $type
+	 * @param string $msg
+	 * @param $link
+	 *
+	 * @return bool
+	 */
+	public static function onSkinCopyrightFooter( $title, $type, &$msg, &$link ) {
+		if ( self::jsonConfigIsStorage() ) {
+			$jct = self::parseTitle( $title );
+			if ( $jct ) {
+				$code = $jct->getConfig()->license;
+				if ( $code ) {
+					$msg = 'jsonconfig-license';
+					$link = Html::element( 'a', [
+						'href' => wfMessage( 'jsonconfig-license-url-' . $code )->plain()
+					], wfMessage( 'jsonconfig-license-name-' . $code )->plain() );
+					return false;
+				}
 			}
 		}
 		return true;
