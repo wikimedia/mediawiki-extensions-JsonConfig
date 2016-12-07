@@ -14,12 +14,22 @@ class JCDataApi extends ApiBase {
 		$params = $this->extractRequestParams();
 		$jct = JCSingleton::parseTitle( $params['title'], NS_DATA );
 		if ( !$jct ) {
-			$this->dieUsageMsg( [ 'invalidtitle', $params['title'] ] );
+			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
+				$this->dieWithError( [ 'apierror-invalidtitle', wfEscapeWikiText( $params['title'] ) ] );
+			} else {
+				$this->dieUsageMsg( [ 'invalidtitle', $params['title'] ] );
+			}
 		}
 
 		$data = JCSingleton::getContent( $jct );
 		if ( !$data ) {
-			$this->dieUsageMsg( [ 'invalidtitle', $jct ] );
+			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
+				$this->dieWithError(
+					[ 'apierror-invalidtitle', wfEscapeWikiText( $jct->getPrefixedText() ) ]
+				);
+			} else {
+				$this->dieUsageMsg( [ 'invalidtitle', $jct ] );
+			}
 		} elseif ( !method_exists( $data, 'getLocalizedData' ) ) {
 			$data = $data->getData();
 		} else {

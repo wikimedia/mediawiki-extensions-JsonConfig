@@ -52,6 +52,7 @@
 	"jsonconfig-license-CC0-1.0": "Name of the license",
 	"jsonconfig-license-url-CC0-1.0": "URL to the license description, localized if available",
 	"right-jsonconfig-flush": "{{doc-right|jsonconfig-flush}}",
+	"action-jsonconfig-flush": "{{doc-action|jsonconfig-flush}}",
 	"apihelp-jsonconfig-description": "{{doc-apihelp-description|jsonconfig}}",
 	"apihelp-jsonconfig-param-command": "The \"config store\" is the new way to store the MediaWiki configuration outside <code>LocalSettings.php</code>, namely in JSON files. \n----\n{{doc-apihelp-param|jsonconfig|command}}",
 	"apihelp-jsonconfig-param-namespace": "{{doc-apihelp-param|jsonconfig|namespace}}",
@@ -63,5 +64,7 @@
 	"apihelp-jsondata-description": "{{doc-apihelp-description|jsondata}}",
 	"apihelp-jsondata-param-title": "{{doc-apihelp-param|jsondata|title}}",
 	"apihelp-jsondata-example-1": "{{doc-apihelp-example|jsondata}}",
-	"apihelp-jsondata-example-2": "{{doc-apihelp-example|jsondata}}"
+	"apihelp-jsondata-example-2": "{{doc-apihelp-example|jsondata}}",
+	"apierror-jsonconfig-badtitle": "{{doc-apierror}}",
+	"apierror-jsonconfig-paramrequired": "{{doc-apierror}}\n\nParameters:\n* $1 - Parameter name"
 }
