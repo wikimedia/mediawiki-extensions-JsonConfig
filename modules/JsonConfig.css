@@ -82,3 +82,18 @@
 	margin-bottom: 0.5em;
 	text-align: left;
 }
+
+.mw-jsonconfig-editnotice {
+	color: #000;
+	border: solid 1px #A8A8A8;
+	padding: 0.5em;
+	margin: 0.5em 0;
+	background-color: #FFF;
+	font-size: 95%;
+	vertical-align: middle;
+}
+
+.mw-jsonconfig-editnotice-icon {
+	padding: 1em;
+	width: 30px;
+}

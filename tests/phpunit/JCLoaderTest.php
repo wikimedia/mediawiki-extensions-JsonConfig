@@ -92,6 +92,7 @@ class JCLoaderTest extends MediaWikiTestCase {
 		$result = (object)array_merge( [
 			'model' => 'test.model',
 			'isLocal' => true,
+			'license' => false,
 			'namespace' => 482,
 			'pattern' => '',
 			'cacheExp' => 86400,
