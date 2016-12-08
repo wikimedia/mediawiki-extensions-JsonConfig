@@ -59,6 +59,10 @@ class JCLuaLibrary extends Scribunto_LuaLibraryBase {
 		if ( $content === null ) {
 			$this->incrementExpensiveFunctionCount();
 			$content = JCSingleton::getContent( $jct );
+
+			$prop = 'jsonconfig_getdata';
+			$output = $this->getParser()->getOutput();
+			$output->setProperty( $prop, 1 + ( $output->getProperty( $prop ) ? : 0 ) );
 		}
 
 		if ( !$content ) {
