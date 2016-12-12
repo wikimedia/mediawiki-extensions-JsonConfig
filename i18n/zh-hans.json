@@ -38,9 +38,12 @@
 	"jsonconfig-type-name-localized": "已本地化",
 	"jsonconfig-type-name-number": "数值",
 	"jsonconfig-type-name-boolean": "布尔值",
-	"jsonconfig-license-or-later": "$1，或（根据您的选择）任何更高版本",
-	"jsonconfig-license-CC0-1.0": "知识共享CC0 1.0 通用",
+	"jsonconfig-license": "数据基于$1可用。",
+	"jsonconfig-license-name-CC0-1.0+": "知识共享CC0",
+	"jsonconfig-license-copyrightwarning-CC0-1.0+": "保存更改即表示您同意[https://wikimediafoundation.org/wiki/Terms_of_Use 使用条款]，并不可撤销地同意依据[https://creativecommons.org/publicdomain/zero/1.0/deed.zh CC0]将您的贡献发表在公有领域。",
+	"jsonconfig-license-notice-CC0-1.0+": "'''注意：'''当您编辑此页面时，您同意将您的贡献以[https://creativecommons.org/publicdomain/zero/1.0/deed.zh CC0]协议发布。",
 	"right-jsonconfig-flush": "通过API操作JsonConfig",
+	"action-jsonconfig-flush": "通过API操作JsonConfig",
 	"apihelp-jsonconfig-description": "允许直接访问JsonConfig子系统。",
 	"apihelp-jsonconfig-param-command": "要在JsonConfig上执行的子操作：\n;status:显示JsonConfig配置。\n;reset:从缓存中清空配置。需要$1title参数和jsonconfig-reset权限。\n;reload:从配置库中重新载入并缓存配置。需要$1title参数和jsonconfig-reset权限。",
 	"apihelp-jsonconfig-param-namespace": "要处理的标题的名字空间编号。",
@@ -52,5 +55,7 @@
 	"apihelp-jsondata-description": "取得本地化JSON数据。",
 	"apihelp-jsondata-param-title": "要获取的标题。默认假设名字空间为“Data:”",
 	"apihelp-jsondata-example-1": "获取Sample.tab页面的JSON内容，以用户的语言本地化",
-	"apihelp-jsondata-example-2": "获取Sample.tab页面的JSON内容，本地化为法语"
+	"apihelp-jsondata-example-2": "获取Sample.tab页面的JSON内容，本地化为法语",
+	"apierror-jsonconfig-paramrequired": "此命令需要参数<var>$1</var>。",
+	"apierror-jsonconfig-badtitle": "由<var>namespace</var>和<var>title</var>参数指定的页面无效，或未在JsonConfig配置中注册。"
 }

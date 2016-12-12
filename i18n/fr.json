@@ -7,7 +7,8 @@
 			"Wladek92",
 			"Hpetit",
 			"Yasten",
-			"Yurik"
+			"Yurik",
+			"Derugon"
 		]
 	},
 	"jsonconfig-desc": "Permet de stocker une configuration JSON dans un wiki",
@@ -40,8 +41,8 @@
 	"jsonconfig-type-name-localized": "localisé",
 	"jsonconfig-type-name-number": "nombre",
 	"jsonconfig-type-name-boolean": "booléen",
-	"jsonconfig-license-or-later": "$1, ou (à votre choix) toute version ultérieure",
-	"jsonconfig-license-CC0-1.0": "Creative Commons Zero v1.0 Universal",
+	"jsonconfig-license": "Données disponibles sous $1.",
+	"jsonconfig-license-name-CC0-1.0+": "Creative Commons Zero v1.0 Universal",
 	"right-jsonconfig-flush": "Manipuler JsonConfig par API",
 	"apihelp-jsonconfig-description": "Permet l'accès direct au sous-système JsonConfig.",
 	"apihelp-jsonconfig-param-command": "Quelle sous-action effectuer sur JsonConfig :\n;status : affiche la configuration de JsonConfig.\n;reset : efface les configurations du cache. Nécessite  le paramètre de titre $1 et les droits de réinitialiser Jsonconfig.\n;reload : recharge et met en cache des configurations du dépôt config. Nécessite le paramètre de titre $1 et les droits de réinitialiser Jsonconfig.",

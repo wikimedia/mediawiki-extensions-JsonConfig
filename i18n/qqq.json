@@ -67,6 +67,6 @@
 	"apihelp-jsondata-param-title": "{{doc-apihelp-param|jsondata|title}}",
 	"apihelp-jsondata-example-1": "{{doc-apihelp-example|jsondata}}",
 	"apihelp-jsondata-example-2": "{{doc-apihelp-example|jsondata}}",
-	"apierror-jsonconfig-badtitle": "{{doc-apierror}}",
-	"apierror-jsonconfig-paramrequired": "{{doc-apierror}}\n\nParameters:\n* $1 - Parameter name"
+	"apierror-jsonconfig-paramrequired": "{{doc-apierror}}\n\nParameters:\n* $1 - Parameter name",
+	"apierror-jsonconfig-badtitle": "{{doc-apierror}}"
 }
