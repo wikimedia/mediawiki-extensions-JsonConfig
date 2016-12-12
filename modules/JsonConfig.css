@@ -29,6 +29,10 @@
 	background-color: #dcfae3;
 }
 
+.mw-jsonconfig .mw-jsonconfig-value-null {
+	background-color: #eaecf0;
+}
+
 .mw-jsonconfig-value-info {
 	float: right;
 	font-weight: bold;

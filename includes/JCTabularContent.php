@@ -148,7 +148,9 @@ class JCTabularContent extends JCDataContent {
 		} else {
 			$result->data = array_map( function ( $row ) use ( $localize, $isLocalized ) {
 				foreach ( $isLocalized as $ind ) {
-					$row[$ind] = $localize( $row[$ind] );
+					if ( $row[$ind] !== null ) {
+						$row[$ind] = $localize( $row[$ind] );
+					}
 				}
 				return $row;
 			}, $data->data );

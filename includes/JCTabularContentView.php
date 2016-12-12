@@ -93,6 +93,10 @@ class JCTabularContentView extends JCContentView {
 					} else {
 						if ( is_bool( $column ) ) {
 							$column = $column ? '☑' : '☐';
+						} elseif ( $column === null ) {
+							// TODO: Should we append the CSS class instead?
+							$columnAttrs['class'] = 'mw-jsonconfig-value-null';
+							$column = '';
 						}
 						// TODO: We should probably introduce one CSS class per type
 						$vals[] = Html::element( 'td', $columnAttrs, $column );

@@ -29,15 +29,17 @@ class JCValidators {
 	}
 
 	/** Returns a validator function to check if the value is a valid boolean (true/false)
+	 * @param bool $nullable if true, null becomes a valid value
 	 * @return callable
 	 */
-	public static function isBool() {
-		return function ( JCValue $v, array $path ) {
-			if ( !is_bool( $v->getValue() ) ) {
-				$v->error( 'jsonconfig-err-bool', $path );
-				return false;
+	public static function isBool( $nullable = false ) {
+		return function ( JCValue $v, array $path ) use ( $nullable ) {
+			$value = $v->getValue();
+			if ( is_bool( $value ) || ( $nullable && $value === null ) ) {
+				return true;
 			}
-			return true;
+			$v->error( 'jsonconfig-err-bool', $path );
+			return false;
 		};
 	}
 
@@ -55,17 +57,20 @@ class JCValidators {
 	}
 
 	/** Returns a validator function to check if the value is a valid single line string
+	 * @param bool $nullable if true, null becomes a valid value
 	 * @param int $maxlength maximum allowed string size
 	 * @return callable
 	 */
-	public static function isStringLine( $maxlength = 400 ) {
-		return function ( JCValue $v, array $path ) use ( $maxlength ) {
-			$str = $v->getValue();
-			if ( !JCUtils::isValidLineString( $str, $maxlength ) ) {
-				$v->error( 'jsonconfig-err-stringline', $path, $maxlength );
-				return false;
+	public static function isStringLine( $nullable = false, $maxlength = 400 ) {
+		return function ( JCValue $v, array $path ) use ( $nullable, $maxlength ) {
+			$value = $v->getValue();
+			if ( JCUtils::isValidLineString( $value, $maxlength ) ||
+				 ( $nullable && $value === null )
+			) {
+				return true;
 			}
-			return true;
+			$v->error( 'jsonconfig-err-stringline', $path, $maxlength );
+			return false;
 		};
 	}
 
@@ -83,15 +88,17 @@ class JCValidators {
 	}
 
 	/** Returns a validator function to check if the value is a valid integer
+	 * @param bool $nullable if true, null becomes a valid value
 	 * @return callable
 	 */
-	public static function isNumber() {
-		return function ( JCValue $v, array $path ) {
-			if ( !is_double( $v->getValue() ) && !is_int( $v->getValue() ) ) {
-				$v->error( 'jsonconfig-err-number', $path );
-				return false;
+	public static function isNumber( $nullable = false ) {
+		return function ( JCValue $v, array $path ) use ( $nullable ) {
+			$value = $v->getValue();
+			if ( is_double( $value ) || is_int( $value ) || ( $nullable && $value === null ) ) {
+				return true;
 			}
-			return true;
+			$v->error( 'jsonconfig-err-number', $path );
+			return false;
 		};
 	}
 
@@ -191,13 +198,17 @@ class JCValidators {
 
 	/** Returns a validator function that will ensure that the given value is a non-empty object,
 	 * with each key being an allowed language code, and each value being a single line string.
+	 * @param bool $nullable if true, null becomes a valid value
 	 * @param int $maxlength
 	 * @return Closure
 	 */
-	public static function isLocalizedString( $maxlength = 400 ) {
-		return function ( JCValue $jcv, array $path ) use ( $maxlength ) {
+	public static function isLocalizedString( $nullable = false, $maxlength = 400 ) {
+		return function ( JCValue $jcv, array $path ) use ( $nullable, $maxlength ) {
 			if ( !$jcv->isMissing() ) {
 				$v = $jcv->getValue();
+				if ( $nullable && $v === null ) {
+					return true;
+				}
 				if ( is_object( $v ) ) {
 					$v = (array)$v;
 				}
@@ -279,16 +290,16 @@ class JCValidators {
 			if ( is_string( $value ) ) {
 				switch ( $value ) {
 					case 'string':
-						$validator = JCValidators::isStringLine();
+						$validator = JCValidators::isStringLine( true );
 						break;
 					case 'boolean':
-						$validator = JCValidators::isBool();
+						$validator = JCValidators::isBool( true );
 						break;
 					case 'number':
-						$validator = JCValidators::isNumber();
+						$validator = JCValidators::isNumber( true );
 						break;
 					case 'localized':
-						$validator = JCValidators::isLocalizedString();
+						$validator = JCValidators::isLocalizedString( true );
 						break;
 				}
 			}
