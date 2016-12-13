@@ -3,11 +3,8 @@
 namespace JsonConfig;
 
 use Language;
-use MalformedTitleException;
 use Scribunto_LuaError;
 use Scribunto_LuaLibraryBase;
-use Title;
-use TitleValue;
 
 class JCLuaLibrary extends Scribunto_LuaLibraryBase {
 
@@ -72,8 +69,35 @@ class JCLuaLibrary extends Scribunto_LuaLibraryBase {
 		} else {
 			/** @var JCDataContent $content */
 			$result = $content->getLocalizedData( $language );
+
+			if ( $content instanceof JCTabularContent ) {
+				self::reindexTabularData( $result );
+			}
 		}
 
 		return [ $result ];
+	}
+
+	/**
+	 * Reindex tabular data so it can be processed by Lua more easily
+	 * @param object $data
+	 */
+	public static function reindexTabularData( $data ) {
+		$columnCount = count( $data->schema->fields );
+		$rowCount = count( $data->data );
+		if ( $columnCount > 0 ) {
+			$rowIndexes = range( 1, $columnCount );
+			$data->schema->fields = array_combine( $rowIndexes, $data->schema->fields );
+			if ( $rowCount > 0 ) {
+				$data->data =
+					array_combine( range( 1, $rowCount ),
+						array_map( function ( $row ) use ( $rowIndexes ) {
+							return array_combine( $rowIndexes, $row );
+						}, $data->data ) );
+			}
+		} elseif ( $rowCount > 0 ) {
+			// Weird, but legal
+			$data->data = array_combine( range( 1, $rowCount ), $data->data );
+		}
 	}
 }

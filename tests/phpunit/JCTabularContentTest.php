@@ -3,6 +3,7 @@
 namespace JsonConfig\Tests;
 
 use FormatJson;
+use JsonConfig\JCLuaLibrary;
 use JsonConfig\JCTabularContent;
 use Language;
 use MediaWikiTestCase;
@@ -96,5 +97,49 @@ class JCTabularContentTest extends MediaWikiTestCase {
 		}
 
 		return $result;
+	}
+
+
+	/**
+	 * @dataProvider provideLuaReindexingTests
+	 * @param int $fieldCount
+	 * @param array $data
+	 * @param array $expected
+	 */
+	public function testLuaTabDataReindexing( $fieldCount, $data, $expected ) {
+		if ( !class_exists( 'Scribunto_LuaLibraryBase' ) ) {
+			$this->markTestSkipped( "Scribunto is required for this integration test" );
+		}
+
+		$value = (object)[ 'schema' => (object)[] ];
+		$value->data = $data;
+		$value->schema->fields = $fieldCount > 0 ? array_fill( 0, $fieldCount, (object) [ ] ) : [ ];
+		JCLuaLibrary::reindexTabularData( $value );
+		$this->assertEquals( $expected, $value->data );
+		$this->assertEquals( $fieldCount > 0 ? range( 1, $fieldCount ) : [ ],
+			array_keys( $value->schema->fields ) );
+	}
+
+	public function provideLuaReindexingTests() {
+		return [
+			// fieldCount, data, expected
+			[ 0, [], [] ],
+			[ 1, [], [] ],
+			[
+				1,
+				[ [ "a" ] ],
+				[ 1 => [ 1 => "a" ] ]
+			],
+			[
+				2,
+				[ [ 0, "a" ] ],
+				[ 1 => [ 1 => 0, 2 => "a" ] ]
+			],
+			[
+				2,
+				[ [ 0, "a" ], [ - 1, "-" ] ],
+				[ 1 => [ 1 => 0, 2 => "a" ], 2 => [ 1 => -1, 2 => "-" ] ]
+			],
+		];
 	}
 }
