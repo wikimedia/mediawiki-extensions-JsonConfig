@@ -70,7 +70,11 @@
 	},
 	"ResourceModules": {
 		"ext.jsonConfig": {
-			"styles": "JsonConfig.css",
+			"styles": [
+				"JsonConfig.css",
+				"tabular-general.less",
+				"tabular-table.less"
+			],
 			"position": "top"
 		}
 	},

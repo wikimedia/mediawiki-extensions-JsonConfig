@@ -270,9 +270,10 @@ class JCUtils {
 	 * or use language fallbacks if message is not defined.
 	 * @param stdClass $map Dictionary of languageCode => string
 	 * @param Language|StubUserLang $lang language object
+	 * @param bool|string $defaultValue if non-false, use this value in case no fallback and no 'en'
 	 * @return string message from the dictionary or "" if nothing found
 	 */
-	public static function pickLocalizedString( stdClass $map, $lang ) {
+	public static function pickLocalizedString( stdClass $map, $lang, $defaultValue = false ) {
 		$langCode = $lang->getCode();
 		if ( property_exists( $map, $langCode ) ) {
 			return $map->$langCode;
@@ -286,6 +287,12 @@ class JCUtils {
 		if ( property_exists( $map, 'en' ) ) {
 			return $map->en;
 		}
+
+		// We have a custom default, return that
+		if ( $defaultValue !== false ) {
+			return $defaultValue;
+		}
+
 		// Return first available value, or an empty string
 		// There might be a better way to get the first value from an object
 		$map = (array)$map;
