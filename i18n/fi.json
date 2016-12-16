@@ -9,5 +9,6 @@
 	"jsonconfig-type-name-string": "merkkijono",
 	"jsonconfig-type-name-localized": "lokalisoitu",
 	"jsonconfig-type-name-number": "luku",
-	"jsonconfig-type-name-boolean": "totuusarvo"
+	"jsonconfig-type-name-boolean": "totuusarvo",
+	"jsonconfig-license": "Tiedot on käytettävissä lisenssillä $1."
 }
