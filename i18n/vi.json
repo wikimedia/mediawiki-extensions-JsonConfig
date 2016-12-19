@@ -38,7 +38,7 @@
 	"jsonconfig-type-name-number": "số",
 	"jsonconfig-type-abbr-boolean": "(LL)",
 	"jsonconfig-type-name-boolean": "luận lý",
-	"jsonconfig-license-CC0-1.0": "Creative Commons CC0 1.0 Toàn cầu hoặc phiên bản mới hơn",
+	"jsonconfig-license-name-CC0-1.0+": "Creative Commons Zêrô",
 	"right-jsonconfig-flush": "Điều khiển JsonConfig qua API",
 	"apihelp-jsonconfig-description": "Cho phép truy cập trực tiếp hệ thống con JsonConfig."
 }
