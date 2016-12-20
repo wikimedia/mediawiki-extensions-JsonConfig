@@ -95,7 +95,13 @@ class JCMapDataContent extends JCDataContent {
 	protected function localizeData( $result, Language $lang ) {
 		parent::localizeData( $result, $lang );
 
-		$geojson = FormatJson::decode( FormatJson::encode( $this->getData()->data, FormatJson::ALL_OK ) );
+		$data = $this->getData();
+
+		$result->zoom = $data->zoom;
+		$result->latitude = $data->latitude;
+		$result->longitude = $data->longitude;
+
+		$geojson = FormatJson::decode( FormatJson::encode( $data->data, FormatJson::ALL_OK ) );
 		self::recursiveWalk( $geojson, $lang );
 
 		$result->data = $geojson;
