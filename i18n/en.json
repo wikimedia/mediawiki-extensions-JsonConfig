@@ -1,9 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Yuri Astrakhan"
+			"Yuri Astrakhan",
+			"Base"
 		]
 	},
+	"nstab-data": "Data",
+	"tooltip-ca-nstab-data": "View the data page",
 	"jsonconfig-desc": "Allows JSON configuration to be stored in a wiki",
 	"jsonconfig-duplicate-field": "More than one value \"$1\" found",
 	"jsonconfig-edit-action-apply": "Apply",
