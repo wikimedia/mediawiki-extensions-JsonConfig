@@ -54,5 +54,7 @@
 	"apihelp-jsondata-description": "אחזור נתוני JSON מותאמים למקום.",
 	"apihelp-jsondata-param-title": "איזו כותרת לקבל. הערך ההתחלתי מניח שמרחב השם הוא \"Data:\".",
 	"apihelp-jsondata-example-1": "קבלת תוכן JSON של הדף Sample.tab, מותאם לשפה של המשתמש",
-	"apihelp-jsondata-example-2": "קבלת תוכן JSON של הדף Sample.tab מותאם לשפה הצרפתית"
+	"apihelp-jsondata-example-2": "קבלת תוכן JSON של הדף Sample.tab מותאם לשפה הצרפתית",
+	"apierror-jsonconfig-paramrequired": "הפרמטר <var>$1</var> נדרש לפקודה הזאת.",
+	"apierror-jsonconfig-badtitle": "הדף שצוין בפרמטרים <var>namespace</var> ו־<var>title</var> אינו תקין או שהוא לא רשום בהגדרות JsonConfig."
 }

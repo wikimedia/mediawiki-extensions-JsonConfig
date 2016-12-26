@@ -4,7 +4,8 @@
 			"Siebrand",
 			"Sjoerddebruin",
 			"Hex",
-			"Yurik"
+			"Yurik",
+			"Mainframe98"
 		]
 	},
 	"jsonconfig-desc": "Maakt het mogelijk JSON-instellingen op te slaan in een wiki",
@@ -23,5 +24,6 @@
 	"jsonconfig-move-aborted-model": "het JSON-configuratiemodel \"$1\" van deze pagina zou niet overeen komen met het model \"$2\" van de nieuwe naam",
 	"jsonconfig-move-aborted-ns": "de nieuwe paginanaam is niet ingesteld om de nieuwe JSON-configuratie te bevatten",
 	"jsonconfig-optional-field": "(optioneel)",
-	"jsonconfig-type-name-invalid": "ongeldig"
+	"jsonconfig-type-name-invalid": "ongeldig",
+	"jsonconfig-license": "Gegevens beschikbaar onder $1."
 }
