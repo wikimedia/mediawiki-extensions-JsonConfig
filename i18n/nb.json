@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kingu"
+			"Kingu",
+			"Jon Harald Søby"
 		]
 	},
-	"jsonconfig-license": "Data tilgjengelig under $1"
+	"jsonconfig-license": "Data tilgjengelig under $1",
+	"right-jsonconfig-flush": "Manipulere JsonConfig via API"
 }
