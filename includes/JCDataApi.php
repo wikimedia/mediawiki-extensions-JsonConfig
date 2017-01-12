@@ -4,6 +4,7 @@ namespace JsonConfig;
 use ApiBase;
 use ApiResult;
 use ApiFormatJson;
+use Title;
 
 /**
  * Get localized json data, similar to Lua's mw.data.get() function
@@ -23,13 +24,12 @@ class JCDataApi extends ApiBase {
 
 		$data = JCSingleton::getContent( $jct );
 		if ( !$data ) {
-			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-				$this->dieWithError(
-					[ 'apierror-invalidtitle', wfEscapeWikiText( $jct->getPrefixedText() ) ]
-				);
-			} else {
-				$this->dieUsageMsg( [ 'invalidtitle', $jct ] );
-			}
+			$this->dieWithError(
+				[
+					'apierror-invalidtitle',
+					wfEscapeWikiText( Title::newFromTitleValue( $jct )->getPrefixedText() )
+				]
+			);
 		} elseif ( !method_exists( $data, 'getLocalizedData' ) ) {
 			$data = $data->getData();
 		} else {
