@@ -82,80 +82,45 @@ class JCApi extends ApiBase {
 				$this->getMain()->setCacheMaxAge( 1 ); // seconds
 				$this->getMain()->setCacheMode( 'private' );
 				if ( !$this->getUser()->isAllowed( 'jsonconfig-flush' ) ) {
-					if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-						// Sigh. Can't use $this->checkUserRightsAny() because
-						// this has to break API conventions by returning 401
-						// (and violate the HTTP RFC by doing so without a
-						// WWW-Authenticate header).
-						$this->dieWithError(
-							[
-								'apierror-permissiondenied',
-								$this->msg( "action-jsonconfig-flush" )
-							],
-							'permissiondenied', [], 401
-						);
-					} else {
-						$this->dieUsage(
-							"Must be authenticated with jsonconfig-flush right to use this API",
-							'login', 401
-						);
-					}
+					// Sigh. Can't use $this->checkUserRightsAny() because
+					// this has to break API conventions by returning 401
+					// (and violate the HTTP RFC by doing so without a
+					// WWW-Authenticate header).
+					$this->dieWithError(
+						[
+							'apierror-permissiondenied',
+							$this->msg( "action-jsonconfig-flush" )
+						],
+						'permissiondenied', [], 401
+					);
 				}
 				if ( !isset( $params['namespace'] ) ) {
-					if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-						$this->dieWithError(
-							[ 'apierror-jsonconfig-paramrequired', 'namespace' ],
-							'badparam-namespace'
-						);
-					} else {
-						$this->dieUsage(
-							'Parameter "namespace" is required for this command',
-							'badparam-namespace'
-						);
-					}
+					$this->dieWithError(
+						[ 'apierror-jsonconfig-paramrequired', 'namespace' ],
+						'badparam-namespace'
+					);
 				}
 				if ( !isset( $params['title'] ) ) {
-					if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-						$this->dieWithError(
-							[ 'apierror-jsonconfig-paramrequired', 'title' ], 'badparam-title'
-						);
-					} else {
-						$this->dieUsage(
-							'Parameter "title" is required for this command', 'badparam-title'
-						);
-					}
+					$this->dieWithError(
+						[ 'apierror-jsonconfig-paramrequired', 'title' ], 'badparam-title'
+					);
 				}
 
 				$jct = JCSingleton::parseTitle( $params['title'], $params['namespace'] );
 				if ( !$jct ) {
-					if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-						$this->dieWithError( 'apierror-jsonconfig-badtitle', 'badparam-titles' );
-					} else {
-						$this->dieUsage(
-							'The page specified by "namespace" and "title" parameters ' .
-							'is either invalid or is not registered in JsonConfig configuration',
-							'badparam-titles'
-						);
-					}
+					$this->dieWithError( 'apierror-jsonconfig-badtitle', 'badparam-titles' );
 				}
 
 				if ( isset( $params['content'] ) && $params['content'] !== '' ) {
 					if ( $command !== 'reload ' ) {
-						if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-							$this->dieWithError(
-								[
-									'apierror-invalidparammix-mustusewith',
-									'content',
-									'command=reload'
-								],
-								'badparam-content'
-							);
-						} else {
-							$this->dieUsage(
-								'The "content" parameter may only be used with command=reload',
-								'badparam-content'
-							);
-						}
+						$this->dieWithError(
+							[
+								'apierror-invalidparammix-mustusewith',
+								'content',
+								'command=reload'
+							],
+							'badparam-content'
+						);
 					}
 					$content = JCSingleton::parseContent( $jct, $params['content'], true );
 				} else {
