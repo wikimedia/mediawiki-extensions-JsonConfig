@@ -64,12 +64,14 @@ class JCLuaLibrary extends Scribunto_LuaLibraryBase {
 
 		if ( !$content ) {
 			$result = false;
-		} elseif ( $language === null || !method_exists( $content, 'getLocalizedData' ) ) {
-			$result = $content->getData();
 		} else {
-			/** @var JCDataContent $content */
-			$result = $content->getLocalizedData( $language );
-
+			if ( $language === null || !method_exists( $content, 'getLocalizedData' ) ) {
+				$result = $content->getData();
+			} else {
+				/** @var JCDataContent $content */
+				$result = $content->getLocalizedData( $language );
+			}
+			// Always re-index tabular data
 			if ( $content instanceof JCTabularContent ) {
 				self::reindexTabularData( $result );
 			}
