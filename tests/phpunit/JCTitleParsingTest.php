@@ -23,25 +23,7 @@ class JCTitleParsingTest extends MediaWikiTestCase {
 			'wgDefaultLanguageVariant' => false,
 			'wgMetaNamespace' => 'Project',
 			'wgLocalInterwikis' => [ 'localtestiw' ],
-			'wgCapitalLinks' => true,
-
-			// Make sure we use the matching prefix
-			'wgJsonConfigInterwikiPrefix' => 'remotetestiw',
-
-			// NOTE: this is why global state is evil.
-			// TODO: refactor access to the interwiki codes so it can be injected.
-			'wgHooks' => [
-				'InterwikiLoadPrefix' => [
-					function ( $prefix, &$data ) {
-						if ( $prefix === 'localtestiw' ) {
-							$data = [ 'iw_url' => 'localtestiw' ];
-						} elseif ( $prefix === 'remotetestiw' ) {
-							$data = [ 'iw_url' => 'remotetestiw' ];
-						}
-						return false;
-					}
-				]
-			]
+			'wgCapitalLinks' => false,
 		] );
 		$this->setUserLang( 'en' );
 		$this->setContentLang( 'en' );
@@ -56,7 +38,7 @@ class JCTitleParsingTest extends MediaWikiTestCase {
 					'model2' => [
 						'nsName' => 'Dat',
 						'namespace' => 900,
-						'pattern' => '/^(lower|Capitalized|sub\/space|with:colon)$/'
+						'pattern' => '/^(Capitalized|Sub\/space|With:colon)$/'
 					],
 				], [
 					'model1' => null,
@@ -100,19 +82,19 @@ class JCTitleParsingTest extends MediaWikiTestCase {
 
 			// 800: any name is ok
 			[ '_', 800, null ],
-			[ ':a/b\d  e_a ', 800, 'a/b\d_e_a' ], // normalization
-			[ 'wikipedia:ok', 800, 'wikipedia:ok' ],
-			[ 'localtestiw:page', 800, 'localtestiw:page' ],
+			[ ':a/b\d  e_a ', 800, 'A/b\d_e_a' ], // normalization
+			[ 'wikipedia:ok', 800, 'Wikipedia:ok' ],
+			[ 'localtestiw:page', 800, 'Localtestiw:page' ],
 
 			// 900: only these names: lower|Capitalized|sub/space|with:colon
 			[ '_', 900, null ],
 			[ 'nope', 900, null ],
-			[ 'Lower', 900, null ],
-			[ 'lower', 900, 'lower' ],
-			[ 'capitalized', 900, null ],
+			[ 'capitalized', 900, 'Capitalized' ],
 			[ 'Capitalized', 900, 'Capitalized' ],
-			[ 'sub/space', 900, 'sub/space' ],
-			[ 'with:colon', 900, 'with:colon' ],
+			[ 'sub/space', 900, 'Sub/space' ],
+			[ 'Sub/space', 900, 'Sub/space' ],
+			[ 'with:colon', 900, 'With:colon' ],
+			[ 'With:colon', 900, 'With:colon' ],
 		];
 	}
 
