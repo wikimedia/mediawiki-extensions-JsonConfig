@@ -9,5 +9,5 @@
 	"jsonconfig-err-string": "Parametre \"$1\" adda essere 'na stringhe",
 	"jsonconfig-optional-field": "(opzionale)",
 	"jsonconfig-license": "Date disponibbile sotte a $1",
-	"jsonconfig-license-name-CC0-1.0+": "Creative Commons Zero"
+	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero"
 }

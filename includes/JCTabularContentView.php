@@ -163,7 +163,7 @@ class JCTabularContentView extends JCContentView {
     "sources": "Copied from [http://example.com Example Data Source]",
 
     // Mandatory "license" field. Only CC-0 (public domain dedication) is supported.
-    "license": "CC0-1.0+",
+    "license": "CC0-1.0",
 
     // Mandatory fields schema. Each field must be an object with
     //   "name" being a valid identifier with consisting of letters, digits, and "_"

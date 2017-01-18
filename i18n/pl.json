@@ -16,7 +16,7 @@
 	"jsonconfig-type-name-number": "liczba",
 	"jsonconfig-type-name-boolean": "wartość logiczna",
 	"jsonconfig-license": "Dane dostępne w ramach licencji $1.",
-	"jsonconfig-license-name-CC0-1.0+": "Creative Commons Zero",
+	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
 	"apihelp-jsonconfig-example-1": "Pokaż konfigurację",
 	"apihelp-jsondata-description": "Odbierz zlokalizowane dane JSON."
 }

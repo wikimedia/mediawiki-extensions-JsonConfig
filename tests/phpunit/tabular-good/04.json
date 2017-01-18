@@ -1,6 +1,6 @@
 {
     "raw": {
-        "license": "CC0-1.0+",
+        "license": "CC0-1.0",
         "description": {
             "en": "data info"
         },
@@ -19,7 +19,7 @@
     },
     "en": {
         "license": {
-            "code": "CC0-1.0+"
+            "code": "CC0-1.0"
         },
         "description": "data info",
         "schema": {

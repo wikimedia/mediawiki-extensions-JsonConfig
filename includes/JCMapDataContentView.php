@@ -95,7 +95,7 @@ EOT;
     "sources": "Copied from [http://example.com Example Map Source]",
 
     // Mandatory "license" field. Only CC-0 (public domain dedication) is supported.
-    "license": "CC0-1.0+",
+    "license": "CC0-1.0",
 
     "zoom": 3,
     "latitude": 0,

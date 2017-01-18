@@ -12,6 +12,6 @@
 	"jsonconfig-err-number": "O parâmetro \"$1\" deve ser um número",
 	"jsonconfig-move-aborted-ns": "o novo título da página não está configurado para manter a configuração JSON",
 	"jsonconfig-optional-field": "(opcional)",
-	"jsonconfig-license-name-CC0-1.0+": "Creative Commons Zero v1.0 Universal",
+	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero v1.0 Universal",
 	"apihelp-jsonconfig-description": "Permite o acesso direto ao subsistema JsonConfig."
 }
