@@ -24,6 +24,8 @@
 	"jsonconfig-err-root-object-expected": "Los datos JSON tienen de ser un oxetu, rodiáu por llaves {...}",
 	"jsonconfig-err-string": "El parámetru «$1» tien de ser una cadena",
 	"jsonconfig-err-stringline": "El parámetru «$1» tien de ser una cadena non mayor de $2 caráuteres, sin tabuladores, nin tien de principiar o acabar con espaciu",
+	"jsonconfig-err-unexpected-key": "L'oxetu «$1» contien un campu inesperáu, «$2»",
+	"jsonconfig-err-duplicate-header": "Atopóse la cabecera duplicada «$2» en «$1». Cada cabecera tien de ser única.",
 	"jsonconfig-err-url": "El parámetru «$1» tien de ser una URL válida",
 	"jsonconfig-move-aborted-model": "el modelu de configuración JSON d'esta páxina «$1» nun casaría col nuevu modelu de títulu «$2»",
 	"jsonconfig-move-aborted-ns": "el títulu de la páxina nueva nun ta configuráu pa tener configuración JSON",
@@ -33,8 +35,12 @@
 	"jsonconfig-type-name-localized": "llocalizáu",
 	"jsonconfig-type-name-number": "númberu",
 	"jsonconfig-type-name-boolean": "lóxicu",
-	"jsonconfig-license-CC0-1.0": "Creative Commons Zero v1.0 Universal o versión posterior",
+	"jsonconfig-license": "Datos disponibles so la $1.",
+	"jsonconfig-license-name-CC0-1.0+": "Creative Commons Zero v1.0 Universal o versión posterior",
+	"jsonconfig-license-copyrightwarning-CC0-1.0+": "Al guardar los cambeos, aceutes les [https://wikimediafoundation.org/wiki/Terms_of_Use Condiciones d'Usu], y aceutes de forma irrefugable lliberar la to contribución al dominiu públicu baxo llicencia [https://creativecommons.org/publicdomain/zero/1.0/ CC0].",
+	"jsonconfig-license-notice-CC0-1.0+": "'''Nota:''' al editar esta páxina, aceutes lliberar la to contribución baxo llicencia [https://creativecommons.org/publicdomain/zero/1.0/ CC0].",
 	"right-jsonconfig-flush": "Tresformar JsonConfig pela API",
+	"action-jsonconfig-flush": "remanar JsonConfig pela API",
 	"apihelp-jsonconfig-description": "Permite l'accesu direutu al subsistema JsonConfig.",
 	"apihelp-jsonconfig-param-command": "Qué sub-aición facer en JsonConfig:\n;status:Amuesa la configuración de JsonConfig.\n;reset:Llimpia les configuraciones de la caché. Necesita'l parámetru $1title ya'l permisu jsonconfig-reset.\n;reload:Recarga y pon na caché les configuraciones dende l'almacén de configuraciones. Necesita'l parámetru $1title ya'l permisu jsonconfig-reset.",
 	"apihelp-jsonconfig-param-namespace": "Númberu del espaciu de nomes del títulu a procesar.",
@@ -46,5 +52,7 @@
 	"apihelp-jsondata-description": "Recuperar datos JSON llocalizaos.",
 	"apihelp-jsondata-param-title": "Títulu a recuperar. De mou predetermináu asume que l'espaciu de nomes ye \"Data:\"",
 	"apihelp-jsondata-example-1": "Llograr el conteníu JSON de la páxina Sample.tab, llocalizáu na llingua del usuariu",
-	"apihelp-jsondata-example-2": "Llograr el conteníu JSON de la páxina Sample.tab llocalizáu en francés"
+	"apihelp-jsondata-example-2": "Llograr el conteníu JSON de la páxina Sample.tab llocalizáu en francés",
+	"apierror-jsonconfig-paramrequired": "Esti comandu rique'l parámetru <var>$1</var>.",
+	"apierror-jsonconfig-badtitle": "La páxina especificada polos parámetros <var>namespace</var> y <var>title</var> nun ye válida o nun ta rexistrada na configuración de JsonConfig."
 }
