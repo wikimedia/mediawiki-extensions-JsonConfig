@@ -43,6 +43,7 @@
 		"JsonConfigNamespaces": "JsonConfig.namespaces.php"
 	},
 	"AutoloadClasses": {
+		"JsonConfig\\FauxInterwikiLookup": "includes/FauxInterwikiLookup.php",
 		"JsonConfig\\JCApi": "includes/JCApi.php",
 		"JsonConfig\\JCCache": "includes/JCCache.php",
 		"JsonConfig\\JCContent": "includes/JCContent.php",

@@ -461,28 +461,40 @@ class JCSingleton {
 			// Parse string if needed
 			// TODO: should the string parsing also be cached?
 			if ( is_string( $value ) ) {
+				$language = Language::factory( 'en' );
 				if ( !self::$titleParser ) {
 					self::$titleParser =
-						new MediaWikiTitleCodec( Language::factory( 'en' ), new GenderCache() );
+						new MediaWikiTitleCodec(
+							$language,
+							new GenderCache(),
+							[],
+							new FauxInterwikiLookup() );
 				}
-				// Major hack, but until MediaWikiTitleCodec has global state, I can't think of a
-				// better way. Interwiki prefixes are a special case for title parsing:
+				// Interwiki prefixes are a special case for title parsing:
 				// first letter is not capitalized, namespaces are not resolved, etc.
 				// So we prepend an interwiki prefix to fool title codec, and later remove it.
-				global $wgJsonConfigInterwikiPrefix;
 				try {
-					$value = $wgJsonConfigInterwikiPrefix . ':' . $value;
+					$value = FauxInterwikiLookup::INTERWIKI_PREFIX . ':' . $value;
 					$parts = self::$titleParser->splitTitleString( $value );
+
+					// Defensive coding - ensure the parsing has proceeded as expected
 					if ( $parts['dbkey'] === '' || $parts['namespace'] !== 0 ||
 						 $parts['fragment'] !== '' || $parts['local_interwiki'] !== false ||
-						 $parts['interwiki'] !== $wgJsonConfigInterwikiPrefix
+						 $parts['interwiki'] !== FauxInterwikiLookup::INTERWIKI_PREFIX
 					) {
 						return null;
 					}
 				} catch ( MalformedTitleException $e ) {
 					return null;
 				}
-				$dbKey = $parts['dbkey'];
+
+				// At this point, only support wiki namespaces that capitalize title's first char,
+				// but do not enable sub-pages.
+				// This way data can already be stored on Mediawiki namespace everywhere, or
+				// places like commons and zerowiki.
+				// Another implicit limitation: there might be an issue if data is stored on a wiki
+				// with the non-default ucfirst(), e.g. az, kaa, kk, tr -- they convert "i" to "İ"
+				$dbKey = $language->ucfirst( $parts['dbkey'] );
 			} else {
 				$dbKey = $value->getDBkey();
 			}
