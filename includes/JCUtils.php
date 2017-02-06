@@ -69,22 +69,27 @@ class JCUtils {
 		$req = MWHttpRequest::factory( $apiUri, $options );
 
 		if ( $username && $password ) {
+			$tokenQuery = [
+				'action' => 'query',
+				'meta' => 'tokens',
+				'type' => 'login',
+			];
 			$query = [
 				'action' => 'login',
 				'lgname' => $username,
 				'lgpassword' => $password,
 			];
-			$res = self::callApi( $req, $query, 'login' );
+			$res = self::callApi( $req, $tokenQuery, 'get login token' );
 			if ( $res !== false ) {
-				if ( isset( $res['login']['token'] ) ) {
-					$query['lgtoken'] = $res['login']['token'];
+				if ( isset( $res['query']['tokens']['logintoken'] ) ) {
+					$query['lgtoken'] = $res['query']['tokens']['logintoken'];
 					$res = self::callApi( $req, $query, 'login with token' );
 				}
 			}
 			if ( $res === false ) {
 				$req = false;
 			} elseif ( !isset( $res['login']['result'] ) ||
-			     $res['login']['result'] !== 'Success'
+				$res['login']['result'] !== 'Success'
 			) {
 				self::warn( 'Failed to login', [
 						'url' => $url,
