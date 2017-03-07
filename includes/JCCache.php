@@ -34,7 +34,7 @@ class JCCache {
 			$conf->cacheKey,
 			( $flRev === null ? '' : ( $flRev ? 'T' : 'F' ) ),
 			$titleValue->getNamespace(),
-			$titleValue->getDBkey()
+			sha1( $titleValue->getDBkey() ),
 		] );
 		if ( $conf->isLocal ) {
 			$key = wfMemcKey( $key );
