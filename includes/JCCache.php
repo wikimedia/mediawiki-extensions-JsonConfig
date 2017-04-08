@@ -28,20 +28,21 @@ class JCCache {
 		$this->titleValue = $titleValue;
 		$conf = $this->titleValue->getConfig();
 		$flRev = $conf->flaggedRevs;
-		$key = implode( ':', [
+		$this->cache = wfGetCache( CACHE_ANYTHING );
+		$keyArgs = [
 			'JsonConfig',
 			$wgJsonConfigCacheKeyPrefix,
 			$conf->cacheKey,
 			( $flRev === null ? '' : ( $flRev ? 'T' : 'F' ) ),
 			$titleValue->getNamespace(),
-			sha1( $titleValue->getDBkey() ),
-		] );
+			$titleValue->getDBkey(),
+		];
 		if ( $conf->isLocal ) {
-			$key = wfMemcKey( $key );
+			$this->key = call_user_func_array( [ $this->cache, 'makeKey' ], $keyArgs );
+		} else {
+			$this->key = call_user_func_array( [ $this->cache, 'makeGlobalKey' ], $keyArgs );
 		}
 		$this->cacheExpiration = $conf->cacheExp;
-		$this->key = $key;
-		$this->cache = wfGetCache( CACHE_ANYTHING );
 		$this->content = $content ?: null ; // ensure that if we don't have content, we use 'null'
 	}
 
