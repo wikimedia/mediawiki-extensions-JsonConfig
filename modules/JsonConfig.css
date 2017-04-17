@@ -15,7 +15,7 @@
 
 .mw-jsonconfig th,
 .mw-jsonconfig td {
-	border: 1px solid gray;
+	border: 1px solid #808080;
 	padding: 0.5em 1em;
 }
 
@@ -25,7 +25,7 @@
 }
 
 .mw-jsonconfig .mw-jsonconfig-value {
-	font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Courier, monospace;
+	font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', 'Courier', monospace;
 	background-color: #dcfae3;
 }
 
@@ -40,7 +40,8 @@
 	color: #800080;
 }
 
-.mw-jsonconfig-description, .mw-jsonconfig-license {
+.mw-jsonconfig-description,
+.mw-jsonconfig-license {
 	display: inline-block;
 	font-style: italic;
 }
@@ -59,18 +60,18 @@
 }
 
 .mw-jsonconfig-same {
-	color: purple;
+	color: #800080;
 	font-weight: bold;
 }
 
 .mw-jsonconfig-error {
-	color: red;
+	color: #f00;
 	font-weight: bold;
 }
 
 .mw-jsonconfig-unknown {
 	color: #ffa100;
-    font-weight: bold;
+	font-weight: bold;
 }
 
 .mw-jsonconfig caption {
@@ -79,7 +80,7 @@
 }
 
 .mw-jsonconfig table caption {
-	color: gray;
+	color: #808080;
 	display: inline-block;
 	font-size: 10px;
 	font-style: italic;
@@ -89,10 +90,10 @@
 
 .mw-jsonconfig-editnotice {
 	color: #000;
-	border: solid 1px #A8A8A8;
+	border: solid 1px #a8a8a8;
 	padding: 0.5em;
 	margin: 0.5em 0;
-	background-color: #FFF;
+	background-color: #fff;
 	font-size: 95%;
 	vertical-align: middle;
 }
