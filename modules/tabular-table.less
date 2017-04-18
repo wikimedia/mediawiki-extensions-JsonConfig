@@ -1,6 +1,6 @@
 @import '../lib/wmui-base.less';
 
-@monospaceFontFamily: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Courier, monospace;
+@monospaceFontFamily: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', 'Courier', monospace;
 
 .mw-tabular {
 	border-collapse: collapse;
@@ -63,7 +63,8 @@
 		color: @color-base--inverted;
 	}
 
-	&.headerSortUp, &.headerSortDown {
+	&.headerSortUp,
+	&.headerSortDown {
 		color: @color-primary--active;
 	}
 }
@@ -91,23 +92,23 @@
 	border-color: @wmui-color-base70;
 }
 
-.mw-tabular th[data-type="string"],
-.mw-tabular th[data-type="localized"] {
+.mw-tabular th[data-type='string'],
+.mw-tabular th[data-type='localized'] {
 	min-width: 6em;
 }
 
-.mw-tabular th[data-type="number"],
-.mw-tabular th[data-type="boolean"], {
+.mw-tabular th[data-type='number'],
+.mw-tabular th[data-type='boolean'], {
 	min-width: 4em;
 	text-align: center;
 }
 
-.mw-tabular td[data-type="number"],
-.mw-tabular td[data-type="boolean"], {
+.mw-tabular td[data-type='number'],
+.mw-tabular td[data-type='boolean'], {
 	text-align: center;
 }
 
-.mw-tabular td[data-type="localized"] {
+.mw-tabular td[data-type='localized'] {
 	font-style: italic;
 }
 
