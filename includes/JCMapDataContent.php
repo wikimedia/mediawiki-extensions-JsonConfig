@@ -1,7 +1,11 @@
 <?php
 namespace JsonConfig;
 use FormatJson;
+use Kartographer\SimpleStyleParser;
 use Language;
+use Parser;
+use ParserOptions;
+use User;
 
 /**
  * @package JsonConfig
@@ -23,6 +27,28 @@ class JCMapDataContent extends JCDataContent {
 		$this->test( 'data', self::isValidData() );
 
 		$this->test( [ ], JCValidators::noExtraValues() );
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function getSafeData( $data ) {
+		/** @var Parser */
+		global $wgParser;
+
+		// In case the parser hasn't been used yet
+		if ( !$wgParser->getOptions() ) {
+			$options = new ParserOptions( new User( '127.0.0.1' ) );
+			$wgParser->startExternalParse( null, $options, OT_HTML );
+		}
+
+		$data = parent::getSafeData( $data );
+
+		$ssp = new SimpleStyleParser( $wgParser );
+		$dummy = [ $data ];
+		$ssp->normalizeAndSanitize( $dummy );
+
+		return $dummy[0];
 	}
 
 	private static function isValidData() {
