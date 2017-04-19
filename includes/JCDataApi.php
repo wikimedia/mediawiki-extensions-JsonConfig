@@ -34,7 +34,7 @@ class JCDataApi extends ApiBase {
 			$data = $data->getData();
 		} else {
 			/** @var JCDataContent $data */
-			$data = $data->getLocalizedData( $this->getLanguage() );
+			$data = $data->getSafeData( $data->getLocalizedData( $this->getLanguage() ) );
 		}
 
 		// Armor any API metadata in $data

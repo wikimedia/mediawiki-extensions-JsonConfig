@@ -5,6 +5,7 @@ namespace JsonConfig;
 use FormatJson;
 use ParserOptions;
 use ParserOutput;
+use stdClass;
 use Title;
 use Status;
 
@@ -19,7 +20,7 @@ use Status;
 class JCContent extends \TextContent {
 	/** @var array */
 	private $rawData = null;
-	/** @var \stdClass|array */
+	/** @var stdClass|array */
 	protected $data = null;
 	/** @var \Status */
 	private $status;
@@ -45,10 +46,20 @@ class JCContent extends \TextContent {
 
 	/**
 	 * Get validated data
-	 * @return array|\stdClass
+	 * @return stdClass|stdClass[]
 	 */
 	public function getData() {
 		return $this->data;
+	}
+
+	/**
+	 * Returns data after sanitization, suitable for third-party use
+	 *
+	 * @param stdClass|stdClass[] $data
+	 * @return stdClass|stdClass[]
+	 */
+	public function getSafeData( $data ) {
+		return $data;
 	}
 
 	/**
