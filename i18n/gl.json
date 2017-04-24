@@ -14,6 +14,7 @@
 	"jsonconfig-err-array-expected": "O valor en \"$1\" esperábase que fose unha lista rodeada por corchetes [...]",
 	"jsonconfig-err-assoc-array": "O parámetro \"$1\" debe ser unha matriz asociativa (dicionario), p. ex. {\"clave\": \"valor\", ...}",
 	"jsonconfig-err-bad-header-string": "A cabeceira \"$1\" só debe ter letras, números e caracteres de subliñado, e non debe comezar cun número",
+	"jsonconfig-err-bad-geojson": "O parámetro \"$1\" debe ser un obxecto válido de datos GeoJSON, ou un vector de obxectos GeoJSON. Se o campo \"properties\" contén \"title\" ou \"description\", deben ser cadeas de texto dunha soa liña sen tabulacións nin espazos polo final, ou ben obxectos multilingües de tales cadeas, por exemplo, {\"gl\":\"Cadea en galego, ... }",
 	"jsonconfig-err-bad-type": "O parámetro \"$1\" debe ser un tipo válido como \"string\" (cadea de caracterese), \"number\" (número), ou \"boolean\" (booleano)",
 	"jsonconfig-err-bool": "O parámetro \"$1\" debe ser verdadeiro ou falso",
 	"jsonconfig-err-integer": "O parámetro \"$1\" debe ser un número enteiro",
