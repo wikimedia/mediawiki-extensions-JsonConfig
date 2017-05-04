@@ -45,10 +45,10 @@ class JCMapDataContent extends JCDataContent {
 		$data = parent::getSafeData( $data );
 
 		$ssp = new SimpleStyleParser( $wgParser );
-		$dummy = [ $data ];
+		$dummy = [ $data->data ];
 		$ssp->normalizeAndSanitize( $dummy );
 
-		return $dummy[0];
+		return $data;
 	}
 
 	private static function isValidData() {
