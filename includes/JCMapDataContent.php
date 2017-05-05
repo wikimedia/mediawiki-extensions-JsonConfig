@@ -47,6 +47,7 @@ class JCMapDataContent extends JCDataContent {
 		$ssp = new SimpleStyleParser( $parser );
 		$dummy = [ $data->data ];
 		$ssp->normalizeAndSanitize( $dummy );
+		$data->data = $dummy[0];
 
 		return $data;
 	}
