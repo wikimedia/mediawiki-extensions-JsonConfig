@@ -35,29 +35,29 @@ class JCSingleton {
 	 * The structure is an array of array of ...:
 	 * { int_namespace => { name => { allows-sub-namespaces => configuration_array } } }
 	 */
-	static $titleMap = [];
+	public static $titleMap = [];
 
 	/**
 	 * @var string[]|false[] containing all the namespaces handled by JsonConfig
 	 * Maps namespace id (int) => namespace name (string).
 	 * If false, presumes the namespace has been registered by core or another extension
 	 */
-	static $namespaces = [];
+	public static $namespaces = [];
 
 	/**
 	 * @var MapCacheLRU[] contains a cache of recently resolved JCTitle's as namespace => MapCacheLRU
 	 */
-	static $titleMapCacheLru = [];
+	public static $titleMapCacheLru = [];
 
 	/**
 	 * @var MapCacheLRU[] contains a cache of recently requested content objects as namespace => MapCacheLRU
 	 */
-	static $mapCacheLru = [];
+	public static $mapCacheLru = [];
 
 	/**
 	 * @var TitleParser cached invariant title parser
 	 */
-	static $titleParser;
+	public static $titleParser;
 
 	/**
 	 * Initializes singleton state by parsing $wgJsonConfig* values
