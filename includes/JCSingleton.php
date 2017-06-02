@@ -45,12 +45,14 @@ class JCSingleton {
 	public static $namespaces = [];
 
 	/**
-	 * @var MapCacheLRU[] contains a cache of recently resolved JCTitle's as namespace => MapCacheLRU
+	 * @var MapCacheLRU[] contains a cache of recently resolved JCTitle's
+	 *   as namespace => MapCacheLRU
 	 */
 	public static $titleMapCacheLru = [];
 
 	/**
-	 * @var MapCacheLRU[] contains a cache of recently requested content objects as namespace => MapCacheLRU
+	 * @var MapCacheLRU[] contains a cache of recently requested content objects
+	 *   as namespace => MapCacheLRU
 	 */
 	public static $mapCacheLru = [];
 
@@ -73,8 +75,13 @@ class JCSingleton {
 		list( self::$titleMap, self::$namespaces ) = self::parseConfiguration(
 			$wgNamespaceContentModels,
 			$wgContentHandlers,
-			array_replace_recursive( \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ), $wgJsonConfigs ),
-			array_replace_recursive( \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ), $wgJsonConfigModels )
+			array_replace_recursive(
+				\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ), $wgJsonConfigs
+			),
+			array_replace_recursive(
+				\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ),
+				$wgJsonConfigModels
+			)
 		);
 	}
 
@@ -86,8 +93,10 @@ class JCSingleton {
 	 * @param bool $warn if true, calls wfLogWarning() for all errors
 	 * @return array [ $titleMap, $namespaces ]
 	 */
-	public static function parseConfiguration( array $namespaceContentModels, array $contentHandlers,
-											   array $configs, array $models, $warn = true ) {
+	public static function parseConfiguration(
+		array $namespaceContentModels, array $contentHandlers,
+		array $configs, array $models, $warn = true
+	) {
 		$defaultModelId = 'JsonConfig';
 		$warnFunc = $warn ? 'wfLogWarning' : function() {};
 
@@ -95,26 +104,29 @@ class JCSingleton {
 		$titleMap = [];
 		foreach ( $configs as $confId => &$conf ) {
 			if ( !is_string( $confId ) ) {
-				$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs['$confId'], the key must be a string" );
+				$warnFunc(
+					"JsonConfig: Invalid \$wgJsonConfigs['$confId'], the key must be a string"
+				);
 				continue;
 			}
 			if ( null === self::getConfObject( $warnFunc, $conf, $confId ) ) {
 				continue; // warned inside the function
 			}
 
-			$modelId = property_exists( $conf, 'model' ) ? ( $conf->model ? : $defaultModelId ) : $confId;
+			$modelId = property_exists( $conf, 'model' )
+				? ( $conf->model ? : $defaultModelId ) : $confId;
 			if ( !array_key_exists( $modelId, $models ) ) {
 				if ( $modelId === $defaultModelId ) {
 					$models[$defaultModelId] = null;
 				} else {
 					$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
-							   "Model '$modelId' is not defined in \$wgJsonConfigModels" );
+						"Model '$modelId' is not defined in \$wgJsonConfigModels" );
 					continue;
 				}
 			}
 			if ( array_key_exists( $modelId, $contentHandlers ) ) {
 				$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: Model '$modelId' is " .
-						   "already registered in \$contentHandlers to {$contentHandlers[$modelId]}" );
+					"already registered in \$contentHandlers to {$contentHandlers[$modelId]}" );
 				continue;
 			}
 			$conf->model = $modelId;
@@ -122,13 +134,14 @@ class JCSingleton {
 			$ns = self::getConfVal( $conf, 'namespace', NS_CONFIG );
 			if ( !is_int( $ns ) || $ns % 2 !== 0 ) {
 				$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
-						   "Namespace $ns should be an even number" );
+					"Namespace $ns should be an even number" );
 				continue;
 			}
-			// Even though we might be able to override default content model for namespace, lets keep things clean
+			// Even though we might be able to override default content model for namespace,
+			// lets keep things clean
 			if ( array_key_exists( $ns, $namespaceContentModels ) ) {
-				$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: Namespace $ns is already " .
-						   "set to handle model '$namespaceContentModels[$ns]'" );
+				$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: Namespace $ns is " .
+					"already set to handle model '$namespaceContentModels[$ns]'" );
 				continue;
 			}
 
@@ -143,13 +156,15 @@ class JCSingleton {
 			// Decide if matching configs should be stored on this wiki
 			$storeHere = $islocal || property_exists( $conf, 'store' );
 			if ( !$storeHere ) {
-				$conf->store = false; // 'store' does not exist, use it as a flag to indicate remote storage
-				if ( null === ( $remote = self::getConfObject( $warnFunc, $conf, 'remote', $confId, 'url' ) ) ) {
+				// 'store' does not exist, use it as a flag to indicate remote storage
+				$conf->store = false;
+				$remote = self::getConfObject( $warnFunc, $conf, 'remote', $confId, 'url' );
+				if ( null === $remote ) {
 					continue; // warned inside the function
 				}
 				if ( self::getConfVal( $remote, 'url', '' ) === '' ) {
 					$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs['$confId']['remote']['url']: " .
-							   "API URL is not set, and this config is not being stored locally" );
+						"API URL is not set, and this config is not being stored locally" );
 					continue;
 				}
 				self::getConfVal( $remote, 'username', '' );
@@ -157,10 +172,14 @@ class JCSingleton {
 			} else {
 				if ( property_exists( $conf, 'remote' ) ) {
 					// non-fatal -- simply ignore the 'remote' setting
-					$warnFunc( "JsonConfig: In \$wgJsonConfigs['$confId']['remote'] is set for the config that will be stored on this wiki. 'remote' parameter will be ignored." );
+					$warnFunc( "JsonConfig: In \$wgJsonConfigs['$confId']['remote'] is set for " .
+						"the config that will be stored on this wiki. " .
+						"'remote' parameter will be ignored."
+					);
 				}
 				$conf->remote = null;
-				if ( null === ( $store = self::getConfObject( $warnFunc, $conf, 'store', $confId ) ) ) {
+				$store = self::getConfObject( $warnFunc, $conf, 'store', $confId );
+				if ( null === $store ) {
 					continue; // warned inside the function
 				}
 				self::getConfVal( $store, 'cacheNewValue', true );
@@ -170,18 +189,21 @@ class JCSingleton {
 			}
 
 			// Too lazy to write proper error messages for all parameters.
-			if ( ( isset( $conf->nsTalk ) && !is_string( $conf->nsTalk ) ) || !is_string( $conf->pattern ) ||
-			     !is_bool( $islocal ) || !is_int( $conf->cacheExp ) ||
-			     !is_string( $conf->cacheKey ) || !is_bool( $conf->flaggedRevs )
+			if ( ( isset( $conf->nsTalk ) && !is_string( $conf->nsTalk ) ) ||
+				!is_string( $conf->pattern ) ||
+				!is_bool( $islocal ) || !is_int( $conf->cacheExp ) || !is_string( $conf->cacheKey )
+				|| !is_bool( $conf->flaggedRevs )
 			) {
-				$warnFunc( "JsonConfig: Invalid type of one of the parameters in \$wgJsonConfigs['$confId'], please check documentation" );
+				$warnFunc( "JsonConfig: Invalid type of one of the parameters in " .
+					"\$wgJsonConfigs['$confId'], please check documentation" );
 				continue;
 			}
 			if ( isset( $remote ) ) {
 				if ( !is_string( $remote->url ) || !is_string( $remote->username ) ||
 				     !is_string( $remote->password )
 				) {
-					$warnFunc( "JsonConfig: Invalid type of one of the parameters in \$wgJsonConfigs['$confId']['remote'], please check documentation" );
+					$warnFunc( "JsonConfig: Invalid type of one of the parameters in " .
+						"\$wgJsonConfigs['$confId']['remote'], please check documentation" );
 					continue;
 				}
 			}
@@ -189,7 +211,8 @@ class JCSingleton {
 				if ( !is_bool( $store->cacheNewValue ) || !is_string( $store->notifyUrl ) ||
 				     !is_string( $store->notifyUsername ) || !is_string( $store->notifyPassword )
 				) {
-					$warnFunc( "JsonConfig: Invalid type of one of the parameters in \$wgJsonConfigs['$confId']['store'], please check documentation" );
+					$warnFunc( "JsonConfig: Invalid type of one of the parameters in " .
+						" \$wgJsonConfigs['$confId']['store'], please check documentation" );
 					continue;
 				}
 			}
@@ -203,8 +226,8 @@ class JCSingleton {
 							$namespaces[$ns] = false;
 						}
 				    } elseif ( $ns === NS_CONFIG ) {
-						$warnFunc( "JsonConfig: Parameter 'nsName' in \$wgJsonConfigs['$confId'] is not " .
-								   "supported for namespace == NS_CONFIG ($ns)" );
+						$warnFunc( "JsonConfig: Parameter 'nsName' in \$wgJsonConfigs['$confId'] " .
+							"is not supported for namespace == NS_CONFIG ($ns)" );
 					} else {
 						$nsName = $conf->nsName;
 						$nsTalk = isset( $conf->nsTalk ) ? $conf->nsTalk : ( $nsName . '_talk' );
@@ -246,7 +269,9 @@ class JCSingleton {
 				$nsName = 'Config';
 				if ( $ns !== NS_CONFIG ) {
 					$nsName .= $missingNs;
-					$warnFunc( "JsonConfig: Namespace $ns does not have 'nsName' defined, using '$nsName'" );
+					$warnFunc(
+						"JsonConfig: Namespace $ns does not have 'nsName' defined, using '$nsName'"
+					);
 					$missingNs += 1;
 				}
 				$namespaces[$ns] = $nsName;
@@ -281,7 +306,9 @@ class JCSingleton {
 	 * @param string $treatAsField
 	 * @return null|object|stdClass
 	 */
-	private static function getConfObject( $warnFunc, & $value, $field, $confId = null, $treatAsField = null ) {
+	private static function getConfObject(
+		$warnFunc, & $value, $field, $confId = null, $treatAsField = null
+	) {
 		if ( !$confId ) {
 			$val = & $value;
 		} else {
@@ -299,7 +326,7 @@ class JCSingleton {
 			$val = (object) [ $treatAsField => $val ];
 		} elseif ( !is_object( $val ) ) {
 			$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs" . ( $confId ? "['$confId']" : "" ) .
-					   "['$field'], the value must be either an array or an object" );
+				"['$field'], the value must be either an array or an object" );
 			return null;
 		}
 		return $val;
@@ -351,7 +378,8 @@ class JCSingleton {
 			} else {
 				$content = false;
 			}
-			self::$mapCacheLru[$titleValue->getNamespace()]->set( $titleValue->getDBkey(), $content );
+			self::$mapCacheLru[$titleValue->getNamespace()]
+				->set( $titleValue->getDBkey(), $content );
 		}
 
 		return $content;
@@ -394,13 +422,17 @@ class JCSingleton {
 	 */
 	public static function getContentClass( $modelId ) {
 		global $wgJsonConfigModels;
-		$configModels = array_replace_recursive( \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ), $wgJsonConfigModels );
+		$configModels = array_replace_recursive(
+			\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ),
+			$wgJsonConfigModels
+		);
 		$class = null;
 		if ( array_key_exists( $modelId, $configModels ) ) {
 			$value = $configModels[$modelId];
 			if ( is_array( $value ) ) {
 				if ( !array_key_exists( 'class', $value ) ) {
-					wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigModels['$modelId'] array value, 'class' not found" );
+					wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigModels['$modelId'] array " .
+						"value, 'class' not found" );
 				} else {
 					$class = $value['class'];
 				}
@@ -501,7 +533,8 @@ class JCSingleton {
 
 			// A bit weird here: cache will store JCTitle objects or false if the namespace
 			// is known to JsonConfig but the dbkey does not match. But in case the title is not
-			// handled, this function returns null instead of false if the namespace is known, and false otherwise
+			// handled, this function returns null instead of false if the namespace is known,
+			// and false otherwise
 			$result = $cache->get( $dbKey );
 			if ( $result === null ) {
 
@@ -517,7 +550,8 @@ class JCSingleton {
 				$cache->set( $dbKey, $result );
 			}
 
-			// return null if the given namespace is mentioned in the config, but title doesn't match
+			// return null if the given namespace is mentioned in the config,
+			// but title doesn't match
 			return $result ?: null;
 
 		} else {
@@ -527,8 +561,9 @@ class JCSingleton {
 	}
 
 	/**
-	 * Returns an array with settings if the $titleValue object is handled by the JsonConfig extension,
-	 * false if unrecognized namespace, and null if namespace is handled but not this title
+	 * Returns an array with settings if the $titleValue object is handled by the JsonConfig
+	 * extension, false if unrecognized namespace,
+	 * and null if namespace is handled but not this title
 	 * @param TitleValue $titleValue
 	 * @return stdClass|false|null
 	 * @deprecated use JCSingleton::parseTitle() instead
@@ -539,7 +574,8 @@ class JCSingleton {
 	}
 
 	/**
-	 * Only register NS_CONFIG if running on the MediaWiki instance which houses the JSON configs (i.e. META)
+	 * Only register NS_CONFIG if running on the MediaWiki instance which houses
+	 * the JSON configs (i.e. META)
 	 * @param array $namespaces
 	 */
 	public static function onCanonicalNamespaces( array &$namespaces ) {
@@ -601,7 +637,10 @@ class JCSingleton {
 		}
 
 		self::init();
-		$models = array_replace_recursive( \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ), $wgJsonConfigModels );
+		$models = array_replace_recursive(
+			\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ),
+			$wgJsonConfigModels
+		);
 		if ( array_key_exists( $modelId, $models ) ) {
 			// This is one of our model IDs
 			$handler = new JCContentHandler( $modelId );
@@ -665,8 +704,10 @@ class JCSingleton {
 	 * @param bool $minoredit
 	 * @return bool
 	 */
-	public static function onEditFilterMergedContent( /** @noinspection PhpUnusedParameterInspection */
-		$context, $content, $status, $summary, $user, $minoredit ) {
+	public static function onEditFilterMergedContent(
+		/** @noinspection PhpUnusedParameterInspection */
+		$context, $content, $status, $summary, $user, $minoredit
+	) {
 		if ( !self::jsonConfigIsStorage() ) {
 			return true;
 		}
@@ -760,13 +801,16 @@ class JCSingleton {
 	 * @param \Skin &$skin
 	 * @return bool
 	 */
-	public static function onBeforePageDisplay( /** @noinspection PhpUnusedParameterInspection */ &$out, &$skin ) {
+	public static function onBeforePageDisplay(
+		/** @noinspection PhpUnusedParameterInspection */ &$out, &$skin
+	) {
 		if ( !self::jsonConfigIsStorage() ) {
 			return true;
 		}
 
 		$title = $out->getTitle();
-		// todo/fixme? We should probably add ext.jsonConfig style to only those pages that pass parseTitle()
+		// todo/fixme? We should probably add ext.jsonConfig style to only those pages
+		// that pass parseTitle()
 		$handler = ContentHandler::getForModelID( $title->getContentModel() );
 		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON ||
 			self::parseTitle( $title )
@@ -776,7 +820,9 @@ class JCSingleton {
 		return true;
 	}
 
-	public static function onMovePageIsValidMove( Title $oldTitle, Title $newTitle, Status $status ) {
+	public static function onMovePageIsValidMove(
+		Title $oldTitle, Title $newTitle, Status $status
+	) {
 		if ( !self::jsonConfigIsStorage() ) {
 			return true;
 		}
@@ -797,7 +843,10 @@ class JCSingleton {
 		return true;
 	}
 
-	public static function onAbortMove( /** @noinspection PhpUnusedParameterInspection */ Title $title, Title $newTitle, $wgUser, &$err, $reason ) {
+	public static function onAbortMove(
+		/** @noinspection PhpUnusedParameterInspection */
+		Title $title, Title $newTitle, $wgUser, &$err, $reason
+	) {
 		if ( !self::jsonConfigIsStorage() ) {
 			return true;
 		}
@@ -827,34 +876,49 @@ class JCSingleton {
 		return true;
 	}
 
-	public static function onPageContentSaveComplete( /** @noinspection PhpUnusedParameterInspection */ $article, $user, $content, $summary, $isMinor, $isWatch,
-		$section, $flags, $revision, $status, $baseRevId ) {
+	public static function onPageContentSaveComplete(
+		/** @noinspection PhpUnusedParameterInspection */
+		$article, $user, $content, $summary, $isMinor, $isWatch,
+		$section, $flags, $revision, $status, $baseRevId
+	) {
 		return self::onArticleChangeComplete( $article, $content );
 	}
 
-	public static function onArticleDeleteComplete( /** @noinspection PhpUnusedParameterInspection */ $article, &$user, $reason, $id, $content, $logEntry ) {
+	public static function onArticleDeleteComplete(
+		/** @noinspection PhpUnusedParameterInspection */
+		$article, &$user, $reason, $id, $content, $logEntry
+	) {
 		return self::onArticleChangeComplete( $article );
 	}
 
-	public static function onArticleUndelete( /** @noinspection PhpUnusedParameterInspection */ $title, $created, $comment, $oldPageId ) {
+	public static function onArticleUndelete(
+		/** @noinspection PhpUnusedParameterInspection */
+		$title, $created, $comment, $oldPageId
+	) {
 		return self::onArticleChangeComplete( $title );
 	}
 
-	public static function onTitleMoveComplete( /** @noinspection PhpUnusedParameterInspection */ $title, $newTitle, $wgUser, $pageid, $redirid, $reason ) {
+	public static function onTitleMoveComplete(
+		/** @noinspection PhpUnusedParameterInspection */
+		$title, $newTitle, $wgUser, $pageid, $redirid, $reason
+	) {
 		return self::onArticleChangeComplete( $title ) ||
-		       self::onArticleChangeComplete( $newTitle );
+			self::onArticleChangeComplete( $newTitle );
 	}
 
 	/**
-	 * Prohibit creation of the pages that are part of our namespaces but have not been explicitly allowed
-	 * Bad capitalization is due to "userCan" hook name
+	 * Prohibit creation of the pages that are part of our namespaces but have not been explicitly
+	 * allowed. Bad capitalization is due to "userCan" hook name
 	 * @param Title $title
 	 * @param $user
 	 * @param string $action
 	 * @param null $result
 	 * @return bool
 	 */
-	public static function onuserCan( /** @noinspection PhpUnusedParameterInspection */ &$title, &$user, $action, &$result = null ) {
+	public static function onuserCan(
+		/** @noinspection PhpUnusedParameterInspection */
+		&$title, &$user, $action, &$result = null
+	) {
 		if ( !self::jsonConfigIsStorage() ) {
 			return true;
 		}
@@ -919,7 +983,10 @@ class JCSingleton {
 		if ( $isStorage === null ) {
 			global $wgJsonConfigs;
 			$isStorage = false;
-			$configs = array_replace_recursive( \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ), $wgJsonConfigs );
+			$configs = array_replace_recursive(
+				\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ),
+				$wgJsonConfigs
+			);
 			foreach ( $configs as $jc ) {
 				if ( ( !array_key_exists( 'isLocal', $jc ) || $jc['isLocal'] ) ||
 					 ( array_key_exists( 'store', $jc ) )

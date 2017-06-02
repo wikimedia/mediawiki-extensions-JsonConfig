@@ -6,7 +6,8 @@ use stdClass;
 use TitleValue;
 
 /**
- * A value object class that contains namespace ID, title, and the corresponding jsonconfig configuration
+ * A value object class that contains namespace ID, title, and
+ * the corresponding jsonconfig configuration
  * @package JsonConfig
  */
 final class JCTitle extends TitleValue {

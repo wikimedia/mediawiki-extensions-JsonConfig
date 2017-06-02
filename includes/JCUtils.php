@@ -15,7 +15,8 @@ use StubUserLang;
 class JCUtils {
 
 	/**
-	 * Uses wfLogWarning() to report an error. All complex arguments are escaped with FormatJson::encode()
+	 * Uses wfLogWarning() to report an error.
+	 * All complex arguments are escaped with FormatJson::encode()
 	 * @param string $msg
 	 * @param mixed|array $vals
 	 * @param bool|array $query
@@ -94,7 +95,8 @@ class JCUtils {
 				self::warn( 'Failed to login', [
 						'url' => $url,
 						'user' => $username,
-						'result' => isset( $res['login']['result'] ) ? $res['login']['result'] : '???'
+						'result' => isset( $res['login']['result'] )
+							? $res['login']['result'] : '???'
 				] );
 				$req = false;
 			}
@@ -123,7 +125,9 @@ class JCUtils {
 				[ 'warnings' => $res['warnings'] ], $query );
 		}
 		if ( isset( $res['error'] ) ) {
-			self::warn( 'API call failed trying to ' . $debugMsg, [ 'error' => $res['error'] ], $query );
+			self::warn(
+				'API call failed trying to ' . $debugMsg, [ 'error' => $res['error'] ], $query
+			);
 			return false;
 		}
 		return $res;
@@ -157,7 +161,8 @@ class JCUtils {
 	 * @return bool
 	 */
 	public static function allValuesAreStrings( $array ) {
-		return is_array( $array ) && count( array_filter( $array, 'is_string' ) ) === count( $array );
+		return is_array( $array )
+			&& count( array_filter( $array, 'is_string' ) ) === count( $array );
 	}
 
 	/** Helper function to check if the given value is a valid string no longer than maxlength,
@@ -185,7 +190,9 @@ class JCUtils {
 			} elseif ( is_string( $fld ) ) {
 				$res .= $res !== '' ? ( '/' . $fld ) : $fld;
 			} else {
-				throw new Exception( 'Unexpected field type, only strings and integers are allowed' );
+				throw new Exception(
+					'Unexpected field type, only strings and integers are allowed'
+				);
 			}
 		}
 		return $res === '' ? '/' : $res;

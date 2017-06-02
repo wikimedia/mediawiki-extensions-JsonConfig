@@ -37,7 +37,11 @@ END;
 //		$this->check( [ 'dict', 'string' ], "" );
 		$this->testOptional( [ 'emptydict', 'new1' ], new stdClass() );
 //		$this->check( [ 'emptydict', 1 ], new stdClass() );
-		$this->testOptional( [ 'emptydict', 'new1', 'blah', 2 ], new stdClass(), function() { return wfMessage( 'fail' ); } );
+		$this->testOptional( [ 'emptydict', 'new1', 'blah', 2 ], new stdClass(),
+			function() {
+				return wfMessage( 'fail' );
+			}
+		);
 //		$this->check( [ 'emptydict', 'newObj', 'newInt' ], 1 );
 	}
 }

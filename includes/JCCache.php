@@ -94,7 +94,9 @@ class JCCache {
 		if ( !$value ) {
 			$value = '';
 			$exp = 10; // caching an error condition for short time
-			wfLogWarning( "No content is available, caching empty '$this->titleValue' for $exp seconds" );
+			wfLogWarning(
+				"No content is available, caching empty '$this->titleValue' for $exp seconds"
+			);
 		} elseif ( !is_string( $value ) ) {
 			$value = $value->getNativeData();
 		}
@@ -105,8 +107,11 @@ class JCCache {
 	/**
 	 * Delete any cached information related to this config
 	 * @param null|bool $updateCacheContent controls if cache should be updated with the new content
-	 *   false = only clear cache, true = set cache to the new value, null = use configuration settings
-	 *   New content will be set only if it is present (either get() was called before, or it was set via ctor
+	 *   false = only clear cache,
+	 *   true = set cache to the new value,
+	 *   null = use configuration settings
+	 *   New content will be set only if it is present
+	 *   (either get() was called before, or it was set via ctor)
 	 */
 	public function resetCache( $updateCacheContent = null ) {
 		global $wgJsonConfigDisableCache;
@@ -124,7 +129,8 @@ class JCCache {
 	}
 
 	/**
-	 * Retrieves the config from the local storage, and sets $this->content to the content object or false
+	 * Retrieves the config from the local storage,
+	 * and sets $this->content to the content object or false
 	 */
 	private function loadLocal() {
 		// @fixme @bug handle flagged revisions
@@ -137,7 +143,8 @@ class JCCache {
 				// If this is a regular wiki page, allow it to be parsed as a json config
 				$result = $result->getNativeData();
 			} else {
-				wfLogWarning( "The locally stored wiki page '$this->titleValue' has unsupported content model'" );
+				wfLogWarning( "The locally stored wiki page '$this->titleValue' has " .
+					"unsupported content model'" );
 				$result = false;
 			}
 		}
@@ -161,7 +168,8 @@ class JCCache {
 					: MWNamespace::getCanonicalName( $this->titleValue->getNamespace() );
 			$articleName = $ns . ':' . $this->titleValue->getText();
 			$flrevs = $conf->flaggedRevs;
-			// if flaggedRevs is false, get wiki page directly, otherwise get the flagged state first
+			// if flaggedRevs is false, get wiki page directly,
+			// otherwise get the flagged state first
 			$res = $this->getPageFromApi( $articleName, $req, $flrevs === false
 					? [
 						'action' => 'query',
@@ -181,11 +189,12 @@ class JCCache {
 			) {
 				// If there is a stable flagged revision present, use it.
 				// else - if flaggedRevs is null, use the latest revision that exists
-				// otherwise, fail because flaggedRevs is true, which means we require rev to be flagged
+				// otherwise, fail because flaggedRevs is true,
+				// which means we require rev to be flagged
 				$res = $this->getPageFromApi( $articleName, $req, [
 					'action' => 'query',
-					'revids' => array_key_exists( 'flagged', $res ) ? $res['flagged']['stable_revid']
-						: $res['lastrevid'],
+					'revids' => array_key_exists( 'flagged', $res )
+						? $res['flagged']['stable_revid'] : $res['lastrevid'],
 					'prop' => 'revisions',
 					'rvprop' => 'content',
 					'continue' => '',
