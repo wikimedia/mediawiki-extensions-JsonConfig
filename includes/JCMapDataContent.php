@@ -1,5 +1,6 @@
 <?php
 namespace JsonConfig;
+
 use FormatJson;
 use Kartographer\SimpleStyleParser;
 use Language;
@@ -26,7 +27,7 @@ class JCMapDataContent extends JCDataContent {
 
 		$this->test( 'data', self::isValidData() );
 
-		$this->test( [ ], JCValidators::noExtraValues() );
+		$this->test( [], JCValidators::noExtraValues() );
 	}
 
 	/**
@@ -61,15 +62,15 @@ class JCMapDataContent extends JCDataContent {
 				return false;
 			}
 
-//			TODO: decide if this is needed. We would have to alter the above code to localize props
-//			// Use SimpleStyleParser to verify the data's validity
-//			global $wgParser;
-//			$ssp = new \Kartographer\SimpleStyleParser( $wgParser );
-//			$status = $ssp->parseObject( $value );
-//			if ( !$status->isOK() ) {
-//				$v->status( $status );
-//			}
-//			return $status->isOK();
+			// TODO: decide if this is needed. We would have to alter the above code to localize props
+			// // Use SimpleStyleParser to verify the data's validity
+			// global $wgParser;
+			// $ssp = new \Kartographer\SimpleStyleParser( $wgParser );
+			// $status = $ssp->parseObject( $value );
+			// if ( !$status->isOK() ) {
+			// 	$v->status( $status );
+			// }
+			// return $status->isOK();
 			return true;
 		};
 	}

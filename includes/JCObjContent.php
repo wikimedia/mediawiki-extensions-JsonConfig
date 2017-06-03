@@ -142,7 +142,7 @@ abstract class JCObjContent extends JCContent {
 	 * Derived classes must implement this method to perform custom validation
 	 * using the test(...) calls
 	 */
-	public abstract function validateContent();
+	abstract public function validateContent();
 
 	/**
 	 * Use this function to test a value, or if the value is missing, use the default value.
@@ -335,13 +335,13 @@ abstract class JCObjContent extends JCContent {
 			$err = $jcv->error();
 			if ( $err ) {
 				if ( is_object( $err ) ) {
-//				if ( !$isRequired ) {
-//					// User supplied value, so we don't know if the value is required or not
-//					// if $default passes validation, original value was optional
-//					$isRequired = !JCValidators::run(
-//						$validators, $fldPath, JCValue::getMissing(), $this
-//					);
-//				}
+					// if ( !$isRequired ) {
+					// 	// User supplied value, so we don't know if the value is required or not
+					// 	// if $default passes validation, original value was optional
+					// 	$isRequired = !JCValidators::run(
+					// 	$validators, $fldPath, JCValue::getMissing(), $this
+					// 	);
+					// }
 					$this->addValidationError( $err, !$isRequired );
 				}
 				return false;
@@ -349,16 +349,16 @@ abstract class JCObjContent extends JCContent {
 				$jcv->status( JCValue::CHECKED );
 			}
 		}
-//		if ( $this->thorough() && $jcv->status() === JCValue::CHECKED ) {
-//			// Check if the value is the same as default - use a cast to array
-//			// hack to compare objects
-//			$isRequired = (bool)JCValidators::run( $validators, $fldPath, JCMissing::get(), $this );
-//			if ( ( is_object( $jcv ) && is_object( $default ) && (array)$jcv === (array)$default )
-//				|| ( !is_object( $default ) && $jcv === $default )
-//			) {
-//				$newStatus = JCValue::SAME_AS_DEFAULT;
-//			}
-//		}
+		// if ( $this->thorough() && $jcv->status() === JCValue::CHECKED ) {
+		// 	// Check if the value is the same as default - use a cast to array
+		// 	// hack to compare objects
+		// 	$isRequired = (bool)JCValidators::run( $validators, $fldPath, JCMissing::get(), $this );
+		// 	if ( ( is_object( $jcv ) && is_object( $default ) && (array)$jcv === (array)$default )
+		// 		|| ( !is_object( $default ) && $jcv === $default )
+		// 	) {
+		// 		$newStatus = JCValue::SAME_AS_DEFAULT;
+		// 	}
+		// }
 		return true;
 	}
 
@@ -392,7 +392,7 @@ abstract class JCObjContent extends JCContent {
 					$move = false;
 				}
 				if ( $move || !$firstPass ) {
-					if ( !$isJcv  ) {
+					if ( !$isJcv ) {
 						$subVal = new JCValue( JCValue::UNCHECKED, $subVal );
 					}
 					if ( $result === null ) {
@@ -425,10 +425,10 @@ abstract class JCObjContent extends JCContent {
 	 */
 	public function addValidationError( Message $error, $isOptional = false ) {
 		$text = $error->plain();
-// @TODO fixme - need to re-enable optional field detection & reporting
-//		if ( $isOptional ) {
-//			$text .= ' ' . wfMessage( 'jsonconfig-optional-field' )->plain();
-//		}
+		// @TODO fixme - need to re-enable optional field detection & reporting
+		// if ( $isOptional ) {
+		// 	$text .= ' ' . wfMessage( 'jsonconfig-optional-field' )->plain();
+		// }
 		$this->getStatus()->error( $text );
 	}
 

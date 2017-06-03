@@ -48,12 +48,13 @@ class FauxInterwikiLookup implements InterwikiLookup {
 	 * @return string[] List of prefixes
 	 */
 	public function getAllPrefixes( $local = null ) {
-		return ( $local === null || $local === false ) ? [ self::INTERWIKI_PREFIX ] : [ ];
+		return ( $local === null || $local === false ) ? [ self::INTERWIKI_PREFIX ] : [];
 	}
 
 	/**
 	 * Purge the in-process and persistent object cache for an interwiki prefix
 	 * @param string $prefix
 	 */
-	public function invalidateCache( $prefix ) {}
+	public function invalidateCache( $prefix ) {
+	}
 }

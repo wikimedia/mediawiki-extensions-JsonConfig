@@ -83,7 +83,7 @@ class JCTabularContentView extends JCContentView {
 					$thAttr['data-type'] = $type;
 					$headerAttributes[] = [ 'data-type' => $type ];
 				} else {
-					$headerAttributes[] = [ ];
+					$headerAttributes[] = [];
 				}
 
 				$nameHeaders[] = Html::element( 'th', $addErr( $thAttr, $nameIsValid ), $name );

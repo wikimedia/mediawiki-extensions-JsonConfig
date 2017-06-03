@@ -98,7 +98,9 @@ class JCSingleton {
 		array $configs, array $models, $warn = true
 	) {
 		$defaultModelId = 'JsonConfig';
+		// @codingStandardsIgnoreStart - T154789
 		$warnFunc = $warn ? 'wfLogWarning' : function() {};
+		// @codingStandardsIgnoreEnd
 
 		$namespaces = [];
 		$titleMap = [];
@@ -225,7 +227,7 @@ class JCSingleton {
 						if ( !array_key_exists( $ns, $namespaces ) ) {
 							$namespaces[$ns] = false;
 						}
-				    } elseif ( $ns === NS_CONFIG ) {
+					} elseif ( $ns === NS_CONFIG ) {
 						$warnFunc( "JsonConfig: Parameter 'nsName' in \$wgJsonConfigs['$confId'] " .
 							"is not supported for namespace == NS_CONFIG ($ns)" );
 					} else {

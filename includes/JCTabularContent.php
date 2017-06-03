@@ -1,6 +1,7 @@
 <?php
 
 namespace JsonConfig;
+
 use Language;
 
 /**
@@ -24,7 +25,7 @@ class JCTabularContent extends JCDataContent {
 				global $wgLang;
 				$value = JCUtils::pickLocalizedString( $value, $wgLang );
 			}
-			if ( preg_match('/^[ .\pL\pN]*$/i', $value ) ) {
+			if ( preg_match( '/^[ .\pL\pN]*$/i', $value ) ) {
 				// Optimization: spaces, letters, numbers, and dots are returned without <nowiki>
 				return $value;
 			}
@@ -35,9 +36,14 @@ class JCTabularContent extends JCDataContent {
 		$result = "{| class='wikitable sortable'\n";
 
 		// Create header
-		$result .= '!' . implode( "!!", array_map( function ( $field ) use ( $toWiki ) {
-				return $toWiki( $field->title ? : $field->name );
-			}, $data->schema->fields ) ) . "\n";
+		$result .= '!' . implode( "!!",
+			array_map(
+				function ( $field ) use ( $toWiki ) {
+					return $toWiki( $field->title ? : $field->name );
+				},
+				$data->schema->fields
+			)
+		) . "\n";
 
 		// Create table content
 		foreach ( $data->data as $row ) {
@@ -99,7 +105,7 @@ class JCTabularContent extends JCDataContent {
 		}
 
 		$this->test( 'data', JCValidators::isList() );
-		$this->test( [ ], JCValidators::noExtraValues() );
+		$this->test( [], JCValidators::noExtraValues() );
 		$this->testEach( 'data', $validators );
 		if ( $typeValidators ) {
 			/** @noinspection PhpUnusedParameterInspection */

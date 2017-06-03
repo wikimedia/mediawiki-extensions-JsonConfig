@@ -1,5 +1,6 @@
 <?php
 namespace JsonConfig;
+
 use Closure;
 
 /**

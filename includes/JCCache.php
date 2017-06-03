@@ -43,7 +43,7 @@ class JCCache {
 			$this->key = call_user_func_array( [ $this->cache, 'makeGlobalKey' ], $keyArgs );
 		}
 		$this->cacheExpiration = $conf->cacheExp;
-		$this->content = $content ?: null ; // ensure that if we don't have content, we use 'null'
+		$this->content = $content ?: null; // ensure that if we don't have content, we use 'null'
 	}
 
 	/**
@@ -211,7 +211,7 @@ class JCCache {
 
 			$result = $res['revisions'][0]['*'];
 
-		} while( false );
+		} while ( false );
 
 		$this->content = $result;
 	}

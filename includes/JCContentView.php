@@ -1,6 +1,7 @@
 <?php
 
 namespace JsonConfig;
+
 use ParserOptions;
 use ParserOutput;
 use Title;
