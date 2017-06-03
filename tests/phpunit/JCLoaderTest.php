@@ -61,7 +61,7 @@ class JCLoaderTest extends MediaWikiTestCase {
 			[ [ 'namespace' => 13 ] ],
 			[ [ 'namespace' => 0 ] ],
 			[ [ 'isLocal' => false, 'remote' => 42 ] ],
-			[ [ 'isLocal' => false, 'remote' => [ ] ] ],
+			[ [ 'isLocal' => false, 'remote' => [] ] ],
 			[ [ 'isLocal' => true, 'store' => 'aa' ] ],
 			[ [ 'nsTalk' => 42 ] ],
 			[ [ 'pattern' => 42 ] ],

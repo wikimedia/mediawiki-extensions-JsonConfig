@@ -81,9 +81,7 @@ class JCObjContentTest extends MediaWikiTestCase {
 		$self = $this;
 		return array_merge( $this->provideValidationFirst(), [
 
-			//
 			// $message, $initial, $expectedWithDflts, $expectedNoDflts, $validators, $errors = null
-			//
 
 			[
 				'fldA', '{"fldA":5}', true, true,
@@ -377,9 +375,7 @@ class JCObjContentTest extends MediaWikiTestCase {
 				}, 1,
 			],
 
-			//
 			// $message, $initial, $expectedWithDflts, $expectedNoDflts, $validators, $errors = null
-			//
 		] );
 	}
 
