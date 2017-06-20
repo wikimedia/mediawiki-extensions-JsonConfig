@@ -56,7 +56,7 @@ class JCMapDataContent extends JCDataContent {
 		return function ( JCValue $v, array $path ) {
 			$value = $v->getValue();
 			if ( !is_object( $value ) && !is_array( $value ) ||
-				 !JCMapDataContent::recursiveWalk( $value, false )
+				!JCMapDataContent::recursiveWalk( $value, false )
 			) {
 				$v->error( 'jsonconfig-err-bad-geojson', $path );
 				return false;
@@ -68,7 +68,7 @@ class JCMapDataContent extends JCDataContent {
 			// $ssp = new \Kartographer\SimpleStyleParser( $wgParser );
 			// $status = $ssp->parseObject( $value );
 			// if ( !$status->isOK() ) {
-			// 	$v->status( $status );
+			// $v->status( $status );
 			// }
 			// return $status->isOK();
 			return true;
@@ -94,7 +94,7 @@ class JCMapDataContent extends JCDataContent {
 			foreach ( array_keys( get_object_vars( $json ) ) as $prop ) {
 				if ( $prop === 'properties' && is_object( $json->properties ) ) {
 					if ( !self::isValidStringOrLocalized( $json->properties, 'title', $lang ) ||
-						 !self::isValidStringOrLocalized( $json->properties, 'description', $lang )
+						!self::isValidStringOrLocalized( $json->properties, 'description', $lang )
 					) {
 						return false;
 					}

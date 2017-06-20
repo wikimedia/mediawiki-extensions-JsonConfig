@@ -19,8 +19,7 @@ class JCTabularContent extends JCDataContent {
 	 * @return string|bool The raw text, or false if the conversion failed.
 	 */
 	public function getWikitextForTransclusion() {
-
-		$toWiki = function( $value ) {
+		$toWiki = function ( $value ) {
 			if ( is_object( $value ) ) {
 				global $wgLang;
 				$value = JCUtils::pickLocalizedString( $value, $wgLang );
@@ -60,15 +59,14 @@ class JCTabularContent extends JCDataContent {
 	 * using the check(...) calls
 	 */
 	public function validateContent() {
-
 		parent::validateContent();
 
 		$validators = [ JCValidators::isList() ];
 		$typeValidators = [];
 		$fieldsPath = [ 'schema', 'fields' ];
 		if ( $this->test( 'schema', JCValidators::isDictionary() ) &&
-			 $this->test( $fieldsPath, JCValidators::isList() ) &&
-			 $this->testEach( $fieldsPath, JCValidators::isDictionary() )
+			$this->test( $fieldsPath, JCValidators::isList() ) &&
+			$this->testEach( $fieldsPath, JCValidators::isDictionary() )
 		) {
 			$hasError = false;
 			$allHeaders = [];

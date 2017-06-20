@@ -202,7 +202,7 @@ class JCSingleton {
 			}
 			if ( isset( $remote ) ) {
 				if ( !is_string( $remote->url ) || !is_string( $remote->username ) ||
-				     !is_string( $remote->password )
+					!is_string( $remote->password )
 				) {
 					$warnFunc( "JsonConfig: Invalid type of one of the parameters in " .
 						"\$wgJsonConfigs['$confId']['remote'], please check documentation" );
@@ -211,7 +211,7 @@ class JCSingleton {
 			}
 			if ( isset( $store ) ) {
 				if ( !is_bool( $store->cacheNewValue ) || !is_string( $store->notifyUrl ) ||
-				     !is_string( $store->notifyUsername ) || !is_string( $store->notifyPassword )
+					!is_string( $store->notifyUsername ) || !is_string( $store->notifyPassword )
 				) {
 					$warnFunc( "JsonConfig: Invalid type of one of the parameters in " .
 						" \$wgJsonConfigs['$confId']['store'], please check documentation" );
@@ -235,16 +235,16 @@ class JCSingleton {
 						$nsTalk = isset( $conf->nsTalk ) ? $conf->nsTalk : ( $nsName . '_talk' );
 						if ( !is_string( $nsName ) || $nsName === '' ) {
 							$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
-									   "if given, nsName must be a string" );
+									"if given, nsName must be a string" );
 							continue;
 						} elseif ( array_key_exists( $ns, $namespaces ) &&
-						           $namespaces[$ns] !== null
+								$namespaces[$ns] !== null
 						) {
 							if ( $namespaces[$ns] !== $nsName ||
-								 $namespaces[$ns + 1] !== $nsTalk
+								$namespaces[$ns + 1] !== $nsTalk
 							) {
 								$warnFunc( "JsonConfig: \$wgJsonConfigs['$confId'] - " .
-										   "nsName has already been set for namespace $ns" );
+										"nsName has already been set for namespace $ns" );
 							}
 						} else {
 							$namespaces[$ns] = $nsName;
@@ -325,7 +325,7 @@ class JCSingleton {
 			$val = (object)$val;
 		} elseif ( is_string( $val ) && $treatAsField !== null ) {
 			// treating this string value as a sub-field
-			$val = (object) [ $treatAsField => $val ];
+			$val = (object)[ $treatAsField => $val ];
 		} elseif ( !is_object( $val ) ) {
 			$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs" . ( $confId ? "['$confId']" : "" ) .
 				"['$field'], the value must be either an array or an object" );
@@ -364,7 +364,6 @@ class JCSingleton {
 	 * @return bool|JCContent Returns false if the title is not handled by the settings
 	 */
 	public static function getContent( TitleValue $titleValue ) {
-
 		$content = self::getContentFromLocalCache( $titleValue );
 
 		if ( $content === null ) {
@@ -398,7 +397,6 @@ class JCSingleton {
 	 * @throws Exception
 	 */
 	public static function parseContent( TitleValue $titleValue, $jsonText, $isSaving = false ) {
-
 		$jct = self::parseTitle( $titleValue );
 		if ( $jct ) {
 			$handler = new JCContentHandler( $jct->getConfig()->model );
@@ -484,7 +482,6 @@ class JCSingleton {
 		// Search title map for the matching configuration
 		$map = self::getTitleMap();
 		if ( array_key_exists( $namespace, $map ) ) {
-
 			// Get appropriate LRU cache object
 			if ( !array_key_exists( $namespace, self::$titleMapCacheLru ) ) {
 				self::$titleMapCacheLru[$namespace] = $cache = new MapCacheLRU( 20 );
@@ -513,8 +510,8 @@ class JCSingleton {
 
 					// Defensive coding - ensure the parsing has proceeded as expected
 					if ( $parts['dbkey'] === '' || $parts['namespace'] !== 0 ||
-						 $parts['fragment'] !== '' || $parts['local_interwiki'] !== false ||
-						 $parts['interwiki'] !== FauxInterwikiLookup::INTERWIKI_PREFIX
+						$parts['fragment'] !== '' || $parts['local_interwiki'] !== false ||
+						$parts['interwiki'] !== FauxInterwikiLookup::INTERWIKI_PREFIX
 					) {
 						return null;
 					}
@@ -539,7 +536,6 @@ class JCSingleton {
 			// and false otherwise
 			$result = $cache->get( $dbKey );
 			if ( $result === null ) {
-
 				$result = false;
 				foreach ( $map[$namespace] as $conf ) {
 					$re = $conf->pattern;
@@ -590,7 +586,7 @@ class JCSingleton {
 			if ( $name === false ) { // must be already declared
 				if ( !array_key_exists( $ns, $namespaces ) ) {
 					wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs: Namespace $ns " .
-					              "has not been declared by core or other extensions" );
+						"has not been declared by core or other extensions" );
 				}
 			} elseif ( array_key_exists( $ns, $namespaces ) ) {
 				wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs: Namespace $ns => '$name' " .
@@ -945,7 +941,6 @@ class JCSingleton {
 		}
 
 		if ( $value && ( !$content || is_a( $content, 'JsonConfig\JCContent' ) ) ) {
-
 			if ( method_exists( $value, 'getTitle' ) ) {
 				$value = $value->getTitle();
 			}
@@ -991,7 +986,7 @@ class JCSingleton {
 			);
 			foreach ( $configs as $jc ) {
 				if ( ( !array_key_exists( 'isLocal', $jc ) || $jc['isLocal'] ) ||
-					 ( array_key_exists( 'store', $jc ) )
+					( array_key_exists( 'store', $jc ) )
 				) {
 					$isStorage = true;
 					break;

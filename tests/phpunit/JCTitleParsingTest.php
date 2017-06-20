@@ -60,7 +60,6 @@ class JCTitleParsingTest extends MediaWikiTestCase {
 	 * @throws Exception
 	 */
 	public function testTitleParsing( $value, $ns, $expected = false ) {
-
 		$actual = JCSingleton::parseTitle( $value, $ns );
 		if ( !$expected ) {
 			$this->assertSame( $expected, $actual );

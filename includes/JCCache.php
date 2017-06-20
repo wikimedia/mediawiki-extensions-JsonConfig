@@ -118,8 +118,8 @@ class JCCache {
 		if ( !$wgJsonConfigDisableCache ) {
 			$conf = $this->titleValue->getConfig();
 			if ( $this->content && ( $updateCacheContent === true ||
-									 ( $updateCacheContent === null && isset( $conf->store ) &&
-									   $conf->store->cacheNewValue ) )
+				( $updateCacheContent === null && isset( $conf->store ) &&
+					$conf->store->cacheNewValue ) )
 			) {
 				$this->memcSet(); // update cache with the new value
 			} else {
@@ -185,7 +185,7 @@ class JCCache {
 						'continue' => '',
 					] );
 			if ( $res !== false &&
-			     ( $flrevs === null || ( $flrevs === true && array_key_exists( 'flagged', $res ) ) )
+				( $flrevs === null || ( $flrevs === true && array_key_exists( 'flagged', $res ) ) )
 			) {
 				// If there is a stable flagged revision present, use it.
 				// else - if flaggedRevs is null, use the latest revision that exists
@@ -223,7 +223,6 @@ class JCCache {
 	 * @return bool|mixed
 	 */
 	private function getPageFromApi( $articleName, $req, $query ) {
-
 		$revInfo = JCUtils::callApi( $req, $query, 'get remote JsonConfig' );
 		if ( $revInfo === false ) {
 			return false;

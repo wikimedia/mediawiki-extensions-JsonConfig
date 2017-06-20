@@ -57,7 +57,6 @@ class JCContentHandler extends TextContentHandler {
 	 * @return bool|JCContent
 	 */
 	public function merge3( \Content $oldContent, \Content $myContent, \Content $yourContent ) {
-
 		// Almost identical clone of the parent's merge3, except that we use pretty-printed merge,
 		// thus allowing much more lenient line-based merging.
 

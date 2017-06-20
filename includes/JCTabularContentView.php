@@ -25,9 +25,10 @@ class JCTabularContentView extends JCContentView {
 	 * @param ParserOutput &$output The output object to fill (reference).
 	 * @return string
 	 */
-	public function valueToHtml( JCContent $content, Title $pageTitle, $revId,
-								 ParserOptions $options, $generateHtml, ParserOutput &$output ) {
-
+	public function valueToHtml(
+		JCContent $content, Title $pageTitle, $revId,
+		ParserOptions $options, $generateHtml, ParserOutput &$output
+	) {
 		// Use user's language, and split parser cache.  This should not have a big
 		// impact because data namespace is rarely viewed, but viewing it localized
 		// will be valuable
@@ -191,6 +192,5 @@ class JCTabularContentView extends JCContentView {
     ]
 }
 EOT;
-
 	}
 }

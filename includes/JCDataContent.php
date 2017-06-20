@@ -19,7 +19,6 @@ abstract class JCDataContent extends JCObjContent {
 	 * using the check(...) calls
 	 */
 	public function validateContent() {
-
 		if ( !$this->thorough() ) {
 			// We are not doing any modifications to the original, so no need to validate it
 			return;

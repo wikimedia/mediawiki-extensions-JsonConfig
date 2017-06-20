@@ -25,24 +25,25 @@ class JCMapDataContentView extends JCContentView {
 	 * @param ParserOutput &$output The output object to fill (reference).
 	 * @return string
 	 */
-	public function valueToHtml( JCContent $content, Title $title, $revId, ParserOptions $options,
-								 $generateHtml, ParserOutput &$output ) {
+	public function valueToHtml(
+		JCContent $content, Title $title, $revId, ParserOptions $options,
+		$generateHtml, ParserOutput &$output
+	) {
 		global $wgParser;
 
 		$parser = $wgParser->getFreshParser();
 
 		$localizedData = $content->getLocalizedData( $options->getUserLangObj() );
 		if ( $localizedData ) {
-
 			// Test both because for some reason mTagHooks is not set during preview
 			if ( isset( $wgParser->mTagHooks['mapframe'] ) ||
-				 class_exists( 'Kartographer\Tag\MapFrame' )
+				class_exists( 'Kartographer\Tag\MapFrame' )
 			) {
 				$zoom = $content->getField( 'zoom' );
 				$lat = $content->getField( 'latitude' );
 				$lon = $content->getField( 'longitude' );
 				if ( $zoom && $lat && $lon && !$zoom->error() && !$lat->error() &&
-					 !$lon->error()
+					!$lon->error()
 				) {
 					$zoom = $zoom->getValue();
 					$lat = $lat->getValue();
@@ -61,7 +62,7 @@ EOT;
 			} else {
 				$jsonText = FormatJson::encode( $localizedData->data, true, FormatJson::UTF8_OK );
 				if ( isset( $wgParser->mTagHooks['syntaxhighlight'] ) ||
-					 class_exists( 'SyntaxHighlight_GeSHi' )
+					class_exists( 'SyntaxHighlight_GeSHi' )
 				) {
 					$text = "<syntaxhighlight lang=json>\n$jsonText\n</syntaxhighlight>";
 				} else {
@@ -72,9 +73,9 @@ EOT;
 		}
 
 		return $content->renderDescription( $options->getUserLangObj() ) . '<br>' .
-			   $output->getRawText() . '<br clear=all>' .
-			   $content->renderSources( $parser, $title, $revId, $options ) .
-			   $content->renderLicense();
+			$output->getRawText() . '<br clear=all>' .
+			$content->renderSources( $parser, $title, $revId, $options ) .
+			$content->renderLicense();
 	}
 
 	/**

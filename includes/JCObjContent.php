@@ -336,11 +336,11 @@ abstract class JCObjContent extends JCContent {
 			if ( $err ) {
 				if ( is_object( $err ) ) {
 					// if ( !$isRequired ) {
-					// 	// User supplied value, so we don't know if the value is required or not
-					// 	// if $default passes validation, original value was optional
-					// 	$isRequired = !JCValidators::run(
-					// 	$validators, $fldPath, JCValue::getMissing(), $this
-					// 	);
+					// // User supplied value, so we don't know if the value is required or not
+					// // if $default passes validation, original value was optional
+					// $isRequired = !JCValidators::run(
+					// $validators, $fldPath, JCValue::getMissing(), $this
+					// );
 					// }
 					$this->addValidationError( $err, !$isRequired );
 				}
@@ -350,14 +350,14 @@ abstract class JCObjContent extends JCContent {
 			}
 		}
 		// if ( $this->thorough() && $jcv->status() === JCValue::CHECKED ) {
-		// 	// Check if the value is the same as default - use a cast to array
-		// 	// hack to compare objects
-		// 	$isRequired = (bool)JCValidators::run( $validators, $fldPath, JCMissing::get(), $this );
-		// 	if ( ( is_object( $jcv ) && is_object( $default ) && (array)$jcv === (array)$default )
-		// 		|| ( !is_object( $default ) && $jcv === $default )
-		// 	) {
-		// 		$newStatus = JCValue::SAME_AS_DEFAULT;
-		// 	}
+		// // Check if the value is the same as default - use a cast to array
+		// // hack to compare objects
+		// $isRequired = (bool)JCValidators::run( $validators, $fldPath, JCMissing::get(), $this );
+		// if ( ( is_object( $jcv ) && is_object( $default ) && (array)$jcv === (array)$default )
+		// || ( !is_object( $default ) && $jcv === $default )
+		// ) {
+		// $newStatus = JCValue::SAME_AS_DEFAULT;
+		// }
 		// }
 		return true;
 	}
@@ -427,7 +427,7 @@ abstract class JCObjContent extends JCContent {
 		$text = $error->plain();
 		// @TODO fixme - need to re-enable optional field detection & reporting
 		// if ( $isOptional ) {
-		// 	$text .= ' ' . wfMessage( 'jsonconfig-optional-field' )->plain();
+		// $text .= ' ' . wfMessage( 'jsonconfig-optional-field' )->plain();
 		// }
 		$this->getStatus()->error( $text );
 	}

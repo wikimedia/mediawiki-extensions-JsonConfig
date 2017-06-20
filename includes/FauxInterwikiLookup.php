@@ -25,7 +25,7 @@ class FauxInterwikiLookup implements InterwikiLookup {
 	 * @return bool Whether it exists
 	 */
 	public function isValidInterwiki( $prefix ) {
-		return (bool) $this->fetch( $prefix );
+		return (bool)$this->fetch( $prefix );
 	}
 
 	/**

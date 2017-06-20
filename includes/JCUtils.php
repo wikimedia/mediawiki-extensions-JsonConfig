@@ -141,7 +141,7 @@ class JCUtils {
 	 */
 	public static function isList( $value ) {
 		return is_array( $value ) &&
-		       count( array_filter( array_keys( $value ), 'is_int' ) ) === count( $value );
+			count( array_filter( array_keys( $value ), 'is_int' ) ) === count( $value );
 	}
 
 	/**
@@ -152,7 +152,7 @@ class JCUtils {
 	 */
 	public static function isDictionary( $value ) {
 		return is_array( $value ) &&
-		       count( array_filter( array_keys( $value ), 'is_string' ) ) === count( $value );
+			count( array_filter( array_keys( $value ), 'is_string' ) ) === count( $value );
 	}
 
 	/**
@@ -173,7 +173,7 @@ class JCUtils {
 	 */
 	public static function isValidLineString( $str, $maxlength ) {
 		return is_string( $str ) && mb_strlen( $str ) <= $maxlength &&
-			   !preg_match( '/^\s|[\r\n\t]|\s$/', $str );
+			!preg_match( '/^\s|[\r\n\t]|\s$/', $str );
 	}
 
 	/**
@@ -264,8 +264,8 @@ class JCUtils {
 	 */
 	public static function isLocalizedArray( $arr, $maxlength ) {
 		if ( is_array( $arr ) &&
-			   $arr &&
-			   self::isListOfLangs( array_keys( $arr ) )
+			$arr &&
+			self::isListOfLangs( array_keys( $arr ) )
 		) {
 			$validStrCount = count( array_filter( $arr, function ( $str ) use ( $maxlength ) {
 				return self::isValidLineString( $str, $maxlength );

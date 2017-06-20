@@ -205,8 +205,8 @@ class JCObjContentTest extends MediaWikiTestCase {
 				'fldA->fldB', '{"fldA":5}', '{"fldB":5}', true,
 				function ( JCObjContent $o ) use ( $self ) {
 					$o->test( 'fldA',
-						function( JCValue $v, array $path, JCObjContent $cn ) use ( $self ) {
-							$new = clone( $v );
+						function ( JCValue $v, array $path, JCObjContent $cn ) use ( $self ) {
+							$new = clone $v;
 							$new->status( JCValue::CHECKED );
 							$cn->getValidationData()->setField( 'fldB', $new );
 							$v->status( JCValue::MISSING ); // delete this field
@@ -218,8 +218,8 @@ class JCObjContentTest extends MediaWikiTestCase {
 				'fldA/fldB->fldB', '{"fldA":{"fldB":5}}', '{"fldB":5}', true,
 				function ( JCObjContent $o ) use ( $self ) {
 					$o->test( [ 'fldA', 'fldB' ],
-						function( JCValue $v, array $path, JCObjContent $cn ) use ( $self ) {
-							$new = clone( $v );
+						function ( JCValue $v, array $path, JCObjContent $cn ) use ( $self ) {
+							$new = clone $v;
 							$new->status( JCValue::CHECKED );
 							$cn->getValidationData()->setField( 'fldB', $new );
 							$v->status( JCValue::MISSING ); // delete this field
@@ -278,7 +278,7 @@ class JCObjContentTest extends MediaWikiTestCase {
 			[
 				'fld to array', '{"fldA":{"a":1,"b":2}}', true, true,
 				function ( JCObjContent $o ) {
-					$o->test( 'fldA', JCValidators::isDictionary(), function( JCValue $v ) {
+					$o->test( 'fldA', JCValidators::isDictionary(), function ( JCValue $v ) {
 						$v->setValue( (array)$v->getValue() );
 					} );
 				},
