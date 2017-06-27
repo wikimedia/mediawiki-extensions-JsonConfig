@@ -8,7 +8,8 @@
 			"Hpetit",
 			"Yasten",
 			"Yurik",
-			"Derugon"
+			"Derugon",
+			"Thibaut120094"
 		]
 	},
 	"jsonconfig-desc": "Permet de stocker une configuration JSON dans un wiki",
@@ -48,6 +49,7 @@
 	"right-jsonconfig-flush": "Manipuler JsonConfig par API",
 	"action-jsonconfig-flush": "utilser JsonConfig au travers de l'API",
 	"apihelp-jsonconfig-description": "Permet l'accès direct au sous-système JsonConfig.",
+	"apihelp-jsonconfig-summary": "Permet l'accès direct au sous-système JsonConfig.",
 	"apihelp-jsonconfig-param-command": "Quelle sous-action effectuer sur JsonConfig :\n;status : affiche la configuration de JsonConfig.\n;reset : efface les configurations du cache. Nécessite  le paramètre de titre $1 et les droits de réinitialiser Jsonconfig.\n;reload : recharge et met en cache des configurations du dépôt config. Nécessite le paramètre de titre $1 et les droits de réinitialiser Jsonconfig.",
 	"apihelp-jsonconfig-param-namespace": "Numéro de l'espace de noms du titre à utiliser.",
 	"apihelp-jsonconfig-param-title": "Titre à traiter sans le préfixe de l'espace de noms.",
@@ -56,6 +58,7 @@
 	"apihelp-jsonconfig-example-2": "Reinitialiser [[Zero:TEST]]",
 	"apihelp-jsonconfig-example-3": "Recharger [[Zero:TEST]]",
 	"apihelp-jsondata-description": "Récupérer les données JSON localisées.",
+	"apihelp-jsondata-summary": "Récupérer les données JSON localisées.",
 	"apihelp-jsondata-param-title": "Titre à récupérer. Par défaut, l’espace de noms est supposé être « Data: »",
 	"apihelp-jsondata-example-1": "Obtenir le contenu JSON de la page Sample.tab, localisée dans la langue de l’utilisateur",
 	"apihelp-jsondata-example-2": "Obtenir le contenu JSON de la page Sample.tab localisée en français",
