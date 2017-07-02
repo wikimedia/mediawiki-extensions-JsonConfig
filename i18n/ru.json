@@ -7,7 +7,8 @@
 			"Irus",
 			"MaxBioHazard",
 			"Yurik",
-			"Mailman"
+			"Mailman",
+			"Facenapalm"
 		]
 	},
 	"jsonconfig-desc": "Позволяет хранить настройки JSON в вики-проекте",
@@ -29,6 +30,9 @@
 	"jsonconfig-move-aborted-model": "конфигурационная модель JSON «$1» этой страницы не соответствует модели нового заголовка «$2»",
 	"jsonconfig-move-aborted-ns": "новый заголовок страницы не настроен для хранения конфигурации JSON",
 	"jsonconfig-optional-field": "(необязательно)",
+	"jsonconfig-type-name-string": "строка",
+	"jsonconfig-type-name-number": "число",
+	"jsonconfig-type-name-boolean": "логическое значение",
 	"right-jsonconfig-flush": "управление JsonConfig через API",
 	"apihelp-jsonconfig-description": "Обеспечивает прямой доступ к подсистеме JsonConfig.",
 	"apihelp-jsonconfig-param-title": "Заголовок для обработки без префикса пространства имён.",
