@@ -38,5 +38,7 @@
 	"apihelp-jsonconfig-param-content": "Para $1command=reload, use este conteúdo no lugar.",
 	"apihelp-jsonconfig-example-1": "Mostrar configuração",
 	"apihelp-jsonconfig-example-2": "Redefinir [[Zero:TEST]]",
-	"apihelp-jsonconfig-example-3": "Recarregar [[Zero:TEST]]"
+	"apihelp-jsonconfig-example-3": "Recarregar [[Zero:TEST]]",
+	"apihelp-jsondata-description": "Recuperar dados JSON localizados.",
+	"apihelp-jsondata-summary": "Recuperar dados JSON localizados."
 }
