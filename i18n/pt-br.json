@@ -26,6 +26,7 @@
 	"jsonconfig-type-abbr-string": "(S)",
 	"jsonconfig-type-name-string": "string",
 	"jsonconfig-type-abbr-localized": "(L)",
+	"jsonconfig-type-name-localized": "localizado",
 	"jsonconfig-type-abbr-number": "(N)",
 	"jsonconfig-type-name-number": "número",
 	"jsonconfig-type-abbr-boolean": "(B)",
