@@ -31,6 +31,7 @@
 	"jsonconfig-type-name-number": "número",
 	"jsonconfig-type-abbr-boolean": "(B)",
 	"jsonconfig-type-name-boolean": "booleano",
+	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
 	"jsonconfig-license-url-CC0-1.0": "https://creativecommons.org/publicdomain/zero/1.0/",
 	"apihelp-jsonconfig-description": "Permite acesso direto ao subsistema JsonConfig.",
 	"apihelp-jsonconfig-summary": "Permite acesso direto ao subsistema JsonConfig.",
