@@ -109,7 +109,7 @@ class JCContent extends \TextContent {
 	}
 
 	/**
-	 * @return boolean true if thorough validation may be needed -
+	 * @return bool true if thorough validation may be needed -
 	 *   e.g. rendering HTML or saving new value
 	 */
 	public function thorough() {

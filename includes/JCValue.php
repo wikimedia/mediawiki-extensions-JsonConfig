@@ -46,7 +46,7 @@ final class JCValue {
 			$this->status( $status );
 		} elseif ( $this->isMissing() ) {
 			// Convenience - if we are setting a new value, assume we are setting a default
-			$this->status( JCValue::UNCHECKED );
+			$this->status( self::UNCHECKED );
 			$this->defaultUsed( true );
 		}
 	}
@@ -76,11 +76,11 @@ final class JCValue {
 	}
 
 	public function isMissing() {
-		return $this->status === JCValue::MISSING;
+		return $this->status === self::MISSING;
 	}
 
 	public function isUnchecked() {
-		return $this->status === JCValue::UNCHECKED;
+		return $this->status === self::UNCHECKED;
 	}
 
 	/** Helper function - same arguments as wfMessage, or true if message was already added.

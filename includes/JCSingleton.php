@@ -567,7 +567,7 @@ class JCSingleton {
 	 * @deprecated use JCSingleton::parseTitle() instead
 	 */
 	public static function getMetadata( $titleValue ) {
-		$jct = JCSingleton::parseTitle( $titleValue );
+		$jct = self::parseTitle( $titleValue );
 		return $jct ? $jct->getConfig() : $jct;
 	}
 
