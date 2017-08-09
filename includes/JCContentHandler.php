@@ -32,7 +32,7 @@ class JCContentHandler extends TextContentHandler {
 	 * Returns the content's text as-is.
 	 *
 	 * @param \Content|JCContent $content This is actually a Content object
-	 * @param $format string|null
+	 * @param string|null $format
 	 * @return mixed
 	 */
 	public function serializeContent( \Content $content, $format = null ) {

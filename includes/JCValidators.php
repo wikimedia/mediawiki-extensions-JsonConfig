@@ -228,7 +228,9 @@ class JCValidators {
 		};
 	}
 
-	/** Returns a validator function to check if the value is a valid header string
+	/**
+	 * Returns a validator function to check if the value is a valid header string
+	 * @param array &$allHeaders
 	 * @return callable
 	 */
 	public static function isHeaderString( &$allHeaders ) {
@@ -267,7 +269,7 @@ class JCValidators {
 	}
 
 	/** Returns a validator function to check if value is a list of a given size
-	 * @param integer $count
+	 * @param int $count
 	 * @param string $field
 	 * @return callable
 	 */
@@ -284,7 +286,7 @@ class JCValidators {
 
 	/** Returns a validator function asserting a string to be one of the valid data types.
 	 * Additionally, a validator function for that data type is appended to the $validators array.
-	 * @param array $validators
+	 * @param array &$validators
 	 * @return Closure
 	 */
 	public static function validateDataType( &$validators ) {

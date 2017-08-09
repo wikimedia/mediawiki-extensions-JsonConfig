@@ -31,7 +31,7 @@ class JCMapDataContent extends JCDataContent {
 	}
 
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	public function getSafeData( $data ) {
 		/** @var Parser */
@@ -79,7 +79,7 @@ class JCMapDataContent extends JCDataContent {
 	 * Recursively walk the geojson to replace localized "title" and "description" values
 	 * with the single string corresponding to the $lang language, or if $lang is not set,
 	 * validates those values and returns true/false if valid
-	 * @param object|array $json
+	 * @param object|array &$json
 	 * @param bool|Language $lang
 	 * @return bool
 	 */

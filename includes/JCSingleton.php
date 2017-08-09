@@ -574,7 +574,9 @@ class JCSingleton {
 	/**
 	 * Only register NS_CONFIG if running on the MediaWiki instance which houses
 	 * the JSON configs (i.e. META)
-	 * @param array $namespaces
+	 * @TODO FIXME: Always return true
+	 * @param array &$namespaces
+	 * @return true|void
 	 */
 	public static function onCanonicalNamespaces( array &$namespaces ) {
 		if ( !self::jsonConfigIsStorage() ) {
@@ -606,7 +608,7 @@ class JCSingleton {
 	/**
 	 * Initialize state
 	 * @param Title $title
-	 * @param string $modelId
+	 * @param string &$modelId
 	 * @return bool
 	 */
 	public static function onContentHandlerDefaultModelFor( $title, &$modelId ) {
@@ -625,7 +627,7 @@ class JCSingleton {
 	/**
 	 * Instantiate JCContentHandler if we can handle this modelId
 	 * @param string $modelId
-	 * @param \ContentHandler $handler
+	 * @param \ContentHandler &$handler
 	 * @return bool
 	 */
 	public static function onContentHandlerForModelID( $modelId, &$handler ) {
@@ -723,7 +725,7 @@ class JCSingleton {
 	 * Override a per-page specific edit page copyright warning
 	 *
 	 * @param Title $title
-	 * @param string[] $msg
+	 * @param string[] &$msg
 	 *
 	 * @return bool
 	 */
@@ -745,7 +747,7 @@ class JCSingleton {
 	 * Display a page-specific edit notice
 	 *
 	 * @param Title $title
-	 * @param integer $oldid
+	 * @param int $oldid
 	 * @param array &$notices
 	 * @return bool
 	 */
@@ -771,8 +773,8 @@ class JCSingleton {
 	 *
 	 * @param Title $title
 	 * @param string $type
-	 * @param string $msg
-	 * @param $link
+	 * @param string &$msg
+	 * @param string &$link
 	 *
 	 * @return bool
 	 */
@@ -907,10 +909,10 @@ class JCSingleton {
 	/**
 	 * Prohibit creation of the pages that are part of our namespaces but have not been explicitly
 	 * allowed. Bad capitalization is due to "userCan" hook name
-	 * @param Title $title
-	 * @param $user
+	 * @param Title &$title
+	 * @param User &$user
 	 * @param string $action
-	 * @param null $result
+	 * @param null &$result
 	 * @return bool
 	 */
 	public static function onuserCan(

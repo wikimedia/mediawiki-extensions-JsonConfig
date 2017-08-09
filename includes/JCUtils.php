@@ -167,7 +167,7 @@ class JCUtils {
 
 	/** Helper function to check if the given value is a valid string no longer than maxlength,
 	 * that it has no tabs or new line chars, and that it does not begin or end with spaces
-	 * @param $str
+	 * @param string $str
 	 * @param int $maxlength
 	 * @return bool
 	 */

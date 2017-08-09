@@ -23,7 +23,7 @@ class JCContent extends \TextContent {
 	private $rawData = null;
 	/** @var stdClass|array */
 	protected $data = null;
-	/** @var \Status */
+	/** @var Status */
 	private $status;
 	/** @var bool */
 	private $thorough;
@@ -74,13 +74,14 @@ class JCContent extends \TextContent {
 
 	/**
 	 * Get content status object
+	 * @return Status
 	 */
 	public function getStatus() {
 		return $this->status;
 	}
 
 	/**
-	 * @return bool: False if this configuration has parsing or validation errors
+	 * @return bool False if this configuration has parsing or validation errors
 	 */
 	public function isValid() {
 		return $this->status->isGood();
@@ -91,10 +92,11 @@ class JCContent extends \TextContent {
 		return $text === '' || $text === '{}';
 	}
 
-	/*
+	/**
 	 * Determines whether this content should be considered a "page" for statistics
 	 * In our case, just making sure it's not empty or a redirect
-	 *
+	 * @param bool $hasLinks
+	 * @return bool
 	 */
 	public function isCountable( $hasLinks = null ) {
 		return !$this->isEmpty() && !$this->isRedirect();

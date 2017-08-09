@@ -10,7 +10,7 @@ class JCLuaLibrary extends Scribunto_LuaLibraryBase {
 
 	/**
 	 * @param string $engine
-	 * @param string[] $extraLibraries
+	 * @param string[] &$extraLibraries
 	 *
 	 * @return bool
 	 */

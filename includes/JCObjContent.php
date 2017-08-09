@@ -86,7 +86,7 @@ abstract class JCObjContent extends JCContent {
 
 	/**
 	 * Call this function before performing data validation inside the derived validate()
-	 * @param $data
+	 * @param array|object $data
 	 * @throws \Exception
 	 * @return bool if true, validation should be performed, otherwise all checks will be ignored
 	 */
@@ -118,7 +118,10 @@ abstract class JCObjContent extends JCContent {
 		return null; // Data will be filter-cloned on demand inside self::getData()
 	}
 
-	/** Populate this data on-demand for efficiency */
+	/**
+	 * Populate this data on-demand for efficiency
+	 * @return array
+	 */
 	public function getData() {
 		if ( $this->data === null ) {
 			$this->data = JCUtils::sanitize( $this->validationData, true );
