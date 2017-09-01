@@ -48,7 +48,7 @@ class JCDefaultContentView extends JCContentView {
 	 * @param JCContent $content
 	 * @param mixed $data
 	 * @param array $path path to this field
-	 * @return string: HTML.
+	 * @return string HTML.
 	 */
 	public function renderValue( JCContent $content, $data, array $path ) {
 		$isList = $this->isList( $content, $data, $path );

@@ -39,7 +39,7 @@ class JCDefaultObjContentView extends JCDefaultContentView {
 	 * @param JCObjContent|JCContent $content
 	 * @param mixed|JCValue $data
 	 * @param array $path path to this field
-	 * @return string: HTML.
+	 * @return string HTML.
 	 */
 	public function renderValue( JCContent $content, $data, array $path ) {
 		if ( is_a( $data, '\JsonConfig\JCValue' ) ) {

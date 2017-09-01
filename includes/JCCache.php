@@ -48,7 +48,7 @@ class JCCache {
 
 	/**
 	 * Retrieves content.
-	 * @return string|JCContent|false: Content string/object or false if irretrievable.
+	 * @return string|JCContent|false Content string/object or false if irretrievable.
 	 */
 	public function get() {
 		if ( $this->content === null ) {
