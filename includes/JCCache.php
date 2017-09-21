@@ -94,9 +94,6 @@ class JCCache {
 		if ( !$value ) {
 			$value = '';
 			$exp = 10; // caching an error condition for short time
-			wfLogWarning(
-				"No content is available, caching empty '$this->titleValue' for $exp seconds"
-			);
 		} elseif ( !is_string( $value ) ) {
 			$value = $value->getNativeData();
 		}
