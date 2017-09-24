@@ -3,7 +3,6 @@ namespace JsonConfig;
 
 use ApiBase;
 use ApiResult;
-use ApiFormatJson;
 use Title;
 
 /**

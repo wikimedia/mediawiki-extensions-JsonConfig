@@ -4,7 +4,6 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 }
 
 use JsonConfig\JCObjContent;
-use JsonConfig\JCValidators;
 
 class TestObjectContent extends JCObjContent {
 	public function __construct( $text, $modelId, $thorough ) {
