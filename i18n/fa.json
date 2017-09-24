@@ -11,6 +11,7 @@
 	"jsonconfig-err-string": "پارامتر \"$1\" باید یک دسته باشد",
 	"jsonconfig-err-url": "پارامتر «$1» باید یک نشانی معتبر باشد",
 	"jsonconfig-optional-field": "(اختیاری)",
+	"jsonconfig-type-name-invalid": "نامعتبر",
 	"jsonconfig-type-name-string": "رشته",
 	"jsonconfig-type-name-number": "عدد",
 	"jsonconfig-type-name-boolean": "بولی",
