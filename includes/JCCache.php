@@ -201,8 +201,6 @@ class JCCache {
 				break;
 			}
 			if ( !isset( $res['revisions'][0]['*'] ) ) {
-				JCUtils::warn( 'Unable to get config content',
-					[ 'title' => $articleName, 'result' => $res ] );
 				break;
 			}
 
