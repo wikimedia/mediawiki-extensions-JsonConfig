@@ -19,6 +19,13 @@ $namespaceNames['en'] = [
 	487 => 'Data_talk',
 ];
 
+$namespaceNames['es'] = [
+	482 => 'Configuración',
+	483 => 'Configuración_discusión',
+	486 => 'Datos',
+	487 => 'Datos_discusión',
+];
+
 $namespaceNames['vi'] = [
 	482 => 'Cấu_hình',
 	483 => 'Thảo_luận_Cấu_hình',
