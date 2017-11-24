@@ -5,6 +5,7 @@
 		]
 	},
 	"jsonconfig-desc": "Permette 'a confugurazione JSON de essere reggistrate jndr'à 'na uicchi",
+	"jsonconfig-duplicate-field": "Acchiate cchiù de 'nu valore \"$1\"",
 	"jsonconfig-err-bool": "Parametre \"$1\" adda essere vere o fause",
 	"jsonconfig-err-string": "Parametre \"$1\" adda essere 'na stringhe",
 	"jsonconfig-optional-field": "(opzionale)",
@@ -14,5 +15,6 @@
 	"jsonconfig-type-name-number": "numere",
 	"jsonconfig-type-name-boolean": "booleane",
 	"jsonconfig-license": "Date disponibbile sotte a $1.",
-	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero"
+	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
+	"apihelp-jsonconfig-example-1": "Fà 'ndrucà 'a configurazione"
 }
