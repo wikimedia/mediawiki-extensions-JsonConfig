@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Rachmat.Wahidi",
-			"Presidenvolksraad"
+			"Presidenvolksraad",
+			"Rachmat04"
 		]
 	},
 	"jsonconfig-err-bool": "Parameter \"$1\" harus benar atau salah",

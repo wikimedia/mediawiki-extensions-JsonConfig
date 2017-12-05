@@ -1,6 +1,5 @@
 {
 	"@metadata": [],
-	"jsonconfig-bad-json": "Konfigurasi JSON tidak dapat dihuraikan. Sila semak sintaksnya.",
 	"jsonconfig-err-bool": "Parameter \"$1\" mestilah 'true' atau 'false'",
 	"jsonconfig-err-string": "Parameter \"$1\" mestilah berbentuk rentetan",
 	"jsonconfig-optional-field": "(tidak wajib)"
