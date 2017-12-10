@@ -878,10 +878,10 @@ class JCSingleton {
 
 	public static function onPageContentSaveComplete(
 		/** @noinspection PhpUnusedParameterInspection */
-		$article, $user, $content, $summary, $isMinor, $isWatch,
+		\WikiPage $wikiPage, $user, $content, $summary, $isMinor, $isWatch,
 		$section, $flags, $revision, $status, $baseRevId
 	) {
-		return self::onArticleChangeComplete( $article, $content );
+		return self::onArticleChangeComplete( $wikiPage, $content );
 	}
 
 	public static function onArticleDeleteComplete(
