@@ -461,7 +461,7 @@ class JCSingleton {
 		} elseif ( $value instanceof JCTitle ) {
 			// Nothing to do
 			return $value;
-		} elseif ( $namespace !== null && !is_integer( $namespace ) ) {
+		} elseif ( $namespace !== null && !is_int( $namespace ) ) {
 			throw new Exception( '$namespace parameter must be either null or an integer' );
 		}
 
