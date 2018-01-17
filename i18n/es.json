@@ -56,6 +56,7 @@
 	"apihelp-jsonconfig-example-2": "Restablecer [[Zero:TEST]]",
 	"apihelp-jsonconfig-example-3": "Restablecer [[Zero:TEST]]",
 	"apihelp-jsondata-description": "Recuperar los datos JSON localizados.",
+	"apihelp-jsondata-summary": "Recuperar datos en JSON regionalizados.",
 	"apihelp-jsondata-param-title": "Título que obtener. De manera predeterminada, asume que el espacio de nombres es «Data:»",
 	"apihelp-jsondata-example-1": "Obtener el contenido JSON de la página Sample.tab, localizada para el idioma del usuario",
 	"apihelp-jsondata-example-2": "Obtener el contenido JSON de la página Sample.tab localizada en francés",
