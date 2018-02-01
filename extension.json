@@ -7,7 +7,7 @@
 	"url": "https://www.mediawiki.org/wiki/Extension:JsonConfig",
 	"descriptionmsg": "jsonconfig-desc",
 	"type": "other",
-	"license-name": "GPL-2.0+",
+	"license-name": "GPL-2.0-or-later",
 	"namespaces": [
 		{
 			"id": 482,
