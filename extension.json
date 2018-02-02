@@ -8,6 +8,9 @@
 	"descriptionmsg": "jsonconfig-desc",
 	"type": "other",
 	"license-name": "GPL-2.0-or-later",
+	"requires": {
+		"MediaWiki": ">= 1.29.0"
+	},
 	"namespaces": [
 		{
 			"id": 482,
