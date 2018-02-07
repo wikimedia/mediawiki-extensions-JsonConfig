@@ -78,8 +78,7 @@
 				"JsonConfig.css",
 				"tabular-general.less",
 				"tabular-table.less"
-			],
-			"position": "top"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {
