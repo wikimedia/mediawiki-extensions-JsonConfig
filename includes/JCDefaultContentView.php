@@ -75,7 +75,7 @@ class JCDefaultContentView extends JCContentView {
 			} else {
 				$res =
 					Html::rawElement( 'table', [ 'class' => 'mw-jsonconfig' ],
-						Html::rawElement( 'tbody', null, join( "\n", $rows ) ) );
+						Html::rawElement( 'tbody', null, implode( "\n", $rows ) ) );
 			}
 		} else {
 			if ( is_string( $data ) ) {
