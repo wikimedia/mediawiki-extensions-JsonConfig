@@ -3,7 +3,8 @@
 		"authors": [
 			"Liuxinyu970226",
 			"Cwlin0416",
-			"Yurik"
+			"Yurik",
+			"Hello903hello"
 		]
 	},
 	"jsonconfig-desc": "允許在 Wiki 儲存 JSON 設定",
@@ -22,5 +23,5 @@
 	"jsonconfig-move-aborted-ns": "新頁面的標題未設定要儲存 JSON 設定",
 	"jsonconfig-optional-field": "(選填)",
 	"jsonconfig-type-name-invalid": "無效",
-	"jsonconfig-license-name-CC0-1.0": "創用 CC CC0"
+	"jsonconfig-license-name-CC0-1.0": "創用CC CC0"
 }
