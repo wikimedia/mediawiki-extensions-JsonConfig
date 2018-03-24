@@ -4,10 +4,13 @@
 			"Reza1615",
 			"Mjbmr",
 			"Ebraminio",
-			"Huji"
+			"Huji",
+			"Ladsgroup"
 		]
 	},
+	"jsonconfig-duplicate-field": "بیشتر از یک مقدار برای «$1» یافت شده‌است",
 	"jsonconfig-err-bool": "پارامتر \"$1\" باید درست یا نادرست باشد",
+	"jsonconfig-err-integer": "پارامتر «$1» باید عدد باشد",
 	"jsonconfig-err-string": "پارامتر \"$1\" باید یک دسته باشد",
 	"jsonconfig-err-url": "پارامتر «$1» باید یک نشانی معتبر باشد",
 	"jsonconfig-optional-field": "(اختیاری)",
@@ -15,5 +18,8 @@
 	"jsonconfig-type-name-string": "رشته",
 	"jsonconfig-type-name-number": "عدد",
 	"jsonconfig-type-name-boolean": "بولی",
-	"right-jsonconfig-flush": "کنترل جی‌سان کانفیگ توسط رابط برنامه‌نویسی"
+	"jsonconfig-license": "داده‌ها تحت مجوز $1 در دسترس هستند",
+	"jsonconfig-license-name-CC0-1.0": "کریتیو کامنز صفر",
+	"right-jsonconfig-flush": "کنترل جی‌سان کانفیگ توسط رابط برنامه‌نویسی",
+	"apihelp-jsonconfig-example-1": "نمایش تنظیمات"
 }
