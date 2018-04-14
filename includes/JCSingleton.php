@@ -27,7 +27,7 @@ use User;
  * @ingroup JsonConfig
  * @author Yuri Astrakhan
  * @copyright © 2013 Yuri Astrakhan
- * @license GNU General Public Licence 2.0 or later
+ * @license GPL-2.0-or-later
  */
 class JCSingleton {
 	/**

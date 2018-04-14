@@ -8,7 +8,7 @@
  * @author Yuri Astrakhan <yurik@wikimedia.org>
  * @copyright © 2013 Yuri Astrakhan
  * @note Some of the code and ideas were based on Ori Livneh <ori@wikimedia.org> schema extension
- * @license GNU General Public Licence 2.0 or later
+ * @license GPL-2.0-or-later
  */
 
 if ( function_exists( 'wfLoadExtension' ) ) {
