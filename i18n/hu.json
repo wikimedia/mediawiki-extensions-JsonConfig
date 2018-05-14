@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Bináris"
+			"Bináris",
+			"Máté"
 		]
 	},
-	"jsonconfig-desc": "Lehetővé teszi JSON-konfiguráció tárolását egy wikiben"
+	"jsonconfig-desc": "Lehetővé teszi JSON-konfiguráció tárolását egy wikiben",
+	"jsonconfig-type-name-string": "karakterlánc"
 }
