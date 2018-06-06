@@ -95,7 +95,7 @@ class JCContent extends \TextContent {
 	/**
 	 * Determines whether this content should be considered a "page" for statistics
 	 * In our case, just making sure it's not empty or a redirect
-	 * @param bool $hasLinks
+	 * @param bool|null $hasLinks
 	 * @return bool
 	 */
 	public function isCountable( $hasLinks = null ) {

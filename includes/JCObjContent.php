@@ -158,8 +158,8 @@ abstract class JCObjContent extends JCContent {
 	 * @param mixed $default value to be used in case field is not found. $default is passed to the
 	 *        validator if validation fails. If validation of the default passes,
 	 *        the value is considered optional.
-	 * @param callable $validator callback function as defined in JCValidators::run(). More than one
-	 *        validator may be given. If validators are not provided, any value is accepted
+	 * @param callable|null $validator callback function as defined in JCValidators::run(). More than
+	 *        one  validator may be given. If validators are not provided, any value is accepted
 	 * @return bool true if ok, false otherwise
 	 * @throws \Exception if $this->initValidation() was not called.
 	 */
@@ -437,7 +437,7 @@ abstract class JCObjContent extends JCContent {
 
 	/** Get field from data object/array
 	 * @param string|int|array $field
-	 * @param stdClass|array|JCValue $data
+	 * @param stdClass|array|JCValue|null $data
 	 * @throws \Exception
 	 * @return false|null|JCValue search result:
 	 *      false if not found
