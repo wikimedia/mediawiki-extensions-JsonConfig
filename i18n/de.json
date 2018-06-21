@@ -49,6 +49,7 @@
 	"apihelp-jsonconfig-example-2": "[[Zero:TEST]] zurücksetzen",
 	"apihelp-jsonconfig-example-3": "[[Zero:TEST]] neu laden",
 	"apihelp-jsondata-description": "Ruft lokalisierte JSON-Daten ab.",
+	"apihelp-jsondata-summary": "Ruft lokalisierte JSON-Daten ab.",
 	"apihelp-jsondata-param-title": "Abzurufender Titel. Standardmäßig wird der Namensraum „Data:“ angenommen.",
 	"apihelp-jsondata-example-1": "Ruft den JSON-Inhalt für die Seite Sample.tab, lokalisiert in die Benutzersprache, ab.",
 	"apihelp-jsondata-example-2": "Ruft den JSON-Inhalt für die Seite Sample.tab, lokalisiert in Französisch, ab.",
