@@ -2,9 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Chrumps",
-			"Openbk"
+			"Openbk",
+			"Railfail536"
 		]
 	},
+	"jsonconfig-desc": "Umożliwia przechowywanie na wiki konfiguracji JSON",
 	"jsonconfig-duplicate-field": "Znaleziono więcej niż jedną wartość „$1”",
 	"jsonconfig-err-array": "Parametr „$1” musi być listą, np. [„wartość1”, „wartość2”, ...]",
 	"jsonconfig-err-assoc-array": "Parametr „$1” musi być tablicą asocjacyjną (słownikiem), np. {„klucz”: „wartość”, ...}",
