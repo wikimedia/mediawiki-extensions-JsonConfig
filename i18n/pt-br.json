@@ -44,7 +44,7 @@
 	"jsonconfig-license": "Dado disponível abaixo de $1.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
 	"jsonconfig-license-url-CC0-1.0": "https://creativecommons.org/publicdomain/zero/1.0/",
-	"jsonconfig-license-copyrightwarning-CC0-1.0": "Ao salvar as alterações, você concorda com os [https://wikimediafoundation.org/wiki/Terms_of_Use Termos de Uso], e você concorda irrevogavelmente em divulgar sua contribuição para o domínio público sob [https://creativecommons.org/publicdomain/zero/1.0/ CC0].",
+	"jsonconfig-license-copyrightwarning-CC0-1.0": "Ao salvar as alterações, você concorda com os [https://foundation.wikimedia.org/wiki/Terms_of_Use Termos de Uso], e você concorda irrevogavelmente em divulgar sua contribuição para o domínio público sob [https://creativecommons.org/publicdomain/zero/1.0/ CC0].",
 	"jsonconfig-license-notice-CC0-1.0": "'''Nota:''' Quando você edita esta página, você concorda em lançar sua contribuição no [https://creativecommons.org/publicdomain/zero/1.0/ CC0].",
 	"right-jsonconfig-flush": "Manipular JsonConfig através da API",
 	"action-jsonconfig-flush": "manipular JsonConfig através da API",

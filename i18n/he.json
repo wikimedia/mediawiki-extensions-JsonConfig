@@ -39,7 +39,7 @@
 	"jsonconfig-type-name-boolean": "בוליאני",
 	"jsonconfig-license": "הנתונים זמינים תחת $1.",
 	"jsonconfig-license-name-CC0-1.0": "קריאייטיב קומונז אפס",
-	"jsonconfig-license-copyrightwarning-CC0-1.0": "שמירת השינויים מהווה את הסכמתך ל[https://wikimediafoundation.org/wiki/Terms_of_Use תנאי השימוש], ואת הסכמתך הבלתי־חוזרת לשחרר את התרומה שלך לנחלת הכלל לפי תנאי [https://creativecommons.org/publicdomain/zero/1.0/ CC0].",
+	"jsonconfig-license-copyrightwarning-CC0-1.0": "שמירת השינויים מהווה את הסכמתך ל[https://foundation.wikimedia.org/wiki/Terms_of_Use תנאי השימוש], ואת הסכמתך הבלתי־חוזרת לשחרר את התרומה שלך לנחלת הכלל לפי תנאי [https://creativecommons.org/publicdomain/zero/1.0/ CC0].",
 	"jsonconfig-license-notice-CC0-1.0": "'''הערה:''' בעריכת הדף הזה, אתם מסכימים לשחרר את תרומתכם בכפוף לתנאי [https://creativecommons.org/publicdomain/zero/1.0/ CC0].",
 	"right-jsonconfig-flush": "טיפול ב־JsonConfig באמצעות API",
 	"action-jsonconfig-flush": "לשלוט ב־JsonConfig דרך API",

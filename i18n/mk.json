@@ -43,7 +43,7 @@
 	"jsonconfig-license": "Податоците се достапни под $1.",
 	"jsonconfig-license-name-CC0-1.0": "Криејтив комонс Нула",
 	"jsonconfig-license-url-CC0-1.0": "https://creativecommons.org/publicdomain/zero/1.0/deed.mk",
-	"jsonconfig-license-copyrightwarning-CC0-1.0": "Зачувувајќи ги промените, се согласувате со [https://wikimediafoundation.org/wiki/Terms_of_Use Условите на употреба] и неотповикливо се согласувате дека вашите придонеси ќе ги објавувате во јавна сопственост под лиценцата [https://creativecommons.org/publicdomain/zero/1.0/deed.mk CC0].",
+	"jsonconfig-license-copyrightwarning-CC0-1.0": "Зачувувајќи ги промените, се согласувате со [https://foundation.wikimedia.org/wiki/Terms_of_Use Условите на употреба] и неотповикливо се согласувате дека вашите придонеси ќе ги објавувате во јавна сопственост под лиценцата [https://creativecommons.org/publicdomain/zero/1.0/deed.mk CC0].",
 	"jsonconfig-license-notice-CC0-1.0": "'''Напомена:''' Кога ја уредувате страницава, се согласувате дека вашите придонеси ќе ги објавувате под лиценцата [https://creativecommons.org/publicdomain/zero/1.0/deed.mk CC0].",
 	"right-jsonconfig-flush": "Работа со JsonConfig преку извршник",
 	"action-jsonconfig-flush": "работа со JsonConfig преку приложник",
