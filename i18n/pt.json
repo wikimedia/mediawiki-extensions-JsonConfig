@@ -13,7 +13,7 @@
 	"jsonconfig-err-array-count": "A lista \"$1\" tem $2 {{PLURAL:$2|valor|valores}}, mas tem de ter $3 {{PLURAL:$3|valor|valores}}, o mesmo número de valores que \"$4\"",
 	"jsonconfig-err-array-expected": "Era esperado que o valor em \"$1\" fosse uma lista delimitada por parênteses retos […]",
 	"jsonconfig-err-assoc-array": "O parâmetro \"$1\" tem de ser uma matriz associativa (dicionário), por exemplo, {\"chave\": \"valor\", ...}",
-	"jsonconfig-err-bad-header-string": "O cabeçalho \"$1\" tem de consistir unicamente de letras, números e espaços sublinhados, e não pode começar por um número",
+	"jsonconfig-err-bad-header-string": "O cabeçalho \"$1\" tem de consistir unicamente em letras, números e espaços sublinhados, e não pode começar por um número",
 	"jsonconfig-err-bad-geojson": "O parâmetro \"$1\" tem de ser um objeto válido de dados GeoJSON, ou uma matriz de objetos GeoJSON. Se o campo \"properties\" (propriedades) contém \"title\" (título) ou \"description\" (descrição), eles têm de ser linhas únicas de texto sem tabulações nem espaços no final, ou objetos multilingues de tais textos, por exemplo, {\"pt\":\"Texto em português\", ... }",
 	"jsonconfig-err-bad-type": "O parâmetro \"$1\" tem de ser de um tipo válido, como \"string\" (texto), \"number\" (número) ou \"boolean\" (booleano)",
 	"jsonconfig-err-bool": "O parâmetro \"$1\" tem de ter o valor \"true\" (verdadeiro) ou \"false\" (falso)",
