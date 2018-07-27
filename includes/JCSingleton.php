@@ -574,7 +574,7 @@ class JCSingleton {
 	/**
 	 * Only register NS_CONFIG if running on the MediaWiki instance which houses
 	 * the JSON configs (i.e. META)
-	 * @TODO FIXME: Always return true
+	 * @todo FIXME: Always return true
 	 * @param array &$namespaces
 	 * @return true|void
 	 */
