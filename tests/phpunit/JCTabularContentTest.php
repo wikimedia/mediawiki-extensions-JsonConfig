@@ -12,13 +12,21 @@ use Scribunto_LuaLibraryBase;
 /**
  * @package JsonConfigTests
  * @group JsonConfig
+ * @covers \JsonConfig\JCTabularContent
  */
 class JCTabularContentTest extends MediaWikiTestCase {
-	private $basePath;
 
-	public function __construct( $name = null, array $data = [], $dataName = '' ) {
-		parent::__construct( $name, $data, $dataName );
-		$this->basePath = __DIR__;
+	public function getAnnotations() {
+		// HACK phpunit can't handle @covers annotations referring to classes which cannot be loaded
+		$annotations = parent::getAnnotations();
+		if (
+			$this->getName( false ) === 'testLuaTabDataReindexing'
+			&& class_exists( Scribunto_LuaLibraryBase::class )
+		) {
+			unset( $annotations['method']['@coversNothing'] );
+			$annotations['method']['@covers'][0] = '\JsonConfig\JCLuaLibrary::reindexTabularData';
+		}
+		return $annotations;
 	}
 
 	/**
@@ -27,7 +35,7 @@ class JCTabularContentTest extends MediaWikiTestCase {
 	 * @param bool $thorough
 	 */
 	public function testValidateContent( $fileName, $thorough ) {
-		$file = $this->basePath . '/' . $fileName;
+		$file = __DIR__ . '/' . $fileName;
 		$content = file_get_contents( $file );
 		if ( $content === false ) {
 			$this->fail( "Can't read file $file" );
@@ -63,8 +71,8 @@ class JCTabularContentTest extends MediaWikiTestCase {
 	public function provideTestCases() {
 		$result = [];
 
-		foreach ( glob( "{$this->basePath}/tabular-good/*.json" ) as $file ) {
-			$file = substr( $file, strlen( $this->basePath ) + 1 );
+		foreach ( glob( __DIR__ . "/tabular-good/*.json" ) as $file ) {
+			$file = substr( $file, strlen( __DIR__ ) + 1 );
 			$result[] = [ $file, false ];
 			$result[] = [ $file, true ];
 		}
@@ -77,7 +85,7 @@ class JCTabularContentTest extends MediaWikiTestCase {
 	 * @param string $fileName
 	 */
 	public function testValidateBadContent( $fileName ) {
-		$file = $this->basePath . '/' . $fileName;
+		$file = __DIR__ . '/' . $fileName;
 		$content = file_get_contents( $file );
 		if ( $content === false ) {
 			$this->fail( "Can't read file $file" );
@@ -90,8 +98,8 @@ class JCTabularContentTest extends MediaWikiTestCase {
 	public function provideBadTestCases() {
 		$result = [];
 
-		foreach ( glob( "{$this->basePath}/tabular-bad/*.json" ) as $file ) {
-			$file = substr( $file, strlen( $this->basePath ) + 1 );
+		foreach ( glob( __DIR__ . "/tabular-bad/*.json" ) as $file ) {
+			$file = substr( $file, strlen( __DIR__ ) + 1 );
 			$result[] = [ $file ];
 		}
 
@@ -100,6 +108,7 @@ class JCTabularContentTest extends MediaWikiTestCase {
 
 	/**
 	 * @dataProvider provideLuaReindexingTests
+	 * @coversNothing
 	 * @param int $fieldCount
 	 * @param array $data
 	 * @param array $expected

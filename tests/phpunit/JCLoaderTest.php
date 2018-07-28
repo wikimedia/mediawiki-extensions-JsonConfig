@@ -8,10 +8,12 @@ use stdClass;
 /**
  * @package JsonConfigTests
  * @group JsonConfig
+ * @covers \JsonConfig\JCSingleton
 */
 class JCLoaderTest extends MediaWikiTestCase {
 
-	/** @dataProvider provideConfigs
+	/**
+	 * @dataProvider provideConfigs
 	 * @param $config
 	 * @param bool|stdClass $expected
 	 */
