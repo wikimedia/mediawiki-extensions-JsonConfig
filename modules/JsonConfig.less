@@ -5,6 +5,7 @@
  * @author Yuri Astrakhan (yurik/at/wikimedia.org), adapted from Munaf Assaf <massaf@wikimedia.org>
  * @ingroup Extensions
  */
+@import 'mediawiki.mixins';
 
 .mw-jsonconfig {
 	border-collapse: collapse;
@@ -96,9 +97,69 @@
 	background-color: #fff;
 	font-size: 95%;
 	vertical-align: middle;
+	min-height: 30px;
 }
 
-.mw-jsonconfig-editnotice-icon {
-	padding: 1em;
-	width: 30px;
+.mw-jsonconfig-editnotice-footer {
+	clear: both;
+}
+
+.mw-jsonconfig-editnotice-icon-CC0 {
+	.background-image-svg('images/PD-icon.svg', 'images/PD-icon.png');
+	.background-size( 30px, auto );
+	background-position: left center;
+	background-repeat: no-repeat;
+	display: block;
+	height: 30px;
+	padding-left: 20px;
+	padding-right: 20px;
+	float: right;
+}
+
+.mw-jsonconfig-editnotice-icon-CC {
+	.background-image-svg('images/CC_some_rights_reserved.svg', 'images/CC_some_rights_reserved.png');
+	.background-size( 80px, auto );
+	background-position: left center;
+	background-repeat: no-repeat;
+	display: block;
+	height: 30px;
+	padding-left: 40px;
+	padding-right: 40px;
+	float: right;
+}
+
+.mw-jsonconfig-editnotice-icon-BY {
+	.background-image-svg('images/Cc-by_new_white.svg', 'images/CC_some_rights_reserved.png');
+	.background-size( 24px, auto );
+	background-position: left center;
+	background-repeat: no-repeat;
+	display: block;
+	height: 30px;
+	padding-left: 15px;
+	padding-right: 15px;
+	float: right;
+}
+
+.mw-jsonconfig-editnotice-icon-SA {
+	.background-image-svg('images/Cc-sa_white.svg', 'images/Cc-sa_white.png');
+	.background-size( 24px, auto );
+	background-position: left center;
+	background-repeat: no-repeat;
+	display: block;
+	height: 30px;
+	padding-left: 15px;
+	padding-right: 15px;
+	float: right;
+}
+
+.mw-jsonconfig-editnotice-icon-ODbL {
+	.background-image-svg('images/ODbL_LOGO.svg', 'images/ODbL_LOGO.png');
+	.background-size( 165px, auto );
+	background-position: left center;
+	background-repeat: no-repeat;
+	display: block;
+	height: 45px;
+	padding-left: 165px;
+	padding-right: 15px;
+	float: right;
 }
