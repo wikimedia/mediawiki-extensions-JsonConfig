@@ -45,6 +45,9 @@
 	"ExtensionMessagesFiles": {
 		"JsonConfigNamespaces": "JsonConfig.namespaces.php"
 	},
+	"RawHtmlMessages": [
+		"jsonconfig-license"
+	],
 	"AutoloadClasses": {
 		"JsonConfig\\FauxInterwikiLookup": "includes/FauxInterwikiLookup.php",
 		"JsonConfig\\JCApi": "includes/JCApi.php",
