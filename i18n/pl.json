@@ -23,5 +23,6 @@
 	"right-jsonconfig-flush": "Zmienianie JsonConfig przez API",
 	"action-jsonconfig-flush": "zmieniania JsonConfig przez API",
 	"apihelp-jsonconfig-example-1": "Pokaż konfigurację",
-	"apihelp-jsondata-description": "Odbierz zlokalizowane dane JSON."
+	"apihelp-jsondata-description": "Odbierz zlokalizowane dane JSON.",
+	"apierror-jsonconfig-paramrequired": "Dla tego polecenia wymagany jest parametr <var>$1</ var>."
 }
