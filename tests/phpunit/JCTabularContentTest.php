@@ -7,6 +7,7 @@ use JsonConfig\JCLuaLibrary;
 use JsonConfig\JCTabularContent;
 use Language;
 use MediaWikiTestCase;
+use Scribunto_LuaLibraryBase;
 
 /**
  * @package JsonConfigTests
@@ -104,7 +105,7 @@ class JCTabularContentTest extends MediaWikiTestCase {
 	 * @param array $expected
 	 */
 	public function testLuaTabDataReindexing( $fieldCount, $data, $expected ) {
-		if ( !class_exists( 'Scribunto_LuaLibraryBase' ) ) {
+		if ( !class_exists( Scribunto_LuaLibraryBase::class ) ) {
 			$this->markTestSkipped( "Scribunto is required for this integration test" );
 		}
 
