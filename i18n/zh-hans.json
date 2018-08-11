@@ -41,8 +41,6 @@
 	"jsonconfig-license": "数据基于$1可用。",
 	"jsonconfig-license-name-CC0-1.0": "知识共享CC0",
 	"jsonconfig-license-url-CC0-1.0": "https://creativecommons.org/publicdomain/zero/1.0/deed.zh",
-	"jsonconfig-license-copyrightwarning-CC0-1.0": "保存更改即表示您同意[https://foundation.wikimedia.org/wiki/Terms_of_Use 使用条款]，并不可撤销地同意依据[https://creativecommons.org/publicdomain/zero/1.0/deed.zh CC0]将您的贡献发表在公有领域。",
-	"jsonconfig-license-notice-CC0-1.0": "'''注意：'''当您编辑此页面时，您同意将您的贡献以[https://creativecommons.org/publicdomain/zero/1.0/deed.zh CC0]协议发布。",
 	"right-jsonconfig-flush": "通过API操作JsonConfig",
 	"action-jsonconfig-flush": "通过API操作JsonConfig",
 	"apihelp-jsonconfig-description": "允许直接访问JsonConfig子系统。",

@@ -26,7 +26,6 @@
 	"jsonconfig-type-name-number": "nummer",
 	"jsonconfig-type-name-boolean": "boolesk",
 	"jsonconfig-license": "Data tillgänglig under $1.",
-	"jsonconfig-license-copyrightwarning-CC0-1.0": "Genom att spara ändringar samtycker du till [https://foundation.wikimedia.org/wiki/Terms_of_Use användarvillkoren] och oåterkalleligen går med på att släppa ditt bidrag som allmän egendom under [https://creativecommons.org/publicdomain/zero/1.0/ CC0].",
 	"apihelp-jsonconfig-description": "Ger direkt åtkomst till JsonConfig-undersystemet.",
 	"apihelp-jsonconfig-param-command": "Wilken underåtgärd som ska utföras på JsonConfig:\n;status:Visar JsonConfig-konfiguration.\n;reset:Rensar konfigurationer från cache. Kräver $1title parametern och jsonconfig-reset-rättighet.\n;reload:Ladda om och cachar konfigurationer från config-lagringen.  Kräver $1title parametern och jsonconfig-reset-rättighet.",
 	"apihelp-jsonconfig-param-title": "Titel att bearbeta utan namnrymdsprefix.",
