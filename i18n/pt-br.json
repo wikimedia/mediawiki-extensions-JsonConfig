@@ -3,7 +3,8 @@
 		"authors": [
 			"Araceletorres",
 			"Yurik",
-			"Felipe L. Ewald"
+			"Felipe L. Ewald",
+			"Eduardo Addad de Oliveira"
 		]
 	},
 	"jsonconfig-desc": "Permite que a configuração JSON seja armazenada na wiki",
@@ -42,8 +43,13 @@
 	"jsonconfig-type-abbr-boolean": "(B)",
 	"jsonconfig-type-name-boolean": "booleano",
 	"jsonconfig-license": "Dado disponível abaixo de $1.",
+	"jsonconfig-license-not-set": "Ao editar esta página, você concorda em liberar sua contribuição de acordo com a licença especificada no campo \"licença\".",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
 	"jsonconfig-license-url-CC0-1.0": "https://creativecommons.org/publicdomain/zero/1.0/",
+	"jsonconfig-license-copyrightwarning": "Ao salvar as alterações, você concorda com o [https://foundation.wikimedia.org/wiki/Terms_of_Use/pt-br Termos de uso], e você irrevogavelmente concorda em liberar sua contribuição sob [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
+	"jsonconfig-license-copyrightwarning-license-unset": "Ao salvar as alterações, você concorda com o [https://foundation.wikimedia.org/wiki/Terms_of_Use/pt-br Termos de uso], e você concorda irrevogavelmente em liberar sua contribuição de acordo com a licença especificada no campo 'licença'.",
+	"jsonconfig-license-notice": "'''Nota:''' Ao editar esta página, você concorda em liberar sua contribuição sob [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
+	"jsonconfig-license-notice-license-unset": "'''Nota:''' Ao editar esta página, você concorda em liberar sua contribuição de acordo com a licença especificada no campo de 'licença'.",
 	"right-jsonconfig-flush": "Manipular JsonConfig através da API",
 	"action-jsonconfig-flush": "manipular JsonConfig através da API",
 	"apihelp-jsonconfig-description": "Permite acesso direto ao subsistema JsonConfig.",

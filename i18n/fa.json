@@ -16,6 +16,7 @@
 	"jsonconfig-optional-field": "(اختیاری)",
 	"jsonconfig-type-name-invalid": "نامعتبر",
 	"jsonconfig-type-name-string": "رشته",
+	"jsonconfig-type-name-localized": "محلی",
 	"jsonconfig-type-name-number": "عدد",
 	"jsonconfig-type-name-boolean": "بولی",
 	"jsonconfig-license": "داده‌ها تحت مجوز $1 در دسترس هستند",

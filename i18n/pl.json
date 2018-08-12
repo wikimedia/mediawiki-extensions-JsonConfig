@@ -20,6 +20,7 @@
 	"jsonconfig-type-name-boolean": "wartość logiczna",
 	"jsonconfig-license": "Dane dostępne w ramach licencji $1.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
+	"jsonconfig-license-copyrightwarning-license-unset": "Zapisując zmiany, wyrażasz zgodę na [https://foundation.wikimedia.org/wiki/Terms_of_Use/pl Warunki użytkowania], a nieodwołalnie zgadzasz się na udostępnienie swojego udziału zgodnie z licencją określoną w polu 'licencja'.",
 	"right-jsonconfig-flush": "Zmienianie JsonConfig przez API",
 	"action-jsonconfig-flush": "zmieniania JsonConfig przez API",
 	"apihelp-jsonconfig-example-1": "Pokaż konfigurację",

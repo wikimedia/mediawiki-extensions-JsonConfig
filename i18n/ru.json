@@ -8,7 +8,8 @@
 			"MaxBioHazard",
 			"Yurik",
 			"Mailman",
-			"Facenapalm"
+			"Facenapalm",
+			"Vlad5250"
 		]
 	},
 	"jsonconfig-desc": "Позволяет хранить настройки JSON в вики-проекте",
@@ -33,6 +34,11 @@
 	"jsonconfig-type-name-string": "строка",
 	"jsonconfig-type-name-number": "число",
 	"jsonconfig-type-name-boolean": "логическое значение",
+	"jsonconfig-license-not-set": "Когда вы редактируете страницу, вы соглашаетесь с тем, что публикуете свой вклад под лицензией, указанной в поле 'лицензия'.",
+	"jsonconfig-license-copyrightwarning": "Сохраняя изменения, вы соглашаетесь с [https://foundation.wikimedia.org/wiki/Terms_of_Use/ru Условиями использования], и неотзывно соглашаетесь публиковать ваш вклад под лицензией [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
+	"jsonconfig-license-copyrightwarning-license-unset": "Сохраняя изменения, вы соглашаетесь с [https://foundation.wikimedia.org/wiki/Terms_of_Use/ru Условиями использования], и неотзывно соглашаетесь публиковать ваш вклад под лицензией, указанной в поле 'лицензия'.",
+	"jsonconfig-license-notice": "'''Замечание:''' Когда вы редактируете страницу, вы соглашаетесь с тем, что публикуете свой вклад под лицензией [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
+	"jsonconfig-license-notice-license-unset": "'''Замечание:''' Когда вы редактируете страницу, вы соглашаетесь с тем, что публикуете свой вклад под лицензией, указанной в поле 'лицензия'.",
 	"right-jsonconfig-flush": "управление JsonConfig через API",
 	"apihelp-jsonconfig-description": "Обеспечивает прямой доступ к подсистеме JsonConfig.",
 	"apihelp-jsonconfig-param-title": "Заголовок для обработки без префикса пространства имён.",
