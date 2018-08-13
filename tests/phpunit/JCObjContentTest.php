@@ -9,6 +9,7 @@ use MediaWikiTestCase;
 /**
  * @package JsonConfigTests
  * @group JsonConfig
+ * @covers \JsonConfig\JCObjContent
 */
 class JCObjContentTest extends MediaWikiTestCase {
 

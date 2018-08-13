@@ -3,6 +3,7 @@ namespace JsonConfig\Tests;
 
 use Exception;
 use JsonConfig\JCSingleton;
+use JsonConfig\JCTitle;
 use MediaWikiTestCase;
 
 /**
@@ -52,7 +53,9 @@ class JCTitleParsingTest extends MediaWikiTestCase {
 		list( JCSingleton::$titleMap, JCSingleton::$namespaces ) = $this->configBackup;
 	}
 
-	/** @dataProvider provideValues
+	/**
+	 * @dataProvider provideValues
+	 * @covers \JsonConfig\JCSingleton::parseTitle
 	 * @param $value
 	 * @param $ns
 	 * @param bool|null|string $expected false if unrecognized namespace,
@@ -64,7 +67,7 @@ class JCTitleParsingTest extends MediaWikiTestCase {
 		if ( !$expected ) {
 			$this->assertSame( $expected, $actual );
 		} else {
-			$this->assertInstanceOf( 'JsonConfig\JCTitle', $actual );
+			$this->assertInstanceOf( JCTitle::class, $actual );
 			$this->assertSame( $expected, $actual->getDBkey() );
 			$this->assertSame( $ns, $actual->getNamespace() );
 			$this->assertNotNull( $actual->getConfig() );
