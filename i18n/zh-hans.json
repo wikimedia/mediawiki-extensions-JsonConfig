@@ -5,7 +5,8 @@
 			"Hudafu",
 			"NigelSoft",
 			"御坂美琴",
-			"Yurik"
+			"Yurik",
+			"Hanyanbo98"
 		]
 	},
 	"jsonconfig-desc": "允许JSON配置存储在wiki中",
@@ -39,8 +40,13 @@
 	"jsonconfig-type-name-number": "数值",
 	"jsonconfig-type-name-boolean": "布尔值",
 	"jsonconfig-license": "数据基于$1可用。",
+	"jsonconfig-license-not-set": "编辑此页面时，您同意根据“licence”中指定的许可证发布您的贡献。",
 	"jsonconfig-license-name-CC0-1.0": "知识共享CC0",
 	"jsonconfig-license-url-CC0-1.0": "https://creativecommons.org/publicdomain/zero/1.0/deed.zh",
+	"jsonconfig-license-copyrightwarning": "保存更改，即表示您同意[https://foundation.wikimedia.org/wiki/Terms_of_Use 使用条款]，并且您同意不可撤销地在 [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}]下发布您的贡献。",
+	"jsonconfig-license-copyrightwarning-license-unset": "保存更改即表示您同意[https://foundation.wikimedia.org/wiki/Terms_of_Use 使用条款]，并且您同意根据“licence”中指定的许可证不可撤销地发布您的贡献。",
+	"jsonconfig-license-notice": "'''注意：''' 编辑此页面时，您同意在[{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}]下发布您的贡献。",
+	"jsonconfig-license-notice-license-unset": "'''注意：''' 编辑此页面时，您同意根据“licence”中指定的许可证发布您的贡献。",
 	"right-jsonconfig-flush": "通过API操作JsonConfig",
 	"action-jsonconfig-flush": "通过API操作JsonConfig",
 	"apihelp-jsonconfig-description": "允许直接访问JsonConfig子系统。",
