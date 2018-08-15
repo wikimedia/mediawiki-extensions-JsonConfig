@@ -29,6 +29,14 @@ class FauxInterwikiLookup implements InterwikiLookup {
 	}
 
 	/**
+	 * We don't care about local interwikis in this faux lookup
+	 * @inheritDoc
+	 */
+	public function isLocalInterwiki( $prefix ) {
+		return false;
+	}
+
+	/**
 	 * Fetch an Interwiki object
 	 *
 	 * @param string $prefix Interwiki prefix to use
