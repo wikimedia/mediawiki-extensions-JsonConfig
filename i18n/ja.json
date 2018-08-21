@@ -6,7 +6,8 @@
 			"Akki-102525",
 			"Thibaut120094",
 			"Yurik",
-			"Yusuke1109"
+			"Yusuke1109",
+			"Kkairri"
 		]
 	},
 	"jsonconfig-desc": "JSON設定をwikiに保存できるようにする",
@@ -21,6 +22,7 @@
 	"jsonconfig-type-name-string": "文字列",
 	"jsonconfig-type-name-number": "数値",
 	"jsonconfig-type-name-boolean": "ブール型",
+	"jsonconfig-license": "データは$1の下で利用できます。",
 	"jsonconfig-license-name-CC0-1.0": "クリエイティブ・コモンズ・ゼロ",
 	"right-jsonconfig-flush": "API を経由して JsonConfig を操作する",
 	"apihelp-jsonconfig-description": "JsonConfig サブシステムに直接アクセスできるようにします。",
