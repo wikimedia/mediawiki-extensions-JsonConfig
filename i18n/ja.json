@@ -7,7 +7,8 @@
 			"Thibaut120094",
 			"Yurik",
 			"Yusuke1109",
-			"Kkairri"
+			"Kkairri",
+			"Suyama"
 		]
 	},
 	"jsonconfig-desc": "JSON設定をwikiに保存できるようにする",
@@ -17,6 +18,7 @@
 	"jsonconfig-err-integer": "パラメーター「$1」は整数でなければなりません",
 	"jsonconfig-err-number": "パラメーター「$1」は数値でなければなりません",
 	"jsonconfig-err-string": "パラメーター「$1」は文字列でなければなりません",
+	"jsonconfig-err-url": "引数「$1」には有効な URL を指定してください",
 	"jsonconfig-optional-field": "(省略可能)",
 	"jsonconfig-type-name-invalid": "無効",
 	"jsonconfig-type-name-string": "文字列",
