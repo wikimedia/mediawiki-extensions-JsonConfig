@@ -730,7 +730,7 @@ class JCSingleton {
 	 */
 	private static function getTitleLicenseCode( JCTitle $jct ) {
 		$jctContent = self::getContent( $jct );
-		if ( $jctContent ) {
+		if ( $jctContent && $jctContent instanceof JCDataContent ) {
 			$license = $jctContent->getLicenseObject();
 			if ( $license ) {
 				return $license['code'];
