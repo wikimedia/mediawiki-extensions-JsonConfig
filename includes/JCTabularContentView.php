@@ -153,8 +153,6 @@ class JCTabularContentView extends JCContentView {
 	 * @return string
 	 */
 	public function getDefault( $modelId ) {
-		$licenseIntro = JCContentView::getLicenseIntro();
-
 		return <<<EOT
 {
     // !!!!! All comments will be automatically deleted on save !!!!!
@@ -165,7 +163,8 @@ class JCTabularContentView extends JCContentView {
     // Optional "sources" field to describe the sources of the data.  Can use Wiki Markup
     "sources": "Copied from [http://example.com Example Data Source]",
 
-    $licenseIntro
+    // Mandatory "license" field. Only CC-0 (public domain dedication) is supported.
+    "license": "CC0-1.0",
 
     // Mandatory fields schema. Each field must be an object with
     //   "name" being a valid identifier with consisting of letters, digits, and "_"

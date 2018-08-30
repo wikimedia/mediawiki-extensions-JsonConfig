@@ -117,15 +117,9 @@ abstract class JCDataContent extends JCObjContent {
 		return $html;
 	}
 
-	/**
-	 * Get the license object of the content.
-	 * license code is identifier from https://spdx.org/licenses/
-	 * @return array code=>license code text=>license name url=>license URL
-	 */
-	public function getLicenseObject() {
+	private function getLicenseObject() {
 		$license = $this->getField( 'license' );
 		if ( $license && !$license->error() ) {
-			// should be a valid license identifier as in https://spdx.org/licenses/
 			$code = $license->getValue();
 
 			return [

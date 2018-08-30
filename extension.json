@@ -1,9 +1,8 @@
 {
 	"name": "JsonConfig",
-	"version": "1.1.1",
+	"version": "1.1.0",
 	"author": [
-		"Yuri Astrakhan",
-		"Eranroz"
+		"Yuri Astrakhan"
 	],
 	"url": "https://www.mediawiki.org/wiki/Extension:JsonConfig",
 	"descriptionmsg": "jsonconfig-desc",
@@ -79,7 +78,7 @@
 	"ResourceModules": {
 		"ext.jsonConfig": {
 			"styles": [
-				"JsonConfig.less",
+				"JsonConfig.css",
 				"tabular-general.less",
 				"tabular-table.less"
 			]
@@ -167,22 +166,7 @@
 			"value": false
 		},
 		"JsonConfigAllowedLicenses": {
-			"value": [
-				"CC0-1.0",
-				"CC-BY-1.0",
-				"CC-BY-2.0",
-				"CC-BY-2.5",
-				"CC-BY-3.0",
-				"CC-BY-4.0",
-				"CC-BY-4.0+",
-				"CC-BY-SA-1.0",
-				"CC-BY-SA-2.0",
-				"CC-BY-SA-2.5",
-				"CC-BY-SA-3.0",
-				"CC-BY-SA-4.0",
-				"CC-BY-SA-4.0+",
-				"ODbL-1.0"
-			]
+			"value": [ "CC0-1.0" ]
 		},
 		"JsonConfigInterwikiPrefix": {
 			"value": "commons"

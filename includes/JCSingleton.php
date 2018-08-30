@@ -722,24 +722,6 @@ class JCSingleton {
 	}
 
 	/**
-	 * Get the license code for the title or false otherwise.
-	 * license code is identifier from https://spdx.org/licenses/
-	 *
-	 * @param JCTitle $jct
-	 * @return bool|string Returns licence code string, or false if license is unknown
-	 */
-	private static function getTitleLicenseCode( JCTitle $jct ) {
-		$jctContent = self::getContent( $jct );
-		if ( $jctContent && $jctContent instanceof JCDataContent ) {
-			$license = $jctContent->getLicenseObject();
-			if ( $license ) {
-				return $license['code'];
-			}
-		}
-		return false;
-	}
-
-	/**
 	 * Override a per-page specific edit page copyright warning
 	 *
 	 * @param Title $title
@@ -751,13 +733,11 @@ class JCSingleton {
 		if ( self::jsonConfigIsStorage() ) {
 			$jct = self::parseTitle( $title );
 			if ( $jct ) {
-				$code = self::getTitleLicenseCode( $jct );
+				$code = $jct->getConfig()->license;
 				if ( $code ) {
-					$msg = [ 'jsonconfig-license-copyrightwarning', $code ];
-				} else {
-					$msg = [ 'jsonconfig-license-copyrightwarning-license-unset' ];
+					$msg = [ 'jsonconfig-license-copyrightwarning-' . $code ];
+					return false; // Do not allow any other hook handler to override this
 				}
-				return false; // Do not allow any other hook handler to override this
 			}
 		}
 		return true;
@@ -775,32 +755,13 @@ class JCSingleton {
 		if ( self::jsonConfigIsStorage() ) {
 			$jct = self::parseTitle( $title );
 			if ( $jct ) {
-				$code = self::getTitleLicenseCode( $jct );
+				$code = $jct->getConfig()->license;
 				if ( $code ) {
-					$noticeText = wfMessage( 'jsonconfig-license-notice', $code )->parse();
-					$iconCodes = '';
-					if ( preg_match_all( "/[a-z][a-z0-9]+/i", $code, $subcodes ) ) {
-						foreach ( $subcodes[0] as $c => $match ) {
-							$iconCodes .= Html::rawElement(
-								'span', [ 'class' => 'mw-jsonconfig-editnotice-icon-' . $match ], ''
-							);
-						}
-						$iconCodes = Html::rawElement(
-							'div', [ 'class' => 'mw-jsonconfig-editnotice-icons' ], $iconCodes
-						);
-					}
-
-					$noticeFooter = Html::rawElement(
-						'div', [ 'class' => 'mw-jsonconfig-editnotice-footer' ], ''
-					);
-
-					$notices['jsonconfig'] = Html::rawElement(
-						'div',
-						[ 'class' => 'mw-jsonconfig-editnotice mw-jsonconfig-editnotice-icon-' . $code ],
-						$iconCodes . $noticeText . $noticeFooter
-					);
-				} else {
-					$notices['jsonconfig'] = wfMessage( 'jsonconfig-license-notice-license-unset' )->parse();
+					$noticeText = wfMessage( 'jsonconfig-license-notice-' . $code )->parse();
+					$notices['jsonconfig'] =
+						wfMessage( 'jsonconfig-license-notice-box-' . $code )
+							->rawParams( $noticeText )
+							->parseAsBlock();
 				}
 			}
 		}
@@ -821,7 +782,7 @@ class JCSingleton {
 		if ( self::jsonConfigIsStorage() ) {
 			$jct = self::parseTitle( $title );
 			if ( $jct ) {
-				$code = self::getTitleLicenseCode( $jct );
+				$code = $jct->getConfig()->license;
 				if ( $code ) {
 					$msg = 'jsonconfig-license';
 					$link = Html::element( 'a', [

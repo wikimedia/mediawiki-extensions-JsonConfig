@@ -85,8 +85,6 @@ EOT;
 	 * @return string
 	 */
 	public function getDefault( $modelId ) {
-		$licenseIntro = JCContentView::getLicenseIntro();
-
 		return <<<EOT
 {
     // !!!!! All comments will be automatically deleted on save !!!!!
@@ -97,7 +95,8 @@ EOT;
     // Optional "sources" field to describe the sources of the map.  Can use Wiki Markup
     "sources": "Copied from [http://example.com Example Map Source]",
 
-    $licenseIntro
+    // Mandatory "license" field. Only CC-0 (public domain dedication) is supported.
+    "license": "CC0-1.0",
 
     "zoom": 3,
     "latitude": 0,
