@@ -39,6 +39,8 @@
 	"jsonconfig-type-name-boolean": "booleano",
 	"jsonconfig-license": "Datos dispoñibles baixo $1.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
+	"jsonconfig-license-copyrightwarning-CC0-1.0": "Ó gardar os cambios, acepta os [https://foundation.wikimedia.org/wiki/Terms_of_Use Termos de Uso], e acepta de forma irrevocable liberar a súa contribución ó dominio público en virtud da licenza [https://creativecommons.org/publicdomain/zero/1.0/ CC0].",
+	"jsonconfig-license-notice-CC0-1.0": "'''Nota:''' ó editar esta páxina, comprométese a liberar a súa contribución baixo a licenza [https://creativecommons.org/publicdomain/zero/1.0/ CC0].",
 	"right-jsonconfig-flush": "Manipular JsonConfig a través da API",
 	"action-jsonconfig-flush": "manipular JsonConfig a través da API",
 	"apihelp-jsonconfig-description": "Permite o acceso directo ó subsistema JsonConfig.",
