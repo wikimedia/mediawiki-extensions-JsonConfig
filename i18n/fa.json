@@ -9,8 +9,10 @@
 		]
 	},
 	"jsonconfig-duplicate-field": "بیشتر از یک مقدار برای «$1» یافت شده‌است",
+	"jsonconfig-err-bad-type": "پارامتر «$1» باید یک نوع معتبر مانند «رشته»، «عدد»، یا «بولی» باشد.",
 	"jsonconfig-err-bool": "پارامتر \"$1\" باید درست یا نادرست باشد",
 	"jsonconfig-err-integer": "پارامتر «$1» باید عدد باشد",
+	"jsonconfig-err-number": "پارامتر «$1» باید عدد باشد",
 	"jsonconfig-err-string": "پارامتر \"$1\" باید یک دسته باشد",
 	"jsonconfig-err-url": "پارامتر «$1» باید یک نشانی معتبر باشد",
 	"jsonconfig-optional-field": "(اختیاری)",
