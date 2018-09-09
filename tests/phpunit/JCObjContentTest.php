@@ -42,7 +42,7 @@ class JCObjContentTest extends MediaWikiTestCase {
 	}
 
 	/**
-	 * @-dataProvider provideValidationFirst
+	 * Also used provideValidationFirst as data provider
 	 * @dataProvider provideValidation
 	 */
 	public function testValidation(
