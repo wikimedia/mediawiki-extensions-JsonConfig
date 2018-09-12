@@ -124,9 +124,15 @@ class JCMapDataContent extends JCDataContent {
 
 		$data = $this->getData();
 
-		$result->zoom = $data->zoom;
-		$result->latitude = $data->latitude;
-		$result->longitude = $data->longitude;
+		if ( isset( $data->zoom ) ) {
+			$result->zoom = $data->zoom;
+		}
+		if ( isset( $data->latitude ) ) {
+			$result->latitude = $data->latitude;
+		}
+		if ( isset( $data->longitude ) ) {
+			$result->longitude = $data->longitude;
+		}
 
 		$geojson = FormatJson::decode( FormatJson::encode( $data->data, FormatJson::ALL_OK ) );
 		self::recursiveWalk( $geojson, $lang );
