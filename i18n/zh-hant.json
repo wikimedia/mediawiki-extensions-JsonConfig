@@ -5,7 +5,8 @@
 			"Cwlin0416",
 			"Yurik",
 			"Hello903hello",
-			"Kly"
+			"Kly",
+			"LNDDYL"
 		]
 	},
 	"jsonconfig-desc": "允許在 Wiki 儲存 JSON 設定",
@@ -41,7 +42,7 @@
 	"jsonconfig-license": "資料基於 $1 可用。",
 	"jsonconfig-license-not-set": "當您編輯頁面時，代表您同意基於「licence」欄位裡所指定的許可協議來釋出您的貢獻。",
 	"jsonconfig-license-name-CC0-1.0": "創用CC CC0",
-	"jsonconfig-license-copyrightwarning-CC0-1.0": "若做出儲存更改，代表您同意 [https://foundation.wikimedia.org/wiki/Terms_of_Use 使用條款]，並\n基於 [https://creativecommons.org/publicdomain/zero/1.0/deed.zh_TW CC0] 協議您不可撤銷您發佈至公有領域的貢獻內容。",
+	"jsonconfig-license-copyrightwarning-CC0-1.0": "若儲存變更，即代表您同意 [https://foundation.wikimedia.org/wiki/Terms_of_Use 使用條款]，並不可撤銷地同意\n基於 [https://creativecommons.org/publicdomain/zero/1.0/deed.zh_TW CC0] 協議發佈您的貢獻內容至公有領域。",
 	"jsonconfig-license-copyrightwarning": "透過儲存更改，代表您同意[https://foundation.wikimedia.org/wiki/Terms_of_Use 使用條款]，且不撤回同意基於[{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}]來釋出您的貢獻。",
 	"jsonconfig-license-copyrightwarning-license-unset": "透過儲存更改，代表您同意[https://foundation.wikimedia.org/wiki/Terms_of_Use 使用條款]，且不撤回同意基於「licence」欄位所指定的許可協議來釋出您的貢獻。",
 	"jsonconfig-license-notice": "'''請注意：'''當您編輯頁面時，代表您同意基於[{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}]來釋出您的貢獻。",
