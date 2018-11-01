@@ -30,7 +30,7 @@ final class JCValue {
 	/** @param int $status
 	 * @param mixed $value
 	 */
-	function __construct( $status, $value ) {
+	public function __construct( $status, $value ) {
 		$this->status = $status;
 		$this->value = $value;
 	}

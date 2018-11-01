@@ -23,7 +23,7 @@ class JCCache {
 	 * @param JCTitle $titleValue
 	 * @param JCContent|null $content
 	 */
-	function __construct( JCTitle $titleValue, $content = null ) {
+	public function __construct( JCTitle $titleValue, $content = null ) {
 		global $wgJsonConfigCacheKeyPrefix;
 		$this->titleValue = $titleValue;
 		$conf = $this->titleValue->getConfig();
