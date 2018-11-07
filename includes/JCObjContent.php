@@ -427,12 +427,12 @@ abstract class JCObjContent extends JCContent {
 	 * @param bool $isOptional
 	 */
 	public function addValidationError( Message $error, $isOptional = false ) {
-		$text = $error->plain();
-		// @TODO fixme - need to re-enable optional field detection & reporting
+		// @TODO fixme - need to re-enable optional field detection & reporting.
+		// Note the string append logic here is broken.
 		// if ( $isOptional ) {
-		// $text .= ' ' . wfMessage( 'jsonconfig-optional-field' )->plain();
+		// $error .= ' ' . wfMessage( 'jsonconfig-optional-field' )->plain();
 		// }
-		$this->getStatus()->error( $text );
+		$this->getStatus()->error( $error );
 	}
 
 	/** Get field from data object/array
