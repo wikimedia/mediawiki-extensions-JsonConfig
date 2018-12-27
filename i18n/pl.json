@@ -15,6 +15,8 @@
 	"jsonconfig-err-integer": "Parametr „$1” musi być liczbą całkowitą",
 	"jsonconfig-err-number": "Parametr „$1” musi być liczbą",
 	"jsonconfig-err-string": "Parametr „$1” musi być ciągiem znaków",
+	"jsonconfig-err-unexpected-key": "Obiekt „$1” zawiera nieoczekiwane pole „$2”",
+	"jsonconfig-err-url": "Parametr „$1” musi być prawidłowym adresem URL",
 	"jsonconfig-optional-field": "(opcjonalne)",
 	"jsonconfig-type-name-number": "liczba",
 	"jsonconfig-type-name-boolean": "wartość logiczna",
