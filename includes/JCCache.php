@@ -173,7 +173,6 @@ class JCCache {
 						'titles' => $articleName,
 						'prop' => 'revisions',
 						'rvprop' => 'content',
-						'rvslots' => 'main',
 						'continue' => '',
 					]
 					: [
@@ -195,7 +194,6 @@ class JCCache {
 						? $res['flagged']['stable_revid'] : $res['lastrevid'],
 					'prop' => 'revisions',
 					'rvprop' => 'content',
-					'rvslots' => 'main',
 					'continue' => '',
 				] );
 			}
