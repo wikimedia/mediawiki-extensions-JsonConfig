@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Maroen1990",
-			"ديفيد"
+			"ديفيد",
+			"Meno25"
 		]
 	},
 	"jsonconfig-desc": "يسمح بتخزين JSON ليتم تخزينها في الويكي",
@@ -38,6 +39,19 @@
 	"jsonconfig-license": "البيانات متاحة تحت $1.",
 	"jsonconfig-license-not-set": "عندما تقوم بتحرير هذه الصفحة، فإنك توافق على تحرير مساهمتك وفقا للترخيص المحدد في حقل \"الترخيص\".",
 	"jsonconfig-license-name-CC0-1.0": "المشاع الإبداعي صفر",
+	"jsonconfig-license-name-CC-BY-1.0": "المشاع الإبداعي النسبة 1.0",
+	"jsonconfig-license-name-CC-BY-2.0": "المشاع الإبداعي النسبة 2.0",
+	"jsonconfig-license-name-CC-BY-2.5": "المشاع الإبداعي النسبة 2.5",
+	"jsonconfig-license-name-CC-BY-3.0": "المشاع الإبداعي النسبة 3.0",
+	"jsonconfig-license-name-CC-BY-4.0": "المشاع الإبداعي النسبة 4.0",
+	"jsonconfig-license-name-CC-BY-4.0+": "نسخة المشاع الإبداعي النسبة 4.0 أو أحدث",
+	"jsonconfig-license-name-CC-BY-SA-1.0": "المشاع الإبداعي النسبة-الترخيص بالمثل 1.0",
+	"jsonconfig-license-name-CC-BY-SA-2.0": "المشاع الإبداعي النسبة-الترخيص بالمثل 2.0",
+	"jsonconfig-license-name-CC-BY-SA-2.5": "المشاع الإبداعي النسبة-الترخيص بالمثل 2.5",
+	"jsonconfig-license-name-CC-BY-SA-3.0": "المشاع الإبداعي النسبة-الترخيص بالمثل 3.0",
+	"jsonconfig-license-name-CC-BY-SA-4.0": "المشاع الإبداعي النسبة-الترخيص بالمثل 4.0",
+	"jsonconfig-license-name-CC-BY-SA-4.0+": "نسخة المشاع الإبداعي النسبة-الترخيص بالمثل 4.0 أو أحدث",
+	"jsonconfig-license-name-ODbL-1.0": "رخصة قاعدة البيانات المفتوحة ODC v1.0",
 	"jsonconfig-license-copyrightwarning-CC0-1.0": "بحفظ التغييرات، فإنك توافق على [https://foundation.wikimedia.org/wiki/Terms_of_Use شروط الاستخدام]، وتوافق بشكل لا رجعة فيه على نشر مساهمتك في الملكية العامة بموجب [https://creativecommons.org/publicdomain/zero/1.0/ CC0].",
 	"jsonconfig-license-copyrightwarning": "بحفظ التغييرات، فإنك توافق على [https://foundation.wikimedia.org/wiki/Terms_of_Use شروط الاستخدام]، وتوافق بشكل لا رجعة فيه على نشر مساهمتك بموجب [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-copyrightwarning-license-unset": "بحفظ التغييرات، فإنك توافق على [https://foundation.wikimedia.org/wiki/Terms_of_Use شروط الاستخدام]، وتوافق بشكل لا رجعة فيه على الإفراج عن مساهمتك وفقا للترخيص المحدد في حقل \"الترخيص\".",
