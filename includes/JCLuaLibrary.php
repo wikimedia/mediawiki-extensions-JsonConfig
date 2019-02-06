@@ -77,7 +77,26 @@ class JCLuaLibrary extends Scribunto_LuaLibraryBase {
 			}
 		}
 
-		return [ $result ];
+		return [ self::objectToArray( $result ) ];
+	}
+
+	/**
+	 * Replace objects with arrays, recursively
+	 *
+	 * Since LuaSandbox 3.0.0, we can't return objects to Lua anymore. And it
+	 * never worked with Scribunto's LuaStandalone engine.
+	 *
+	 * @param mixed $v
+	 * @return mixed
+	 */
+	private static function objectToArray( $v ) {
+		if ( is_object( $v ) ) {
+			$v = get_object_vars( $v );
+		}
+		if ( is_array( $v ) ) {
+			$v = array_map( 'self::objectToArray', $v );
+		}
+		return $v;
 	}
 
 	/**
