@@ -200,11 +200,11 @@ class JCCache {
 			if ( $res === false ) {
 				break;
 			}
-			if ( !isset( $res['revisions'][0]['*'] ) ) {
+
+			$result = $res['revisions'][0]['slots']['main']['*'] ?? $res['revisions'][0]['*'] ?? false;
+			if ( $result === false ) {
 				break;
 			}
-
-			$result = $res['revisions'][0]['*'];
 
 		} while ( false );
 
