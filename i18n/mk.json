@@ -80,7 +80,7 @@
 	"jsonconfig-license-notice-license-unset": "'''Напомена:''' Кога ја уредувате страницава, се согласувате дека ги објавувате вашите придонеси под лиценцата укажана во полето за лиценца.",
 	"right-jsonconfig-flush": "Работа со JsonConfig преку извршник",
 	"action-jsonconfig-flush": "работа со JsonConfig преку приложник",
-	"apihelp-jsonconfig-description": "Оозможува непосреден пристап до потсистемот JsonConfig.",
+	"apihelp-jsonconfig-description": "Овозможува непосреден пристап до потсистемот JsonConfig.",
 	"apihelp-jsonconfig-summary": "Оозможува непосреден пристап до потсистемот JsonConfig.",
 	"apihelp-jsonconfig-param-command": "Кое поддејство да му се изврши на JsonConfig:\n;status: Ја прикажува поставеноста на JsonConfig.\n;reset: Ги чисти поставките од меѓускладот. Го бара параметарот $1title и правото „jsonconfig-reset“.\n;reload: Превчитува и меѓускладира поставености од складот на поставки. Го бара параметарот $1title и правото „jsonconfig-reset“.",
 	"apihelp-jsonconfig-param-namespace": "Број на именскиот простор на насловот за обработка.",
