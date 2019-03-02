@@ -1,6 +1,7 @@
 <?php
 namespace JsonConfig;
 
+use ExtensionRegistry;
 use FormatJson;
 use ParserOptions;
 use ParserOutput;
@@ -35,9 +36,11 @@ class JCMapDataContentView extends JCContentView {
 
 		$localizedData = $content->getLocalizedData( $options->getUserLangObj() );
 		if ( $localizedData ) {
+			$extReg = ExtensionRegistry::getInstance();
+
 			// Test both because for some reason mTagHooks is not set during preview
 			if ( isset( $wgParser->mTagHooks['mapframe'] ) ||
-				class_exists( Kartographer\Tag\MapFrame::class )
+				$extReg->isLoaded( 'Kartographer' )
 			) {
 				$zoom = $content->getField( 'zoom' );
 				$lat = $content->getField( 'latitude' );
@@ -62,7 +65,7 @@ EOT;
 			} else {
 				$jsonText = FormatJson::encode( $localizedData->data, true, FormatJson::UTF8_OK );
 				if ( isset( $wgParser->mTagHooks['syntaxhighlight'] ) ||
-					class_exists( SyntaxHighlight_GeSHi::class )
+					$extReg->isLoaded( 'SyntaxHighlight' )
 				) {
 					$text = "<syntaxhighlight lang=json>\n$jsonText\n</syntaxhighlight>";
 				} else {
