@@ -712,7 +712,7 @@ class JCSingleton {
 			return true;
 		}
 
-		if ( is_a( $content, 'JsonConfig\JCContent' ) ) {
+		if ( is_a( $content, JCContent::class ) ) {
 			$status->merge( $content->getStatus() );
 			if ( !$status->isGood() ) {
 				$status->setResult( false, $status->getValue() );
@@ -942,7 +942,7 @@ class JCSingleton {
 			return true;
 		}
 
-		if ( $value && ( !$content || is_a( $content, 'JsonConfig\JCContent' ) ) ) {
+		if ( $value && ( !$content || is_a( $content, JCContent::class ) ) ) {
 			if ( method_exists( $value, 'getTitle' ) ) {
 				$value = $value->getTitle();
 			}

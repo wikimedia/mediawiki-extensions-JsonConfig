@@ -37,7 +37,7 @@ class JCMapDataContentView extends JCContentView {
 		if ( $localizedData ) {
 			// Test both because for some reason mTagHooks is not set during preview
 			if ( isset( $wgParser->mTagHooks['mapframe'] ) ||
-				class_exists( 'Kartographer\Tag\MapFrame' )
+				class_exists( Kartographer\Tag\MapFrame::class )
 			) {
 				$zoom = $content->getField( 'zoom' );
 				$lat = $content->getField( 'latitude' );
@@ -62,7 +62,7 @@ EOT;
 			} else {
 				$jsonText = FormatJson::encode( $localizedData->data, true, FormatJson::UTF8_OK );
 				if ( isset( $wgParser->mTagHooks['syntaxhighlight'] ) ||
-					class_exists( 'SyntaxHighlight_GeSHi' )
+					class_exists( SyntaxHighlight_GeSHi::class )
 				) {
 					$text = "<syntaxhighlight lang=json>\n$jsonText\n</syntaxhighlight>";
 				} else {

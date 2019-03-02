@@ -385,7 +385,7 @@ abstract class JCObjContent extends JCContent {
 		while ( true ) {
 			foreach ( $val as $key => $subVal ) {
 				/** @var JCValue|mixed $subVal */
-				$isJcv = is_a( $subVal, '\JsonConfig\JCValue' );
+				$isJcv = is_a( $subVal, JCValue::class );
 				if ( $firstPass && $isJcv ) {
 					// On the first pass, recursively process subelements if they were visited
 					self::markUnchecked( $subVal );
@@ -452,7 +452,7 @@ abstract class JCObjContent extends JCContent {
 			if ( !is_int( $fld ) && !is_string( $fld ) ) {
 				throw new Exception( 'Field must be either int or string' );
 			}
-			if ( is_a( $data, '\JsonConfig\JCValue' ) ) {
+			if ( is_a( $data, JCValue::class ) ) {
 				$data = $data->getValue();
 			}
 			$isObject = is_object( $data );
@@ -470,7 +470,7 @@ abstract class JCObjContent extends JCContent {
 				$data = $data[$fld];
 			}
 		}
-		if ( is_a( $data, '\JsonConfig\JCValue' ) ) {
+		if ( is_a( $data, JCValue::class ) ) {
 			return $data;
 		} else {
 			return new JCValue( JCValue::UNCHECKED, $data );
@@ -505,7 +505,7 @@ abstract class JCObjContent extends JCContent {
 				// Mark all duplicate fields as errors
 				foreach ( $valueRef as $k => $v ) {
 					if ( 0 === strcasecmp( $k, $fld ) ) {
-						if ( !is_a( $v, '\JsonConfig\JCValue' ) ) {
+						if ( !is_a( $v, JCValue::class ) ) {
 							$v = new JCValue( JCValue::UNCHECKED, $v );
 							$jcv->setField( $k, $v );
 						}
