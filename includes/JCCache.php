@@ -160,9 +160,7 @@ class JCCache {
 			if ( !$req ) {
 				break;
 			}
-			$ns =
-				$conf->nsName ? $conf->nsName
-					: MWNamespace::getCanonicalName( $this->titleValue->getNamespace() );
+			$ns = $conf->nsName ?: MWNamespace::getCanonicalName( $this->titleValue->getNamespace() );
 			$articleName = $ns . ':' . $this->titleValue->getText();
 			$flrevs = $conf->flaggedRevs;
 			// if flaggedRevs is false, get wiki page directly,

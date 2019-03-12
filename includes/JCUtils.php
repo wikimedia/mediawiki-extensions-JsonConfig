@@ -95,8 +95,7 @@ class JCUtils {
 				self::warn( 'Failed to login', [
 						'url' => $url,
 						'user' => $username,
-						'result' => isset( $res['login']['result'] )
-							? $res['login']['result'] : '???'
+						'result' => $res['login']['result'] ?? '???'
 				] );
 				$req = false;
 			}

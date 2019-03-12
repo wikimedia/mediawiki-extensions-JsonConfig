@@ -232,7 +232,7 @@ class JCSingleton {
 							"is not supported for namespace == NS_CONFIG ($ns)" );
 					} else {
 						$nsName = $conf->nsName;
-						$nsTalk = isset( $conf->nsTalk ) ? $conf->nsTalk : ( $nsName . '_talk' );
+						$nsTalk = $conf->nsTalk ?? $nsName . '_talk';
 						if ( !is_string( $nsName ) || $nsName === '' ) {
 							$warnFunc( "JsonConfig: Invalid \$wgJsonConfigs['$confId']: " .
 									"if given, nsName must be a string" );
@@ -248,8 +248,7 @@ class JCSingleton {
 							}
 						} else {
 							$namespaces[$ns] = $nsName;
-							$namespaces[$ns + 1] =
-								isset( $conf->nsTalk ) ? $conf->nsTalk : ( $nsName . '_talk' );
+							$namespaces[$ns + 1] = $conf->nsTalk ?? $nsName . '_talk';
 						}
 					}
 				} elseif ( !array_key_exists( $ns, $namespaces ) || $namespaces[$ns] === false ) {
