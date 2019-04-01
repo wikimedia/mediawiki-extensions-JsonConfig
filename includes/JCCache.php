@@ -33,7 +33,7 @@ class JCCache {
 			'JsonConfig',
 			$wgJsonConfigCacheKeyPrefix,
 			$conf->cacheKey,
-			( $flRev === null ? '' : ( $flRev ? 'T' : 'F' ) ),
+			$flRev === null ? '' : ( $flRev ? 'T' : 'F' ),
 			$titleValue->getNamespace(),
 			$titleValue->getDBkey(),
 		];
@@ -86,19 +86,18 @@ class JCCache {
 	 */
 	private function memcSet() {
 		global $wgJsonConfigDisableCache;
-		if ( $wgJsonConfigDisableCache ) {
-			return true;
-		}
-		$value = $this->content;
-		$exp = $this->cacheExpiration;
-		if ( !$value ) {
-			$value = '';
-			$exp = 10; // caching an error condition for short time
-		} elseif ( !is_string( $value ) ) {
-			$value = $value->getNativeData();
-		}
+		if ( !$wgJsonConfigDisableCache ) {
+			$value = $this->content;
+			$exp = $this->cacheExpiration;
+			if ( !$value ) {
+				$value = '';
+				$exp = 10; // caching an error condition for short time
+			} elseif ( !is_string( $value ) ) {
+				$value = $value->getNativeData();
+			}
 
-		return $this->cache->set( $this->key, $value, $exp );
+			$this->cache->set( $this->key, $value, $exp );
+		}
 	}
 
 	/**
