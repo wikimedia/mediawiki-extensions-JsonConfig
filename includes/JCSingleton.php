@@ -11,6 +11,7 @@ use Language;
 use MalformedTitleException;
 use MapCacheLRU;
 use MediaWiki\Linker\LinkTarget;
+use MediaWiki\MediaWikiServices;
 use MediaWikiTitleCodec;
 use TitleParser;
 use Status;
@@ -493,12 +494,15 @@ class JCSingleton {
 			if ( is_string( $value ) ) {
 				$language = Language::factory( 'en' );
 				if ( !self::$titleParser ) {
-					self::$titleParser =
-						new MediaWikiTitleCodec(
-							$language,
-							new GenderCache(),
-							[],
-							new FauxInterwikiLookup() );
+					// XXX Direct instantiation of MediaWikiTitleCodec isn't allowed. If core
+					// doesn't support our use-case, core needs to be fixed to allow this.
+					self::$titleParser = new MediaWikiTitleCodec(
+						$language,
+						new GenderCache(),
+						[],
+						new FauxInterwikiLookup(),
+						MediaWikiServices::getInstance()->getNamespaceInfo()
+					);
 				}
 				// Interwiki prefixes are a special case for title parsing:
 				// first letter is not capitalized, namespaces are not resolved, etc.
