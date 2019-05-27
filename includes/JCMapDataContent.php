@@ -39,7 +39,7 @@ class JCMapDataContent extends JCDataContent {
 
 		// In case the parser hasn't been used yet
 		if ( !$wgParser->getOptions() ) {
-			$options = new ParserOptions( new User( '127.0.0.1' ) );
+			$options = new ParserOptions( new User() );
 			$wgParser->startExternalParse( null, $options, OT_HTML );
 		}
 
