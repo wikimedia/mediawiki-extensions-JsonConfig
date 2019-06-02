@@ -9,7 +9,8 @@
 			"Yasten",
 			"Yurik",
 			"Derugon",
-			"Thibaut120094"
+			"Thibaut120094",
+			"Urhixidur"
 		]
 	},
 	"jsonconfig-desc": "Permet de stocker une configuration JSON dans un wiki",
@@ -30,7 +31,7 @@
 	"jsonconfig-err-root-array-expected": "Les données JSON devraient être une liste entourée de crochets […]",
 	"jsonconfig-err-root-object-expected": "Les données JSON devraient être un objet entouré d’accolades {…}",
 	"jsonconfig-err-string": "Le paramètre « $1 » doit être une chaîne",
-	"jsonconfig-err-stringline": "Le paramètre « $1 » doit être une ligne simple ne dépassant pas $2 caractères, sans tabulation, et qui ne doit pas commencer ou finir par un espace",
+	"jsonconfig-err-stringline": "Le paramètre « $1 » doit être une ligne simple ne dépassant pas $2 caractères, sans tabulation, et qui ne doit pas commencer ni finir par une espace",
 	"jsonconfig-err-unexpected-key": "L’objet « $1 » contient un champ non prévu « $2 »",
 	"jsonconfig-err-duplicate-header": "Entête « $2 » dupliqué trouvé en « $1 ». Chaque entête doit être unique.",
 	"jsonconfig-err-url": "Le paramètre « $1 » doit être une URL valide",
