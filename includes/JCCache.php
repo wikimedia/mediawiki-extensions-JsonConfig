@@ -210,7 +210,7 @@ class JCCache {
 
 	/** Given a legal set of API parameters, return page from API
 	 * @param string $articleName title name used for warnings
-	 * @param \CurlHttpRequest|\PhpHttpRequest $req logged-in session
+	 * @param \MWHttpRequest $req logged-in session
 	 * @param array $query
 	 * @return bool|mixed
 	 */

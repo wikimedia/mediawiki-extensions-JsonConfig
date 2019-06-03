@@ -6,6 +6,7 @@ use FormatJson;
 use Exception;
 use Language;
 use MWHttpRequest;
+use Status;
 use stdClass;
 use StubUserLang;
 
@@ -58,7 +59,7 @@ class JCUtils {
 	 * @param string $username
 	 * @param string $password
 	 * @throws \Exception
-	 * @return \CurlHttpRequest|\PhpHttpRequest|false
+	 * @return MWHttpRequest|false
 	 */
 	public static function initApiRequestObj( $url, $username, $password ) {
 		$apiUri = wfAppendQuery( $url, [ 'format' => 'json' ] );
@@ -105,7 +106,7 @@ class JCUtils {
 
 	/**
 	 * Make an API call on a given request object and warn in case of failures
-	 * @param \CurlHttpRequest|\PhpHttpRequest $req logged-in session
+	 * @param MWHttpRequest $req logged-in session
 	 * @param array $query api call parameters
 	 * @param string $debugMsg extra message for debug logs in case of failure
 	 * @return array|false api result or false on error
@@ -114,8 +115,11 @@ class JCUtils {
 		$req->setData( $query );
 		$status = $req->execute();
 		if ( !$status->isGood() ) {
-			self::warn( 'API call failed to ' . $debugMsg, [ 'status' => $status->getWikiText() ],
-				$query );
+			self::warn(
+				'API call failed to ' . $debugMsg,
+				[ 'status' => Status::wrap( $status )->getWikiText() ],
+				$query
+			);
 			return false;
 		}
 		$res = FormatJson::decode( $req->getContent(), true );
