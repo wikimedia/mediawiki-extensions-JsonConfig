@@ -27,6 +27,8 @@ class JCContent extends \TextContent {
 	private $status;
 	/** @var bool */
 	private $thorough;
+	/** @var bool */
+	private $stripComments;
 	/** @var JCContentView|null contains an instance of the view class */
 	private $view = null;
 
@@ -36,6 +38,7 @@ class JCContent extends \TextContent {
 	 * @param bool $thorough True if extra validation should be performed
 	 */
 	public function __construct( $text, $modelId, $thorough ) {
+		$this->stripComments = $text !== null;
 		if ( $text === null ) {
 			$text = $this->getView( $modelId )->getDefault( $modelId );
 		}
@@ -132,7 +135,10 @@ class JCContent extends \TextContent {
 	 */
 	private function parse() {
 		$rawText = $this->getNativeData();
-		$parseOpts = FormatJson::STRIP_COMMENTS + FormatJson::TRY_FIXING;
+		$parseOpts = FormatJson::TRY_FIXING;
+		if ( $this->stripComments ) {
+			$parseOpts += FormatJson::STRIP_COMMENTS;
+		}
 		$status = FormatJson::parse( $rawText, $parseOpts );
 		if ( !$status->isOK() ) {
 			$this->status = $status;

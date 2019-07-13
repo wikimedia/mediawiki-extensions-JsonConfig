@@ -725,6 +725,24 @@ class JCSingleton {
 	}
 
 	/**
+	 * Get the license code for the title or false otherwise.
+	 * license code is identifier from https://spdx.org/licenses/
+	 *
+	 * @param JCTitle $jct
+	 * @return bool|string Returns licence code string, or false if license is unknown
+	 */
+	private static function getTitleLicenseCode( JCTitle $jct ) {
+		$jctContent = self::getContent( $jct );
+		if ( $jctContent && $jctContent instanceof JCDataContent ) {
+			$license = $jctContent->getLicenseObject();
+			if ( $license ) {
+				return $license['code'];
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Override a per-page specific edit page copyright warning
 	 *
 	 * @param Title $title
@@ -736,11 +754,18 @@ class JCSingleton {
 		if ( self::jsonConfigIsStorage() ) {
 			$jct = self::parseTitle( $title );
 			if ( $jct ) {
-				$code = $jct->getConfig()->license;
+				$code = self::getTitleLicenseCode( $jct );
 				if ( $code ) {
-					$msg = [ 'jsonconfig-license-copyrightwarning-' . $code ];
-					return false; // Do not allow any other hook handler to override this
+					$msg = [ 'jsonconfig-license-copyrightwarning', $code ];
+				} else {
+					$requireLicense = $jct->getConfig()->license ?? false;
+					// Check if page has license field to apply only if it is required
+					// https://phabricator.wikimedia.org/T203173
+					if ( $requireLicense ) {
+						$msg = [ 'jsonconfig-license-copyrightwarning-license-unset' ];
+					}
 				}
+				return false; // Do not allow any other hook handler to override this
 			}
 		}
 		return true;
@@ -758,13 +783,37 @@ class JCSingleton {
 		if ( self::jsonConfigIsStorage() ) {
 			$jct = self::parseTitle( $title );
 			if ( $jct ) {
-				$code = $jct->getConfig()->license;
+				$code = self::getTitleLicenseCode( $jct );
 				if ( $code ) {
-					$noticeText = wfMessage( 'jsonconfig-license-notice-' . $code )->parse();
-					$notices['jsonconfig'] =
-						wfMessage( 'jsonconfig-license-notice-box-' . $code )
-							->rawParams( $noticeText )
-							->parseAsBlock();
+					$noticeText = wfMessage( 'jsonconfig-license-notice', $code )->parse();
+					$iconCodes = '';
+					if ( preg_match_all( "/[a-z][a-z0-9]+/i", $code, $subcodes ) ) {
+						foreach ( $subcodes[0] as $c => $match ) {
+							$iconCodes .= Html::rawElement(
+								'span', [ 'class' => 'mw-jsonconfig-editnotice-icon-' . $match ], ''
+							);
+						}
+						$iconCodes = Html::rawElement(
+							'div', [ 'class' => 'mw-jsonconfig-editnotice-icons' ], $iconCodes
+						);
+					}
+
+					$noticeFooter = Html::rawElement(
+						'div', [ 'class' => 'mw-jsonconfig-editnotice-footer' ], ''
+					);
+
+					$notices['jsonconfig'] = Html::rawElement(
+						'div',
+						[ 'class' => 'mw-jsonconfig-editnotice' ],
+						$iconCodes . $noticeText . $noticeFooter
+					);
+				} else {
+					// Check if page has license field to apply notice msgs only when license is required
+					// https://phabricator.wikimedia.org/T203173
+					$requireLicense = $jct->getConfig()->license ?? false;
+					if ( $requireLicense ) {
+						$notices['jsonconfig'] = wfMessage( 'jsonconfig-license-notice-license-unset' )->parse();
+					}
 				}
 			}
 		}
@@ -785,7 +834,7 @@ class JCSingleton {
 		if ( self::jsonConfigIsStorage() ) {
 			$jct = self::parseTitle( $title );
 			if ( $jct ) {
-				$code = $jct->getConfig()->license;
+				$code = self::getTitleLicenseCode( $jct );
 				if ( $code ) {
 					$msg = 'jsonconfig-license';
 					$link = Html::element( 'a', [
