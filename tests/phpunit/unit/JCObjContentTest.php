@@ -4,14 +4,14 @@ namespace JsonConfig\Tests;
 use JsonConfig\JCObjContent;
 use JsonConfig\JCValue;
 use JsonConfig\JCValidators;
-use MediaWikiTestCase;
+use MediaWikiUnitTestCase;
 
 /**
  * @package JsonConfigTests
  * @group JsonConfig
  * @covers \JsonConfig\JCObjContent
 */
-class JCObjContentTest extends MediaWikiTestCase {
+class JCObjContentTest extends MediaWikiUnitTestCase {
 
 	/** @dataProvider provideBasic */
 	public function testBasic( $text, $isValid ) {
