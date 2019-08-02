@@ -397,6 +397,7 @@ class JCObjContentTest extends MediaWikiUnitTestCase {
 
 class ObjContent extends JCObjContent {
 	private $validators;
+
 	public function __construct( $data, $validators, $thorough, $isRootArray = false ) {
 		$this->validators = $validators;
 		$this->isRootArray = $isRootArray;
