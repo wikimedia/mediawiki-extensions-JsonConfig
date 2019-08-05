@@ -789,6 +789,12 @@ class JCSingleton {
 					$iconCodes = '';
 					if ( preg_match_all( "/[a-z][a-z0-9]+/i", $code, $subcodes ) ) {
 						foreach ( $subcodes[0] as $c => $match ) {
+							// Used classes:
+							// * mw-jsonconfig-editnotice-icon-BY
+							// * mw-jsonconfig-editnotice-icon-CC
+							// * mw-jsonconfig-editnotice-icon-CC0
+							// * mw-jsonconfig-editnotice-icon-ODbL
+							// * mw-jsonconfig-editnotice-icon-SA
 							$iconCodes .= Html::rawElement(
 								'span', [ 'class' => 'mw-jsonconfig-editnotice-icon-' . $match ], ''
 							);
