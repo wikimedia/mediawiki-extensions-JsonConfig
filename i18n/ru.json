@@ -50,16 +50,5 @@
 	"jsonconfig-license-notice": "'''Замечание:''' Когда вы редактируете страницу, вы соглашаетесь с тем, что публикуете свой вклад под лицензией [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-notice-license-unset": "'''Замечание:''' Когда вы редактируете страницу, вы соглашаетесь с тем, что публикуете свой вклад под лицензией, указанной в поле 'лицензия'.",
 	"right-jsonconfig-flush": "Управление JsonConfig через API",
-	"action-jsonconfig-flush": "управление JsonConfig через API",
-	"apihelp-jsonconfig-description": "Обеспечивает прямой доступ к подсистеме JsonConfig.",
-	"apihelp-jsonconfig-summary": "Обеспечивает прямой доступ к подсистеме JsonConfig.",
-	"apihelp-jsonconfig-param-command": "Какое поддействие нужно выполнить на JsonConfig:\n;status: Показывает конфигурацию JsonConfig.\n;reset: Очищает настройки из кэша. Требуется параметр $1title и право «jsonconfig-reset».\n;reload: Обновляет и кэширует конфигурации из хранилища настроек. Требуется параметр $1title и право «jsonconfig-reset».",
-	"apihelp-jsonconfig-param-title": "Заголовок для обработки без префикса пространства имён.",
-	"apihelp-jsonconfig-param-content": "Для $1command=reload используйте данное содержимое.",
-	"apihelp-jsonconfig-example-1": "Показать настройки",
-	"apihelp-jsonconfig-example-2": "Сбросить [[Zero:TEST]]",
-	"apihelp-jsonconfig-example-3": "Перегрузить [[Zero:TEST]]",
-	"apihelp-jsondata-description": "Вызывает локализованные JSON-данные.",
-	"apihelp-jsondata-summary": "Вызывает локализованные JSON-данные.",
-	"apierror-jsonconfig-paramrequired": "Для этой команды требуется параметр <var>$1</var>."
+	"action-jsonconfig-flush": "управление JsonConfig через API"
 }

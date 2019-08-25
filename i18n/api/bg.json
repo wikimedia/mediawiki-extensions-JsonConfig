@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Vlad5250"
+		]
+	},
+	"apihelp-jsonconfig-description": "Позволява непосреден достъп до подсистемата JsonConfig.",
+	"apihelp-jsonconfig-summary": "Позволява непосреден достъп до подсистемата JsonConfig.",
+	"apihelp-jsonconfig-param-command": "Кое поддействие да се извърши на JsonConfig:\n;status: Показва поставеността на JsonConfig.\n;reset: Изчиства настройките от кеша. Изисква параметъра $1title и правото „jsonconfig-reset“.\n;reload: Презарежда и кешира поставености от склада на настройки. Изисква параметъра $1title и правото „jsonconfig-reset“.",
+	"apihelp-jsonconfig-param-namespace": "Номер на именното пространство на заглавието за обработка.",
+	"apihelp-jsonconfig-param-title": "Заглавие за обработка без представка за именно пространство.",
+	"apihelp-jsonconfig-param-content": "За $1command=reload, използвайте тази содржина.",
+	"apihelp-jsonconfig-example-1": "Показване на поставеност",
+	"apihelp-jsonconfig-example-2": "Връщане на [[Zero:TEST]] по подразбиране",
+	"apihelp-jsonconfig-example-3": "Презареждане на [[Zero:TEST]]",
+	"apihelp-jsondata-description": "Превзема локализирани JSON-данни.",
+	"apihelp-jsondata-summary": "Превзема локализирани JSON-данни.",
+	"apihelp-jsondata-param-title": "Заглавие за повикване. По подразбиране се предпоставя, че именното пространство е „Data:“",
+	"apihelp-jsondata-example-1": "Дава JSON-съдържание на страницата Sample.tab page, локализирана на езика на потребителя",
+	"apierror-jsonconfig-paramrequired": "Команда изисква параметъра <var>$1</var>.",
+	"apierror-jsonconfig-badtitle": "Тази страница, указана от параметрите <var>namespace</var> и <var>title</var> е невалидна, или не е регистрирана в поставеността на JsonConfig."
+}

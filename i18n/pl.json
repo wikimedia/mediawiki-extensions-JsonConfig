@@ -25,8 +25,5 @@
 	"jsonconfig-license-copyrightwarning": "Zapisując zmiany, wyrażasz zgodę na [https://foundation.wikimedia.org/wiki/Terms_of_Use/pl Warunki użytkowania] i nieodwołalnie zgadzasz się na udostępnienie swojego udziału zgodnie z licencją  [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-copyrightwarning-license-unset": "Zapisując zmiany, wyrażasz zgodę na [https://foundation.wikimedia.org/wiki/Terms_of_Use/pl Warunki użytkowania], a nieodwołalnie zgadzasz się na udostępnienie swojego udziału zgodnie z licencją określoną w polu 'licencja'.",
 	"right-jsonconfig-flush": "Zmienianie JsonConfig przez API",
-	"action-jsonconfig-flush": "zmieniania JsonConfig przez API",
-	"apihelp-jsonconfig-example-1": "Pokaż konfigurację",
-	"apihelp-jsondata-description": "Odbierz zlokalizowane dane JSON.",
-	"apierror-jsonconfig-paramrequired": "Dla tego polecenia wymagany jest parametr <var>$1</ var>."
+	"action-jsonconfig-flush": "zmieniania JsonConfig przez API"
 }

@@ -15,8 +15,5 @@
 	"jsonconfig-type-name-localized": "lokaliséiert",
 	"jsonconfig-type-name-number": "Zuel",
 	"jsonconfig-license": "D'Donnéeë sinn disponibel ënner $1.",
-	"right-jsonconfig-flush": "JsonConfig iwwer d'API manipuléieren",
-	"apihelp-jsonconfig-example-1": "Astellung weisen",
-	"apihelp-jsonconfig-example-2": "[[Zero:TEST]] zrécksetzen",
-	"apihelp-jsonconfig-example-3": "[[Zero:TEST]] nei lueden"
+	"right-jsonconfig-flush": "JsonConfig iwwer d'API manipuléieren"
 }

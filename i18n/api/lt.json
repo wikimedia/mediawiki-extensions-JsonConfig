@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eitvys200"
+		]
+	},
+	"apihelp-jsondata-description": "Gauti lokalizuotus JSON duomenys.",
+	"apierror-jsonconfig-paramrequired": "Parametras <var>$1</var> reikalingas šiai komandai."
+}

@@ -41,6 +41,5 @@
 	"jsonconfig-type-name-boolean": "luận lý",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zêrô",
 	"jsonconfig-license-notice": "'''Lưu ý:''' Khi sửa đổi trang này, bạn chấp nhận rằng các sửa đổi của bạn sẽ nằm trong giấy phép [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
-	"right-jsonconfig-flush": "Điều khiển JsonConfig qua API",
-	"apihelp-jsonconfig-description": "Cho phép truy cập trực tiếp hệ thống con JsonConfig."
+	"right-jsonconfig-flush": "Điều khiển JsonConfig qua API"
 }

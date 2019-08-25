@@ -24,6 +24,5 @@
 	"jsonconfig-type-name-boolean": "بولی",
 	"jsonconfig-license": "داده‌ها تحت مجوز $1 در دسترس هستند",
 	"jsonconfig-license-name-CC0-1.0": "کریتیو کامنز صفر",
-	"right-jsonconfig-flush": "کنترل جی‌سان کانفیگ توسط رابط برنامه‌نویسی",
-	"apihelp-jsonconfig-example-1": "نمایش تنظیمات"
+	"right-jsonconfig-flush": "کنترل جی‌سان کانفیگ توسط رابط برنامه‌نویسی"
 }

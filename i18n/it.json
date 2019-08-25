@@ -34,8 +34,5 @@
 	"jsonconfig-type-name-number": "numero",
 	"jsonconfig-type-name-boolean": "booleano",
 	"jsonconfig-license": "Dati disponibili in base alla licenza $1.",
-	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
-	"apihelp-jsonconfig-description": "Consente l'accesso diretto al sottosistema JsonConfig.",
-	"apihelp-jsonconfig-param-namespace": "Numero namespace del titolo da elaborare.",
-	"apihelp-jsonconfig-param-title": "Titolo da elaborare senza prefisso namespace."
+	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero"
 }

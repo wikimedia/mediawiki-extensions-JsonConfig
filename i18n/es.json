@@ -50,21 +50,5 @@
 	"jsonconfig-license-notice": "'''Nota:''' Cuando editas esta página aceptas liberar tu aportación bajo los términos de la licencia [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-notice-license-unset": "'''Nota:''' Cuando editas esta página aceptas liberar tu contribución conforme a la licencia especificada en el campo \"licencia\".",
 	"right-jsonconfig-flush": "Manipular JsonConfig a través de la API",
-	"action-jsonconfig-flush": "manipular JsonConfig a través de la API",
-	"apihelp-jsonconfig-description": "Permite el acceso directo al subsistema JsonConfig.",
-	"apihelp-jsonconfig-summary": "Permite un acceso directo al subsistema JsonConfig.",
-	"apihelp-jsonconfig-param-command": "Qué subacción realizar sobre JsonConfig:\n;status: muestra la configuración JsonConfig.\n;reset: borra configuraciones del caché. Requiere el parámetro $1title y el permiso jsonconfig-reset\n;reload: recarga y guarda en caché configuraciones del almacén de configuraciones. Requiere el parámetro $1title y el permiso jsonconfig-reset.",
-	"apihelp-jsonconfig-param-namespace": "Número del espacio de nombres del título que se desea procesar",
-	"apihelp-jsonconfig-param-title": "Título que procesar sin el prefijo de espacio de nombres.",
-	"apihelp-jsonconfig-param-content": "Para $1command=reload, usa este contenido en su lugar.",
-	"apihelp-jsonconfig-example-1": "Mostrar configuración",
-	"apihelp-jsonconfig-example-2": "Restablecer [[Zero:TEST]]",
-	"apihelp-jsonconfig-example-3": "Restablecer [[Zero:TEST]]",
-	"apihelp-jsondata-description": "Recuperar los datos JSON localizados.",
-	"apihelp-jsondata-summary": "Recuperar datos en JSON regionalizados.",
-	"apihelp-jsondata-param-title": "Título que obtener. De manera predeterminada, asume que el espacio de nombres es «Data:»",
-	"apihelp-jsondata-example-1": "Obtener el contenido JSON de la página Sample.tab, localizada para el idioma del usuario",
-	"apihelp-jsondata-example-2": "Obtener el contenido JSON de la página Sample.tab localizada en francés",
-	"apierror-jsonconfig-paramrequired": "Este comando requiere el parámetro <var>$1</var>.",
-	"apierror-jsonconfig-badtitle": "La página especificada por los parámetros <var>namespace</var> y <var>title</var> no es válida o no está registrada en la configuración JsonConfig."
+	"action-jsonconfig-flush": "manipular JsonConfig a través de la API"
 }

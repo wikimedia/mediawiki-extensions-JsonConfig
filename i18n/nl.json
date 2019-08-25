@@ -32,6 +32,5 @@
 	"jsonconfig-type-name-number": "getal",
 	"jsonconfig-type-name-boolean": "Boolean",
 	"jsonconfig-license": "Gegevens beschikbaar onder $1.",
-	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
-	"apihelp-jsonconfig-example-1": "Toon configuratie"
+	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero"
 }
