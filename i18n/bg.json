@@ -1,21 +1,22 @@
 {
 	"@metadata": {
 		"authors": [
-			"Vlad5250"
+			"Vlad5250",
+			"StanProg"
 		]
 	},
-	"jsonconfig-desc": "Позволява поставеност на JSON да се складира на уики",
-	"jsonconfig-duplicate-field": "Открих повече от една стойност „$1“",
-	"jsonconfig-err-array": "Параметърът „$1“ трябва да бъде списък, както на пр. [\"стойност1\", \"стойност2\", ...]",
-	"jsonconfig-err-array-count": "Списъкът „$1“ има $2 {{PLURAL:$2|стойност|стойности}}, но трябва да има $3 {{PLURAL:$3|стойност|стойности}}, т.е. същ брой стойности, както и „$4“",
-	"jsonconfig-err-assoc-array": "Параметърът „$1“ трябва да бъде асоциативен строй (речник), както на пр. {\"ключ\": \"стойност\", ...}",
+	"jsonconfig-desc": "Позволява конфигурацията на JSON да се складира на уики",
+	"jsonconfig-duplicate-field": "Открита е повече от една стойност „$1“",
+	"jsonconfig-err-array": "Параметърът „$1“ трябва да бъде списък, както например [\"стойност1\", \"стойност2\", ...]",
+	"jsonconfig-err-array-count": "Списъкът „$1“ има $2 {{PLURAL:$2|стойност|стойности}}, но трябва да има $3 {{PLURAL:$3|стойност|стойности}}, т.е. същият брой стойности като „$4“",
+	"jsonconfig-err-assoc-array": "Параметърът „$1“ трябва да бъде асоциативен масив (речник), например {\"ключ\": \"стойност\", ...}",
 	"jsonconfig-optional-field": "(незадължително)",
 	"jsonconfig-type-name-invalid": "невалиден",
 	"jsonconfig-type-name-string": "низ",
 	"jsonconfig-type-name-number": "число",
-	"jsonconfig-type-name-boolean": "Булев",
+	"jsonconfig-type-name-boolean": "булев",
 	"jsonconfig-license": "Данните са достъпни под $1.",
-	"jsonconfig-license-not-set": "При редактиране на страницата Вие се съгласявате, че обявявате приносите съгласно лиценза, който е указан в полето за лиценз.",
-	"right-jsonconfig-flush": "Работа с JsonConfig чрез извършник",
-	"action-jsonconfig-flush": "работа с JsonConfig чрез приложник"
+	"jsonconfig-license-not-set": "При редактиране на страницата се съгласявате, че публикувате приносите си съгласно лиценза, който е указан в полето за лиценз.",
+	"right-jsonconfig-flush": "Работа с JsonConfig чрез API",
+	"action-jsonconfig-flush": "работа с JsonConfig чрез API"
 }

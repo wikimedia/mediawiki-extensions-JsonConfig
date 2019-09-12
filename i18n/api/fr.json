@@ -18,7 +18,7 @@
 	"apihelp-jsonconfig-example-3": "Recharger [[Zero:TEST]]",
 	"apihelp-jsondata-description": "Récupérer les données JSON localisées.",
 	"apihelp-jsondata-summary": "Récupérer les données JSON localisées.",
-	"apihelp-jsondata-param-title": "Titre à récupérer. Par défaut, l’espace de noms est supposé être « Data: »",
+	"apihelp-jsondata-param-title": "Titre à récupérer. Par défaut, l’espace de noms est supposé être « Data: »",
 	"apihelp-jsondata-example-1": "Obtenir le contenu JSON de la page Sample.tab, localisée dans la langue de l’utilisateur",
 	"apihelp-jsondata-example-2": "Obtenir le contenu JSON de la page Sample.tab localisée en français",
 	"apierror-jsonconfig-paramrequired": "Le paramètre <var>$1</var> est nécessaire pour cette commande.",
