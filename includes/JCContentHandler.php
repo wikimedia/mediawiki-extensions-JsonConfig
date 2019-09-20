@@ -117,6 +117,7 @@ class JCContentHandler extends TextContentHandler {
 	 * by subclasses.
 	 *
 	 * @return string
+	 * @phan-return class-string
 	 */
 	protected function getContentClass() {
 		$modelId = $this->getModelID();

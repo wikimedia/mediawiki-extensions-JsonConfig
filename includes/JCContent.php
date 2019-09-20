@@ -19,9 +19,9 @@ use Status;
  *   based on Ori Livneh <ori@wikimedia.org> extension schema
  */
 class JCContent extends \TextContent {
-	/** @var array */
+	/** @var mixed */
 	private $rawData = null;
-	/** @var stdClass|array */
+	/** @var stdClass */
 	protected $data = null;
 	/** @var Status */
 	private $status;
@@ -50,7 +50,7 @@ class JCContent extends \TextContent {
 
 	/**
 	 * Get validated data
-	 * @return stdClass|stdClass[]
+	 * @return stdClass
 	 */
 	public function getData() {
 		return $this->data;
@@ -59,8 +59,8 @@ class JCContent extends \TextContent {
 	/**
 	 * Returns data after sanitization, suitable for third-party use
 	 *
-	 * @param stdClass|stdClass[] $data
-	 * @return stdClass|stdClass[]
+	 * @param stdClass $data
+	 * @return stdClass
 	 */
 	public function getSafeData( $data ) {
 		return $data;
@@ -124,7 +124,7 @@ class JCContent extends \TextContent {
 	/**
 	 * Override this method to perform additional data validation
 	 * @param mixed $data
-	 * @return mixed
+	 * @return stdClass
 	 */
 	public function validate( $data ) {
 		return $data;

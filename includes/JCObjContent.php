@@ -86,7 +86,7 @@ abstract class JCObjContent extends JCContent {
 
 	/**
 	 * Call this function before performing data validation inside the derived validate()
-	 * @param array|object $data
+	 * @param mixed $data
 	 * @throws \Exception
 	 * @return bool if true, validation should be performed, otherwise all checks will be ignored
 	 */
@@ -120,7 +120,7 @@ abstract class JCObjContent extends JCContent {
 
 	/**
 	 * Populate this data on-demand for efficiency
-	 * @return array
+	 * @return stdClass
 	 */
 	public function getData() {
 		if ( $this->data === null ) {

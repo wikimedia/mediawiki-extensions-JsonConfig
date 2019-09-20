@@ -100,7 +100,7 @@ class JCSingleton {
 	) {
 		$defaultModelId = 'JsonConfig';
 		// @codingStandardsIgnoreStart - T154789
-		$warnFunc = $warn ? 'wfLogWarning' : function() {};
+		$warnFunc = $warn ? 'wfLogWarning' : function( $msg ) {};
 		// @codingStandardsIgnoreEnd
 
 		$namespaces = [];
@@ -418,7 +418,8 @@ class JCSingleton {
 	/**
 	 * Get the name of the class for a given content model
 	 * @param string $modelId
-	 * @return null|string
+	 * @return string
+	 * @phan-return class-string
 	 */
 	public static function getContentClass( $modelId ) {
 		global $wgJsonConfigModels;

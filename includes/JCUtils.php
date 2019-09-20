@@ -219,6 +219,11 @@ class JCUtils {
 		return self::sanitizeRecursive( $value, $skipDefaults );
 	}
 
+	/**
+	 * @param mixed $data
+	 * @param bool $skipDefaults
+	 * @return mixed
+	 */
 	private static function sanitizeRecursive( $data, $skipDefaults ) {
 		if ( !is_array( $data ) && !is_object( $data ) ) {
 			return $data;
