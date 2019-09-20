@@ -53,10 +53,12 @@ class FauxInterwikiLookup implements InterwikiLookup {
 	 * Returns all interwiki prefixes
 	 *
 	 * @param string|null $local If set, limits output to local/non-local interwikis
-	 * @return string[] List of prefixes
+	 * @return array[] List of prefixes
 	 */
 	public function getAllPrefixes( $local = null ) {
-		return ( $local === null || $local === false ) ? [ self::INTERWIKI_PREFIX ] : [];
+		return ( $local === null || $local === false ) ? [ [
+			'iw_prefix' => self::INTERWIKI_PREFIX, 'iw_url' => null, 'iw_local' => false
+		] ] : [];
 	}
 
 	/**
