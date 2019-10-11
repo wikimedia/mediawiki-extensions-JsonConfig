@@ -291,7 +291,7 @@ class JCSingleton {
 	 * @param mixed $default
 	 * @return mixed
 	 */
-	private static function getConfVal( & $conf, $field, $default ) {
+	private static function getConfVal( &$conf, $field, $default ) {
 		if ( property_exists( $conf, $field ) ) {
 			return $conf->$field;
 		}
@@ -309,7 +309,7 @@ class JCSingleton {
 	 * @return null|object|stdClass
 	 */
 	private static function getConfObject(
-		$warnFunc, & $value, $field, $confId = null, $treatAsField = null
+		$warnFunc, &$value, $field, $confId = null, $treatAsField = null
 	) {
 		if ( !$confId ) {
 			$val = & $value;

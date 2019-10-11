@@ -290,7 +290,7 @@ class JCValidators {
 	 * @return Closure
 	 */
 	public static function validateDataType( &$validators ) {
-		return function ( JCValue $v, array $path ) use ( & $validators ) {
+		return function ( JCValue $v, array $path ) use ( &$validators ) {
 			$value = $v->getValue();
 			$validator = false;
 			if ( is_string( $value ) ) {
