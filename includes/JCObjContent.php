@@ -181,10 +181,11 @@ abstract class JCObjContent extends JCContent {
 	 * @param callable $validator callback function as defined in JCValidators::run().
 	 *        More than one validator may be given.
 	 *        If validators are not provided, any value is accepted
+	 * @param callable ...$extraValidators
 	 * @throws \Exception
 	 * @return bool true if ok, false otherwise
 	 */
-	public function test( $path, $validator /*...*/ ) {
+	public function test( $path, $validator, ...$extraValidators ) {
 		$vld = self::convertValidators( $validator, func_get_args(), 1 );
 		return $this->testInt( $path, $vld );
 	}
@@ -198,13 +199,14 @@ abstract class JCObjContent extends JCContent {
 	 *        For example, if client needs to check validity of the 'value1' in the structure
 	 *        {'key':{'sub-key':['value0','value1']}},
 	 *        $field should be set to [ 'key', 'sub-key', 1 ].
-	 * @param callable $validator callback function as defined in JCValidators::run().
+	 * @param callable|null $validator callback function as defined in JCValidators::run().
 	 *        More than one validator may be given.
 	 *        If validators are not provided, any value is accepted
+	 * @param callable ...$extraValidators
 	 * @throws \Exception
 	 * @return bool true if all values tested ok, false otherwise
 	 */
-	public function testEach( $path, $validator = null /*...*/ ) {
+	public function testEach( $path, $validator = null, ...$extraValidators ) {
 		$vld = self::convertValidators( $validator, func_get_args(), 1 );
 		$isOk = true;
 		$path = (array)$path;

@@ -86,10 +86,11 @@ final class JCValue {
 	/** Helper function - same arguments as wfMessage, or true if message was already added.
 	 * false clears this message status, and null returns current state without changing it
 	 * @param null|bool|string $key message id, or if bool, sets/removes error status
-	 * @param array $fieldPath path to the erroneous field. Will be converted to a a/b/c[0]/d style
+	 * @param array|null $fieldPath path to the erroneous field. Will be converted to a/b/c[0]/d style
+	 * @param mixed ...$params
 	 * @return bool|Message
 	 */
-	public function error( $key = null, $fieldPath = null /*...*/ ) {
+	public function error( $key = null, $fieldPath = null, ...$params ) {
 		if ( is_bool( $key ) ) {
 			$this->error = $key;
 		} elseif ( $key !== null ) {
