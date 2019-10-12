@@ -170,6 +170,7 @@ class JCCache {
 						'titles' => $articleName,
 						'prop' => 'revisions',
 						'rvprop' => 'content',
+						'rvslots' => 'main',
 						'continue' => '',
 					]
 					: [
@@ -191,6 +192,7 @@ class JCCache {
 						? $res['flagged']['stable_revid'] : $res['lastrevid'],
 					'prop' => 'revisions',
 					'rvprop' => 'content',
+					'rvslots' => 'main',
 					'continue' => '',
 				] );
 			}
@@ -198,7 +200,7 @@ class JCCache {
 				break;
 			}
 
-			$result = $res['revisions'][0]['slots']['main']['*'] ?? $res['revisions'][0]['*'] ?? false;
+			$result = $res['revisions'][0]['slots']['main']['*'] ?? false;
 			if ( $result === false ) {
 				break;
 			}
