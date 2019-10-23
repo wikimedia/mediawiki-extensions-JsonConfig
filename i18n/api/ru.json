@@ -11,8 +11,8 @@
 	"apihelp-jsonconfig-param-title": "Заголовок для обработки без префикса пространства имён.",
 	"apihelp-jsonconfig-param-content": "Для $1command=reload используйте данное содержимое.",
 	"apihelp-jsonconfig-example-1": "Показать настройки",
-	"apihelp-jsonconfig-example-2": "Сбросить [[Zero:TEST]]",
-	"apihelp-jsonconfig-example-3": "Перегрузить [[Zero:TEST]]",
+	"apihelp-jsonconfig-example-2": "Сбросить [[Data:Brazil/Amazonas.map]]",
+	"apihelp-jsonconfig-example-3": "Перегрузить [[Data:Brazil/Amazonas.map]]",
 	"apihelp-jsondata-description": "Вызывает локализованные JSON-данные.",
 	"apihelp-jsondata-summary": "Вызывает локализованные JSON-данные.",
 	"apierror-jsonconfig-paramrequired": "Для этой команды требуется параметр <var>$1</var>."

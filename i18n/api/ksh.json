@@ -9,6 +9,6 @@
 	"apihelp-jsonconfig-param-title": "De Övverschreff zom Verärbeide.",
 	"apihelp-jsonconfig-param-content": "För „<code lang=\"en\" xml:lang=\"en\" dir=\"ltr\">$1command=reload</code>“ nemm schtatt dämm heh dä Ennhallt.\n<!--  \nhttps://translatewiki.net/wiki/Thread:Support/About_MediaWiki:Apihelp-jsonconfig-param-content/ksh\n-->",
 	"apihelp-jsonconfig-example-1": "Ennschtällonge aanzeije",
-	"apihelp-jsonconfig-example-2": "[[Zero:TEST]] neu aanloufe lohße",
-	"apihelp-jsonconfig-example-3": "[[Zero:TEST]] neu lahde"
+	"apihelp-jsonconfig-example-2": "[[Data:Brazil/Amazonas.map]] neu aanloufe lohße",
+	"apihelp-jsonconfig-example-3": "[[Data:Brazil/Amazonas.map]] neu lahde"
 }

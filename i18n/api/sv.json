@@ -10,7 +10,7 @@
 	"apihelp-jsonconfig-param-title": "Titel att bearbeta utan namnrymdsprefix.",
 	"apihelp-jsonconfig-param-content": "För $1command=reload, använd detta innehåll istället.",
 	"apihelp-jsonconfig-example-1": "Visa konfiguration",
-	"apihelp-jsonconfig-example-2": "Återställ [[Zero:TEST]]",
-	"apihelp-jsonconfig-example-3": "Ladda om [[Zero:TEST]]",
+	"apihelp-jsonconfig-example-2": "Återställ [[Data:Brazil/Amazonas.map]]",
+	"apihelp-jsonconfig-example-3": "Ladda om [[Data:Brazil/Amazonas.map]]",
 	"apihelp-jsondata-param-title": "Titel att hämta. Som standard antas namnrymden vara \"Data:\""
 }
