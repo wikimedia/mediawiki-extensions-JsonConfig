@@ -510,12 +510,12 @@ class JCSingleton {
 				// So we prepend an interwiki prefix to fool title codec, and later remove it.
 				try {
 					$value = FauxInterwikiLookup::INTERWIKI_PREFIX . ':' . $value;
-					$parts = self::$titleParser->splitTitleString( $value );
+					$title = self::$titleParser->parseTitle( $value );
 
 					// Defensive coding - ensure the parsing has proceeded as expected
-					if ( $parts['dbkey'] === '' || $parts['namespace'] !== 0 ||
-						$parts['fragment'] !== '' || $parts['local_interwiki'] !== false ||
-						$parts['interwiki'] !== FauxInterwikiLookup::INTERWIKI_PREFIX
+					if ( $title->getDBkey() === '' || $title->getNamespace() !== NS_MAIN ||
+						$title->hasFragment() ||
+						$title->getInterwiki() !== FauxInterwikiLookup::INTERWIKI_PREFIX
 					) {
 						return null;
 					}
@@ -529,7 +529,7 @@ class JCSingleton {
 				// places like commons and zerowiki.
 				// Another implicit limitation: there might be an issue if data is stored on a wiki
 				// with the non-default ucfirst(), e.g. az, kaa, kk, tr -- they convert "i" to "İ"
-				$dbKey = $language->ucfirst( $parts['dbkey'] );
+				$dbKey = $language->ucfirst( $title->getDBkey() );
 			} else {
 				$dbKey = $value->getDBkey();
 			}
