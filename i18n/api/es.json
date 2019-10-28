@@ -5,7 +5,8 @@
 			"Fitoschido",
 			"Igv",
 			"Macofe",
-			"Ryo567"
+			"Ryo567",
+			"Canaan9801"
 		]
 	},
 	"apihelp-jsonconfig-description": "Permite el acceso directo al subsistema JsonConfig.",
@@ -16,7 +17,7 @@
 	"apihelp-jsonconfig-param-content": "Para $1command=reload, usa este contenido en su lugar.",
 	"apihelp-jsonconfig-example-1": "Mostrar configuración",
 	"apihelp-jsonconfig-example-2": "Restablecer [[Data:Brazil/Amazonas.map]]",
-	"apihelp-jsonconfig-example-3": "Restablecer [[Data:Brazil/Amazonas.map]]",
+	"apihelp-jsonconfig-example-3": "Recargar [[Data:Brazil/Amazonas.map]]",
 	"apihelp-jsondata-description": "Recuperar los datos JSON localizados.",
 	"apihelp-jsondata-summary": "Recuperar datos en JSON regionalizados.",
 	"apihelp-jsondata-param-title": "Título que obtener. De manera predeterminada, asume que el espacio de nombres es «Data:»",
