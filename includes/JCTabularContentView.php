@@ -3,6 +3,7 @@
 namespace JsonConfig;
 
 use Html;
+use MediaWiki\MediaWikiServices;
 use ParserOptions;
 use ParserOutput;
 use Title;
@@ -132,8 +133,6 @@ class JCTabularContentView extends JCContentView {
 			}
 		}
 
-		global $wgParser;
-
 		$html =
 			$content->renderDescription( $lang ) .
 			Html::rawElement( 'table', $dataAttrs, Html::rawElement( 'thead', null, implode( "\n", [
@@ -141,8 +140,12 @@ class JCTabularContentView extends JCContentView {
 					$makeRow( $typeHeaders, [ 'class' => 'mw-tabular-row-type' ] ),
 					$makeRow( $titleHeaders, [ 'class' => 'mw-tabular-row-name' ] ),
 				] ) ) . Html::rawElement( 'tbody', null, implode( "\n", $rows ) ) ) .
-			$content->renderSources( $wgParser->getFreshParser(), $pageTitle, $revId, $options ) .
-			$content->renderLicense();
+			$content->renderSources(
+				MediaWikiServices::getInstance()->getParser()->getFreshParser(),
+				$pageTitle,
+				$revId,
+				$options
+			) . $content->renderLicense();
 
 		return $html;
 	}
