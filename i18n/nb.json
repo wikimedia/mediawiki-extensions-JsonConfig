@@ -36,7 +36,9 @@
 	"jsonconfig-type-name-number": "tall",
 	"jsonconfig-type-name-boolean": "boolsk verdi",
 	"jsonconfig-license": "Data tilgjengelig under $1.",
+	"jsonconfig-license-not-set": "Når du redigerer denne siden samtykker du i å slippe alle bidrag under lisensen som angis i «lisens»-feltet.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
+	"jsonconfig-license-copyrightwarning": "Ved å lagre endringene samtykker du i [https://foundation.wikimedia.org/wiki/Terms_of_Use bruksvilkårene], og gir ugjenkallelig samtykke til å slippe bidraget ditt under lisensen [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"right-jsonconfig-flush": "Manipulere JsonConfig via API",
 	"action-jsonconfig-flush": "manipulere JsonConfig via API"
 }
