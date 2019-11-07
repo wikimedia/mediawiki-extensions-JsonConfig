@@ -39,6 +39,9 @@
 	"jsonconfig-license-not-set": "Når du redigerer denne siden samtykker du i å slippe alle bidrag under lisensen som angis i «lisens»-feltet.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
 	"jsonconfig-license-copyrightwarning": "Ved å lagre endringene samtykker du i [https://foundation.wikimedia.org/wiki/Terms_of_Use bruksvilkårene], og gir ugjenkallelig samtykke til å slippe bidraget ditt under lisensen [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
+	"jsonconfig-license-copyrightwarning-license-unset": "Ved å lagre endringer godtar du [https://foundation.wikimedia.org/wiki/Terms_of_Use bruksvilkårene], og gir ugjenkallelig samtykke til å slippe bidraget ditt under lisensen som angis i lisensfeltet.",
+	"jsonconfig-license-notice": "'''Merk:''' Når du redigerer denne siden samtykker du i å slippe bidraget ditt under [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
+	"jsonconfig-license-notice-license-unset": "'''Merk:''' Når du redirerer denne siden samtykker du i å slippe bidraget ditt under lisensen angitt i lisensfeltet.",
 	"right-jsonconfig-flush": "Manipulere JsonConfig via API",
 	"action-jsonconfig-flush": "manipulere JsonConfig via API"
 }

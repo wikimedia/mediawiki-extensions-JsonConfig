@@ -10,7 +10,8 @@
 			"Yurik",
 			"Derugon",
 			"Thibaut120094",
-			"Urhixidur"
+			"Urhixidur",
+			"Verdy p"
 		]
 	},
 	"jsonconfig-desc": "Permet de stocker une configuration JSON dans un wiki",
@@ -40,7 +41,7 @@
 	"jsonconfig-optional-field": "(facultatif)",
 	"jsonconfig-type-name-invalid": "non valide",
 	"jsonconfig-type-name-string": "chaîne",
-	"jsonconfig-type-name-localized": "localisé",
+	"jsonconfig-type-name-localized": "traduit",
 	"jsonconfig-type-name-number": "nombre",
 	"jsonconfig-type-name-boolean": "booléen",
 	"jsonconfig-license": "Données disponibles sous $1.",
