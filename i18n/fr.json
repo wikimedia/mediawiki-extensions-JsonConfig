@@ -52,5 +52,5 @@
 	"jsonconfig-license-notice": "'''Note :''' Quand vous modifiez cette page, vous acceptez de mettre votre contribution sous  [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-notice-license-unset": "'''Note :''' Quand vous modifiez cette page, vous acceptez de placer votre contribution sous la licence spécifiée dans le champ 'licence'.",
 	"right-jsonconfig-flush": "Manipuler JsonConfig par API",
-	"action-jsonconfig-flush": "utilser JsonConfig au travers de l'API"
+	"action-jsonconfig-flush": "utilser JsonConfig au travers de l’API"
 }
