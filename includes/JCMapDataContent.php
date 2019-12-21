@@ -132,7 +132,7 @@ class JCMapDataContent extends JCDataContent {
 			$result->longitude = $data->longitude;
 		}
 
-		$geojson = FormatJson::decode( FormatJson::encode( $data->data, FormatJson::ALL_OK ) );
+		$geojson = FormatJson::decode( FormatJson::encode( $data->data, false, FormatJson::ALL_OK ) );
 		self::recursiveWalk( $geojson, $lang );
 
 		$result->data = $geojson;

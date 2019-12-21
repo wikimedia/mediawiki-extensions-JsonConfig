@@ -99,7 +99,7 @@ class JCContentHandler extends TextContentHandler {
 	/**
 	 * Unserializes a JsonSchemaContent object.
 	 *
-	 * @param string $text Serialized form of the content
+	 * @param string|null $text Serialized form of the content
 	 * @param null|string $format The format used for serialization
 	 * @param bool $isSaving Perform extra validation
 	 * @return JCContent the JsonSchemaContent object wrapping $text

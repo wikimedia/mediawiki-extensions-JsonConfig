@@ -149,7 +149,7 @@ class JCContent extends \TextContent {
 		// @fixme: but doing (object)(array)$data will re-encode empty [] as {}
 		// @performance: re-encoding is likely faster than stripping comments in PHP twice
 		$this->rawData = FormatJson::decode(
-			FormatJson::encode( $data, FormatJson::ALL_OK ), true
+			FormatJson::encode( $data, false, FormatJson::ALL_OK ), true
 		);
 		$this->data = $this->validate( $data );
 	}

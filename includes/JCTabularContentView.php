@@ -135,11 +135,11 @@ class JCTabularContentView extends JCContentView {
 
 		$html =
 			$content->renderDescription( $lang ) .
-			Html::rawElement( 'table', $dataAttrs, Html::rawElement( 'thead', null, implode( "\n", [
+			Html::rawElement( 'table', $dataAttrs, Html::rawElement( 'thead', [], implode( "\n", [
 					$makeRow( $nameHeaders, [ 'class' => 'mw-tabular-row-key' ] ),
 					$makeRow( $typeHeaders, [ 'class' => 'mw-tabular-row-type' ] ),
 					$makeRow( $titleHeaders, [ 'class' => 'mw-tabular-row-name' ] ),
-				] ) ) . Html::rawElement( 'tbody', null, implode( "\n", $rows ) ) ) .
+				] ) ) . Html::rawElement( 'tbody', [], implode( "\n", $rows ) ) ) .
 			$content->renderSources(
 				MediaWikiServices::getInstance()->getParser()->getFreshParser(),
 				$pageTitle,
