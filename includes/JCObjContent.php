@@ -109,7 +109,7 @@ abstract class JCObjContent extends JCContent {
 	/**
 	 * Derived validate() must return the result of this function
 	 * @throws \Exception
-	 * @return array
+	 * @return array|null
 	 */
 	protected function finishValidation() {
 		if ( !$this->getStatus()->isGood() ) {
@@ -305,6 +305,7 @@ abstract class JCObjContent extends JCContent {
 				throw new Exception( 'Logic error - subJcv must be valid here' );
 			} elseif ( $subJcv === false ) {
 				// field does not exist
+				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 				$initValue = !$path ? null : ( is_string( $path[0] ) ? new stdClass() : [] );
 				$subJcv = new JCValue( JCValue::MISSING, $initValue );
 			}
