@@ -72,7 +72,9 @@
 		"JsonConfig\\JCTitle": "includes/JCTitle.php",
 		"JsonConfig\\JCUtils": "includes/JCUtils.php",
 		"JsonConfig\\JCValidators": "includes/JCValidators.php",
-		"JsonConfig\\JCValue": "includes/JCValue.php",
+		"JsonConfig\\JCValue": "includes/JCValue.php"
+	},
+	"TestAutoloadClasses": {
 		"JsonConfig\\Tests\\ObjContent": "tests/phpunit/unit/ObjContent.php"
 	},
 	"APIModules": {
