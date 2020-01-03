@@ -2,8 +2,8 @@
 namespace JsonConfig;
 
 use ApiModuleManager;
-use Article;
 use ContentHandler;
+use EditPage;
 use Exception;
 use GenderCache;
 use Html;
@@ -654,27 +654,18 @@ class JCSingleton {
 	}
 
 	/**
-	 * CustomEditor hook handler
-	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/CustomEditor
-	 *
-	 * @param Article $article
-	 * @param User $user
-	 * @return bool
+	 * AlternateEdit hook handler
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/AlternateEdit
+	 * @param EditPage $editpage
 	 */
-	public static function onCustomEditor( $article, $user ) {
-		if ( !$article || !self::jsonConfigIsStorage() ) {
-			return true;
+	public static function onAlternateEdit( EditPage $editpage ) {
+		if ( !self::jsonConfigIsStorage() ) {
+			return;
 		}
-		$jct = self::parseTitle( $article->getTitle() );
-		if ( !$jct ) {
-			return true;
+		$jct = self::parseTitle( $editpage->getTitle() );
+		if ( $jct ) {
+			$editpage->contentFormat = JCContentHandler::CONTENT_FORMAT_JSON_PRETTY;
 		}
-
-		$editor = new \EditPage( $article );
-		$editor->contentFormat = JCContentHandler::CONTENT_FORMAT_JSON_PRETTY;
-		$editor->edit();
-
-		return false;
 	}
 
 	/**

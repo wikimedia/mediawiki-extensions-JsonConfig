@@ -121,8 +121,8 @@
 		"ContentHandlerForModelID": [
 			"JsonConfig\\JCSingleton::onContentHandlerForModelID"
 		],
-		"CustomEditor": [
-			"JsonConfig\\JCSingleton::onCustomEditor"
+		"AlternateEdit": [
+			"JsonConfig\\JCSingleton::onAlternateEdit"
 		],
 		"EditFilterMergedContent": [
 			"JsonConfig\\JCSingleton::onEditFilterMergedContent"
