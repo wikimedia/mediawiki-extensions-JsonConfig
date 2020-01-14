@@ -5,9 +5,9 @@ namespace JsonConfig;
 use FormatJson;
 use ParserOptions;
 use ParserOutput;
+use Status;
 use stdClass;
 use Title;
-use Status;
 
 /**
  * Represents the content of a JSON Json Config article.

@@ -2,8 +2,8 @@
 
 namespace JsonConfig;
 
-use FormatJson;
 use Exception;
+use FormatJson;
 use Language;
 use MWHttpRequest;
 use Status;

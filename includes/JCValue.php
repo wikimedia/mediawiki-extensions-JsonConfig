@@ -1,8 +1,8 @@
 <?php
 namespace JsonConfig;
 
-use Message;
 use Exception;
+use Message;
 
 /**
  * A class with validation state that wraps each accessed value in the JCObjContent::validationData
@@ -22,7 +22,8 @@ final class JCValue {
 	const CHECKED = 1;
 	/** field is missing in the data, but is being explicitly tested for.
 	 * This value should never be stored in JCObjContent::validationData.
-	 * Setting this value for any field in validator will delete it. */
+	 * Setting this value for any field in validator will delete it.
+	 */
 	const MISSING = 2;
 	/** field was not explicitly tested, but it was listed as a parent of one of the tested fields */
 	const VISITED = 3;

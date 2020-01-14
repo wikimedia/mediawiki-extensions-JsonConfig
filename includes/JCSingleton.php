@@ -13,11 +13,11 @@ use MapCacheLRU;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
 use MediaWikiTitleCodec;
-use TitleParser;
 use Status;
 use stdClass;
-use TitleValue;
 use Title;
+use TitleParser;
+use TitleValue;
 use User;
 
 /**
@@ -304,8 +304,8 @@ class JCSingleton {
 	 * @param $warnFunc
 	 * @param $value
 	 * @param string $field
-	 * @param string $confId
-	 * @param string $treatAsField
+	 * @param string|null $confId
+	 * @param string|null $treatAsField
 	 * @return null|object|stdClass
 	 */
 	private static function getConfObject(
@@ -984,7 +984,7 @@ class JCSingleton {
 
 	/**
 	 * @param object $value
-	 * @param JCContent $content
+	 * @param JCContent|null $content
 	 * @return bool
 	 */
 	private static function onArticleChangeComplete( $value, $content = null ) {

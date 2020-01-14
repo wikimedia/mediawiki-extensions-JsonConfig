@@ -2,15 +2,15 @@
 namespace JsonConfig\Tests;
 
 use JsonConfig\JCObjContent;
-use JsonConfig\JCValue;
 use JsonConfig\JCValidators;
+use JsonConfig\JCValue;
 use MediaWikiUnitTestCase;
 
 /**
  * @package JsonConfigTests
  * @group JsonConfig
  * @covers \JsonConfig\JCObjContent
-*/
+ */
 class JCObjContentTest extends MediaWikiUnitTestCase {
 
 	/** @dataProvider provideBasic */
@@ -323,7 +323,7 @@ class JCObjContentTest extends MediaWikiUnitTestCase {
 				'missing no dflt f', '{"y":5}', true, true,
 				function ( JCObjContent $o ) use ( $self ) {
 					$o->test( 'f', function ( JCValue $v ) use ( $self ) {
-						$self->assertEquals( true, $v->isMissing() );
+						$self->assertTrue( $v->isMissing() );
 					} );
 				},
 			],
@@ -331,7 +331,7 @@ class JCObjContentTest extends MediaWikiUnitTestCase {
 				'missing no dflt f[0]', '{"f":[]}', true, true,
 				function ( JCObjContent $o ) use ( $self ) {
 					$o->test( [ 'f', 0 ], function ( JCValue $v ) use ( $self ) {
-						$self->assertEquals( true, $v->isMissing() );
+						$self->assertTrue( $v->isMissing() );
 					} );
 				},
 			],
@@ -339,7 +339,7 @@ class JCObjContentTest extends MediaWikiUnitTestCase {
 				'missing no dflt f[1]', '{"f":[{"x":1}]}', true, true,
 				function ( JCObjContent $o ) use ( $self ) {
 					$o->test( [ 'f', 1 ], function ( JCValue $v ) use ( $self ) {
-						$self->assertEquals( true, $v->isMissing() );
+						$self->assertTrue( $v->isMissing() );
 					} );
 				},
 			],
@@ -347,7 +347,7 @@ class JCObjContentTest extends MediaWikiUnitTestCase {
 				'missing no dflt f[0]/y', '{"f":[{"x":1}]}', true, true,
 				function ( JCObjContent $o ) use ( $self ) {
 					$o->test( [ 'f', 0, 'y' ], function ( JCValue $v ) use ( $self ) {
-						$self->assertEquals( true, $v->isMissing() );
+						$self->assertTrue( $v->isMissing() );
 					} );
 				},
 			],

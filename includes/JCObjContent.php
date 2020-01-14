@@ -1,8 +1,8 @@
 <?php
 namespace JsonConfig;
 
-use Message;
 use Exception;
+use Message;
 use stdClass;
 
 /**
@@ -28,7 +28,7 @@ abstract class JCObjContent extends JCContent {
 	 */
 	protected $validationData;
 
-	/** @var mixed  */
+	/** @var mixed */
 	protected $dataWithDefaults;
 
 	/** @var bool|null validation status - null=before, true=during, false=done */
@@ -279,7 +279,8 @@ abstract class JCObjContent extends JCContent {
 		}
 
 		/** @var bool $reposition - should the field be deleted and re-added at the end
-		 * this is only needed for viewing and saving */
+		 * this is only needed for viewing and saving
+		 */
 		$reposition = $this->thorough() && is_string( $fld ) && $subJcv !== false;
 		if ( $subJcv === false || $subJcv->isUnchecked() ) {
 			// We never went down this path before
