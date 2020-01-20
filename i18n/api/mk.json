@@ -20,5 +20,5 @@
 	"apihelp-jsondata-example-1": "Дава JSON-содржина на страницата Sample.tab page, локализирана на јазикот на корисникот",
 	"apihelp-jsondata-example-2": "Дава JSON-содржина на страницата Sample.tab, локализирана на француски",
 	"apierror-jsonconfig-paramrequired": "Наредбава го бара параметарот <var>$1</var>.",
-	"apierror-jsonconfig-badtitle": "Оваа страница укажана од параметрите <var>namespace</var> и <var>title</var> е неважечка, или не е регистрирана во поставеноста на JsonConfig."
+	"apierror-jsonconfig-badtitle": "Оваа страница укажана од параметрите <var>namespace</var> и <var>title</var> е неважечка, или не е пријавена во поставките на JsonConfig."
 }
