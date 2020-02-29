@@ -286,7 +286,7 @@ class JCSingleton {
 
 	/**
 	 * Helper function to check if configuration has a field set, and if not, set it to default
-	 * @param stdClass $conf
+	 * @param stdClass &$conf
 	 * @param string $field
 	 * @param mixed $default
 	 * @return mixed
@@ -301,8 +301,8 @@ class JCSingleton {
 
 	/**
 	 * Helper function to check if configuration has a field set, and if not, set it to default
-	 * @param $warnFunc
-	 * @param $value
+	 * @param callable $warnFunc
+	 * @param stdClass &$value
 	 * @param string $field
 	 * @param string|null $confId
 	 * @param string|null $treatAsField
