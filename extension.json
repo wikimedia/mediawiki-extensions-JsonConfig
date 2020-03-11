@@ -94,63 +94,25 @@
 		"remoteExtPath": "JsonConfig/modules"
 	},
 	"Hooks": {
-		"AbortMove": [
-			"JsonConfig\\JCSingleton::onAbortMove"
-		],
-		"ApiMain::moduleManager": [
-			"JsonConfig\\JCSingleton::onApiMainModuleManager"
-		],
-		"ArticleDeleteComplete": [
-			"JsonConfig\\JCSingleton::onArticleDeleteComplete"
-		],
-		"ArticleUndelete": [
-			"JsonConfig\\JCSingleton::onArticleUndelete"
-		],
-		"BeforePageDisplay": [
-			"JsonConfig\\JCSingleton::onBeforePageDisplay"
-		],
-		"CanonicalNamespaces": [
-			"JsonConfig\\JCSingleton::onCanonicalNamespaces"
-		],
-		"CodeEditorGetPageLanguage": [
-			"JsonConfig\\JCSingleton::onCodeEditorGetPageLanguage"
-		],
-		"ContentHandlerDefaultModelFor": [
-			"JsonConfig\\JCSingleton::onContentHandlerDefaultModelFor"
-		],
-		"ContentHandlerForModelID": [
-			"JsonConfig\\JCSingleton::onContentHandlerForModelID"
-		],
-		"AlternateEdit": [
-			"JsonConfig\\JCSingleton::onAlternateEdit"
-		],
-		"EditFilterMergedContent": [
-			"JsonConfig\\JCSingleton::onEditFilterMergedContent"
-		],
-		"EditPageCopyrightWarning": [
-			"JsonConfig\\JCSingleton::onEditPageCopyrightWarning"
-		],
-		"MovePageIsValidMove": [
-			"JsonConfig\\JCSingleton::onMovePageIsValidMove"
-		],
-		"PageContentSaveComplete": [
-			"JsonConfig\\JCSingleton::onPageContentSaveComplete"
-		],
-		"ScribuntoExternalLibraries": [
-			"JsonConfig\\JCLuaLibrary::onScribuntoExternalLibraries"
-		],
-		"SkinCopyrightFooter": [
-			"JsonConfig\\JCSingleton::onSkinCopyrightFooter"
-		],
-		"TitleGetEditNotices": [
-			"JsonConfig\\JCSingleton::onTitleGetEditNotices"
-		],
-		"TitleMoveComplete": [
-			"JsonConfig\\JCSingleton::onTitleMoveComplete"
-		],
-		"userCan": [
-			"JsonConfig\\JCSingleton::onuserCan"
-		]
+		"AbortMove": "JsonConfig\\JCSingleton::onAbortMove",
+		"ApiMain::moduleManager": "JsonConfig\\JCSingleton::onApiMainModuleManager",
+		"ArticleDeleteComplete": "JsonConfig\\JCSingleton::onArticleDeleteComplete",
+		"ArticleUndelete": "JsonConfig\\JCSingleton::onArticleUndelete",
+		"BeforePageDisplay": "JsonConfig\\JCSingleton::onBeforePageDisplay",
+		"CanonicalNamespaces": "JsonConfig\\JCSingleton::onCanonicalNamespaces",
+		"CodeEditorGetPageLanguage": "JsonConfig\\JCSingleton::onCodeEditorGetPageLanguage",
+		"ContentHandlerDefaultModelFor": "JsonConfig\\JCSingleton::onContentHandlerDefaultModelFor",
+		"ContentHandlerForModelID": "JsonConfig\\JCSingleton::onContentHandlerForModelID",
+		"AlternateEdit": "JsonConfig\\JCSingleton::onAlternateEdit",
+		"EditFilterMergedContent": "JsonConfig\\JCSingleton::onEditFilterMergedContent",
+		"EditPageCopyrightWarning": "JsonConfig\\JCSingleton::onEditPageCopyrightWarning",
+		"MovePageIsValidMove": "JsonConfig\\JCSingleton::onMovePageIsValidMove",
+		"PageContentSaveComplete": "JsonConfig\\JCSingleton::onPageContentSaveComplete",
+		"ScribuntoExternalLibraries": "JsonConfig\\JCLuaLibrary::onScribuntoExternalLibraries",
+		"SkinCopyrightFooter": "JsonConfig\\JCSingleton::onSkinCopyrightFooter",
+		"TitleGetEditNotices": "JsonConfig\\JCSingleton::onTitleGetEditNotices",
+		"TitleMoveComplete": "JsonConfig\\JCSingleton::onTitleMoveComplete",
+		"userCan": "JsonConfig\\JCSingleton::onuserCan"
 	},
 	"config": {
 		"JsonConfigs": {
