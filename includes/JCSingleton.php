@@ -780,7 +780,8 @@ class JCSingleton {
 					$noticeText = wfMessage( 'jsonconfig-license-notice', $code )->parse();
 					$iconCodes = '';
 					if ( preg_match_all( "/[a-z][a-z0-9]+/i", $code, $subcodes ) ) {
-						foreach ( $subcodes[0] as $c => $match ) {
+						// Flip order due to dom ordering of the floating elements
+						foreach ( array_reverse( $subcodes[0] ) as $c => $match ) {
 							// Used classes:
 							// * mw-jsonconfig-editnotice-icon-BY
 							// * mw-jsonconfig-editnotice-icon-CC
