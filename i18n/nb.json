@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kingu",
-			"Jon Harald Søby"
+			"Jon Harald Søby",
+			"Kingu"
 		]
 	},
 	"jsonconfig-desc": "Lar JSON-konfigurasjon lagres på en wiki",

@@ -1,9 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Vlad5250",
 			"StanProg",
-			"Ted Masters"
+			"Ted Masters",
+			"Vlad5250"
 		]
 	},
 	"apihelp-jsonconfig-description": "Позволява директен достъп до подсистемата JsonConfig.",

@@ -1,10 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Imperadeiro98",
-			"Vitorvicentevalente",
 			"Hamilton Abreu",
-			"Ngl2016"
+			"Imperadeiro98",
+			"Ngl2016",
+			"Vitorvicentevalente"
 		]
 	},
 	"jsonconfig-desc": "Permite que configuração JSON seja armazenada numa wiki",

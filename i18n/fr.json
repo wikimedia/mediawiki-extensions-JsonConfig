@@ -1,17 +1,17 @@
 {
 	"@metadata": {
 		"authors": [
-			"Sherbrooke",
-			"Gomoko",
 			"0x010C",
-			"Wladek92",
-			"Hpetit",
-			"Yasten",
-			"Yurik",
 			"Derugon",
+			"Gomoko",
+			"Hpetit",
+			"Sherbrooke",
 			"Thibaut120094",
 			"Urhixidur",
-			"Verdy p"
+			"Verdy p",
+			"Wladek92",
+			"Yasten",
+			"Yurik"
 		]
 	},
 	"jsonconfig-desc": "Permet de stocker une configuration JSON dans un wiki",

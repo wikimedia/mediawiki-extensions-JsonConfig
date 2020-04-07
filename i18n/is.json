@@ -2,8 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Hjalmtyr",
-			"Sveinn í Felli",
-			"Snævar"
+			"Snævar",
+			"Sveinn í Felli"
 		]
 	},
 	"jsonconfig-err-bad-type": "Viðfang \"$1\" verður að vera gilt tag, eins og \"string\", \"number\" eða \"boolean\"",

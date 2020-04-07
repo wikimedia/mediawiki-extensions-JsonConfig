@@ -1,9 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
+			"Leducthn",
 			"Minh Nguyen",
-			"Yurik",
-			"Leducthn"
+			"Yurik"
 		]
 	},
 	"jsonconfig-desc": "Cho phép lưu giữ cấu hình JSON trên wiki",

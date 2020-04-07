@@ -1,12 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Liuxinyu970226",
 			"Cwlin0416",
-			"Yurik",
 			"Hello903hello",
 			"Kly",
-			"LNDDYL"
+			"LNDDYL",
+			"Liuxinyu970226",
+			"Yurik"
 		]
 	},
 	"jsonconfig-desc": "允許在 Wiki 儲存 JSON 設定",

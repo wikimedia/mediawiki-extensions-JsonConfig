@@ -1,12 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
+			"Canaan9801",
 			"Dgstranz",
 			"Fitoschido",
 			"Igv",
 			"Macofe",
-			"Ryo567",
-			"Canaan9801"
+			"Ryo567"
 		]
 	},
 	"apihelp-jsonconfig-description": "Permite el acceso directo al subsistema JsonConfig.",

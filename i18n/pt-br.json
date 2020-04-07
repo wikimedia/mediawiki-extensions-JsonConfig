@@ -2,9 +2,9 @@
 	"@metadata": {
 		"authors": [
 			"Araceletorres",
-			"Yurik",
+			"Eduardo Addad de Oliveira",
 			"Felipe L. Ewald",
-			"Eduardo Addad de Oliveira"
+			"Yurik"
 		]
 	},
 	"jsonconfig-desc": "Permite que a configuração JSON seja armazenada na wiki",

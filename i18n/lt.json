@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Zygimantus",
-			"Eitvys200"
+			"Eitvys200",
+			"Zygimantus"
 		]
 	},
 	"jsonconfig-err-license": "Parametras „$1“ turi būti vienas iš galimų licencijos kodų, pavyzdžiui $2",

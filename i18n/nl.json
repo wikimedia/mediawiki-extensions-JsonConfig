@@ -1,12 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
+			"Hex",
+			"Mainframe98",
+			"Romaine",
 			"Siebrand",
 			"Sjoerddebruin",
-			"Hex",
-			"Yurik",
-			"Mainframe98",
-			"Romaine"
+			"Yurik"
 		]
 	},
 	"jsonconfig-desc": "Maakt het mogelijk JSON-instellingen op te slaan in een wiki",

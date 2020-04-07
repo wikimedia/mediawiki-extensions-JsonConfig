@@ -1,14 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Shirayuki",
-			"Otokoume",
 			"Akki-102525",
+			"Kkairri",
+			"Otokoume",
+			"Shirayuki",
+			"Suyama",
 			"Thibaut120094",
 			"Yurik",
-			"Yusuke1109",
-			"Kkairri",
-			"Suyama"
+			"Yusuke1109"
 		]
 	},
 	"jsonconfig-desc": "JSON設定をwikiに保存できるようにする",

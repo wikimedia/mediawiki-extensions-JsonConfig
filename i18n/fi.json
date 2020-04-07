@@ -2,8 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Nike",
-			"Valtlait",
-			"Pyscowicz"
+			"Pyscowicz",
+			"Valtlait"
 		]
 	},
 	"jsonconfig-err-bad-type": "Parametrin ”$1” on oltava kelvollinen tyyppi, kuten ”string\", ”number” tai ”boolean”",

@@ -1,15 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Okras",
+			"Facenapalm",
+			"Irus",
+			"Mailman",
+			"MaxBioHazard",
 			"Meshkov.a",
 			"NBS",
-			"Irus",
-			"MaxBioHazard",
-			"Yurik",
-			"Mailman",
-			"Facenapalm",
-			"Vlad5250"
+			"Okras",
+			"Vlad5250",
+			"Yurik"
 		]
 	},
 	"jsonconfig-desc": "Позволяет хранить настройки JSON в вики-проекте",

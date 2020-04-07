@@ -2,14 +2,14 @@
 	"@metadata": {
 		"authors": [
 			"Csbotero",
-			"Fitoschido",
-			"Ryo567",
-			"Macofe",
-			"Lemondoge",
-			"Igv",
-			"Yurik",
 			"Dgstranz",
-			"MarcoAurelio"
+			"Fitoschido",
+			"Igv",
+			"Lemondoge",
+			"Macofe",
+			"MarcoAurelio",
+			"Ryo567",
+			"Yurik"
 		]
 	},
 	"jsonconfig-desc": "Permite que la configuración JSON sea almacenada en un wiki",

@@ -1,12 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Liuxinyu970226",
+			"Hanyanbo98",
 			"Hudafu",
+			"Liuxinyu970226",
 			"NigelSoft",
-			"御坂美琴",
 			"Yurik",
-			"Hanyanbo98"
+			"御坂美琴"
 		]
 	},
 	"jsonconfig-desc": "允许JSON配置存储在wiki中",

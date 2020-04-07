@@ -1,11 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Reza1615",
-			"Mjbmr",
 			"Ebraminio",
 			"Huji",
-			"Ladsgroup"
+			"Ladsgroup",
+			"Mjbmr",
+			"Reza1615"
 		]
 	},
 	"jsonconfig-desc": "اجازه می‌دهد که پیکربندی JSON در یک ویکی ذخیره شود",

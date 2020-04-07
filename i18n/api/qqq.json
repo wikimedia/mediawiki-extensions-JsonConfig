@@ -1,16 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"Lloffiwr",
-			"Shirayuki",
-			"Yuri Astrakhan",
-			"Siebrand",
 			"Amire80",
-			"Umherirrender",
-			"Purodha",
 			"Liuxinyu970226",
+			"Lloffiwr",
+			"Purodha",
+			"Raymond",
 			"Robby",
-			"Raymond"
+			"Shirayuki",
+			"Siebrand",
+			"Umherirrender",
+			"Yuri Astrakhan"
 		]
 	},
 	"apihelp-jsonconfig-description": "{{doc-apihelp-description|jsonconfig}}",
