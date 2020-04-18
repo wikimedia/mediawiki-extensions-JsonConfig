@@ -19,7 +19,7 @@ class JCContentHandler extends TextContentHandler {
 	/**
 	 * Internal format to force pretty-printed json serialization
 	 */
-	const CONTENT_FORMAT_JSON_PRETTY = 'application/json+pretty';
+	public const CONTENT_FORMAT_JSON_PRETTY = 'application/json+pretty';
 
 	/**
 	 * @param string $modelId

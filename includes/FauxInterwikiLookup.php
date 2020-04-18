@@ -16,7 +16,7 @@ class FauxInterwikiLookup implements InterwikiLookup {
 	/**
 	 * This class will only accept this string as a valid interwiki
 	 */
-	const INTERWIKI_PREFIX = 'xyz';
+	public const INTERWIKI_PREFIX = 'xyz';
 
 	/**
 	 * Check whether an interwiki prefix exists

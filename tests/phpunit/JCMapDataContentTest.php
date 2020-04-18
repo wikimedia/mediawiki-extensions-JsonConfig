@@ -12,7 +12,7 @@ use MediaWikiTestCase;
  * @covers \JsonConfig\JCMapDataContent
  */
 class JCMapDataContentTest extends MediaWikiTestCase {
-	const CONTENT_STUB = '{
+	private const CONTENT_STUB = '{
 			"description": {
 				"en": "[[Do not parse]]"
 			},

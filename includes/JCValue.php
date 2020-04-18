@@ -17,16 +17,16 @@ final class JCValue {
 	private $error = false;
 
 	/** Value has not been checked */
-	const UNCHECKED = 0;
+	public const UNCHECKED = 0;
 	/** Value was explicitly checked (might be an error) */
-	const CHECKED = 1;
+	public const CHECKED = 1;
 	/** field is missing in the data, but is being explicitly tested for.
 	 * This value should never be stored in JCObjContent::validationData.
 	 * Setting this value for any field in validator will delete it.
 	 */
-	const MISSING = 2;
+	public const MISSING = 2;
 	/** field was not explicitly tested, but it was listed as a parent of one of the tested fields */
-	const VISITED = 3;
+	public const VISITED = 3;
 
 	/** @param int $status
 	 * @param mixed $value
