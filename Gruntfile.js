@@ -12,6 +12,7 @@ module.exports = function ( grunt ) {
 	grunt.loadNpmTasks( 'grunt-stylelint' );
 
 	grunt.initConfig( {
+		// eslint-disable-next-line no-restricted-properties
 		banana: Object.assign( {
 			options: { requireLowerCase: false }
 		}, conf.MessagesDirs ),
