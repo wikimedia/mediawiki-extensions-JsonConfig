@@ -3,6 +3,7 @@
 		"authors": [
 			"Hex",
 			"Mainframe98",
+			"Nieuwsgierige Gebruiker",
 			"Romaine",
 			"Siebrand",
 			"Sjoerddebruin",
@@ -32,5 +33,6 @@
 	"jsonconfig-type-name-number": "getal",
 	"jsonconfig-type-name-boolean": "Boolean",
 	"jsonconfig-license": "Gegevens beschikbaar onder $1.",
-	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero"
+	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
+	"right-jsonconfig-flush": "Manipuleer JsonConfig via API"
 }
