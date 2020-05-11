@@ -13,6 +13,7 @@ use MapCacheLRU;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
 use MediaWikiTitleCodec;
+use OutputPage;
 use Status;
 use stdClass;
 use Title;
@@ -666,6 +667,22 @@ class JCSingleton {
 		if ( $jct ) {
 			$editpage->contentFormat = JCContentHandler::CONTENT_FORMAT_JSON_PRETTY;
 		}
+	}
+
+	/**
+	 * @param EditPage $editPage
+	 * @param OutputPage $output
+	 * @return bool
+	 */
+	public static function onEditPage( EditPage $editPage, OutputPage $output ) {
+		global $wgJsonConfigUseGUI;
+		if (
+			$wgJsonConfigUseGUI &&
+			$editPage->getTitle()->getContentModel() === 'Tabular.JsonConfig'
+		) {
+			$output->addModules( 'ext.jsonConfig.edit' );
+		}
+		return true;
 	}
 
 	/**

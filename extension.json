@@ -10,7 +10,7 @@
 	"type": "other",
 	"license-name": "GPL-2.0-or-later",
 	"requires": {
-		"MediaWiki": ">= 1.32.0"
+		"MediaWiki": ">= 1.35.0"
 	},
 	"namespaces": [
 		{
@@ -66,6 +66,33 @@
 				"tabular-general.less",
 				"tabular-table.less"
 			]
+		},
+		"ext.jsonConfig.edit": {
+			"scripts": [
+				"ext.jsonConfig.init.js",
+				"ext.jsonConfig.JsonEditDialog.js",
+				"ext.jsonConfig.edit.js"
+			],
+			"dependencies": [
+				"jquery.textSelection",
+				"mediawiki.widgets.Table",
+				"oojs-ui-widgets",
+				"oojs-ui-windows"
+			],
+			"messages": [
+				"jsonconfig-edit-action-apply",
+				"jsonconfig-edit-action-cancel",
+				"jsonconfig-edit-button-label",
+				"jsonconfig-edit-dialog-error",
+				"jsonconfig-edit-dialog-error-data-inavlid",
+				"jsonconfig-edit-dialog-error-data-missing",
+				"jsonconfig-edit-dialog-error-data-too-large",
+				"jsonconfig-edit-dialog-error-field-name-missing",
+				"jsonconfig-edit-dialog-error-field-type-invalid",
+				"jsonconfig-edit-dialog-error-fields-missing",
+				"jsonconfig-edit-dialog-error-schema-missing",
+				"jsonconfig-edit-dialog-title"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {
@@ -83,6 +110,7 @@
 		"ContentHandlerDefaultModelFor": "JsonConfig\\JCSingleton::onContentHandlerDefaultModelFor",
 		"ContentHandlerForModelID": "JsonConfig\\JCSingleton::onContentHandlerForModelID",
 		"AlternateEdit": "JsonConfig\\JCSingleton::onAlternateEdit",
+		"EditPage::showEditForm:initial": "JsonConfig\\JCSingleton::onEditPage",
 		"EditFilterMergedContent": "JsonConfig\\JCSingleton::onEditFilterMergedContent",
 		"EditPageCopyrightWarning": "JsonConfig\\JCSingleton::onEditPageCopyrightWarning",
 		"MovePageIsValidMove": "JsonConfig\\JCSingleton::onMovePageIsValidMove",
@@ -131,6 +159,9 @@
 		},
 		"JsonConfigInterwikiPrefix": {
 			"value": "commons"
+		},
+		"JsonConfigUseGUI": {
+			"value": true
 		}
 	},
 	"manifest_version": 2
