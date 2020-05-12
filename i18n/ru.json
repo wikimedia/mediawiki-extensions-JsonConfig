@@ -8,12 +8,15 @@
 			"Meshkov.a",
 			"NBS",
 			"Okras",
+			"Pacha Tchernof",
 			"Vlad5250",
 			"Yurik"
 		]
 	},
 	"jsonconfig-desc": "Позволяет хранить настройки JSON в вики-проекте",
 	"jsonconfig-duplicate-field": "Найдено более одного значения «$1»",
+	"jsonconfig-edit-action-apply": "Применить",
+	"jsonconfig-edit-action-cancel": "Отмена",
 	"jsonconfig-err-array": "Параметр «$1» должен быть списком. Например, [«значение1», «значение2»,…]",
 	"jsonconfig-err-array-count": "Список «$1» содержит $2 {{PLURAL:$2|значение|значения|значений}}, но должен содержать $3 {{PLURAL:$3|значение|значения|значений}} (столько же значений, сколько и «$4»)",
 	"jsonconfig-err-array-expected": "Значение в «$1» должно было быть списком, заключённым в квадратные скобки […]",
