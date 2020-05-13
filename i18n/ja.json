@@ -3,6 +3,7 @@
 		"authors": [
 			"Akki-102525",
 			"Kkairri",
+			"Object＊tofu",
 			"Otokoume",
 			"Shirayuki",
 			"Suyama",
@@ -12,6 +13,7 @@
 		]
 	},
 	"jsonconfig-desc": "JSON設定をwikiに保存できるようにする",
+	"jsonconfig-edit-action-cancel": "キャンセル",
 	"jsonconfig-err-array": "パラメーター「$1」はリストでなければなりません。例: [\"値1\", \"値2\", ...]",
 	"jsonconfig-err-assoc-array": "パラメーター「$1」は連想配列 (辞書) でなければなりません。例: {\"キー\": \"値\", ...}",
 	"jsonconfig-err-bool": "パラメーター「$1」には true または false を設定しなければなりません",

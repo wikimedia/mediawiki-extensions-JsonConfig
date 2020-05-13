@@ -8,12 +8,17 @@
 			"Lemondoge",
 			"Macofe",
 			"MarcoAurelio",
+			"Ncr",
 			"Ryo567",
 			"Yurik"
 		]
 	},
 	"jsonconfig-desc": "Permite que la configuración JSON sea almacenada en un wiki",
 	"jsonconfig-duplicate-field": "Se encontró más de un valor \"$1\"",
+	"jsonconfig-edit-action-cancel": "Cancelar",
+	"jsonconfig-edit-button-label": "Edita la tabla de datos",
+	"jsonconfig-edit-dialog-error-data-inavlid": "Los datos no coinciden con el esquema",
+	"jsonconfig-edit-dialog-title": "Editar como JSON",
 	"jsonconfig-err-array": "El parámetro «$1» debe ser una lista, p. ej., [\"valor1\", \"valor2\", …]",
 	"jsonconfig-err-array-count": "La lista \"$1\" tiene $2 {{PLURAL:$2|valor|valores}}, pero debe tener $3 {{PLURAL:$3|valor|valores}}, el mismo número de valores que \"$4\"",
 	"jsonconfig-err-array-expected": "Se esperaba que el valor en «$1» fuera una lista delimitada por corchetes […]",
