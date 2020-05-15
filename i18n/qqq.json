@@ -16,7 +16,7 @@
 	"jsonconfig-desc": "{{desc|name=JsonConfig|url=https://www.mediawiki.org/wiki/Extension:JsonConfig}}",
 	"jsonconfig-duplicate-field": "Field (<code>$1</code>) was present more than once but with different capitalization in the JSON, e.g. \"field\" and \"Field\".\n\nParameters:\n* $1 - field name",
 	"jsonconfig-edit-action-apply": "Label for the apply button in the edit dialog",
-	"jsonconfig-edit-action-cancel": "Label for the cancel button in the edit dialog",
+	"jsonconfig-edit-action-cancel": "Label for the cancel button in the edit dialog\n{{identical|Cancel}}",
 	"jsonconfig-edit-button-label": "Label for the button to open the edit dialog",
 	"jsonconfig-edit-dialog-error": "Error message that appears when it is not possible to use the edit dialog. Parameters:\n* $1 - error message explaining why it is not possible to use the dialog",
 	"jsonconfig-edit-dialog-error-data-inavlid": "Error message explaining why it is not possible to use the edit dialog",

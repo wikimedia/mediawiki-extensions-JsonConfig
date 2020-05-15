@@ -3,11 +3,15 @@
 		"authors": [
 			"Maroen1990",
 			"Meno25",
+			"Tala Ali",
 			"ديفيد"
 		]
 	},
 	"jsonconfig-desc": "يسمح بتخزين JSON ليتم تخزينها في الويكي",
 	"jsonconfig-duplicate-field": "تم العثور على أكثر من قيمة \"$1\"",
+	"jsonconfig-edit-action-apply": "تطبيق",
+	"jsonconfig-edit-action-cancel": "إلغاء",
+	"jsonconfig-edit-button-label": "تعديل كجدول",
 	"jsonconfig-err-array": "يجب أن يكون الوسيط\"$1\"  قائمة، على سبيل المثال [\"قيمة1\"، \"قيمة2\"، ...]",
 	"jsonconfig-err-array-count": "تحتوي القائمة \"$1\" على $2 {{PLURAL:$2|قيمة}}، لكن يجب أن تكون لها $3 {{PLURAL:$3|قيمة}}، نفس عدد قيم \"$4\"",
 	"jsonconfig-err-array-expected": "كان من المتوقع أن تكون القيمة في \"$1\" قائمة محاطة بأقواس [...]",
