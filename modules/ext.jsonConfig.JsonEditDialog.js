@@ -67,8 +67,8 @@ mw.JsonConfig.JsonEditDialog.prototype.initialize = function () {
 
 	this.tableWidget = new mw.widgets.TableWidget( {
 		showRowLabels: false,
-		allowRowInsertion: false,
-		allowRowDeletion: false
+		allowRowInsertion: true,
+		allowRowDeletion: true
 	} );
 
 	this.panel = new OO.ui.PanelLayout( {
@@ -188,17 +188,21 @@ mw.JsonConfig.JsonEditDialog.prototype.getActionProcess = function ( action ) {
 	switch ( action ) {
 		case 'apply':
 			return new OO.ui.Process( function () {
-				var i, j;
+				var i, j, data;
+
+				data = this.tableWidget.model.data;
 
 				// Ensure data values are correct type
 				// TODO: Handle 'boolean' and 'localized' types
-				for ( i = 0; i < this.data.length; i++ ) {
-					for ( j = 0; j < this.data[ i ].length; j++ ) {
+				for ( i = 0; i < data.length; i++ ) {
+					for ( j = 0; j < data[ i ].length; j++ ) {
 						if ( this.fieldTypes[ j ] === 'number' ) {
-							this.data[ i ][ j ] = +this.data[ i ][ j ];
+							data[ i ][ j ] = +data[ i ][ j ];
 						}
 					}
 				}
+
+				this.json.data = data;
 
 				this.close( {
 					action: action,
