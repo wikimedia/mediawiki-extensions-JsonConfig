@@ -27,5 +27,8 @@
 	"jsonconfig-err-number": "\"$1\" 변수는 숫자여야 합니다",
 	"jsonconfig-err-string": "\"$1\" 변수는 문자열이어야 합니다",
 	"jsonconfig-optional-field": "(선택 사항)",
-	"jsonconfig-license-name-CC0-1.0": "크리에이티브 커먼즈 제로"
+	"jsonconfig-license-name-CC0-1.0": "크리에이티브 커먼즈 제로",
+	"jsonconfig-license-name-dl-de-zero-2.0": "데이터 라이선스 독일 – 0 – 버전 2.0",
+	"jsonconfig-license-name-dl-de-by-1.0": "데이터 라이선스 독일 – 저작자 표시 – 버전 1.0",
+	"jsonconfig-license-name-dl-de-by-2.0": "데이터 라이선스 독일 – 저작자 표시 – 버전 2.0"
 }
