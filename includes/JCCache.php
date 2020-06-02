@@ -115,6 +115,7 @@ class JCCache {
 			$conf = $this->titleValue->getConfig();
 			if ( $this->content && ( $updateCacheContent === true ||
 				( $updateCacheContent === null && isset( $conf->store ) &&
+					// @phan-suppress-next-line PhanTypeExpectedObjectPropAccess
 					$conf->store->cacheNewValue ) )
 			) {
 				$this->memcSet(); // update cache with the new value
@@ -155,6 +156,7 @@ class JCCache {
 			$result = false;
 			$conf = $this->titleValue->getConfig();
 			$remote = $conf->remote;
+			// @phan-suppress-next-line PhanTypeExpectedObjectPropAccessButGotNull
 			$req = JCUtils::initApiRequestObj( $remote->url, $remote->username, $remote->password );
 			if ( !$req ) {
 				break;
