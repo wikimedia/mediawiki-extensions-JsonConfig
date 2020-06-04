@@ -4,8 +4,9 @@
 		editDialog;
 
 	function openErrorWindow( error ) {
+		var errorMessage = mw.message( 'jsonconfig-edit-dialog-error', error );
 		OO.ui.alert(
-			mw.msg( 'jsonconfig-edit-dialog-error', error ),
+			new OO.ui.HtmlSnippet( errorMessage.parse() ),
 			{
 				title: mw.msg( 'jsonconfig-edit-button-label' )
 			}
