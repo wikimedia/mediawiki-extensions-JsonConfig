@@ -5,6 +5,7 @@ namespace JsonConfig;
 use Exception;
 use FormatJson;
 use Language;
+use MediaWiki\MediaWikiServices;
 use MWHttpRequest;
 use Status;
 use stdClass;
@@ -68,7 +69,8 @@ class JCUtils {
 			'connectTimeout' => 'default',
 			'method' => 'POST',
 		];
-		$req = MWHttpRequest::factory( $apiUri, $options );
+		$req = MediaWikiServices::getInstance()->getHttpRequestFactory()
+			->create( $apiUri, $options, __METHOD__ );
 
 		if ( $username && $password ) {
 			$tokenQuery = [
