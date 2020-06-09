@@ -11,7 +11,7 @@
 	"jsonconfig-edit-action-cancel": "বাতিল",
 	"jsonconfig-edit-button-label": "ছক হিসেবে সম্পাদনা করুন",
 	"jsonconfig-edit-dialog-title": "JSON সম্পাদনা করুন",
-	"jsonconfig-err-array": "প্যারামিটার \"$1\" অবশ্যই একটি তালিকা হতে হবে, উদাহরণ [\"মান১\", \"মান২\", ...]",
+	"jsonconfig-err-array": "প্যারামিটার \"$1\" অবশ্যই একটি তালিকা হতে হবে, উদাহরণ <kbd>[\"মান১\", \"মান২\", ...]</kbd>",
 	"jsonconfig-err-bool": "প্যারামিটার \"$1\" ট্রু বা ফলস হতে হবে",
 	"jsonconfig-err-integer": "প্যারামিটার \"$1\" অবশ্যই একটি পূর্ণসংখ্যা হতে হবে",
 	"jsonconfig-err-number": "প্যারামিটার \"$1\" অবশ্যই একটি নম্বর হতে হবে",
