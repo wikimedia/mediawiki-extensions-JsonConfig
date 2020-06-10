@@ -913,7 +913,7 @@ class JCSingleton {
 
 	public static function onAbortMove(
 		/** @noinspection PhpUnusedParameterInspection */
-		Title $title, Title $newTitle, $wgUser, &$err, $reason
+		Title $title, Title $newTitle, $user, &$err, $reason
 	) {
 		if ( !self::jsonConfigIsStorage() ) {
 			return true;
@@ -968,7 +968,7 @@ class JCSingleton {
 
 	public static function onTitleMoveComplete(
 		/** @noinspection PhpUnusedParameterInspection */
-		$title, $newTitle, $wgUser, $pageid, $redirid, $reason
+		$title, $newTitle, $user, $pageid, $redirid, $reason
 	) {
 		return self::onArticleChangeComplete( $title ) ||
 			self::onArticleChangeComplete( $newTitle );
