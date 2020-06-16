@@ -944,12 +944,11 @@ class JCSingleton {
 		return true;
 	}
 
-	public static function onPageContentSaveComplete(
+	public static function onPageSaveComplete(
 		/** @noinspection PhpUnusedParameterInspection */
-		\WikiPage $wikiPage, $user, $content, $summary, $isMinor, $isWatch,
-		$section, $flags, $revision, $status, $baseRevId
+		\WikiPage $wikiPage, $user, $summary, $flags, $revisionRecord, $editResult
 	) {
-		return self::onArticleChangeComplete( $wikiPage, $content );
+		return self::onArticleChangeComplete( $wikiPage );
 	}
 
 	public static function onArticleDeleteComplete(

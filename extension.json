@@ -114,7 +114,7 @@
 		"EditFilterMergedContent": "JsonConfig\\JCSingleton::onEditFilterMergedContent",
 		"EditPageCopyrightWarning": "JsonConfig\\JCSingleton::onEditPageCopyrightWarning",
 		"MovePageIsValidMove": "JsonConfig\\JCSingleton::onMovePageIsValidMove",
-		"PageContentSaveComplete": "JsonConfig\\JCSingleton::onPageContentSaveComplete",
+		"PageSaveComplete": "JsonConfig\\JCSingleton::onPageSaveComplete",
 		"ScribuntoExternalLibraries": "JsonConfig\\JCLuaLibrary::onScribuntoExternalLibraries",
 		"SkinCopyrightFooter": "JsonConfig\\JCSingleton::onSkinCopyrightFooter",
 		"TitleGetEditNotices": "JsonConfig\\JCSingleton::onTitleGetEditNotices",
