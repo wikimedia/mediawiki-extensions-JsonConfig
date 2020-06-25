@@ -965,10 +965,12 @@ class JCSingleton {
 		return self::onArticleChangeComplete( $title );
 	}
 
-	public static function onTitleMoveComplete(
+	public static function onPageMoveComplete(
 		/** @noinspection PhpUnusedParameterInspection */
-		$title, $newTitle, $user, $pageid, $redirid, $reason
+		$title, $newTitle, $user, $pageid, $redirid, $reason, $revisionRecord
 	) {
+		$title = Title::newFromLinkTarget( $title );
+		$newTitle = Title::newFromLinkTarget( $newTitle );
 		return self::onArticleChangeComplete( $title ) ||
 			self::onArticleChangeComplete( $newTitle );
 	}

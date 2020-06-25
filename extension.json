@@ -118,7 +118,7 @@
 		"ScribuntoExternalLibraries": "JsonConfig\\JCLuaLibrary::onScribuntoExternalLibraries",
 		"SkinCopyrightFooter": "JsonConfig\\JCSingleton::onSkinCopyrightFooter",
 		"TitleGetEditNotices": "JsonConfig\\JCSingleton::onTitleGetEditNotices",
-		"TitleMoveComplete": "JsonConfig\\JCSingleton::onTitleMoveComplete",
+		"PageMoveComplete": "JsonConfig\\JCSingleton::onPageMoveComplete",
 		"userCan": "JsonConfig\\JCSingleton::onuserCan"
 	},
 	"config": {
