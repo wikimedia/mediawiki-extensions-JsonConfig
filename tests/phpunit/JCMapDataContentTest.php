@@ -122,8 +122,8 @@ class JCMapDataContentTest extends MediaWikiTestCase {
 							"type": "Point",
 							"coordinates": [ 10, 20 ],
 							"properties": {
-								"title": "<a href=\"\/index.php?title=Link&amp;action=edit&amp;redlink=1\" class=\"new\"'
-									. ' title=\"Link (page does not exist)\">link<\/a>",
+								"title": "<a href=\"\/index.php?title=Link&amp;action=edit&amp;redlink=1\"'
+									. ' class=\"new\" title=\"Link (page does not exist)\">link<\/a>",
 								"description": "&lt;img src=x onerror=alert(1)&gt; <b>Bold<\/b>"
 							}
 						},
@@ -131,8 +131,8 @@ class JCMapDataContentTest extends MediaWikiTestCase {
 							"type": "Point",
 							"coordinates": [ 30, 40 ],
 							"properties": {
-								"title": "<a href=\"\/index.php?title=Link&amp;action=edit&amp;redlink=1\" class=\"new\"'
-									. ' title=\"Link (page does not exist)\">link<\/a>",
+								"title": "<a href=\"\/index.php?title=Link&amp;action=edit&amp;redlink=1\"'
+									. ' class=\"new\" title=\"Link (page does not exist)\">link<\/a>",
 								"description": "&lt;img src=x onerror=alert(1)&gt; <b>Bold<\/b>"
 							}
 						}
