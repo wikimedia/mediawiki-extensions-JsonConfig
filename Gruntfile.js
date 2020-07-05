@@ -12,14 +12,14 @@ module.exports = function ( grunt ) {
 	grunt.loadNpmTasks( 'grunt-stylelint' );
 
 	grunt.initConfig( {
-		// eslint-disable-next-line no-restricted-properties
+		// eslint-disable-next-line es/no-object-assign
 		banana: Object.assign( {
 			options: { requireLowerCase: false }
 		}, conf.MessagesDirs ),
 		eslint: {
 			options: {
-				extensions: [ '.js', '.json' ],
-				cache: true
+				cache: true,
+				fix: grunt.option( 'fix' )
 			},
 			all: [
 				'**/*.{js,json}',

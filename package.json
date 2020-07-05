@@ -8,10 +8,10 @@
 		"build-lib": ". ./bin/build.sh"
 	},
 	"devDependencies": {
-		"eslint-config-wikimedia": "0.15.3",
-		"grunt": "1.1.0",
+		"eslint-config-wikimedia": "0.16.2",
+		"grunt": "1.2.0",
 		"grunt-banana-checker": "0.9.0",
-		"grunt-eslint": "22.0.0",
+		"grunt-eslint": "23.0.0",
 		"grunt-stylelint": "0.15.0",
 		"stylelint-config-wikimedia": "0.10.1",
 		"wikimedia-ui-base": "0.15.0"
