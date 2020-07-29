@@ -109,6 +109,7 @@
 		"CodeEditorGetPageLanguage": "JsonConfig\\JCSingleton::onCodeEditorGetPageLanguage",
 		"ContentHandlerDefaultModelFor": "JsonConfig\\JCSingleton::onContentHandlerDefaultModelFor",
 		"ContentHandlerForModelID": "JsonConfig\\JCSingleton::onContentHandlerForModelID",
+		"GetContentModels": "JsonConfig\\JCSingleton::onGetContentModels",
 		"AlternateEdit": "JsonConfig\\JCSingleton::onAlternateEdit",
 		"EditPage::showEditForm:initial": "JsonConfig\\JCSingleton::onEditPage",
 		"EditFilterMergedContent": "JsonConfig\\JCSingleton::onEditFilterMergedContent",

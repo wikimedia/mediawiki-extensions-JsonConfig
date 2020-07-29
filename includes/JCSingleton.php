@@ -630,6 +630,27 @@ class JCSingleton {
 	}
 
 	/**
+	 * Ensure that ContentHandler knows about our dynamic models (T259126)
+	 * @param string[] &$models
+	 * @return bool
+	 */
+	public static function onGetContentModels( array &$models ) {
+		global $wgJsonConfigModels;
+		if ( !self::jsonConfigIsStorage() ) {
+			return true;
+		}
+
+		self::init();
+		// TODO: this is copied from onContentHandlerForModelID()
+		$ourModels = array_replace_recursive(
+			\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ),
+			$wgJsonConfigModels
+		);
+		$models = array_merge( $models, array_keys( $ourModels ) );
+		return true;
+	}
+
+	/**
 	 * Instantiate JCContentHandler if we can handle this modelId
 	 * @param string $modelId
 	 * @param \ContentHandler &$handler
