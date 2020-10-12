@@ -1,10 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Chrumps"
+			"Chrumps",
+			"Rail"
 		]
 	},
 	"apihelp-jsonconfig-example-1": "Pokaż konfigurację",
 	"apihelp-jsondata-description": "Odbierz zlokalizowane dane JSON.",
+	"apihelp-jsondata-summary": "Pozyskaj przetłumaczone dane JSON.",
+	"apihelp-jsondata-param-title": "Tytuł do pozyskania. Domyślnie zakładana przestrzeń nazw to „Data:”",
 	"apierror-jsonconfig-paramrequired": "Dla tego polecenia wymagany jest parametr <var>$1</ var>."
 }
