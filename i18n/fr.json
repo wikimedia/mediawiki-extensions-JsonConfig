@@ -15,6 +15,8 @@
 			"Yurik"
 		]
 	},
+	"nstab-data": "Données",
+	"tooltip-ca-nstab-data": "Voir la page de données",
 	"jsonconfig-desc": "Permet de stocker une configuration JSON dans un wiki",
 	"jsonconfig-duplicate-field": "Plus d’une valeur « $1 » trouvée",
 	"jsonconfig-edit-action-apply": "Appliquer",

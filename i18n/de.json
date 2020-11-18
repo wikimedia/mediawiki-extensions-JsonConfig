@@ -6,6 +6,8 @@
 			"Yurik"
 		]
 	},
+	"nstab-data": "Daten",
+	"tooltip-ca-nstab-data": "Datenseite anzeigen",
 	"jsonconfig-desc": "Ermöglicht die Konfiguration von JSON zur Speicherung in einem Wiki",
 	"jsonconfig-duplicate-field": "Es wurde mehr als ein Wert „$1“ gefunden",
 	"jsonconfig-edit-action-apply": "Anwenden",
