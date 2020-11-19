@@ -494,7 +494,7 @@ abstract class JCObjContent extends JCContent {
 		$foundFld = false;
 		$isError = false;
 		foreach ( $valueRef as $k => $v ) {
-			if ( 0 === strcasecmp( $k, $fld ) ) {
+			if ( strcasecmp( $k, $fld ) === 0 ) {
 				if ( $foundFld !== false ) {
 					$isError = true;
 					break;
@@ -508,7 +508,7 @@ abstract class JCObjContent extends JCContent {
 			if ( $this->thorough() ) {
 				// Mark all duplicate fields as errors
 				foreach ( $valueRef as $k => $v ) {
-					if ( 0 === strcasecmp( $k, $fld ) ) {
+					if ( strcasecmp( $k, $fld ) === 0 ) {
 						if ( !is_a( $v, JCValue::class ) ) {
 							$v = new JCValue( JCValue::UNCHECKED, $v );
 							$jcv->setField( $k, $v );

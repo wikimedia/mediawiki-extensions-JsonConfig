@@ -113,7 +113,7 @@ class JCSingleton {
 				);
 				continue;
 			}
-			if ( null === self::getConfObject( $warnFunc, $conf, $confId ) ) {
+			if ( self::getConfObject( $warnFunc, $conf, $confId ) === null ) {
 				continue; // warned inside the function
 			}
 
@@ -163,7 +163,7 @@ class JCSingleton {
 				// 'store' does not exist, use it as a flag to indicate remote storage
 				$conf->store = false;
 				$remote = self::getConfObject( $warnFunc, $conf, 'remote', $confId, 'url' );
-				if ( null === $remote ) {
+				if ( $remote === null ) {
 					continue; // warned inside the function
 				}
 				if ( self::getConfVal( $remote, 'url', '' ) === '' ) {
@@ -183,7 +183,7 @@ class JCSingleton {
 				}
 				$conf->remote = null;
 				$store = self::getConfObject( $warnFunc, $conf, 'store', $confId );
-				if ( null === $store ) {
+				if ( $store === null ) {
 					continue; // warned inside the function
 				}
 				self::getConfVal( $store, 'cacheNewValue', true );
