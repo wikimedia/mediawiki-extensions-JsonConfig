@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Muhammad Shuaib"
+			"Muhammad Shuaib",
+			"Roovinn"
 		]
 	},
+	"nstab-data": "ڈیٹا",
 	"right-jsonconfig-flush": "اے پی آئی کے ذریعہ JsonConfig کا استعمال"
 }
