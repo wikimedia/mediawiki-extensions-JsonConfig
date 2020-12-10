@@ -220,7 +220,7 @@ abstract class JCObjContent extends JCContent {
 				}
 				foreach ( array_keys( $container ) as $k ) {
 					$path[$lastIdx] = $k;
-					$isOk &= $this->testInt( $path, $vld );
+					$isOk = $this->testInt( $path, $vld ) && $isOk;
 				}
 			}
 		}
