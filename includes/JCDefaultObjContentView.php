@@ -42,7 +42,7 @@ class JCDefaultObjContentView extends JCDefaultContentView {
 	 * @return string HTML.
 	 */
 	public function renderValue( JCContent $content, $data, array $path ) {
-		if ( is_a( $data, JCValue::class ) ) {
+		if ( $data instanceof JCValue ) {
 			$value = $data->getValue();
 			if ( !is_array( $value ) && !is_object( $value ) ) {
 				$attribs = $this->getValueAttributes( $data );
@@ -65,7 +65,7 @@ class JCDefaultObjContentView extends JCDefaultContentView {
 	 * @return string
 	 */
 	public function renderTableRow( JCContent $content, $data, array $path ) {
-		$attribs = is_a( $data, JCValue::class ) ? $this->getValueAttributes( $data ) : null;
+		$attribs = $data instanceof JCValue ? $this->getValueAttributes( $data ) : null;
 		$content = $this->renderRowContent( $content, $data, $path );
 		return Html::rawElement( 'tr', $attribs, $content );
 	}
@@ -109,7 +109,7 @@ class JCDefaultObjContentView extends JCDefaultContentView {
 		}
 		/** @var JCValue|mixed $v */
 		foreach ( $data as $k => $v ) {
-			$vv = is_a( $v, JCValue::class ) ? $v->getValue() : $v;
+			$vv = $v instanceof JCValue ? $v->getValue() : $v;
 			if ( !is_int( $k ) || !( is_string( $vv ) || is_numeric( $vv ) ) ) {
 				return false;
 			}
