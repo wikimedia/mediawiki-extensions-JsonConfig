@@ -321,7 +321,7 @@ class JCSingleton {
 			$val = & $value->$field;
 		}
 		if ( $val === null || $val === true ) {
-			$val = new stdClass();
+			$val = (object)[];
 		} elseif ( is_array( $val ) ) {
 			$val = (object)$val;
 		} elseif ( is_string( $val ) && $treatAsField !== null ) {

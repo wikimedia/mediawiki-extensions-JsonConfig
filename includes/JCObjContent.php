@@ -307,7 +307,7 @@ abstract class JCObjContent extends JCContent {
 			} elseif ( $subJcv === false ) {
 				// field does not exist
 				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
-				$initValue = !$path ? null : ( is_string( $path[0] ) ? new stdClass() : [] );
+				$initValue = !$path ? null : ( is_string( $path[0] ) ? (object)[] : [] );
 				$subJcv = new JCValue( JCValue::MISSING, $initValue );
 			}
 		}
@@ -403,7 +403,7 @@ abstract class JCObjContent extends JCContent {
 						$subVal = new JCValue( JCValue::UNCHECKED, $subVal );
 					}
 					if ( $result === null ) {
-						$result = $isObject ? new stdClass() : [];
+						$result = $isObject ? (object)[] : [];
 					}
 					if ( $isObject ) {
 						$result->$key = $subVal;
