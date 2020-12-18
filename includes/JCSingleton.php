@@ -307,7 +307,7 @@ class JCSingleton {
 	 * @param string $field
 	 * @param string|null $confId
 	 * @param string|null $treatAsField
-	 * @return null|object|stdClass
+	 * @return null|stdClass
 	 */
 	private static function getConfObject(
 		$warnFunc, &$value, $field, $confId = null, $treatAsField = null
@@ -1023,7 +1023,7 @@ class JCSingleton {
 	}
 
 	/**
-	 * @param object $value
+	 * @param \WikiPage|Title $value
 	 * @param JCContent|null $content
 	 * @return bool
 	 */

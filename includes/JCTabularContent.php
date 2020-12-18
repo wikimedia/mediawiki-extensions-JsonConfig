@@ -123,7 +123,7 @@ class JCTabularContent extends JCDataContent {
 
 	/**
 	 * Resolve any override-specific localizations, and add it to $result
-	 * @param object $result
+	 * @param \stdClass $result
 	 * @param Language $lang
 	 */
 	protected function localizeData( $result, Language $lang ) {

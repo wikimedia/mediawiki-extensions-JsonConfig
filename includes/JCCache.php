@@ -8,7 +8,12 @@ use MWNamespace;
  * Handles retrieval (via HTTP) and memcached caching.
  */
 class JCCache {
-	private $titleValue, $key, $cache;
+	/** @var JCTitle */
+	private $titleValue;
+	/** @var string */
+	private $key;
+	/** @var \BagOStuff */
+	private $cache;
 
 	/** @var bool|string|JCContent */
 	private $content = null;
