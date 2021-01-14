@@ -4,8 +4,13 @@
 			"Joetaras"
 		]
 	},
+	"nstab-data": "Date",
+	"tooltip-ca-nstab-data": "'Ndruche 'a pàgene de le date",
 	"jsonconfig-desc": "Permette 'a confugurazione JSON de essere reggistrate jndr'à 'na uicchi",
 	"jsonconfig-duplicate-field": "Acchiate cchiù de 'nu valore \"$1\"",
+	"jsonconfig-edit-action-apply": "Appleche",
+	"jsonconfig-edit-action-cancel": "Annulle",
+	"jsonconfig-edit-button-label": "Cange cumme tabbelle",
 	"jsonconfig-edit-dialog-error-data-missing": "probbietà de le <code>data</code> JSON jè mangande o non g'è 'n'array",
 	"jsonconfig-edit-dialog-error-fields-missing": "probbietà de le <code>schema.fields</code> JSON jè mangande o non g'è 'n'array",
 	"jsonconfig-err-array": "'U parametre \"$1\" adda essere 'n'elenghe, pe esembie <kbd>[\"valore1\", \"valore2\", ...]</kbd>",
