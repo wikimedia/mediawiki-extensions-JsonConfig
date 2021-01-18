@@ -18,7 +18,7 @@
 	"jsonconfig-edit-dialog-error-field-name-missing": "Ogne cambe adda avè 'nu nome",
 	"jsonconfig-edit-dialog-error-field-type-invalid": "Pe cangià cumme 'na tabbelle, ogne cambe adda avè 'u tipe <code>number</code> o <code>string</code>",
 	"jsonconfig-edit-dialog-error-fields-missing": "probbietà de le <code>schema.fields</code> JSON jè mangande o non g'è 'n'array",
-	"jsonconfig-edit-dialog-error-schema-missing": "'A probbietà JSON <code>schema</code manghe o non g'è 'n'oggette",
+	"jsonconfig-edit-dialog-error-schema-missing": "'A probbietà JSON <code>schema</code> manghe o non g'è 'n'oggette",
 	"jsonconfig-edit-dialog-title": "Cange 'u JSON",
 	"jsonconfig-err-array": "'U parametre \"$1\" adda essere 'n'elenghe, pe esembie <kbd>[\"valore1\", \"valore2\", ...]</kbd>",
 	"jsonconfig-err-array-count": "L'elenghe \"$1\" tène $2 {{PLURAL:$2|valore}}, ma 'avessa tenè $3 {{PLURAL:$3|valore}}, 'u stesse nuemre de valore de \"$4\"",
