@@ -14,6 +14,7 @@ use MediaWikiTestCase;
  */
 class JCTitleParsingTest extends MediaWikiTestCase {
 
+	/** @var array */
 	private $configBackup;
 
 	public function setUp() : void {
@@ -56,10 +57,6 @@ class JCTitleParsingTest extends MediaWikiTestCase {
 	/**
 	 * @dataProvider provideValues
 	 * @covers \JsonConfig\JCSingleton::parseTitle
-	 * @param $value
-	 * @param $ns
-	 * @param bool|null|string $expected false if unrecognized namespace,
-	 * and null if namespace is handled but does not match this title, string to match dbKey
 	 * @throws Exception
 	 */
 	public function testTitleParsing( $value, $ns, $expected = false ) {

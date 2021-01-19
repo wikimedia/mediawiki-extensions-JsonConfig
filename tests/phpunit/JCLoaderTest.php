@@ -3,7 +3,6 @@ namespace JsonConfig\Tests;
 
 use JsonConfig\JCSingleton;
 use MediaWikiTestCase;
-use stdClass;
 
 /**
  * @package JsonConfigTests
@@ -14,8 +13,6 @@ class JCLoaderTest extends MediaWikiTestCase {
 
 	/**
 	 * @dataProvider provideConfigs
-	 * @param $config
-	 * @param bool|stdClass $expected
 	 */
 	public function testConfigLoad( $config, $expected = false ) {
 		$actual =
