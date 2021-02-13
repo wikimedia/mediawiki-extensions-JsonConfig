@@ -100,7 +100,6 @@
 		"remoteExtPath": "JsonConfig/modules"
 	},
 	"Hooks": {
-		"AbortMove": "JsonConfig\\JCSingleton::onAbortMove",
 		"ApiMain::moduleManager": "JsonConfig\\JCSingleton::onApiMainModuleManager",
 		"ArticleDeleteComplete": "JsonConfig\\JCSingleton::onArticleDeleteComplete",
 		"ArticleUndelete": "JsonConfig\\JCSingleton::onArticleUndelete",

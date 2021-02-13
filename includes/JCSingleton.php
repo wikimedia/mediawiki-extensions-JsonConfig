@@ -932,24 +932,6 @@ class JCSingleton {
 		return true;
 	}
 
-	public static function onAbortMove(
-		/** @noinspection PhpUnusedParameterInspection */
-		Title $title, Title $newTitle, $user, &$err, $reason
-	) {
-		if ( !self::jsonConfigIsStorage() ) {
-			return true;
-		}
-
-		$status = new \Status();
-		self::onMovePageIsValidMove( $title, $newTitle, $status );
-		if ( !$status->isOK() ) {
-			$err = $status->getHTML();
-			return false;
-		}
-
-		return true;
-	}
-
 	/**
 	 * Conditionally load API module 'jsondata' depending on whether or not
 	 * this wiki stores any jsonconfig data
