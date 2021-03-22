@@ -22,7 +22,6 @@ class JCCache {
 	private $cacheExpiration;
 
 	/**
-	 * Constructor for JCCache
 	 * ** DO NOT USE directly - call JCSingleton::getContent() instead. **
 	 *
 	 * @param JCTitle $titleValue

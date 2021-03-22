@@ -1,7 +1,6 @@
 <?php
 namespace JsonConfig\Tests;
 
-use Exception;
 use JsonConfig\JCSingleton;
 use JsonConfig\JCTitle;
 use MediaWikiTestCase;
@@ -57,7 +56,6 @@ class JCTitleParsingTest extends MediaWikiTestCase {
 	/**
 	 * @dataProvider provideValues
 	 * @covers \JsonConfig\JCSingleton::parseTitle
-	 * @throws Exception
 	 */
 	public function testTitleParsing( $value, $ns, $expected = false ) {
 		$actual = JCSingleton::parseTitle( $value, $ns );
