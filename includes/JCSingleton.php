@@ -100,9 +100,10 @@ class JCSingleton {
 		array $configs, array $models, $warn = true
 	) {
 		$defaultModelId = 'JsonConfig';
-		// @codingStandardsIgnoreStart - T154789
-		$warnFunc = $warn ? 'wfLogWarning' : function( $msg ) {};
-		// @codingStandardsIgnoreEnd
+		$warnFunc = $warn
+			? 'wfLogWarning'
+			: function ( $msg ) {
+			};
 
 		$namespaces = [];
 		$titleMap = [];
