@@ -444,7 +444,7 @@ class JCSingleton {
 			}
 		}
 		if ( !$class ) {
-			$class = __NAMESPACE__ . '\JCContent';
+			$class = JCContent::class;
 		}
 		return $class;
 	}
