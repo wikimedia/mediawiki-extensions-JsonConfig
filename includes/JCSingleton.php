@@ -749,7 +749,10 @@ class JCSingleton {
 		if ( is_a( $content, JCContent::class ) ) {
 			$status->merge( $content->getStatus() );
 			if ( !$status->isGood() ) {
-				$status->setResult( false, $status->getValue() );
+				// @todo Use $status->setOK() instead after this extension
+				// do not support mediawiki version 1.36 and before
+				$status->setResult( false, $status->getValue() ?: \EditPage::AS_HOOK_ERROR_EXPECTED );
+				return false;
 			}
 		}
 		return true;
