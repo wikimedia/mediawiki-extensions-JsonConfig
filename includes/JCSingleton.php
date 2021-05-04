@@ -102,7 +102,7 @@ class JCSingleton {
 		$defaultModelId = 'JsonConfig';
 		$warnFunc = $warn
 			? 'wfLogWarning'
-			: function ( $msg ) {
+			: static function ( $msg ) {
 			};
 
 		$namespaces = [];

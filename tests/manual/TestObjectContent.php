@@ -37,7 +37,7 @@ END;
 		$this->testOptional( [ 'emptydict', 'new1' ], (object)[] );
 		// $this->check( [ 'emptydict', 1 ], (object)[] );
 		$this->testOptional( [ 'emptydict', 'new1', 'blah', 2 ], (object)[],
-			function () {
+			static function () {
 				return wfMessage( 'fail' );
 			}
 		);
@@ -45,7 +45,7 @@ END;
 	}
 }
 
-$wgExtensionFunctions[] = function () {
+$wgExtensionFunctions[] = static function () {
 	$o = new TestObjectContent( null, null, true );
 	print_r( $o );
 };

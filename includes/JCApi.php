@@ -74,7 +74,6 @@ class JCApi extends ApiBase {
 
 			case 'reset':
 			case 'reload':
-
 				// FIXME: this should be POSTed, not GETed.
 				// This code should match JCSingleton::onArticleChangeComplete()
 				// Currently, that action is not used because in production store->notifyUrl is null
