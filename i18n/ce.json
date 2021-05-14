@@ -4,7 +4,7 @@
 			"Умар"
 		]
 	},
-	"jsonconfig-desc": "JSON нисяр лато йиш хуьлуьйту вики-проектехь",
+	"jsonconfig-desc": "JSON нисйар лато йиш хуьлуьйту вики-проектехь",
 	"jsonconfig-duplicate-field": "Карина цхьанал дукха маьӀна «$1»",
 	"jsonconfig-err-bool": "Параметр «$1» йазийна хила йеза маьӀнаца true (бакъ) йа false (харц)",
 	"jsonconfig-err-integer": "Параметр «$1» дуьзина терахь хила деза",
