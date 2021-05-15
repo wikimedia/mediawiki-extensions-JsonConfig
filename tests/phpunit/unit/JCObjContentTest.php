@@ -79,7 +79,6 @@ class JCObjContentTest extends MediaWikiUnitTestCase {
 	}
 
 	public function provideValidation() {
-		$self = $this;
 		return array_merge( $this->provideValidationFirst(), [
 
 			// $message, $initial, $expectedWithDflts, $expectedNoDflts, $validators, $errors = null
@@ -204,9 +203,9 @@ class JCObjContentTest extends MediaWikiUnitTestCase {
 			],
 			[
 				'fldA->fldB', '{"fldA":5}', '{"fldB":5}', true,
-				static function ( JCObjContent $o ) use ( $self ) {
+				static function ( JCObjContent $o ) {
 					$o->test( 'fldA',
-						static function ( JCValue $v, array $path, JCObjContent $cn ) use ( $self ) {
+						static function ( JCValue $v, array $path, JCObjContent $cn ) {
 							$new = clone $v;
 							$new->status( JCValue::CHECKED );
 							$cn->getValidationData()->setField( 'fldB', $new );
@@ -217,9 +216,9 @@ class JCObjContentTest extends MediaWikiUnitTestCase {
 			],
 			[
 				'fldA/fldB->fldB', '{"fldA":{"fldB":5}}', '{"fldB":5}', true,
-				static function ( JCObjContent $o ) use ( $self ) {
+				static function ( JCObjContent $o ) {
 					$o->test( [ 'fldA', 'fldB' ],
-						static function ( JCValue $v, array $path, JCObjContent $cn ) use ( $self ) {
+						static function ( JCValue $v, array $path, JCObjContent $cn ) {
 							$new = clone $v;
 							$new->status( JCValue::CHECKED );
 							$cn->getValidationData()->setField( 'fldB', $new );
@@ -321,33 +320,33 @@ class JCObjContentTest extends MediaWikiUnitTestCase {
 			],
 			[
 				'missing no dflt f', '{"y":5}', true, true,
-				static function ( JCObjContent $o ) use ( $self ) {
-					$o->test( 'f', static function ( JCValue $v ) use ( $self ) {
-						$self->assertTrue( $v->isMissing() );
+				function ( JCObjContent $o ) {
+					$o->test( 'f', function ( JCValue $v ) {
+						$this->assertTrue( $v->isMissing() );
 					} );
 				},
 			],
 			[
 				'missing no dflt f[0]', '{"f":[]}', true, true,
-				static function ( JCObjContent $o ) use ( $self ) {
-					$o->test( [ 'f', 0 ], static function ( JCValue $v ) use ( $self ) {
-						$self->assertTrue( $v->isMissing() );
+				function ( JCObjContent $o ) {
+					$o->test( [ 'f', 0 ], function ( JCValue $v ) {
+						$this->assertTrue( $v->isMissing() );
 					} );
 				},
 			],
 			[
 				'missing no dflt f[1]', '{"f":[{"x":1}]}', true, true,
-				static function ( JCObjContent $o ) use ( $self ) {
-					$o->test( [ 'f', 1 ], static function ( JCValue $v ) use ( $self ) {
-						$self->assertTrue( $v->isMissing() );
+				function ( JCObjContent $o ) {
+					$o->test( [ 'f', 1 ], function ( JCValue $v ) {
+						$this->assertTrue( $v->isMissing() );
 					} );
 				},
 			],
 			[
 				'missing no dflt f[0]/y', '{"f":[{"x":1}]}', true, true,
-				static function ( JCObjContent $o ) use ( $self ) {
-					$o->test( [ 'f', 0, 'y' ], static function ( JCValue $v ) use ( $self ) {
-						$self->assertTrue( $v->isMissing() );
+				function ( JCObjContent $o ) {
+					$o->test( [ 'f', 0, 'y' ], function ( JCValue $v ) {
+						$this->assertTrue( $v->isMissing() );
 					} );
 				},
 			],
@@ -385,7 +384,6 @@ class JCObjContentTest extends MediaWikiUnitTestCase {
 	 * Helps with debugging - copy a test from above here and it will run first
 	 */
 	public function provideValidationFirst() {
-		$self = $this;
 		return [];
 	}
 
