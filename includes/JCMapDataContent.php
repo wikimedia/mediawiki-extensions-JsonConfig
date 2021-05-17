@@ -45,9 +45,14 @@ class JCMapDataContent extends JCDataContent {
 		$data = parent::getSafeData( $data );
 
 		$ssp = new SimpleStyleParser( $parser );
-		$dummy = [ $data->data ];
-		$ssp->normalizeAndSanitize( $dummy );
-		$data->data = $dummy[0];
+		// FIXME: Replace with a straight normalizeAndSanitize() call when possible, see T281224
+		if ( is_array( $data->data ) ) {
+			$ssp->normalizeAndSanitize( $data->data );
+		} elseif ( is_object( $data->data ) ) {
+			$dummy = [ $data->data ];
+			$ssp->normalizeAndSanitize( $dummy );
+			$data->data = $dummy[0];
+		}
 
 		return $data;
 	}
