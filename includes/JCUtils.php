@@ -291,7 +291,7 @@ class JCUtils {
 	 * Find a message in a dictionary for the given language,
 	 * or use language fallbacks if message is not defined.
 	 * @param stdClass $map Dictionary of languageCode => string
-	 * @param Language|StubUserLang $lang language object
+	 * @param Language|StubUserLang $lang
 	 * @param bool|string $defaultValue if non-false, use this value in case no fallback and no 'en'
 	 * @return string message from the dictionary or "" if nothing found
 	 */
