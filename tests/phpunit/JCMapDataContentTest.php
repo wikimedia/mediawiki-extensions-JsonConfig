@@ -22,7 +22,7 @@ class JCMapDataContentTest extends MediaWikiTestCase {
 			"longitude": 0
 		}';
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		$this->setMwGlobals( 'wgKartographerMapServer', 'https://maps.wikimedia.org' );
 	}
 

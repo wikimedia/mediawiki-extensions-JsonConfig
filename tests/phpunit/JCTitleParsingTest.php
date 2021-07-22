@@ -16,7 +16,7 @@ class JCTitleParsingTest extends MediaWikiTestCase {
 	/** @var array */
 	private $configBackup;
 
-	public function setUp() : void {
+	public function setUp(): void {
 		parent::setUp();
 
 		// Copied from mediawiki/tests/phpunit/includes/title/MediaWikiTitleCodecTest.php
@@ -48,7 +48,7 @@ class JCTitleParsingTest extends MediaWikiTestCase {
 				] );
 	}
 
-	protected function tearDown() : void {
+	protected function tearDown(): void {
 		parent::tearDown();
 		list( JCSingleton::$titleMap, JCSingleton::$namespaces ) = $this->configBackup;
 	}
