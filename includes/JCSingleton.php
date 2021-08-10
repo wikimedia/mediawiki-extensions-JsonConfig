@@ -13,6 +13,7 @@ use MapCacheLRU;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
 use MediaWikiTitleCodec;
+use MessageSpecifier;
 use OutputPage;
 use Status;
 use stdClass;
@@ -984,16 +985,16 @@ class JCSingleton {
 
 	/**
 	 * Prohibit creation of the pages that are part of our namespaces but have not been explicitly
-	 * allowed. Bad capitalization is due to "userCan" hook name
+	 * allowed.
 	 * @param Title &$title
 	 * @param User &$user
 	 * @param string $action
-	 * @param null &$result
+	 * @param array|string|MessageSpecifier &$result
 	 * @return bool
 	 */
-	public static function onuserCan(
+	public static function onGetUserPermissionsErrors(
 		/** @noinspection PhpUnusedParameterInspection */
-		&$title, &$user, $action, &$result = null
+		&$title, &$user, $action, &$result
 	) {
 		if ( !self::jsonConfigIsStorage() ) {
 			return true;
@@ -1002,7 +1003,7 @@ class JCSingleton {
 		if ( $action === 'create' && self::parseTitle( $title ) === null ) {
 			// prohibit creation of the pages for the namespace that we handle,
 			// if the title is not matching declared rules
-			$result = false;
+			$result = 'jsonconfig-blocked-page-creation';
 			return false;
 		}
 		return true;

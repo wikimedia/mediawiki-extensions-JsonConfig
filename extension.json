@@ -119,7 +119,7 @@
 		"SkinCopyrightFooter": "JsonConfig\\JCSingleton::onSkinCopyrightFooter",
 		"TitleGetEditNotices": "JsonConfig\\JCSingleton::onTitleGetEditNotices",
 		"PageMoveComplete": "JsonConfig\\JCSingleton::onPageMoveComplete",
-		"userCan": "JsonConfig\\JCSingleton::onuserCan"
+		"getUserPermissionsErrors": "JsonConfig\\JCSingleton::onGetUserPermissionsErrors"
 	},
 	"config": {
 		"JsonConfigs": {
