@@ -157,7 +157,8 @@
 				"ODbL-1.0",
 				"dl-de-zero-2.0",
 				"dl-de-by-1.0",
-				"dl-de-by-2.0"
+				"dl-de-by-2.0",
+				"GeoNutzV"
 			]
 		},
 		"JsonConfigInterwikiPrefix": {
