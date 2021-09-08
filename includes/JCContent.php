@@ -191,6 +191,7 @@ class JCContent extends \TextContent {
 		if ( $view === null ) {
 			$configModels = \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' )
 				+ $wgJsonConfigModels;
+			// @phan-suppress-previous-line PhanPossiblyUndeclaredVariable
 			if ( array_key_exists( $modelId, $configModels ) ) {
 				$value = $configModels[$modelId];
 				if ( is_array( $value ) && array_key_exists( 'view', $value ) ) {
