@@ -1,7 +1,7 @@
 <?php
 namespace JsonConfig;
 
-use MWNamespace;
+use MediaWiki\MediaWikiServices;
 
 /**
  * Represents a json blob on a remote wiki.
@@ -165,7 +165,9 @@ class JCCache {
 			if ( !$req ) {
 				break;
 			}
-			$ns = $conf->nsName ?: MWNamespace::getCanonicalName( $this->titleValue->getNamespace() );
+			$ns = $conf->nsName ?: MediaWikiServices::getInstance()
+				->getNamespaceInfo()
+				->getCanonicalName( $this->titleValue->getNamespace() );
 			$articleName = $ns . ':' . $this->titleValue->getText();
 			$flrevs = $conf->flaggedRevs;
 			// if flaggedRevs is false, get wiki page directly,
