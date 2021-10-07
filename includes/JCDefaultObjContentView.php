@@ -4,9 +4,9 @@ namespace JsonConfig;
 
 use FormatJson;
 use Html;
+use MediaWiki\Page\PageReference;
 use ParserOptions;
 use ParserOutput;
-use Title;
 
 /**
  * This class is used in case when there is no custom view defined for JCContent object
@@ -20,7 +20,7 @@ class JCDefaultObjContentView extends JCDefaultContentView {
 	 *
 	 * Render JCContent object as HTML - replaces valueToHtml()
 	 * @param JCContent|JCObjContent $content
-	 * @param Title $title Context title for parsing
+	 * @param PageReference $page Context title for parsing
 	 * @param int|null $revId Revision ID (for {{REVISIONID}})
 	 * @param ParserOptions $options Parser options
 	 * @param bool $generateHtml Whether or not to generate HTML
@@ -28,7 +28,7 @@ class JCDefaultObjContentView extends JCDefaultContentView {
 	 * @return string
 	 */
 	public function valueToHtml(
-		JCContent $content, Title $title, $revId, ParserOptions $options, $generateHtml,
+		JCContent $content, PageReference $page, $revId, ParserOptions $options, $generateHtml,
 		ParserOutput &$output
 	) {
 		return $this->renderValue( $content, $content->getValidationData(), [] );
