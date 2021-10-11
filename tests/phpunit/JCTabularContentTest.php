@@ -6,7 +6,7 @@ use FormatJson;
 use JsonConfig\JCLuaLibrary;
 use JsonConfig\JCTabularContent;
 use Language;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use Scribunto_LuaLibraryBase;
 
 /**
@@ -14,7 +14,7 @@ use Scribunto_LuaLibraryBase;
  * @group JsonConfig
  * @covers \JsonConfig\JCTabularContent
  */
-class JCTabularContentTest extends MediaWikiTestCase {
+class JCTabularContentTest extends MediaWikiIntegrationTestCase {
 
 	public function getAnnotations(): array {
 		// HACK phpunit can't handle @covers annotations referring to classes which cannot be loaded

@@ -3,7 +3,7 @@ namespace JsonConfig\Tests;
 
 use JsonConfig\JCSingleton;
 use JsonConfig\JCTitle;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 
 /**
  * @package JsonConfigTests
@@ -11,7 +11,7 @@ use MediaWikiTestCase;
  * @group Title
  * @group Database
  */
-class JCTitleParsingTest extends MediaWikiTestCase {
+class JCTitleParsingTest extends MediaWikiIntegrationTestCase {
 
 	/** @var array */
 	private $configBackup;
