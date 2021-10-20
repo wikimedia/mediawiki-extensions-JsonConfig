@@ -2,6 +2,7 @@
 namespace JsonConfig;
 
 use MediaWiki\MediaWikiServices;
+use ObjectCache;
 
 /**
  * Represents a json blob on a remote wiki.
@@ -32,7 +33,7 @@ class JCCache {
 		$this->titleValue = $titleValue;
 		$conf = $this->titleValue->getConfig();
 		$flRev = $conf->flaggedRevs;
-		$this->cache = wfGetCache( CACHE_ANYTHING );
+		$this->cache = ObjectCache::getInstance( CACHE_ANYTHING );
 		$keyArgs = [
 			'JsonConfig',
 			$wgJsonConfigCacheKeyPrefix,
