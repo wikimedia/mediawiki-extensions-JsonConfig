@@ -21,5 +21,5 @@
 	"apihelp-jsondata-example-1": "Hämta JSON-innehållet av Sample.tab-sidan, lokaliserad till användarens språk",
 	"apihelp-jsondata-example-2": "Hämta JSON-innehållet av Sample.tab-sidan som är lokaliserad till franska",
 	"apierror-jsonconfig-paramrequired": "Parameter <var>$1</var> krävs för detta kommando.",
-	"apierror-jsonconfig-badtitle": "Sidan som specificeras av <var>namespace</var> och <var>titel</var-parametrar är antingen ogiltig eller ej registrerad i JsonConfig-konfigurationen."
+	"apierror-jsonconfig-badtitle": "Sidan som specificeras av <var>namespace</var> och <var>titel</var>-parametrar är antingen ogiltig eller ej registrerad i JsonConfig-konfigurationen."
 }
