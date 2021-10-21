@@ -6,6 +6,7 @@
 			"Dgstranz",
 			"Fitoschido",
 			"Igv",
+			"Jakeukalane",
 			"Lemondoge",
 			"Macofe",
 			"MarcoAurelio",
@@ -14,7 +15,7 @@
 			"Yurik"
 		]
 	},
-	"jsonconfig-desc": "Permite que la configuración JSON sea almacenada en un wiki",
+	"jsonconfig-desc": "Permite que la configuración JSON sea almacenada en una wiki",
 	"jsonconfig-duplicate-field": "Se encontró más de un valor \"$1\"",
 	"jsonconfig-edit-action-cancel": "Cancelar",
 	"jsonconfig-edit-button-label": "Edita la tabla de datos",
