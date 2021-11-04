@@ -92,7 +92,7 @@ class JCDefaultContentView extends JCContentView {
 	/**
 	 * Convert $data into a table row, returning <tr>...</tr> element.
 	 * @param JCContent $content
-	 * @param mixed $data - treats it as opaque - renderValue will know how to handle it
+	 * @param mixed $data treats it as opaque - renderValue will know how to handle it
 	 * @param array $path path to this field
 	 * @return string
 	 */
@@ -105,7 +105,7 @@ class JCDefaultContentView extends JCContentView {
 	 * Converts $data into the content of the <tr>...</tr> tag.
 	 * By default returns <th> with the last path element and <td> with the renderValue() result.
 	 * @param JCContent $content
-	 * @param mixed $data - treats it as opaque - renderValue will know how to handle it
+	 * @param mixed $data treats it as opaque - renderValue will know how to handle it
 	 * @param array $path
 	 * @return string
 	 */
