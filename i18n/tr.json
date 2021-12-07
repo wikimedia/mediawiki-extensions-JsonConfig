@@ -2,7 +2,9 @@
 	"@metadata": {
 		"authors": [
 			"BaRaN6161 TURK",
-			"MuratTheTurkish"
+			"MuratTheTurkish",
+			"Cobija",
+			"SaldırganSincap"
 		]
 	},
 	"nstab-data": "Veri",
@@ -26,7 +28,7 @@
 	"jsonconfig-err-array-expected": "\"$1\" değerinin [...] parantezleri ile çevrili bir liste olması bekleniyordu",
 	"jsonconfig-err-assoc-array": "\"$1\" parametresi ilişkilendirilebilir bir dizi (sözlük) olmalıdır, ör. <kbd>{\"key\": \"value\", ...}</kbd>",
 	"jsonconfig-err-bad-header-string": "\"$1\" başlığı yalnızca harf, sayı ve alt çizgi karakterlerinden oluşmalı ve bir sayı ile başlamamalıdır",
-	"jsonconfig-err-bad-geojson": "\"$1\" parametresi geçerli bir GeoJSON veri nesnesi veya bir GeoJSON nesneleri dizisi olmalıdır. <code>properties</code> alanı <code>title</code> veya <code>description</code> içeriyorsa, bunlar sekmeleri veya sondaki boşlukları olmayan tek satır dizeleri veya bu dizelerin çok dilli nesneleridir, ör. {\"en\": \"String in English\", ... }",
+	"jsonconfig-err-bad-geojson": "\"$1\" parametresi geçerli bir GeoJSON veri nesnesi veya bir GeoJSON nesne dizisi olmalıdır. <code>properties</code> alanı <code>title</code> veya <code>description</code> içeriyorsa, bunlar sekmeleri veya sondaki boşlukları olmayan tek satır dizeleri veya bu dizelerin çokdilli nesneleridir, ör. {\"en\": \"String in English\", ... }",
 	"jsonconfig-err-bad-type": "\"$1\" parametresi, <code>string</code>, <code>number</code> veya <code>boolean</code> gibi geçerli bir tür olmalıdır",
 	"jsonconfig-err-bool": "\"$1\" parametresi <code>true</code> veya <code>false</code> olarak ayarlanmalıdır",
 	"jsonconfig-err-integer": "\"$1\" parametresi bir tam sayı olmalıdır",
@@ -47,7 +49,7 @@
 	"jsonconfig-type-name-invalid": "geçersiz",
 	"jsonconfig-type-name-string": "dize",
 	"jsonconfig-type-name-localized": "yerelleştirilmiş",
-	"jsonconfig-type-name-number": "numara",
+	"jsonconfig-type-name-number": "sayı",
 	"jsonconfig-type-name-boolean": "boole",
 	"jsonconfig-license": "$1 altındaki veriler.",
 	"jsonconfig-license-not-set": "Bu sayfayı düzenlediğinizde, katkınızı <code>licence</code> alanında belirtilen lisansa göre bırakmayı kabul edersiniz.",
