@@ -6,10 +6,11 @@
 			"Kly",
 			"LNDDYL",
 			"Liuxinyu970226",
-			"Yurik"
+			"Yurik",
+			"Winston Sung"
 		]
 	},
-	"jsonconfig-desc": "允許在 Wiki 儲存 JSON 設定",
+	"jsonconfig-desc": "允許在 wiki 儲存 JSON 組態",
 	"jsonconfig-duplicate-field": "發現值 \"$1\" 超過一個",
 	"jsonconfig-edit-action-apply": "套用",
 	"jsonconfig-edit-action-cancel": "取消",
