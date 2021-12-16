@@ -136,8 +136,10 @@ class JCCache {
 	 */
 	private function loadLocal() {
 		// @fixme @bug handle flagged revisions
-		$title = \Title::newFromTitleValue( $this->titleValue );
-		$result = \WikiPage::factory( $title )->getContent();
+		$result = MediaWikiServices::getInstance()
+			->getWikiPageFactory()
+			->newFromLinkTarget( $this->titleValue )
+			->getContent();
 		if ( !$result ) {
 			$result = false; // Keeping consistent with other usages
 		} elseif ( !( $result instanceof JCContent ) ) {
