@@ -59,7 +59,8 @@ class JCLuaLibrary extends Scribunto_LuaLibraryBase {
 
 			$prop = 'jsonconfig_getdata';
 			$output = $this->getParser()->getOutput();
-			$output->setPageProperty( $prop, 1 + ( $output->getPageProperty( $prop ) ? : 0 ) );
+			$prevValue = $output->getPageProperty( $prop ) ?? false; // T301915
+			$output->setPageProperty( $prop, 1 + ( $prevValue ? : 0 ) );
 		}
 
 		if ( !$content ) {
