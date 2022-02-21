@@ -126,6 +126,10 @@ class JCTabularContentView extends JCContentView {
 					} elseif ( $column === null ) {
 						$header['class'] = 'mw-tabular-value-null';
 						$column = '';
+					} else {
+						$column = is_string( $column ) || is_numeric( $column )
+							? htmlspecialchars( (string)$column )
+							: '';
 					}
 					$vals[] = Html::rawElement( 'td', $header, $column );
 				}
