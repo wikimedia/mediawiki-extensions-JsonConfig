@@ -4,5 +4,6 @@
 			"Seipinne"
 		]
 	},
-	"jsonconfig-type-name-string": "merkkâráiđu"
+	"jsonconfig-type-name-string": "merkkâráiđu",
+	"jsonconfig-type-name-number": "nummeer"
 }
