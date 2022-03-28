@@ -44,7 +44,7 @@ class JCMapDataContentTest extends MediaWikiIntegrationTestCase {
 			throw new Exception( html_entity_decode( $content->getStatus()->getWikiText() ) );
 		}
 
-		self::assertEquals( $expected, $sanitized );
+		$this->assertSame( $expected, $sanitized );
 	}
 
 	public function provideGetSafeData() {

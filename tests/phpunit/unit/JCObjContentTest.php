@@ -1,4 +1,5 @@
 <?php
+
 namespace JsonConfig\Tests;
 
 use JsonConfig\JCObjContent;
@@ -14,7 +15,7 @@ use MediaWikiUnitTestCase;
 class JCObjContentTest extends MediaWikiUnitTestCase {
 
 	/** @dataProvider provideBasic */
-	public function testBasic( $text, $isValid ) {
+	public function testBasic( string $text, ?bool $isValid ) {
 		foreach ( [ false, true ] as $thorough ) {
 			$msg = "'$text'" . ( $thorough ? '::thorough' : '::quick' );
 			$c = new ObjContent( $text, null, $thorough );
@@ -22,7 +23,7 @@ class JCObjContentTest extends MediaWikiUnitTestCase {
 				$this->assertFalse( $c->isValidJson(), $msg . '-invalid-json' );
 			} else {
 				$this->assertTrue( $c->isValidJson(), $msg . '-valid-json' );
-				$this->assertEquals( $isValid, $c->isValid(), $msg . '-isValid' );
+				$this->assertSame( $isValid, $c->isValid(), $msg . '-isValid' );
 			}
 		}
 	}
@@ -46,7 +47,12 @@ class JCObjContentTest extends MediaWikiUnitTestCase {
 	 * @dataProvider provideValidation
 	 */
 	public function testValidation(
-		$message, $initial, $expectedWithDflts, $expectedNoDflts, $validators, $errors = null
+		string $message,
+		string $initial,
+		$expectedWithDflts,
+		$expectedNoDflts,
+		callable $validators,
+		int $errors = null
 	) {
 		if ( $expectedWithDflts === true ) {
 			$expectedWithDflts = $initial;
@@ -387,8 +393,8 @@ class JCObjContentTest extends MediaWikiUnitTestCase {
 		return [];
 	}
 
-	public function assertJsonEquals( $expected, $actual, $msg ) {
+	public function assertJsonEquals( string $expected, $actual, string $msg ) {
 		$expected = json_decode( $expected ); // normalize string json
-		$this->assertEquals( json_encode( $expected ), json_encode( $actual ), $msg );
+		$this->assertSame( json_encode( $expected ), json_encode( $actual ), $msg );
 	}
 }

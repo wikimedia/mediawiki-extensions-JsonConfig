@@ -113,18 +113,24 @@ class JCTabularContentTest extends MediaWikiIntegrationTestCase {
 	 * @param array $data
 	 * @param array $expected
 	 */
-	public function testLuaTabDataReindexing( $fieldCount, $data, $expected ) {
+	public function testLuaTabDataReindexing( int $fieldCount, array $data, array $expected ) {
 		if ( !class_exists( Scribunto_LuaLibraryBase::class ) ) {
 			$this->markTestSkipped( "Scribunto is required for this integration test" );
 		}
 
-		$value = (object)[ 'schema' => (object)[] ];
-		$value->data = $data;
-		$value->schema->fields = $fieldCount > 0 ? array_fill( 0, $fieldCount, (object)[] ) : [];
+		$value = (object)[
+			'schema' => (object)[
+				'fields' => array_fill( 0, $fieldCount, (object)[] ),
+			],
+			'data' => $data,
+		];
 		JCLuaLibrary::reindexTabularData( $value );
-		$this->assertEquals( $expected, $value->data );
-		$this->assertEquals( $fieldCount > 0 ? range( 1, $fieldCount ) : [],
-			array_keys( $value->schema->fields ) );
+		$this->assertSame( $expected, $value->data );
+		if ( !$fieldCount ) {
+			$this->assertEmpty( $value->schema->fields );
+		} else {
+			$this->assertSame( range( 1, $fieldCount ), array_keys( $value->schema->fields ) );
+		}
 	}
 
 	public function provideLuaReindexingTests() {

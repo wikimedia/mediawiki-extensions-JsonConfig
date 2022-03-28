@@ -1,12 +1,19 @@
 <?php
+
 namespace JsonConfig\Tests;
 
 use JsonConfig\JCObjContent;
 
 class ObjContent extends JCObjContent {
-	/** @var callable */
+	/** @var callable|null */
 	private $validators;
 
+	/**
+	 * @param mixed $data
+	 * @param callable|null $validators
+	 * @param bool $thorough
+	 * @param bool $isRootArray
+	 */
 	public function __construct( $data, $validators, $thorough, $isRootArray = false ) {
 		$this->validators = $validators;
 		$this->isRootArray = $isRootArray;

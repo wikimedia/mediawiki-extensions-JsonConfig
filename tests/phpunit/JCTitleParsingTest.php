@@ -1,4 +1,5 @@
 <?php
+
 namespace JsonConfig\Tests;
 
 use JsonConfig\JCSingleton;
