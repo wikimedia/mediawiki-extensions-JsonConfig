@@ -4,6 +4,7 @@ namespace JsonConfig;
 use ApiBase;
 use ApiResult;
 use Title;
+use Wikimedia\ParamValidator\ParamValidator;
 
 /**
  * Get localized json data, similar to Lua's mw.data.get() function
@@ -45,8 +46,8 @@ class JCDataApi extends ApiBase {
 	public function getAllowedParams() {
 		return [
 			'title' => [
-				ApiBase::PARAM_TYPE => 'string',
-				ApiBase::PARAM_REQUIRED => true,
+				ParamValidator::PARAM_TYPE => 'string',
+				ParamValidator::PARAM_REQUIRED => true,
 			],
 		];
 	}
