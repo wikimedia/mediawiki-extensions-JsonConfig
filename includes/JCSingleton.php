@@ -8,7 +8,10 @@ use GenderCache;
 use Html;
 use MalformedTitleException;
 use MapCacheLRU;
+use MediaWiki\Config\ServiceOptions;
 use MediaWiki\Linker\LinkTarget;
+use MediaWiki\MainConfigNames;
+use MediaWiki\MainConfigSchema;
 use MediaWiki\MediaWikiServices;
 use MediaWikiTitleCodec;
 use MessageSpecifier;
@@ -498,10 +501,19 @@ class JCSingleton {
 				if ( !self::$titleParser ) {
 					// XXX Direct instantiation of MediaWikiTitleCodec isn't allowed. If core
 					// doesn't support our use-case, core needs to be fixed to allow this.
+					$oldArgStyle =
+						( new \ReflectionMethod( \MediaWikiTitleCodec::class, '__construct' ) )
+						->getParameters()[2]->getName() === 'localInterwikis';
 					self::$titleParser = new MediaWikiTitleCodec(
 						$language,
 						new GenderCache(),
-						[],
+						$oldArgStyle ? []
+							// @phan-suppress-next-line PhanUndeclaredConstantOfClass Not merged yet
+							: new ServiceOptions( MediaWikiTitleCodec::CONSTRUCTOR_OPTIONS, [
+								MainConfigNames::LegalTitleChars =>
+									MainConfigSchema::LegalTitleChars['default'],
+								MainConfigNames::LocalInterwikis => [],
+							] ),
 						new FauxInterwikiLookup(),
 						MediaWikiServices::getInstance()->getNamespaceInfo()
 					);
