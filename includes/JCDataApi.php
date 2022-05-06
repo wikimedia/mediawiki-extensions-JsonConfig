@@ -23,7 +23,7 @@ class JCDataApi extends ApiBase {
 			$this->dieWithError(
 				[
 					'apierror-invalidtitle',
-					wfEscapeWikiText( Title::newFromTitleValue( $jct )->getPrefixedText() )
+					wfEscapeWikiText( Title::newFromLinkTarget( $jct )->getPrefixedText() )
 				]
 			);
 		} elseif ( !method_exists( $data, 'getLocalizedData' ) ) {
