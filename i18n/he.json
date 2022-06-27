@@ -51,15 +51,15 @@
 	"jsonconfig-type-name-number": "מחרוזת",
 	"jsonconfig-type-name-boolean": "בוליאני",
 	"jsonconfig-license": "הנתונים זמינים תחת $1.",
-	"jsonconfig-license-not-set": "עריכת דף זה מהווה את הסכמתך לשחרר את תרומתך בהתאם לרישיון המצוין בשדה <code>licence</code>.",
+	"jsonconfig-license-not-set": "עריכת הדף הזה מהווה את הסכמתך לשחרר את תרומתך בהתאם לרישיון המצוין בשדה <code>licence</code>.",
 	"jsonconfig-license-name-CC0-1.0": "קריאייטיב קומונז אפס",
 	"jsonconfig-license-name-dl-de-zero-2.0": "רישיון נתונים גרמניה – אפס – גרסה 2.0",
 	"jsonconfig-license-name-dl-de-by-1.0": "רישיון נתונים גרמניה – ייחוס – גרסה 1.0",
 	"jsonconfig-license-name-dl-de-by-2.0": "רישיון נתונים גרמניה – ייחוס – גרסה 2.0",
 	"jsonconfig-license-copyrightwarning": "שמירת השינויים מהווה את הסכמתך ל[https://foundation.wikimedia.org/wiki/Terms_of_Use תנאי השימוש] ואת הסכמתך הבלתי־חוזרת לשחרר את תרומתך בכפוף לרישיון [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-copyrightwarning-license-unset": "שמירת השינויים מהווה את הסכמתך ל[https://foundation.wikimedia.org/wiki/Terms_of_Use תנאי השימוש] ואת הסכמתך הבלתי־חוזרת לשחרר את תרומתך בהתאם לרישיון המצוין בשדה <code>licence</code>.",
-	"jsonconfig-license-notice": "'''הערה:''' עריכת דף זה מהווה את הסכמתך לשחרור התרומה שלך בכפוף לרישיון [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
-	"jsonconfig-license-notice-license-unset": "'''הערה:''' עריכת דף זה מהווה את הסכמתך לשחרר את תרומתך בהתאם לרישיון המצוין בשדה <code>licence</code>.",
+	"jsonconfig-license-notice": "'''הערה:''' עריכת הדף הזה מהווה את הסכמתך לשחרור התרומה שלך בכפוף לרישיון [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
+	"jsonconfig-license-notice-license-unset": "'''הערה:''' עריכת הדף הזה מהווה את הסכמתך לשחרר את תרומתך בהתאם לרישיון המצוין בשדה <code>licence</code>.",
 	"right-jsonconfig-flush": "טיפול ב־JsonConfig באמצעות API",
 	"action-jsonconfig-flush": "לשלוט ב־JsonConfig דרך API"
 }
