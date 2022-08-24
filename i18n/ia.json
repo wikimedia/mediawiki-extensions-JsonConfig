@@ -54,6 +54,7 @@
 	"jsonconfig-license-name-dl-de-zero-2.0": "Licentia de datos Germania - Zero - Version 2.0",
 	"jsonconfig-license-name-dl-de-by-1.0": "Licentia de datos Germania – attribution – Version 1.0",
 	"jsonconfig-license-name-dl-de-by-2.0": "Licentia de datos Germania – attribution – version 2.0",
+	"jsonconfig-license-name-GeoNutzV": "Licentia Geo Data Germania",
 	"jsonconfig-license-copyrightwarning": "Salveguardante le modificationes, tu accepta le [https://foundation.wikimedia.org/wiki/Terms_of_Use conditiones de uso] e tu accepta irrevocabilemente de liberar tu contribution sub [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-copyrightwarning-license-unset": "Salveguardante le modificationes, tu accepta le [https://foundation.wikimedia.org/wiki/Terms_of_Use conditiones de uso] e tu accepta irrevocabilemente de liberar tu contribution sub le licentia specificate in le campo <code>licence</code>.",
 	"jsonconfig-license-notice": "'''Nota:''' Quando tu modifica iste pagina, tu accepta de liberar tu contribution sub [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
