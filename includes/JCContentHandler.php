@@ -84,9 +84,7 @@ class JCContentHandler extends TextContentHandler {
 			return $this->makeEmptyContent();
 		}
 
-		$mergedContent = $this->unserializeContent( $result, $format );
-
-		return $mergedContent;
+		return $this->unserializeContent( $result, $format );
 	}
 
 	/**
@@ -124,8 +122,7 @@ class JCContentHandler extends TextContentHandler {
 	 * @phan-return class-string
 	 */
 	protected function getContentClass() {
-		$modelId = $this->getModelID();
-		return JCSingleton::getContentClass( $modelId );
+		return JCSingleton::getContentClass( $this->getModelID() );
 	}
 
 	/**

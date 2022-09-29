@@ -17,7 +17,7 @@ class JCTitleParsingTest extends MediaWikiIntegrationTestCase {
 	/** @var array */
 	private $configBackup;
 
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		// Copied from mediawiki/tests/phpunit/includes/title/MediaWikiTitleCodecTest.php

@@ -21,9 +21,9 @@ class JCUtils {
 	 * All complex arguments are escaped with FormatJson::encode()
 	 * @param string $msg
 	 * @param mixed|array $vals
-	 * @param bool|array $query
+	 * @param array $query
 	 */
-	public static function warn( $msg, $vals, $query = false ) {
+	public static function warn( $msg, $vals, $query = [] ) {
 		if ( !is_array( $vals ) ) {
 			$vals = [ $vals ];
 		}
@@ -36,21 +36,13 @@ class JCUtils {
 			$vals['query'] = $query;
 		}
 		$isFirst = true;
-		foreach ( $vals as $k => &$v ) {
-			if ( $isFirst ) {
-				$isFirst = false;
-				$msg .= ': ';
-			} else {
-				$msg .= ', ';
-			}
+		foreach ( $vals as $k => $v ) {
+			$msg .= $isFirst ? ': ' : ', ';
+			$isFirst = false;
 			if ( is_string( $k ) ) {
 				$msg .= $k . '=';
 			}
-			if ( is_string( $v ) || is_int( $v ) ) {
-				$msg .= $v;
-			} else {
-				$msg .= FormatJson::encode( $v );
-			}
+			$msg .= is_scalar( $v ) ? $v : FormatJson::encode( $v );
 		}
 		wfLogWarning( $msg );
 	}
