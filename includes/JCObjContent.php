@@ -261,7 +261,7 @@ abstract class JCObjContent extends JCContent {
 			return $this->testValue( $fldPath, $jcv, $validators );
 		}
 		$fld = array_shift( $path );
-		if ( is_array( $jcv->getValue() ) && ctype_digit( $fld ) ) {
+		if ( is_array( $jcv->getValue() ) && ctype_digit( (string)$fld ) ) {
 			$fld = (int)$fld;
 		}
 		if ( !is_int( $fld ) && !is_string( $fld ) ) {
