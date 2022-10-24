@@ -6,5 +6,9 @@
 	},
 	"jsonconfig-desc": "Omogoča shranjevanje JSON v vikiju",
 	"jsonconfig-edit-action-cancel": "Prekliči",
+	"jsonconfig-err-bool": "Parameter »$1« mora biti nastavljen na <code>true</code> ali <code>false</code>",
+	"jsonconfig-err-integer": "Parameter »$1« mora biti celo število",
+	"jsonconfig-err-string": "Parameter »$1« mora biti niz",
+	"jsonconfig-optional-field": "(neobvezno)",
 	"jsonconfig-type-name-number": "število"
 }
