@@ -23,7 +23,7 @@ class ObjContent extends JCObjContent {
 
 	public function validateContent() {
 		if ( $this->validators ) {
-			call_user_func( $this->validators, $this );
+			( $this->validators )( $this );
 		}
 	}
 }

@@ -83,7 +83,6 @@ class JCSingleton {
 			),
 			array_replace_recursive(
 				\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ),
-				// @phan-suppress-next-line PhanPossiblyUndeclaredVariable
 				$wgJsonConfigModels
 			)
 		);

@@ -106,7 +106,7 @@ final class JCValue {
 				// Convert field path to a printable string
 				$args[1] = JCUtils::fieldPathToString( $fieldPath );
 			}
-			$this->error = call_user_func_array( 'wfMessage', $args );
+			$this->error = wfMessage( ...$args );
 		}
 		return $this->error;
 	}

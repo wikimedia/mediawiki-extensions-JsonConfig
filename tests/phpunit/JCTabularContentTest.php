@@ -31,11 +31,10 @@ class JCTabularContentTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * @dataProvider provideTestCases
-	 * @param string $fileName
+	 * @param string $file
 	 * @param bool $thorough
 	 */
-	public function testValidateContent( $fileName, $thorough ) {
-		$file = __DIR__ . '/' . $fileName;
+	public function testValidateContent( $file, $thorough ) {
 		$content = file_get_contents( $file );
 		if ( $content === false ) {
 			$this->fail( "Can't read file $file" );
@@ -69,23 +68,17 @@ class JCTabularContentTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function provideTestCases() {
-		$result = [];
-
 		foreach ( glob( __DIR__ . "/tabular-good/*.json" ) as $file ) {
-			$file = substr( $file, strlen( __DIR__ ) + 1 );
-			$result[] = [ $file, false ];
-			$result[] = [ $file, true ];
+			yield [ $file, false ];
+			yield [ $file, true ];
 		}
-
-		return $result;
 	}
 
 	/**
 	 * @dataProvider provideBadTestCases
-	 * @param string $fileName
+	 * @param string $file
 	 */
-	public function testValidateBadContent( $fileName ) {
-		$file = __DIR__ . '/' . $fileName;
+	public function testValidateBadContent( $file ) {
 		$content = file_get_contents( $file );
 		if ( $content === false ) {
 			$this->fail( "Can't read file $file" );
@@ -96,14 +89,9 @@ class JCTabularContentTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function provideBadTestCases() {
-		$result = [];
-
 		foreach ( glob( __DIR__ . "/tabular-bad/*.json" ) as $file ) {
-			$file = substr( $file, strlen( __DIR__ ) + 1 );
-			$result[] = [ $file ];
+			yield [ $file ];
 		}
-
-		return $result;
 	}
 
 	/**
