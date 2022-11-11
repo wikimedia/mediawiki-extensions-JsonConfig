@@ -163,7 +163,6 @@ class JCContent extends \TextContent {
 		if ( !$this->view ) {
 			$configModels = \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' )
 				+ $wgJsonConfigModels;
-			// @phan-suppress-previous-line PhanPossiblyUndeclaredVariable
 			$class = $configModels[$modelId]['view'] ?? null;
 			$this->view = $class ? new $class() : $this->createDefaultView();
 		}

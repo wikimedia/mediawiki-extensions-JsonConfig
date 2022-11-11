@@ -106,6 +106,7 @@ final class JCValue {
 				// Convert field path to a printable string
 				$args[1] = JCUtils::fieldPathToString( $fieldPath );
 			}
+			// @phan-suppress-next-line PhanParamTooFewUnpack
 			$this->error = wfMessage( ...$args );
 		}
 		return $this->error;
