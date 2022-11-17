@@ -161,9 +161,6 @@
 				"GeoNutzV"
 			]
 		},
-		"JsonConfigInterwikiPrefix": {
-			"value": "commons"
-		},
 		"JsonConfigUseGUI": {
 			"value": true
 		}
