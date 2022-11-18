@@ -240,7 +240,6 @@ class JCCache {
 		}
 		$pageInfo = reset( $pages ); // get the only element of the array
 		if ( isset( $pageInfo['missing'] ) ) {
-			JCUtils::warn( 'Config page does not exist', [ 'title' => $articleName ], $query );
 			return false;
 		}
 		return $pageInfo;
