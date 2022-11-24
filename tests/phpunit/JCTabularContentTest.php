@@ -115,7 +115,7 @@ class JCTabularContentTest extends MediaWikiIntegrationTestCase {
 		JCLuaLibrary::reindexTabularData( $value );
 		$this->assertSame( $expected, $value->data );
 		if ( !$fieldCount ) {
-			$this->assertEmpty( $value->schema->fields );
+			$this->assertSame( [], $value->schema->fields );
 		} else {
 			$this->assertSame( range( 1, $fieldCount ), array_keys( $value->schema->fields ) );
 		}
