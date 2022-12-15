@@ -947,7 +947,7 @@ class JCSingleton {
 	public static function onApiMainModuleManager( ApiModuleManager $moduleManager ) {
 		global $wgJsonConfigEnableLuaSupport;
 		if ( $wgJsonConfigEnableLuaSupport ) {
-			$moduleManager->addModule( 'jsondata', 'action', 'JsonConfig\\JCDataApi' );
+			$moduleManager->addModule( 'jsondata', 'action', JCDataApi::class );
 		}
 		return true;
 	}
