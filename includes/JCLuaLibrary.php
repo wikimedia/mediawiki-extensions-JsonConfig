@@ -2,7 +2,6 @@
 
 namespace JsonConfig;
 
-use Language;
 use MediaWiki\MediaWikiServices;
 use Scribunto_LuaError;
 use Scribunto_LuaLibraryBase;
@@ -43,8 +42,9 @@ class JCLuaLibrary extends Scribunto_LuaLibraryBase {
 			$language = $this->getParser()->getTargetLanguage();
 		} elseif ( $langCode !== '_' ) {
 			$this->checkType( 'get', 2, $langCode, 'string' );
-			if ( Language::isValidCode( $langCode ) ) {
-				$language = MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( $langCode );
+			$services = MediaWikiServices::getInstance();
+			if ( $services->getLanguageNameUtils()->isValidCode( $langCode ) ) {
+				$language = $services->getLanguageFactory()->getLanguage( $langCode );
 			} else {
 				throw new Scribunto_LuaError( 'bad argument #2 to "get" (not a valid language code)' );
 			}

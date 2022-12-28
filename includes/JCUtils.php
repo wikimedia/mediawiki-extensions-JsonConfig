@@ -253,8 +253,9 @@ class JCUtils {
 	 * @return bool
 	 */
 	public static function isListOfLangs( $arr ) {
-		return count( $arr ) === count( array_filter( $arr, static function ( $v ) {
-			return is_string( $v ) && Language::isValidBuiltInCode( $v );
+		$languageNameUtils = MediaWikiServices::getInstance()->getLanguageNameUtils();
+		return count( $arr ) === count( array_filter( $arr, static function ( $v ) use ( $languageNameUtils ) {
+			return is_string( $v ) && $languageNameUtils->isValidBuiltInCode( $v );
 		} ) );
 	}
 
