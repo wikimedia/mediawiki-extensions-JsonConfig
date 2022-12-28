@@ -7,7 +7,6 @@ use EditPage;
 use Exception;
 use GenderCache;
 use Html;
-use Language;
 use MalformedTitleException;
 use MapCacheLRU;
 use MediaWiki\Linker\LinkTarget;
@@ -496,7 +495,7 @@ class JCSingleton {
 			// Parse string if needed
 			// TODO: should the string parsing also be cached?
 			if ( is_string( $value ) ) {
-				$language = Language::factory( 'en' );
+				$language = MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( 'en' );
 				if ( !self::$titleParser ) {
 					// XXX Direct instantiation of MediaWikiTitleCodec isn't allowed. If core
 					// doesn't support our use-case, core needs to be fixed to allow this.

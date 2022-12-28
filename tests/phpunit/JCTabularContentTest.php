@@ -5,7 +5,6 @@ namespace JsonConfig\Tests;
 use FormatJson;
 use JsonConfig\JCLuaLibrary;
 use JsonConfig\JCTabularContent;
-use Language;
 use MediaWikiIntegrationTestCase;
 use Scribunto_LuaLibraryBase;
 
@@ -50,13 +49,14 @@ class JCTabularContentTest extends MediaWikiIntegrationTestCase {
 		$c = new JCTabularContent( $testData, 'Tabular.JsonConfig', $thorough );
 		if ( $c->isValid() ) {
 			$this->assertTrue( true );
+			$languageFactory = $this->getServiceContainer()->getLanguageFactory();
 			foreach ( $content as $langCode => $expected ) {
 				if ( $langCode == 'raw' ) {
 					continue;
 				} elseif ( $langCode == '_' ) {
 					$actual = $c->getData();
 				} else {
-					$actual = $c->getLocalizedData( Language::factory( $langCode ) );
+					$actual = $c->getLocalizedData( $languageFactory->getLanguage( $langCode ) );
 					unset( $actual->license->text );
 					unset( $actual->license->url );
 				}

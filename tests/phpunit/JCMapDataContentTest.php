@@ -4,7 +4,6 @@ namespace JsonConfig\Tests;
 
 use Exception;
 use JsonConfig\JCMapDataContent;
-use Language;
 use MediaWikiIntegrationTestCase;
 
 /**
@@ -36,7 +35,9 @@ class JCMapDataContentTest extends MediaWikiIntegrationTestCase {
 		$data->data = json_decode( $input );
 
 		$content = new JCMapDataContent( json_encode( $data ), 'some model', true );
-		$localized = $content->getLocalizedData( Language::factory( 'en' ) );
+		$localized = $content->getLocalizedData(
+			$this->getServiceContainer()->getLanguageFactory()->getLanguage( 'en' )
+		);
 		$sanitized = json_encode( $content->getSafeData( $localized )->data, JSON_PRETTY_PRINT );
 		$expected = json_encode( json_decode( $expected ), JSON_PRETTY_PRINT );
 
