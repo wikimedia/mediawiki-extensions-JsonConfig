@@ -10,6 +10,7 @@
 	"apihelp-jsonconfig-param-title": "Naslov obrade bez prefiksa imenskog prostora.",
 	"apihelp-jsonconfig-param-content": "Za $1command=reload umjesto toga koristite ovaj sadržaj.",
 	"apihelp-jsonconfig-example-1": "Prikaži konfiguraciju",
+	"apihelp-jsonconfig-example-2": "Resetiraj [[Data:Brazil/Amazonas.map]]",
 	"apihelp-jsondata-param-title": "Naslov za dobiti. Podrazumijevani imenski prostor je \"Data:\"",
 	"apihelp-jsondata-example-1": "Daje JSON sadržaj stranice Sample.tab, lokaliziran na jezik korisnika",
 	"apihelp-jsondata-example-2": "Daje JSON sadržaj stranice Sample.tab, lokaliziran na francuski",
