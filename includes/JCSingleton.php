@@ -2,7 +2,6 @@
 namespace JsonConfig;
 
 use ApiModuleManager;
-use ContentHandler;
 use EditPage;
 use Exception;
 use GenderCache;
@@ -720,7 +719,9 @@ class JCSingleton {
 		}
 
 		// todo/fixme? We should probably add 'json' lang to only those pages that pass parseTitle()
-		$handler = ContentHandler::getForModelID( $title->getContentModel() );
+		$handler = MediaWikiServices::getInstance()
+			->getContentHandlerFactory()
+			->getContentHandler( $title->getContentModel() );
 		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON || self::parseTitle( $title ) ) {
 			$lang = 'json';
 		}
@@ -904,7 +905,9 @@ class JCSingleton {
 		$title = $out->getTitle();
 		// todo/fixme? We should probably add ext.jsonConfig style to only those pages
 		// that pass parseTitle()
-		$handler = ContentHandler::getForModelID( $title->getContentModel() );
+		$handler = MediaWikiServices::getInstance()
+			->getContentHandlerFactory()
+			->getContentHandler( $title->getContentModel() );
 		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON ||
 			self::parseTitle( $title )
 		) {
