@@ -7,5 +7,6 @@
 	},
 	"jsonconfig-edit-action-apply": "Geavat",
 	"jsonconfig-edit-action-cancel": "Šluhtte",
-	"jsonconfig-optional-field": "(eaktodáhtolaš)"
+	"jsonconfig-optional-field": "(eaktodáhtolaš)",
+	"jsonconfig-type-name-boolean": "boolelaš árvu"
 }
