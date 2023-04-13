@@ -6,10 +6,10 @@ use Exception;
 use FormatJson;
 use Language;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\StubObject\StubUserLang;
 use MWHttpRequest;
 use Status;
 use stdClass;
-use StubUserLang;
 
 /**
  * Various useful utility functions (all static)
