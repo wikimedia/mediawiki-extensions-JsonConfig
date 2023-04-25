@@ -1,6 +1,6 @@
 {
 	"name": "JsonConfig",
-	"version": "1.1.1",
+	"version": "1.2.0",
 	"author": [
 		"Yuri Astrakhan",
 		"Eranroz"
@@ -10,7 +10,7 @@
 	"type": "other",
 	"license-name": "GPL-2.0-or-later",
 	"requires": {
-		"MediaWiki": ">= 1.40.0"
+		"MediaWiki": ">= 1.41.0"
 	},
 	"namespaces": [
 		{
