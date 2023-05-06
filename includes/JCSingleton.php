@@ -2,13 +2,13 @@
 namespace JsonConfig;
 
 use ApiModuleManager;
-use EditPage;
 use Exception;
 use GenderCache;
 use Html;
 use MalformedTitleException;
 use MapCacheLRU;
 use MediaWiki\Config\ServiceOptions;
+use MediaWiki\EditPage\EditPage;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MainConfigSchema;
@@ -764,7 +764,7 @@ class JCSingleton {
 			if ( !$status->isGood() ) {
 				// @todo Use $status->setOK() instead after this extension
 				// do not support mediawiki version 1.36 and before
-				$status->setResult( false, $status->getValue() ?: \EditPage::AS_HOOK_ERROR_EXPECTED );
+				$status->setResult( false, $status->getValue() ?: EditPage::AS_HOOK_ERROR_EXPECTED );
 				return false;
 			}
 		}
