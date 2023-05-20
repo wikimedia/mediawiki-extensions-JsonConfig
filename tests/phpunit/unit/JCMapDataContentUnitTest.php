@@ -27,7 +27,7 @@ class JCMapDataContentUnitTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $expected, !$value->error() );
 	}
 
-	public function provideLocalizedDataToValidate() {
+	public static function provideLocalizedDataToValidate() {
 		return [
 			[ null, false ],
 			[ [], true ],

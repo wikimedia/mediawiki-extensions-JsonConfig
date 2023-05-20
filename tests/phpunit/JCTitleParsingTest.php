@@ -70,7 +70,7 @@ class JCTitleParsingTest extends MediaWikiIntegrationTestCase {
 		}
 	}
 
-	public function provideValues() {
+	public static function provideValues() {
 		return [
 			// title, ns, expected
 			[ false, null, false ],

@@ -67,7 +67,7 @@ class JCTabularContentTest extends MediaWikiIntegrationTestCase {
 		}
 	}
 
-	public function provideTestCases() {
+	public static function provideTestCases() {
 		foreach ( glob( __DIR__ . "/tabular-good/*.json" ) as $file ) {
 			yield [ $file, false ];
 			yield [ $file, true ];
@@ -88,7 +88,7 @@ class JCTabularContentTest extends MediaWikiIntegrationTestCase {
 		$this->assertFalse( $c->isValid(), 'Validation unexpectedly succeeded' );
 	}
 
-	public function provideBadTestCases() {
+	public static function provideBadTestCases() {
 		foreach ( glob( __DIR__ . "/tabular-bad/*.json" ) as $file ) {
 			yield [ $file ];
 		}
@@ -121,7 +121,7 @@ class JCTabularContentTest extends MediaWikiIntegrationTestCase {
 		}
 	}
 
-	public function provideLuaReindexingTests() {
+	public static function provideLuaReindexingTests() {
 		return [
 			// fieldCount, data, expected
 			[ 0, [], [] ],

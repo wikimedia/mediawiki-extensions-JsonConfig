@@ -48,7 +48,7 @@ class JCMapDataContentTest extends MediaWikiIntegrationTestCase {
 		$this->assertSame( $expected, $sanitized );
 	}
 
-	public function provideGetSafeData() {
+	public static function provideGetSafeData() {
 		return [
 			[
 				'{

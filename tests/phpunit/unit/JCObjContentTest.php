@@ -6,6 +6,7 @@ use JsonConfig\JCObjContent;
 use JsonConfig\JCValidators;
 use JsonConfig\JCValue;
 use MediaWikiUnitTestCase;
+use PHPUnit\Framework\Assert;
 
 /**
  * @package JsonConfigTests
@@ -28,7 +29,7 @@ class JCObjContentTest extends MediaWikiUnitTestCase {
 		}
 	}
 
-	public function provideBasic() {
+	public static function provideBasic() {
 		return [
 			[ '', null ],
 			[ 'null', null ],
@@ -84,8 +85,8 @@ class JCObjContentTest extends MediaWikiUnitTestCase {
 		}
 	}
 
-	public function provideValidation() {
-		return array_merge( $this->provideValidationFirst(), [
+	public static function provideValidation() {
+		return array_merge( self::provideValidationFirst(), [
 
 			// $message, $initial, $expectedWithDflts, $expectedNoDflts, $validators, $errors = null
 
@@ -326,33 +327,33 @@ class JCObjContentTest extends MediaWikiUnitTestCase {
 			],
 			[
 				'missing no dflt f', '{"y":5}', true, true,
-				function ( JCObjContent $o ) {
-					$o->test( 'f', function ( JCValue $v ) {
-						$this->assertTrue( $v->isMissing() );
+				static function ( JCObjContent $o ) {
+					$o->test( 'f', static function ( JCValue $v ) {
+						Assert::assertTrue( $v->isMissing() );
 					} );
 				},
 			],
 			[
 				'missing no dflt f[0]', '{"f":[]}', true, true,
-				function ( JCObjContent $o ) {
-					$o->test( [ 'f', 0 ], function ( JCValue $v ) {
-						$this->assertTrue( $v->isMissing() );
+				static function ( JCObjContent $o ) {
+					$o->test( [ 'f', 0 ], static function ( JCValue $v ) {
+						Assert::assertTrue( $v->isMissing() );
 					} );
 				},
 			],
 			[
 				'missing no dflt f[1]', '{"f":[{"x":1}]}', true, true,
-				function ( JCObjContent $o ) {
-					$o->test( [ 'f', 1 ], function ( JCValue $v ) {
-						$this->assertTrue( $v->isMissing() );
+				static function ( JCObjContent $o ) {
+					$o->test( [ 'f', 1 ], static function ( JCValue $v ) {
+						Assert::assertTrue( $v->isMissing() );
 					} );
 				},
 			],
 			[
 				'missing no dflt f[0]/y', '{"f":[{"x":1}]}', true, true,
-				function ( JCObjContent $o ) {
-					$o->test( [ 'f', 0, 'y' ], function ( JCValue $v ) {
-						$this->assertTrue( $v->isMissing() );
+				static function ( JCObjContent $o ) {
+					$o->test( [ 'f', 0, 'y' ], static function ( JCValue $v ) {
+						Assert::assertTrue( $v->isMissing() );
 					} );
 				},
 			],
@@ -389,7 +390,7 @@ class JCObjContentTest extends MediaWikiUnitTestCase {
 	 * This provider helps with running test(s) before the rest of the ones in provideValidation()
 	 * Helps with debugging - copy a test from above here and it will run first
 	 */
-	public function provideValidationFirst() {
+	public static function provideValidationFirst() {
 		return [];
 	}
 
