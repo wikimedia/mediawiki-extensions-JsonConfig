@@ -3,7 +3,7 @@
 namespace JsonConfig;
 
 use DifferenceEngine;
-use MWException;
+use InvalidArgumentException;
 
 /**
  * @package JsonConfig
@@ -15,16 +15,16 @@ class JCJsonDifferenceEngine extends DifferenceEngine {
 	 *
 	 * Instead of the default implementation, compares pretty-printed JSON
 	 *
-	 * @param \Content|JCContent $old Old content
-	 * @param \Content|JCContent $new New content
+	 * @param \Content|JCContent $old Old content. Callers should make sure that it is a JCContent.
+	 * @param \Content|JCContent $new New content. Callers should make sure that it is a JCContent.
 	 *
-	 * @throws MWException If old or new content is not an instance of TextContent.
 	 * @return bool|string
 	 */
 	public function generateContentDiffBody( \Content $old, \Content $new ) {
 		if ( !( $old instanceof JCContent ) || !( $new instanceof JCContent ) ) {
-			throw new MWException( __CLASS__ . " does not support diffing between " .
-								   get_class( $old ) . " and " . get_class( $new ) );
+			throw new InvalidArgumentException(
+				__CLASS__ . " does not support diffing between " . get_class( $old ) . " and " . get_class( $new )
+			);
 		}
 
 		$format = JCContentHandler::CONTENT_FORMAT_JSON_PRETTY;
