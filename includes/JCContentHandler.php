@@ -4,6 +4,7 @@ namespace JsonConfig;
 
 use Content;
 use FormatJson;
+use IContextSource;
 use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Content\Transform\PreSaveTransformParams;
 use ParserOutput;
@@ -87,15 +88,8 @@ class JCContentHandler extends TextContentHandler {
 		return $this->unserializeContent( $result, $format );
 	}
 
-	/**
-	 * Returns the name of the diff engine to use.
-	 *
-	 * @since 1.21
-	 *
-	 * @return string
-	 */
-	protected function getDiffEngineClass() {
-		return JCJsonDifferenceEngine::class;
+	protected function getSlotDiffRendererWithOptions( IContextSource $context, $options = [] ) {
+		return new JCSlotDiffRenderer( $this->createTextSlotDiffRenderer( $options ) );
 	}
 
 	/**
