@@ -8,7 +8,6 @@
 			"Wladek92"
 		]
 	},
-	"apihelp-jsonconfig-description": "Permet l’accès direct au sous-système JsonConfig.",
 	"apihelp-jsonconfig-summary": "Permet l’accès direct au sous-système JsonConfig.",
 	"apihelp-jsonconfig-param-command": "Quelle sous-action effectuer sur JsonConfig :\n; status\n: affiche la configuration de JsonConfig.\n; reset\n: efface les configurations du cache. Nécessite  le paramètre de $1titre et le droit de réinitialiser JsonConfig.\n; reload\n: recharge et met en cache les configurations du dépôt de configurations. Nécessite le paramètre $1titre et le droit de réinitialiser JsonConfig.",
 	"apihelp-jsonconfig-param-namespace": "Numéro de l’espace de noms du titre à utiliser.",
@@ -17,7 +16,6 @@
 	"apihelp-jsonconfig-example-1": "Afficher la configuration",
 	"apihelp-jsonconfig-example-2": "Reinitialiser [[Data:Brazil/Amazonas.map]]",
 	"apihelp-jsonconfig-example-3": "Recharger [[Data:Brazil/Amazonas.map]]",
-	"apihelp-jsondata-description": "Récupérer les données JSON régionalisées.",
 	"apihelp-jsondata-summary": "Récupérer les données JSON régionalisées.",
 	"apihelp-jsondata-param-title": "Titre à récupérer. Par défaut, l’espace de noms est supposé être « Data: ».",
 	"apihelp-jsondata-example-1": "Obtenir le contenu JSON de la page « Sample.tab », régionalisée dans la langue de l’utilisateur",

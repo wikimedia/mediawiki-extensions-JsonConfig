@@ -4,7 +4,6 @@
 			"McDutchie"
 		]
 	},
-	"apihelp-jsonconfig-description": "Permitte le accesso directe al subsystema JsonConfig.",
 	"apihelp-jsonconfig-summary": "Permitte le accesso directe al subsystema JsonConfig.",
 	"apihelp-jsonconfig-param-command": "Qual sub-action exequer sur JsonConfig:\n;status:Monstra le configuration de JsonConfig.\n;reset:Rade le configurationes del cache. Require le parametro $1title e le derecto jsonconfig-flush.\n;reload:Recarga e mitte in cache le configurationes immagazinate. Require le parametro $1title e le derecto jsonconfig-reset.",
 	"apihelp-jsonconfig-param-namespace": "Numero de spatio de nomines del titulo a tractar.",
@@ -13,7 +12,6 @@
 	"apihelp-jsonconfig-example-1": "Monstrar configuration",
 	"apihelp-jsonconfig-example-2": "Reinitialisar [[Data:Brazil/Amazonas.map]]",
 	"apihelp-jsonconfig-example-3": "Recargar [[Data:Brazil/Amazonas.map]]",
-	"apihelp-jsondata-description": "Recuperar datos JSON localisate.",
 	"apihelp-jsondata-summary": "Recuperar datos JSON localisate.",
 	"apihelp-jsondata-param-title": "Le titulo a obtener. Si non specificate alteremente, assume que le spatio de nomines es \"Data:\".",
 	"apihelp-jsondata-example-1": "Obtener contento JSON del pagina Sample.tab, localisate in le lingua del usator.",
