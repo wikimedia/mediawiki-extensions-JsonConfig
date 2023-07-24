@@ -45,7 +45,6 @@
 	"jsonconfig-move-aborted-model": "JSON-овиот поставувачки модел „$1“ на оваа страница нема да се совпаѓа со моделот „$2“ на новиот наслов",
 	"jsonconfig-move-aborted-ns": "новиот наслов на страницата не е поставен да содржи JSON-ова поставка",
 	"jsonconfig-optional-field": "(незадолжително)",
-	"jsonconfig-type-abbr-invalid": "(?)",
 	"jsonconfig-type-name-invalid": "неважечки",
 	"jsonconfig-type-abbr-string": "(Н)",
 	"jsonconfig-type-name-string": "низа",
