@@ -5,6 +5,7 @@
 			"Reedy"
 		]
 	},
+	"apihelp-jsondata-summary": "Retrieve localised JSON data.",
 	"apihelp-jsondata-param-title": "Title to get. By default assumes namespace to be 'Data:'",
 	"apihelp-jsondata-example-1": "Get JSON content of the Sample.tab page, localised to user's language",
 	"apihelp-jsondata-example-2": "Get JSON content of the Sample.tab page localised to French"
