@@ -5,6 +5,7 @@
 			"Reedy"
 		]
 	},
+	"apihelp-jsondata-summary": "Retrieve localised JSON data.",
 	"apihelp-jsondata-example-1": "Get JSON content of the Sample.tab page, localised to user's language",
 	"apihelp-jsondata-example-2": "Get JSON content of the Sample.tab page localised to French"
 }
