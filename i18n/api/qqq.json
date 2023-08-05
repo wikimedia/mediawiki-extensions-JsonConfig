@@ -14,7 +14,10 @@
 		]
 	},
 	"apihelp-jsonconfig-summary": "{{doc-apihelp-summary|jsonconfig}}",
-	"apihelp-jsonconfig-param-command": "The \"config store\" is the new way to store the MediaWiki configuration outside <code>LocalSettings.php</code>, namely in JSON files. \n----\n{{doc-apihelp-param|jsonconfig|command}}",
+	"apihelp-jsonconfig-param-command": "{{doc-apihelp-param|jsonconfig|command}}",
+	"apihelp-jsonconfig-paramvalue-command-status": "{{doc-apihelp-paramvalue|jsonconfig|command|status}}",
+	"apihelp-jsonconfig-paramvalue-command-reset": "{{doc-apihelp-paramvalue|jsonconfig|command|reset}}",
+	"apihelp-jsonconfig-paramvalue-command-reload": "The \"config store\" is the new way to store the MediaWiki configuration outside <code>LocalSettings.php</code>, namely in JSON files. \n----\n{{doc-apihelp-paramvalue|jsonconfig|command|reload}}",
 	"apihelp-jsonconfig-param-namespace": "{{doc-apihelp-param|jsonconfig|namespace}}",
 	"apihelp-jsonconfig-param-title": "{{doc-apihelp-param|jsonconfig|title}}",
 	"apihelp-jsonconfig-param-content": "{{doc-apihelp-param|jsonconfig|content}}",

@@ -149,7 +149,8 @@ class JCApi extends ApiBase {
 					'status',
 					'reset',
 					'reload',
-				]
+				],
+				ApiBase::PARAM_HELP_MSG_PER_VALUE => [],
 			],
 			'namespace' => [
 				ParamValidator::PARAM_TYPE => 'integer',
