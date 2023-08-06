@@ -9,6 +9,7 @@ use MediaWikiIntegrationTestCase;
 /**
  * @group JsonConfig
  * @covers \JsonConfig\JCMapDataContent
+ * @group Database
  */
 class JCMapDataContentTest extends MediaWikiIntegrationTestCase {
 	private const CONTENT_STUB = '{
