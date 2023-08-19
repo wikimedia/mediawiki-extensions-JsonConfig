@@ -3,7 +3,7 @@ namespace JsonConfig;
 
 use ApiBase;
 use ApiResult;
-use Title;
+use MediaWiki\Title\Title;
 use Wikimedia\ParamValidator\ParamValidator;
 
 /**
