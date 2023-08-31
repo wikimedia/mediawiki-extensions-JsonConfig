@@ -7,6 +7,8 @@ use Scribunto_LuaEngineTestBase;
 /**
  * @covers \JsonConfig\JCLuaLibrary
  *
+ * @group Database
+ *
  * @license GPL-2.0-or-later
  */
 class JCLuaLibraryTest extends Scribunto_LuaEngineTestBase {
