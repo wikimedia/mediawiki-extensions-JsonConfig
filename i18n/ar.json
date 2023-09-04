@@ -6,7 +6,8 @@
 			"Meno25",
 			"Tala Ali",
 			"ديفيد",
-			"عبد الإله صديقي"
+			"عبد الإله صديقي",
+			"محمد أحمد عبد الفتاح"
 		]
 	},
 	"nstab-data": "البيانات",
@@ -73,7 +74,7 @@
 	"jsonconfig-license-name-dl-de-by-1.0": "ترخيص البيانات ألمانيا - الإسناد - الإصدار 1.0",
 	"jsonconfig-license-name-dl-de-by-2.0": "رخصة البيانات ألمانيا - الإسناد - الإصدار 2.0",
 	"jsonconfig-license-name-GeoNutzV": "رخصة البيانات الجغرافية ألمانيا",
-	"jsonconfig-license-copyrightwarning": "بحفظ التغييرات، فإنك توافق على [https://foundation.wikimedia.org/wiki/Terms_of_Use شروط الاستخدام]، وتوافق بشكل لا رجعة فيه على نشر مساهمتك بموجب [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
+	"jsonconfig-license-copyrightwarning": "بحفظ التغييرات، فإنك توافق على [https://foundation.wikimedia.org/wiki/Terms_of_Use شروط الاستخدام]، وتوافق موافقة لا رجعة فيها على نشر مساهمتك بموجب [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-copyrightwarning-license-unset": "بحفظ التغييرات، فإنك توافق على [https://foundation.wikimedia.org/wiki/Terms_of_Use شروط الاستخدام]، وتوافق بشكل لا رجعة فيه على نشر مساهمتك تحت الترخيص المحدد في حقل <code>licence</code>.",
 	"jsonconfig-license-notice": "'''ملاحظة:''' عندما تحرر هذه الصفحة، فإنك توافق على تحرير مساهمتك بموجب [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-notice-license-unset": "'''ملاحظة:''' عندما تحرر هذه الصفحة، فإنك توافق على تحرير مساهمتك وفقا للترخيص المحدد في حقل \"الترخيص\".",
