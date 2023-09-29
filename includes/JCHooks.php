@@ -1,10 +1,33 @@
 <?php
+
+// phpcs:disable MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName
+
 namespace JsonConfig;
 
 use ApiModuleManager;
+use Content;
 use Html;
+use IContextSource;
+use MediaWiki\Api\Hook\ApiMain__moduleManagerHook;
+use MediaWiki\Content\Hook\ContentHandlerForModelIDHook;
+use MediaWiki\Content\Hook\GetContentModelsHook;
 use MediaWiki\EditPage\EditPage;
+use MediaWiki\Hook\AlternateEditHook;
+use MediaWiki\Hook\BeforePageDisplayHook;
+use MediaWiki\Hook\CanonicalNamespacesHook;
+use MediaWiki\Hook\EditFilterMergedContentHook;
+use MediaWiki\Hook\EditPage__showEditForm_initialHook;
+use MediaWiki\Hook\EditPageCopyrightWarningHook;
+use MediaWiki\Hook\MovePageIsValidMoveHook;
+use MediaWiki\Hook\PageMoveCompleteHook;
+use MediaWiki\Hook\SkinCopyrightFooterHook;
+use MediaWiki\Hook\TitleGetEditNoticesHook;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Page\Hook\ArticleDeleteCompleteHook;
+use MediaWiki\Page\Hook\ArticleUndeleteHook;
+use MediaWiki\Permissions\Hook\GetUserPermissionsErrorsHook;
+use MediaWiki\Revision\Hook\ContentHandlerDefaultModelForHook;
+use MediaWiki\Storage\Hook\PageSaveCompleteHook;
 use MediaWiki\Title\Title;
 use MessageSpecifier;
 use OutputPage;
@@ -19,18 +42,35 @@ use User;
  * @ingroup JsonConfig
  * @license GPL-2.0-or-later
  */
-class JCHooks {
+class JCHooks implements
+	ApiMain__moduleManagerHook,
+	ArticleDeleteCompleteHook,
+	ArticleUndeleteHook,
+	BeforePageDisplayHook,
+	CanonicalNamespacesHook,
+	ContentHandlerDefaultModelForHook,
+	ContentHandlerForModelIDHook,
+	GetContentModelsHook,
+	AlternateEditHook,
+	EditPage__showEditForm_initialHook,
+	EditFilterMergedContentHook,
+	EditPageCopyrightWarningHook,
+	MovePageIsValidMoveHook,
+	PageSaveCompleteHook,
+	SkinCopyrightFooterHook,
+	TitleGetEditNoticesHook,
+	PageMoveCompleteHook,
+	GetUserPermissionsErrorsHook
+{
 
 	/**
 	 * Only register NS_CONFIG if running on the MediaWiki instance which houses
 	 * the JSON configs (i.e. META)
-	 * @todo FIXME: Always return true
 	 * @param array &$namespaces
-	 * @return true|void
 	 */
-	public static function onCanonicalNamespaces( array &$namespaces ) {
+	public function onCanonicalNamespaces( &$namespaces ) {
 		if ( !self::jsonConfigIsStorage() ) {
-			return true;
+			return;
 		}
 
 		JCSingleton::init();
@@ -61,7 +101,7 @@ class JCHooks {
 	 * @param string &$modelId
 	 * @return bool
 	 */
-	public static function onContentHandlerDefaultModelFor( $title, &$modelId ) {
+	public function onContentHandlerDefaultModelFor( $title, &$modelId ) {
 		if ( !self::jsonConfigIsStorage() ) {
 			return true;
 		}
@@ -77,12 +117,11 @@ class JCHooks {
 	/**
 	 * Ensure that ContentHandler knows about our dynamic models (T259126)
 	 * @param string[] &$models
-	 * @return bool
 	 */
-	public static function onGetContentModels( array &$models ) {
+	public function onGetContentModels( &$models ) {
 		global $wgJsonConfigModels;
 		if ( !self::jsonConfigIsStorage() ) {
-			return true;
+			return;
 		}
 
 		JCSingleton::init();
@@ -92,7 +131,6 @@ class JCHooks {
 			$wgJsonConfigModels
 		);
 		$models = array_merge( $models, array_keys( $ourModels ) );
-		return true;
 	}
 
 	/**
@@ -101,7 +139,7 @@ class JCHooks {
 	 * @param \ContentHandler &$handler
 	 * @return bool
 	 */
-	public static function onContentHandlerForModelID( $modelId, &$handler ) {
+	public function onContentHandlerForModelID( $modelId, &$handler ) {
 		global $wgJsonConfigModels;
 		if ( !self::jsonConfigIsStorage() ) {
 			return true;
@@ -125,7 +163,7 @@ class JCHooks {
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/AlternateEdit
 	 * @param EditPage $editpage
 	 */
-	public static function onAlternateEdit( EditPage $editpage ) {
+	public function onAlternateEdit( $editpage ) {
 		if ( !self::jsonConfigIsStorage() ) {
 			return;
 		}
@@ -138,9 +176,8 @@ class JCHooks {
 	/**
 	 * @param EditPage $editPage
 	 * @param OutputPage $output
-	 * @return bool
 	 */
-	public static function onEditPage( EditPage $editPage, OutputPage $output ) {
+	public function onEditPage__showEditForm_initial( $editPage, $output ) {
 		global $wgJsonConfigUseGUI;
 		if (
 			$wgJsonConfigUseGUI &&
@@ -148,7 +185,6 @@ class JCHooks {
 		) {
 			$output->addModules( 'ext.jsonConfig.edit' );
 		}
-		return true;
 	}
 
 	/**
@@ -176,17 +212,17 @@ class JCHooks {
 	/**
 	 * Validates that the revised contents are valid JSON.
 	 * If not valid, rejects edit with error message.
-	 * @param \IContextSource $context
-	 * @param JCContent $content
-	 * @param \Status $status
+	 * @param IContextSource $context
+	 * @param Content $content
+	 * @param Status $status
 	 * @param string $summary Edit summary provided for edit.
-	 * @param \User $user
+	 * @param User $user
 	 * @param bool $minoredit
 	 * @return bool
 	 */
-	public static function onEditFilterMergedContent(
+	public function onEditFilterMergedContent(
 		/** @noinspection PhpUnusedParameterInspection */
-		$context, $content, $status, $summary, $user, $minoredit
+		IContextSource $context, Content $content, Status $status, $summary, User $user, $minoredit
 	) {
 		if ( !self::jsonConfigIsStorage() ) {
 			return true;
@@ -230,7 +266,7 @@ class JCHooks {
 	 *
 	 * @return bool
 	 */
-	public static function onEditPageCopyrightWarning( $title, &$msg ) {
+	public function onEditPageCopyrightWarning( $title, &$msg ) {
 		if ( self::jsonConfigIsStorage() ) {
 			$jct = JCSingleton::parseTitle( $title );
 			if ( $jct ) {
@@ -257,9 +293,8 @@ class JCHooks {
 	 * @param Title $title
 	 * @param int $oldid
 	 * @param array &$notices
-	 * @return bool
 	 */
-	public static function onTitleGetEditNotices( Title $title, $oldid, array &$notices ) {
+	public function onTitleGetEditNotices( $title, $oldid, &$notices ) {
 		if ( self::jsonConfigIsStorage() ) {
 			$jct = JCSingleton::parseTitle( $title );
 			if ( $jct ) {
@@ -304,7 +339,6 @@ class JCHooks {
 				}
 			}
 		}
-		return true;
 	}
 
 	/**
@@ -317,7 +351,7 @@ class JCHooks {
 	 *
 	 * @return bool
 	 */
-	public static function onSkinCopyrightFooter( $title, $type, &$msg, &$link ) {
+	public function onSkinCopyrightFooter( $title, $type, &$msg, &$link ) {
 		if ( self::jsonConfigIsStorage() ) {
 			$jct = JCSingleton::parseTitle( $title );
 			if ( $jct ) {
@@ -336,15 +370,14 @@ class JCHooks {
 
 	/**
 	 * Adds CSS for pretty-printing configuration on NS_CONFIG pages.
-	 * @param \OutputPage &$out
-	 * @param \Skin &$skin
-	 * @return bool
+	 * @param \OutputPage $out
+	 * @param \Skin $skin
 	 */
-	public static function onBeforePageDisplay(
-		/** @noinspection PhpUnusedParameterInspection */ &$out, &$skin
-	) {
+	public function onBeforePageDisplay(
+		/** @noinspection PhpUnusedParameterInspection */ $out, $skin
+	): void {
 		if ( !self::jsonConfigIsStorage() ) {
-			return true;
+			return;
 		}
 
 		$title = $out->getTitle();
@@ -358,11 +391,10 @@ class JCHooks {
 		) {
 			$out->addModuleStyles( 'ext.jsonConfig' );
 		}
-		return true;
 	}
 
-	public static function onMovePageIsValidMove(
-		Title $oldTitle, Title $newTitle, Status $status
+	public function onMovePageIsValidMove(
+		$oldTitle, $newTitle, $status
 	) {
 		if ( !self::jsonConfigIsStorage() ) {
 			return true;
@@ -389,38 +421,36 @@ class JCHooks {
 	 * this wiki stores any jsonconfig data
 	 *
 	 * @param ApiModuleManager $moduleManager Module manager instance
-	 * @return bool
 	 */
-	public static function onApiMainModuleManager( ApiModuleManager $moduleManager ) {
+	public function onApiMain__moduleManager( $moduleManager ) {
 		global $wgJsonConfigEnableLuaSupport;
 		if ( $wgJsonConfigEnableLuaSupport ) {
 			$moduleManager->addModule( 'jsondata', 'action', JCDataApi::class );
 		}
-		return true;
 	}
 
-	public static function onPageSaveComplete(
+	public function onPageSaveComplete(
 		/** @noinspection PhpUnusedParameterInspection */
-		\WikiPage $wikiPage, $user, $summary, $flags, $revisionRecord, $editResult
+		$wikiPage, $user, $summary, $flags, $revisionRecord, $editResult
 	) {
 		return self::onArticleChangeComplete( $wikiPage );
 	}
 
-	public static function onArticleDeleteComplete(
+	public function onArticleDeleteComplete(
 		/** @noinspection PhpUnusedParameterInspection */
-		$article, &$user, $reason, $id, $content, $logEntry
+		$article, $user, $reason, $id, $content, $logEntry, $archivedRevisionCount
 	) {
 		return self::onArticleChangeComplete( $article );
 	}
 
-	public static function onArticleUndelete(
+	public function onArticleUndelete(
 		/** @noinspection PhpUnusedParameterInspection */
-		$title, $created, $comment, $oldPageId
+		$title, $created, $comment, $oldPageId, $restoredPages
 	) {
 		return self::onArticleChangeComplete( $title );
 	}
 
-	public static function onPageMoveComplete(
+	public function onPageMoveComplete(
 		/** @noinspection PhpUnusedParameterInspection */
 		$title, $newTitle, $user, $pageid, $redirid, $reason, $revisionRecord
 	) {
@@ -433,15 +463,15 @@ class JCHooks {
 	/**
 	 * Prohibit creation of the pages that are part of our namespaces but have not been explicitly
 	 * allowed.
-	 * @param Title &$title
-	 * @param User &$user
+	 * @param Title $title
+	 * @param User $user
 	 * @param string $action
 	 * @param array|string|MessageSpecifier &$result
 	 * @return bool
 	 */
-	public static function onGetUserPermissionsErrors(
+	public function onGetUserPermissionsErrors(
 		/** @noinspection PhpUnusedParameterInspection */
-		&$title, &$user, $action, &$result
+		$title, $user, $action, &$result
 	) {
 		if ( !self::jsonConfigIsStorage() ) {
 			return true;
