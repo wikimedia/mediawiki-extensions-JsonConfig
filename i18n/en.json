@@ -92,9 +92,9 @@
 	"jsonconfig-license-url-dl-de-by-1.0": "https://www.govdata.de/dl-de/by-1-0",
 	"jsonconfig-license-url-dl-de-by-2.0": "https://www.govdata.de/dl-de/by-2-0",
 	"jsonconfig-license-url-GeoNutzV": "https://www.gesetze-im-internet.de/geonutzv/__2.html",
-	"jsonconfig-license-copyrightwarning": "By publishing changes, you agree to the [https://foundation.wikimedia.org/wiki/Terms_of_Use Terms of Use], and you irrevocably agree to release your contribution under [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
-	"jsonconfig-license-copyrightwarning-license-unset": "By publishing changes, you agree to the [https://foundation.wikimedia.org/wiki/Terms_of_Use Terms of Use], and you irrevocably agree to release your contribution according to the license specified in the <code>licence</code> field.",
-	"jsonconfig-license-notice": "'''Note:''' When you edit this page, you agree to release your contribution under [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
+	"jsonconfig-license-copyrightwarning": "By publishing changes, you agree to release your contribution according to the terms of the [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}] license.",
+	"jsonconfig-license-copyrightwarning-license-unset": "By publishing changes, you agree to release your contribution according to the license specified in the <code>licence</code> field.",
+	"jsonconfig-license-notice": "'''Note:''' When you edit this page, you agree to release your contribution according to the terms of the [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}] license.",
 	"jsonconfig-license-notice-license-unset": "'''Note:''' When you edit this page, you agree to release your contribution according to the license specified in the <code>licence</code> field.",
 	"right-jsonconfig-flush": "Manipulate JsonConfig via API",
 	"action-jsonconfig-flush": "manipulate JsonConfig via API"
