@@ -97,5 +97,6 @@
 	"jsonconfig-license-notice": "'''Note:''' When you edit this page, you agree to release your contribution under [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-notice-license-unset": "'''Note:''' When you edit this page, you agree to release your contribution according to the license specified in the <code>licence</code> field.",
 	"right-jsonconfig-flush": "Manipulate JsonConfig via API",
-	"action-jsonconfig-flush": "manipulate JsonConfig via API"
+	"action-jsonconfig-flush": "manipulate JsonConfig via API",
+	"jsonconfig-blocked-page-creation": "The page title you have specified does not match any of the patterns configured for the JSONConfig extension for this wiki."
 }
