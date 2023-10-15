@@ -13,7 +13,7 @@
 	"jsonconfig-edit-action-cancel": "Cancel",
 	"jsonconfig-edit-button-label": "Edit as table",
 	"jsonconfig-edit-dialog-error": "Unable to edit as a table: $1",
-	"jsonconfig-edit-dialog-error-data-inavlid": "Data does not match the schema",
+	"jsonconfig-edit-dialog-error-data-invalid": "Data does not match the schema",
 	"jsonconfig-edit-dialog-error-data-missing": "JSON <code>data</code> property is missing or not an array",
 	"jsonconfig-edit-dialog-error-data-too-large": "Dataset is too large to edit as a table",
 	"jsonconfig-edit-dialog-error-field-name-missing": "Each field must have a name",

@@ -23,7 +23,7 @@
 	"jsonconfig-edit-action-cancel": "Label for the cancel button in the edit dialog\n{{identical|Cancel}}",
 	"jsonconfig-edit-button-label": "Label for the button to open the edit dialog",
 	"jsonconfig-edit-dialog-error": "Error message that appears when it is not possible to use the edit dialog. Parameters:\n* $1 - error message explaining why it is not possible to use the dialog",
-	"jsonconfig-edit-dialog-error-data-inavlid": "Error message explaining why it is not possible to use the edit dialog",
+	"jsonconfig-edit-dialog-error-data-invalid": "Error message explaining why it is not possible to use the edit dialog",
 	"jsonconfig-edit-dialog-error-data-missing": "Error message explaining why it is not possible to use the edit dialog{{doc-important|Do not translate text that is quoted or inside <nowiki><var></var></nowiki>, <nowiki><kbd></kbd></nowiki>, <nowiki><samp></samp></nowiki>, or <nowiki><code></code></nowiki> in this message.}}",
 	"jsonconfig-edit-dialog-error-data-too-large": "Error message explaining why it is not possible to use the edit dialog",
 	"jsonconfig-edit-dialog-error-field-name-missing": "Error message explaining why it is not possible to use the edit dialog",
