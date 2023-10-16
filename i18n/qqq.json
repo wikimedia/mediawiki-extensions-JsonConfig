@@ -107,5 +107,6 @@
 	"jsonconfig-license-notice": "Text to warn the user about license of the data that they are editing.\n\nParameters:\n* $1 - license code",
 	"jsonconfig-license-notice-license-unset": "Text to warn the user to specifiy license.{{doc-important|Do not translate text that is quoted or inside <nowiki><var></var></nowiki>, <nowiki><kbd></kbd></nowiki>, <nowiki><samp></samp></nowiki>, or <nowiki><code></code></nowiki> in this message.}}",
 	"right-jsonconfig-flush": "{{doc-right|jsonconfig-flush}}",
-	"action-jsonconfig-flush": "{{doc-action|jsonconfig-flush}}"
+	"action-jsonconfig-flush": "{{doc-action|jsonconfig-flush}}",
+	"jsonconfig-blocked-page-creation": "Error message explaining why you cannot create a page with the given title, because it does not match any of the configured patterns.\nSee https://www.mediawiki.org/wiki/Extension:JsonConfig#Configuration for details."
 }
