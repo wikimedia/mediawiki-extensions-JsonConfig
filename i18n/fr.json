@@ -24,7 +24,7 @@
 	"jsonconfig-edit-action-cancel": "Annuler",
 	"jsonconfig-edit-button-label": "Modifier en tant que tableau",
 	"jsonconfig-edit-dialog-error": "Impossible à modifier en tant que tableau : $1",
-	"jsonconfig-edit-dialog-error-data-inavlid": "Les données ne correspondent pas au schéma",
+	"jsonconfig-edit-dialog-error-data-invalid": "Les données ne correspondent pas au schéma",
 	"jsonconfig-edit-dialog-error-data-missing": "La propriété <code>data</code> JSON est absente ou n’est pas un tableau",
 	"jsonconfig-edit-dialog-error-data-too-large": "Ensemble de données trop grand pour être modifié en tant que tableau",
 	"jsonconfig-edit-dialog-error-field-name-missing": "Chaque champ doit avoir un nom",

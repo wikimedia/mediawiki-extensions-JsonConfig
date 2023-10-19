@@ -15,7 +15,7 @@
 	"jsonconfig-edit-action-cancel": "Abbrechen",
 	"jsonconfig-edit-button-label": "Als Tabelle bearbeiten",
 	"jsonconfig-edit-dialog-error": "Kann nicht als Tabelle bearbeitet werden: $1",
-	"jsonconfig-edit-dialog-error-data-inavlid": "Daten stimmen nicht mit dem Schema überein",
+	"jsonconfig-edit-dialog-error-data-invalid": "Daten stimmen nicht mit dem Schema überein",
 	"jsonconfig-edit-dialog-error-data-missing": "JSON <code>data</code>-Eigenschaft fehlt oder ist kein Array",
 	"jsonconfig-edit-dialog-error-data-too-large": "Der Datensatz ist zu groß, um ihn als Tabelle zu bearbeiten",
 	"jsonconfig-edit-dialog-error-field-name-missing": "Jedes Feld muss einen Namen haben",
@@ -58,10 +58,11 @@
 	"jsonconfig-license-name-dl-de-by-1.0": "Datenlizenz Deutschland – Namensnennung – Version 1.0",
 	"jsonconfig-license-name-dl-de-by-2.0": "Datenlizenz Deutschland – Namensnennung – Version 2.0",
 	"jsonconfig-license-name-GeoNutzV": "Geodatenlizenz Deutschland",
-	"jsonconfig-license-copyrightwarning": "Mit dem Veröffentlichen der Änderungen stimmst du den [https://foundation.wikimedia.org/wiki/Terms_of_Use Nutzungsbedingungen] und der unwiderruflichen Veröffentlichung deines Beitrags unter [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}] zu.",
-	"jsonconfig-license-copyrightwarning-license-unset": "Mit dem Veröffentlichen der Änderungen stimmst du den [https://foundation.wikimedia.org/wiki/Terms_of_Use Nutzungsbedingungen] und der unwiderruflichen Veröffentlichung deines Beitrags unter der im Feld <code>licence</code> angegebenen Lizenz zu.",
-	"jsonconfig-license-notice": "'''Hinweis:''' Wenn du diese Seite bearbeitest, stimmst du der Veröffentlichung deines Beitrags unter [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}] zu.",
+	"jsonconfig-license-copyrightwarning": "Durch die Veröffentlichung von Änderungen erklärst du dich damit einverstanden, deinen Beitrag gemäß den Bedingungen der Lizenz [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}] freizugeben.",
+	"jsonconfig-license-copyrightwarning-license-unset": "Durch die Veröffentlichung von Änderungen erklärst du dich damit einverstanden, deinen Beitrag gemäß der im Feld <code>licence</code> angegebenen Lizenz freizugeben.",
+	"jsonconfig-license-notice": "'''Hinweis:'' Wenn du diese Seite bearbeitest, erklärst du dich damit einverstanden, deinen Beitrag gemäß den Bedingungen der Lizenz [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}] freizugeben.",
 	"jsonconfig-license-notice-license-unset": "'''Hinweis:''' Wenn du diese Seite bearbeitest, stimmst du der Veröffentlichung deines Beitrags unter der im Feld <code>licence</code> angegebenen Lizenz zu.",
 	"right-jsonconfig-flush": "JSON-Konfiguration über die API verändern",
-	"action-jsonconfig-flush": "JsonConfig über die API zu verändern"
+	"action-jsonconfig-flush": "JsonConfig über die API zu verändern",
+	"jsonconfig-blocked-page-creation": "Der angegebene Seitentitel stimmt mit keinem der für die JSONConfig-Erweiterung für dieses Wiki konfigurierten Muster überein."
 }

@@ -13,7 +13,7 @@
 	"jsonconfig-edit-action-cancel": "Отказ",
 	"jsonconfig-edit-button-label": "Редактиране като таблица",
 	"jsonconfig-edit-dialog-error": "Не може да се редактира като таблица: $1",
-	"jsonconfig-edit-dialog-error-data-inavlid": "Данните не съответстват на схемата",
+	"jsonconfig-edit-dialog-error-data-invalid": "Данните не съответстват на схемата",
 	"jsonconfig-edit-dialog-error-data-missing": "JSON-свойството <code>data</code> липсва или не е масив",
 	"jsonconfig-edit-dialog-error-data-too-large": "Наборът от данни е твърде голям за да се редактира като таблица",
 	"jsonconfig-edit-dialog-error-field-name-missing": "Всяко поле трябва да има име",

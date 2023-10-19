@@ -19,7 +19,7 @@
 	"jsonconfig-edit-action-cancel": "取消",
 	"jsonconfig-edit-button-label": "編輯為表格",
 	"jsonconfig-edit-dialog-error": "無法編輯為表格：$1",
-	"jsonconfig-edit-dialog-error-data-inavlid": "資料不符合架構",
+	"jsonconfig-edit-dialog-error-data-invalid": "資料不符合架構",
 	"jsonconfig-edit-dialog-error-data-missing": "缺少 JSON <code>data</code> 屬性或不是一個陣列",
 	"jsonconfig-edit-dialog-error-data-too-large": "資料集太大無法編輯為表格",
 	"jsonconfig-edit-dialog-error-field-name-missing": "每個欄位必須要有名稱",

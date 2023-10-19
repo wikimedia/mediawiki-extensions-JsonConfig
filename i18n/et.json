@@ -11,7 +11,7 @@
 	"jsonconfig-edit-action-cancel": "Loobu",
 	"jsonconfig-edit-button-label": "Redigeeri tabelina",
 	"jsonconfig-edit-dialog-error": "Ei saa tabelina redigeerida: $1.",
-	"jsonconfig-edit-dialog-error-data-inavlid": "andmed ei vasta skeemile",
+	"jsonconfig-edit-dialog-error-data-invalid": "andmed ei vasta skeemile",
 	"jsonconfig-edit-dialog-error-data-missing": "JSON-i atribuut <code>data</code> puudub või see pole massiiv",
 	"jsonconfig-edit-dialog-error-data-too-large": "andmestik on tabelina redigeerimiseks liiga suur",
 	"jsonconfig-edit-dialog-error-field-name-missing": "igal väljal peab olema nimi",

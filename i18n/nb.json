@@ -13,7 +13,7 @@
 	"jsonconfig-edit-action-cancel": "Avbryt",
 	"jsonconfig-edit-button-label": "Rediger som tabell",
 	"jsonconfig-edit-dialog-error": "Kunne ikke redigere som tabell: $1",
-	"jsonconfig-edit-dialog-error-data-inavlid": "Dataene matcher ikke skjemaet",
+	"jsonconfig-edit-dialog-error-data-invalid": "Dataene matcher ikke skjemaet",
 	"jsonconfig-edit-dialog-error-data-missing": "JSONs <code>data</code>-egenskap mangler eller er ikke en tabell",
 	"jsonconfig-edit-dialog-error-data-too-large": "Datasettet er for stort til å redigeres som tabell",
 	"jsonconfig-edit-dialog-error-field-name-missing": "Hvert felt må ha et navn",

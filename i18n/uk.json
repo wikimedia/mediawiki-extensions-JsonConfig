@@ -20,7 +20,7 @@
 	"jsonconfig-edit-action-cancel": "Скасувати",
 	"jsonconfig-edit-button-label": "Редагувати як таблицю",
 	"jsonconfig-edit-dialog-error": "Неможливо редагувати як таблицю: $1",
-	"jsonconfig-edit-dialog-error-data-inavlid": "Дані не відповідають схемі",
+	"jsonconfig-edit-dialog-error-data-invalid": "Дані не відповідають схемі",
 	"jsonconfig-edit-dialog-error-data-missing": "Властивість JSON <code>data</code> відсутня або не є масивом",
 	"jsonconfig-edit-dialog-error-data-too-large": "Набір даних завеликий для редагування у вигляді таблиці",
 	"jsonconfig-edit-dialog-error-field-name-missing": "Кожне поле мусить мати назву",

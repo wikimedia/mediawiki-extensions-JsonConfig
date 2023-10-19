@@ -17,7 +17,7 @@
 	"jsonconfig-edit-action-cancel": "İptal",
 	"jsonconfig-edit-button-label": "Tablo olarak düzenle",
 	"jsonconfig-edit-dialog-error": "Tablo olarak düzenlenemiyor: $1",
-	"jsonconfig-edit-dialog-error-data-inavlid": "Veriler şema ile eşleşmiyor",
+	"jsonconfig-edit-dialog-error-data-invalid": "Veriler şema ile eşleşmiyor",
 	"jsonconfig-edit-dialog-error-data-missing": "JSON <code>data</code> özelliği eksik veya dizi değil",
 	"jsonconfig-edit-dialog-error-data-too-large": "Veri kümesi tablo olarak düzenlenemeyecek kadar büyük",
 	"jsonconfig-edit-dialog-error-field-name-missing": "Her alanın bir adı olmalıdır",

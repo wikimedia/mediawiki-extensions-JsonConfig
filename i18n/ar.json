@@ -18,7 +18,7 @@
 	"jsonconfig-edit-action-cancel": "إلغاء",
 	"jsonconfig-edit-button-label": "تعديل كجدول",
 	"jsonconfig-edit-dialog-error": "تعذر التحرير كجدول: $1",
-	"jsonconfig-edit-dialog-error-data-inavlid": "البيانات لا تتطابق مع المخطط",
+	"jsonconfig-edit-dialog-error-data-invalid": "البيانات لا تتطابق مع المخطط",
 	"jsonconfig-edit-dialog-error-data-missing": "خاصية <code>data</code> JSON مفقودة أو أنها ليست مصفوفة",
 	"jsonconfig-edit-dialog-error-data-too-large": "مجموعة البيانات كبيرة جدًا بحيث لا يمكن تحريرها كجدول",
 	"jsonconfig-edit-dialog-error-field-name-missing": "يجب أن يكون لكل حقل اسم",

@@ -26,7 +26,7 @@
 	"jsonconfig-edit-action-cancel": "Отмена",
 	"jsonconfig-edit-button-label": "Править таблицу",
 	"jsonconfig-edit-dialog-error": "Невозможно изменить как таблицу: $1",
-	"jsonconfig-edit-dialog-error-data-inavlid": "Данные не соответствуют схеме",
+	"jsonconfig-edit-dialog-error-data-invalid": "Данные не соответствуют схеме",
 	"jsonconfig-edit-dialog-error-data-missing": "Свойство <code>данных</code> JSON отсутствует или не является массивом",
 	"jsonconfig-edit-dialog-error-data-too-large": "Набор данных слишком большой для изменения в виде таблицы",
 	"jsonconfig-edit-dialog-error-field-name-missing": "Каждое поле должно содержать имя",

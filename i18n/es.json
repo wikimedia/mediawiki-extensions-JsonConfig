@@ -25,7 +25,7 @@
 	"jsonconfig-edit-action-cancel": "Cancelar",
 	"jsonconfig-edit-button-label": "Edita la tabla de datos",
 	"jsonconfig-edit-dialog-error": "No se puede editar como una tabla: $1",
-	"jsonconfig-edit-dialog-error-data-inavlid": "Los datos no coinciden con el esquema",
+	"jsonconfig-edit-dialog-error-data-invalid": "Los datos no coinciden con el esquema",
 	"jsonconfig-edit-dialog-error-data-too-large": "El conjunto de datos es demasiado grande para editarlo como una tabla",
 	"jsonconfig-edit-dialog-error-field-name-missing": "Cada campo debe tener un nombre",
 	"jsonconfig-edit-dialog-title": "Editar como JSON",
@@ -65,5 +65,6 @@
 	"jsonconfig-license-notice": "'''Nota:''' Cuando editas esta página aceptas liberar tu aportación bajo los términos de la licencia [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-notice-license-unset": "'''Nota:''' Cuando editas esta página aceptas liberar tu contribución conforme a la licencia especificada en el campo <code>licence</code>.",
 	"right-jsonconfig-flush": "Manipular JsonConfig a través de la API",
-	"action-jsonconfig-flush": "manipular JsonConfig a través de la API"
+	"action-jsonconfig-flush": "manipular JsonConfig a través de la API",
+	"jsonconfig-blocked-page-creation": "El título de la página que has especificado no coincide con ninguno de los patrones configurados para la extensión JSONConfig para esta wiki."
 }

@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ukhant Erdemt"
+		]
+	},
+	"jsonconfig-license-copyrightwarning": "Хүврлтсән һарһсар та [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}] лицензин нөкцлиг дахад, хүв-немрән орулхиг зөвшәрч бәәнәт.",
+	"jsonconfig-license-copyrightwarning-license-unset": "Хүврүлсн юман һарһхла, та <code>licence</code> талврт заасн лицензәр хүв-нэмрээ орулхиг зөвшәрч бәәнәт.",
+	"jsonconfig-license-notice": "'''Темдглл:''' Та энэ халхиг ясхларн, хуулин нөкцлиг дахад, [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}] лицензәр орулсн хүв- немрән һарһхиг зөвшәрч бәәнәт.",
+	"jsonconfig-blocked-page-creation": "Тана заасн халхин һарцгнь эн Викин JSONConfig өргтклд тохрулсн үлгүрин ямаранднь чигн таарлго бәәнә."
+}

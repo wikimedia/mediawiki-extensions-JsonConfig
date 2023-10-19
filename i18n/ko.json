@@ -16,7 +16,7 @@
 	"jsonconfig-edit-action-cancel": "취소",
 	"jsonconfig-edit-button-label": "표로 편집",
 	"jsonconfig-edit-dialog-error": "표로 편집할 수 없습니다: $1",
-	"jsonconfig-edit-dialog-error-data-inavlid": "데이터카 스키마와 일치하지 않습니다",
+	"jsonconfig-edit-dialog-error-data-invalid": "데이터카 스키마와 일치하지 않습니다",
 	"jsonconfig-edit-dialog-error-data-missing": "JSON <code>data</code> 속성이 없거나 배열이 아닙니다",
 	"jsonconfig-edit-dialog-error-data-too-large": "데이터셋이 너무 커서 표로 편집할 수 없습니다",
 	"jsonconfig-edit-dialog-error-field-name-missing": "각 필드에는 이름이 필수입니다",
