@@ -1,11 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Xuacu"
+			"Xuacu",
+			"YoaR"
 		]
 	},
 	"apihelp-jsonconfig-summary": "Permite l'accesu direutu al subsistema JsonConfig.",
-	"apihelp-jsonconfig-param-command": "Qué sub-aición facer en JsonConfig:\n;status:Amuesa la configuración de JsonConfig.\n;reset:Llimpia les configuraciones de la caché. Necesita'l parámetru $1title ya'l permisu jsonconfig-reset.\n;reload:Recarga y pon na caché les configuraciones dende l'almacén de configuraciones. Necesita'l parámetru $1title ya'l permisu jsonconfig-reset.",
+	"apihelp-jsonconfig-param-command": "Qué sub-aición facer en JsonConfig:",
 	"apihelp-jsonconfig-param-namespace": "Númberu del espaciu de nomes del títulu a procesar.",
 	"apihelp-jsonconfig-param-title": "Títulu a procesar ensin el prefixu d'espaciu de nomes.",
 	"apihelp-jsonconfig-param-content": "Pa $1command=reload, usa esti conteníu nel so llugar.",
