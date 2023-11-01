@@ -8,21 +8,6 @@ use Scribunto_LuaLibraryBase;
 
 class JCLuaLibrary extends Scribunto_LuaLibraryBase {
 
-	/**
-	 * @param string $engine
-	 * @param string[] &$extraLibraries
-	 *
-	 * @return bool
-	 */
-	public static function onScribuntoExternalLibraries( $engine, array &$extraLibraries ) {
-		global $wgJsonConfigEnableLuaSupport;
-		if ( $wgJsonConfigEnableLuaSupport && $engine == 'lua' ) {
-			$extraLibraries['mw.ext.data'] = 'JsonConfig\JCLuaLibrary';
-		}
-
-		return true;
-	}
-
 	public function register() {
 		$functions = [ 'get' => [ $this, 'get' ] ];
 		$moduleFileName = __DIR__ . DIRECTORY_SEPARATOR . 'JCLuaLibrary.lua';

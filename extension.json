@@ -115,7 +115,7 @@
 		"EditPageCopyrightWarning": "main",
 		"MovePageIsValidMove": "main",
 		"PageSaveComplete": "main",
-		"ScribuntoExternalLibraries": "JsonConfig\\JCLuaLibrary::onScribuntoExternalLibraries",
+		"ScribuntoExternalLibraries": "scribunto",
 		"SkinCopyrightFooter": "main",
 		"TitleGetEditNotices": "main",
 		"PageMoveComplete": "main",
@@ -124,6 +124,9 @@
 	"HookHandlers": {
 		"main": {
 			"class": "JsonConfig\\JCHooks"
+		},
+		"scribunto": {
+			"class": "JsonConfig\\ScribuntoHooks"
 		}
 	},
 	"config": {
