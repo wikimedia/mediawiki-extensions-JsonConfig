@@ -4,6 +4,7 @@ namespace JsonConfig\Tests;
 
 use Exception;
 use JsonConfig\JCMapDataContent;
+use MediaWiki\MainConfigNames;
 use MediaWikiIntegrationTestCase;
 
 /**
@@ -32,6 +33,11 @@ class JCMapDataContentTest extends MediaWikiIntegrationTestCase {
 	 * @param string $expected
 	 */
 	public function testGetSafeData( $input, $expected ) {
+		$this->overrideConfigValues( [
+			MainConfigNames::ScriptPath => '/w',
+			MainConfigNames::Script => '/w/index.php',
+		] );
+
 		$data = json_decode( self::CONTENT_STUB );
 		$data->data = json_decode( $input );
 
@@ -64,7 +70,7 @@ class JCMapDataContentTest extends MediaWikiIntegrationTestCase {
 					"type": "Point",
 					"coordinates": [ 10, 20 ],
 					"properties": {
-						"title": "<a href=\"\/index.php?title=Link&amp;action=edit&amp;redlink=1\" class=\"new\"'
+						"title": "<a href=\"\/w\/index.php?title=Link&amp;action=edit&amp;redlink=1\" class=\"new\"'
 							. ' title=\"Link (page does not exist)\">link<\/a>",
 						"description": "&lt;img src=x onerror=alert(1)&gt; <b>Bold<\/b>"
 					}
@@ -88,7 +94,7 @@ class JCMapDataContentTest extends MediaWikiIntegrationTestCase {
 					"type": "Point",
 					"coordinates": [ 10, 20 ],
 					"properties": {
-						"title": "<a href=\"\/index.php?title=Link&amp;action=edit&amp;redlink=1\" class=\"new\"'
+						"title": "<a href=\"\/w\/index.php?title=Link&amp;action=edit&amp;redlink=1\" class=\"new\"'
 							. ' title=\"Link (page does not exist)\">link<\/a>",
 						"description": "&lt;img src=x onerror=alert(1)&gt; <b>Bold<\/b>"
 					}
@@ -128,7 +134,7 @@ class JCMapDataContentTest extends MediaWikiIntegrationTestCase {
 							"type": "Point",
 							"coordinates": [ 10, 20 ],
 							"properties": {
-								"title": "<a href=\"\/index.php?title=Link&amp;action=edit&amp;redlink=1\"'
+								"title": "<a href=\"\/w\/index.php?title=Link&amp;action=edit&amp;redlink=1\"'
 									. ' class=\"new\" title=\"Link (page does not exist)\">link<\/a>",
 								"description": "&lt;img src=x onerror=alert(1)&gt; <b>Bold<\/b>"
 							}
@@ -137,7 +143,7 @@ class JCMapDataContentTest extends MediaWikiIntegrationTestCase {
 							"type": "Point",
 							"coordinates": [ 30, 40 ],
 							"properties": {
-								"title": "<a href=\"\/index.php?title=Link&amp;action=edit&amp;redlink=1\"'
+								"title": "<a href=\"\/w\/index.php?title=Link&amp;action=edit&amp;redlink=1\"'
 									. ' class=\"new\" title=\"Link (page does not exist)\">link<\/a>",
 								"description": "&lt;img src=x onerror=alert(1)&gt; <b>Bold<\/b>"
 							}
