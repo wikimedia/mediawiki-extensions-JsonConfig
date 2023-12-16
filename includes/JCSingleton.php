@@ -60,12 +60,16 @@ class JCSingleton {
 
 	/**
 	 * Initializes singleton state by parsing $wgJsonConfig* values
+	 * @param bool $force Force init, only usable in unit tests
 	 * @throws Exception
 	 */
-	public static function init() {
+	public static function init( $force = false ) {
 		static $isInitialized = false;
-		if ( $isInitialized ) {
+		if ( $isInitialized && !$force ) {
 			return;
+		}
+		if ( $force && !defined( 'MW_PHPUNIT_TEST' ) ) {
+			throw new \LogicException( 'Can force init only in tests' );
 		}
 		$isInitialized = true;
 		global $wgNamespaceContentModels, $wgContentHandlers, $wgJsonConfigs, $wgJsonConfigModels;
