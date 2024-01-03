@@ -107,14 +107,7 @@ class JCContentHandler extends TextContentHandler {
 		return new $class( $text, $modelId, $isSaving );
 	}
 
-	/**
-	 * Returns the name of the associated Content class, to
-	 * be used when creating new objects. Override expected
-	 * by subclasses.
-	 *
-	 * @return string
-	 * @phan-return class-string
-	 */
+	/** @inheritDoc */
 	protected function getContentClass() {
 		return JCSingleton::getContentClass( $this->getModelID() );
 	}
