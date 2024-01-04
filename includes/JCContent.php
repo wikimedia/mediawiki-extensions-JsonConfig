@@ -30,15 +30,13 @@ class JCContent extends \TextContent {
 	private $view = null;
 
 	/**
-	 * @param string $text Json configuration. If null, default content will be inserted instead
+	 * @param string|null $text Json configuration. If null, default content will be inserted instead
 	 * @param string $modelId
 	 * @param bool $thorough True if extra validation should be performed
 	 */
 	public function __construct( $text, $modelId, $thorough ) {
 		$this->stripComments = $text !== null;
-		if ( $text === null ) {
-			$text = $this->getView( $modelId )->getDefault( $modelId );
-		}
+		$text ??= $this->getView( $modelId )->getDefault( $modelId );
 		parent::__construct( $text, $modelId );
 		$this->thorough = $thorough;
 		$this->status = new Status();
