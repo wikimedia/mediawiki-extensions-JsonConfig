@@ -6,7 +6,6 @@ namespace JsonConfig;
 
 use ApiModuleManager;
 use Content;
-use Html;
 use IContextSource;
 use MediaWiki\Api\Hook\ApiMain__moduleManagerHook;
 use MediaWiki\Content\Hook\ContentHandlerForModelIDHook;
@@ -22,17 +21,18 @@ use MediaWiki\Hook\MovePageIsValidMoveHook;
 use MediaWiki\Hook\PageMoveCompleteHook;
 use MediaWiki\Hook\SkinCopyrightFooterHook;
 use MediaWiki\Hook\TitleGetEditNoticesHook;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\Hook\ArticleDeleteCompleteHook;
 use MediaWiki\Page\Hook\ArticleUndeleteHook;
 use MediaWiki\Permissions\Hook\GetUserPermissionsErrorsHook;
 use MediaWiki\Revision\Hook\ContentHandlerDefaultModelForHook;
+use MediaWiki\Status\Status;
 use MediaWiki\Storage\Hook\PageSaveCompleteHook;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use MessageSpecifier;
-use OutputPage;
-use Status;
-use User;
 
 /**
  * Hook handlers for JsonConfig extension.
@@ -370,7 +370,7 @@ class JCHooks implements
 
 	/**
 	 * Adds CSS for pretty-printing configuration on NS_CONFIG pages.
-	 * @param \OutputPage $out
+	 * @param OutputPage $out
 	 * @param \Skin $skin
 	 */
 	public function onBeforePageDisplay(

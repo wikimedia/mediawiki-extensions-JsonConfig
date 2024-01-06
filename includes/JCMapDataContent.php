@@ -5,8 +5,8 @@ use FormatJson;
 use Kartographer\SimpleStyleParser;
 use Language;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\User\User;
 use ParserOptions;
-use User;
 
 /**
  * @package JsonConfig

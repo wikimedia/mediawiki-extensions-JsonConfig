@@ -3,18 +3,18 @@ namespace JsonConfig;
 
 use Exception;
 use GenderCache;
-use MalformedTitleException;
 use MapCacheLRU;
 use MediaWiki\Config\ServiceOptions;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MainConfigSchema;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\MalformedTitleException;
+use MediaWiki\Title\MediaWikiTitleCodec;
 use MediaWiki\Title\Title;
-use MediaWikiTitleCodec;
+use MediaWiki\Title\TitleParser;
+use MediaWiki\Title\TitleValue;
 use stdClass;
-use TitleParser;
-use TitleValue;
 
 /**
  * Static utility methods and configuration page hook handlers for JsonConfig extension.
@@ -499,7 +499,7 @@ class JCSingleton {
 					// XXX Direct instantiation of MediaWikiTitleCodec isn't allowed. If core
 					// doesn't support our use-case, core needs to be fixed to allow this.
 					$oldArgStyle =
-						( new \ReflectionMethod( \MediaWikiTitleCodec::class, '__construct' ) )
+						( new \ReflectionMethod( MediaWikiTitleCodec::class, '__construct' ) )
 						->getParameters()[2]->getName() === 'localInterwikis';
 					self::$titleParser = new MediaWikiTitleCodec(
 						$language,

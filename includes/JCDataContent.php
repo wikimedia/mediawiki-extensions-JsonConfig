@@ -2,8 +2,8 @@
 
 namespace JsonConfig;
 
-use Html;
 use Language;
+use MediaWiki\Html\Html;
 use MediaWiki\Page\PageReference;
 use Parser;
 use ParserOptions;

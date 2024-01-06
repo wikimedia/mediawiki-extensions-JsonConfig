@@ -3,10 +3,10 @@
 namespace JsonConfig;
 
 use FormatJson;
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\Page\PageReference;
+use MediaWiki\Parser\ParserOutput;
 use ParserOptions;
-use ParserOutput;
 
 /**
  * This class is used in case when there is no custom view defined for JCContent object

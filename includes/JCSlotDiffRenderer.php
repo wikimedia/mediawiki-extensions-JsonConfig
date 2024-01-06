@@ -3,8 +3,8 @@ namespace JsonConfig;
 
 use Content;
 use IContextSource;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Title\Title;
-use OutputPage;
 use SlotDiffRenderer;
 use TextSlotDiffRenderer;
 

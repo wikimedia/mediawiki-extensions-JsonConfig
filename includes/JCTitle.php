@@ -2,8 +2,8 @@
 namespace JsonConfig;
 
 use Exception;
+use MediaWiki\Title\TitleValue;
 use stdClass;
-use TitleValue;
 
 /**
  * A value object class that contains namespace ID, title, and

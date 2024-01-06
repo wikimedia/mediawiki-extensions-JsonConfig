@@ -5,8 +5,8 @@ use ExtensionRegistry;
 use FormatJson;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageReference;
+use MediaWiki\Parser\ParserOutput;
 use ParserOptions;
-use ParserOutput;
 
 /**
  * @package JsonConfig

@@ -7,7 +7,7 @@ use FormatJson;
 use IContextSource;
 use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Content\Transform\PreSaveTransformParams;
-use ParserOutput;
+use MediaWiki\Parser\ParserOutput;
 use TextContentHandler;
 
 /**

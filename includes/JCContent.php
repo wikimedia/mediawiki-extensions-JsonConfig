@@ -3,7 +3,7 @@
 namespace JsonConfig;
 
 use FormatJson;
-use Status;
+use MediaWiki\Status\Status;
 use stdClass;
 
 /**

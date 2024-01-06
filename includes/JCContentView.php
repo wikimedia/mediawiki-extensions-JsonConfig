@@ -3,8 +3,8 @@
 namespace JsonConfig;
 
 use MediaWiki\Page\PageReference;
+use MediaWiki\Parser\ParserOutput;
 use ParserOptions;
-use ParserOutput;
 
 /**
  * This class is used as a way to specify how to edit/view JCContent object

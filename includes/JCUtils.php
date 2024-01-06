@@ -6,9 +6,9 @@ use Exception;
 use FormatJson;
 use Language;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Status\Status;
 use MediaWiki\StubObject\StubUserLang;
 use MWHttpRequest;
-use Status;
 use stdClass;
 
 /**
