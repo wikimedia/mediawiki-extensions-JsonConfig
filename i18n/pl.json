@@ -61,8 +61,8 @@
 	"jsonconfig-license-name-dl-de-by-2.0": "Licencja na dane Niemcy - uznanie autorstwa - wersja 2.0",
 	"jsonconfig-license-name-GeoNutzV": "Licencja Geo Data Niemcy",
 	"jsonconfig-license-copyrightwarning": "Publikując zmiany, akceptujesz nasze [https://foundation.wikimedia.org/wiki/Terms_of_Use/pl Warunki użytkowania] i nieodwołalnie zgadzasz się na udostępnienie swojego wkładu na licencji [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
-	"jsonconfig-license-copyrightwarning-license-unset": "Publikując zmiany, wyrażasz zgodę na [https://foundation.wikimedia.org/wiki/Terms_of_Use/pl Warunki użytkowania], a nieodwołalnie zgadzasz się na udostępnienie swojego udziału zgodnie z licencją określoną w polu <code>licencja</code>.",
-	"jsonconfig-license-notice": "'''Uwaga:''' Edytując tę stronę zgadzasz się na publikowanie twojego wkładu na licencji [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
+	"jsonconfig-license-copyrightwarning-license-unset": "Publikując zmiany, zgadzasz się na udostępnienie swojego wkładu zgodnie z licencją określoną w polu <code>licence</code>.",
+	"jsonconfig-license-notice": "'''Uwaga:''' Edytując tę stronę zgadzasz się na publikowanie twojego wkładu zgodnie z zasadami licencji [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-notice-license-unset": "'''Uwaga:''' Edytując tę stronę zgadzasz się na publikowanie twojego wkładu zgodnie z licencją podaną w polu <code>licence</code>.",
 	"right-jsonconfig-flush": "Zmienianie JsonConfig przez API",
 	"action-jsonconfig-flush": "zmieniania JsonConfig przez API"
