@@ -2,8 +2,8 @@
 
 namespace JsonConfig\Tests;
 
-use Exception;
 use JsonConfig\JCMapDataContent;
+use LogicException;
 use MediaWiki\MainConfigNames;
 use MediaWikiIntegrationTestCase;
 
@@ -49,7 +49,7 @@ class JCMapDataContentTest extends MediaWikiIntegrationTestCase {
 		$expected = json_encode( json_decode( $expected ), JSON_PRETTY_PRINT );
 
 		if ( !$content->isValid() ) {
-			throw new Exception( html_entity_decode( $content->getStatus()->getWikiText() ) );
+			throw new LogicException( html_entity_decode( $content->getStatus()->getWikiText() ) );
 		}
 
 		$this->assertSame( $expected, $sanitized );

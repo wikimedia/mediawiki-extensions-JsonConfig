@@ -1,8 +1,8 @@
 <?php
 namespace JsonConfig;
 
-use Exception;
 use GenderCache;
+use InvalidArgumentException;
 use MapCacheLRU;
 use MediaWiki\Config\ServiceOptions;
 use MediaWiki\Linker\LinkTarget;
@@ -61,7 +61,6 @@ class JCSingleton {
 	/**
 	 * Initializes singleton state by parsing $wgJsonConfig* values
 	 * @param bool $force Force init, only usable in unit tests
-	 * @throws Exception
 	 */
 	public static function init( $force = false ) {
 		static $isInitialized = false;
@@ -395,7 +394,6 @@ class JCSingleton {
 	 * @param string $jsonText json content
 	 * @param bool $isSaving if true, performs extensive validation during unserialization
 	 * @return bool|JCContent Returns false if the title is not handled by the settings
-	 * @throws Exception
 	 */
 	public static function parseContent( TitleValue $titleValue, $jsonText, $isSaving = false ) {
 		$jct = self::parseTitle( $titleValue );
@@ -454,7 +452,6 @@ class JCSingleton {
 	 * @param int|null $namespace Only used when title is a string
 	 * @return JCTitle|null|false false if unrecognized namespace,
 	 * and null if namespace is handled but does not match this title
-	 * @throws Exception
 	 */
 	public static function parseTitle( $value, $namespace = null ) {
 		if ( $value === null || $value === '' || $value === false ) {
@@ -464,7 +461,7 @@ class JCSingleton {
 			// Nothing to do
 			return $value;
 		} elseif ( $namespace !== null && !is_int( $namespace ) ) {
-			throw new Exception( '$namespace parameter must be either null or an integer' );
+			throw new InvalidArgumentException( '$namespace parameter must be either null or an integer' );
 		}
 
 		// figure out the namespace ID (int) - we don't need to parse the string if ns is unknown
@@ -474,7 +471,7 @@ class JCSingleton {
 			}
 		} elseif ( is_string( $value ) ) {
 			if ( $namespace === null ) {
-				throw new Exception( '$namespace parameter is missing for string $value' );
+				throw new InvalidArgumentException( '$namespace parameter is missing for string $value' );
 			}
 		} else {
 			wfLogWarning( 'Unexpected title param type ' . gettype( $value ) );

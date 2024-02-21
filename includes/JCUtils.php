@@ -2,8 +2,8 @@
 
 namespace JsonConfig;
 
-use Exception;
 use FormatJson;
+use InvalidArgumentException;
 use Language;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Status\Status;
@@ -51,7 +51,6 @@ class JCUtils {
 	 * @param string $url
 	 * @param string $username
 	 * @param string $password
-	 * @throws \Exception
 	 * @return MWHttpRequest|false
 	 */
 	public static function initApiRequestObj( $url, $username, $password ) {
@@ -176,7 +175,6 @@ class JCUtils {
 	/**
 	 * Converts an array representing path to a field into a string in 'a/b/c[0]/d' format
 	 * @param array $fieldPath
-	 * @throws \Exception
 	 * @return string
 	 */
 	public static function fieldPathToString( array $fieldPath ) {
@@ -187,7 +185,7 @@ class JCUtils {
 			} elseif ( is_string( $fld ) ) {
 				$res .= $res !== '' ? ( '/' . $fld ) : $fld;
 			} else {
-				throw new Exception(
+				throw new InvalidArgumentException(
 					'Unexpected field type, only strings and integers are allowed'
 				);
 			}
