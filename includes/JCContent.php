@@ -3,6 +3,7 @@
 namespace JsonConfig;
 
 use FormatJson;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Status\Status;
 use stdClass;
 
@@ -157,10 +158,9 @@ class JCContent extends \TextContent {
 	 * @return JCContentView
 	 */
 	public function getView( $modelId ) {
-		global $wgJsonConfigModels;
 		if ( !$this->view ) {
 			$configModels = \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' )
-				+ $wgJsonConfigModels;
+				+ MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigModels' );
 			$class = $configModels[$modelId]['view'] ?? null;
 			$this->view = $class ? new $class() : $this->createDefaultView();
 		}

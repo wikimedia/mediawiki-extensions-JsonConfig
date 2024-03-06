@@ -4,6 +4,7 @@ namespace JsonConfig;
 
 use Language;
 use MediaWiki\Html\Html;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageReference;
 use Parser;
 use ParserOptions;
@@ -34,10 +35,11 @@ abstract class JCDataContent extends JCObjContent {
 	 */
 	public static function isValidLicense() {
 		return static function ( JCValue $v, array $path ) {
-			global $wgJsonConfigAllowedLicenses, $wgLang;
-			if ( !in_array( $v->getValue(), $wgJsonConfigAllowedLicenses, true ) ) {
+			global $wgLang;
+			$allowedLicenses = MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigAllowedLicenses' );
+			if ( !in_array( $v->getValue(), $allowedLicenses, true ) ) {
 				$v->error( 'jsonconfig-err-license', $path,
-					$wgLang->commaList( $wgJsonConfigAllowedLicenses ) );
+					$wgLang->commaList( $allowedLicenses ) );
 				return false;
 			}
 			return true;

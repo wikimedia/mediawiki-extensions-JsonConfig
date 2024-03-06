@@ -29,14 +29,13 @@ class JCCache {
 	 * @param JCContent|null $content
 	 */
 	public function __construct( JCTitle $titleValue, $content = null ) {
-		global $wgJsonConfigCacheKeyPrefix;
 		$this->titleValue = $titleValue;
 		$conf = $this->titleValue->getConfig();
 		$flRev = $conf->flaggedRevs;
 		$this->cache = ObjectCache::getInstance( CACHE_ANYTHING );
 		$keyArgs = [
 			'JsonConfig',
-			$wgJsonConfigCacheKeyPrefix,
+			MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigCacheKeyPrefix' ),
 			$conf->cacheKey,
 			$flRev === null ? '' : ( $flRev ? 'T' : 'F' ),
 			$titleValue->getNamespace(),
@@ -80,9 +79,9 @@ class JCCache {
 	 * @return string|bool Carrier config or false if not in cache.
 	 */
 	private function memcGet() {
-		global $wgJsonConfigDisableCache;
-
-		return $wgJsonConfigDisableCache ? false : $this->cache->get( $this->key );
+		return MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigDisableCache' ) ?
+			false :
+			$this->cache->get( $this->key );
 	}
 
 	/**
@@ -90,8 +89,7 @@ class JCCache {
 	 * If the content is invalid, store an empty string to prevent repeated attempts
 	 */
 	private function memcSet() {
-		global $wgJsonConfigDisableCache;
-		if ( !$wgJsonConfigDisableCache ) {
+		if ( !MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigDisableCache' ) ) {
 			// caching an error condition for short time
 			$exp = $this->content ? $this->cacheExpiration : 10;
 			$value = $this->content ?: '';
@@ -113,8 +111,7 @@ class JCCache {
 	 *   (either get() was called before, or it was set via ctor)
 	 */
 	public function resetCache( $updateCacheContent = null ) {
-		global $wgJsonConfigDisableCache;
-		if ( !$wgJsonConfigDisableCache ) {
+		if ( !MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigDisableCache' ) ) {
 			$conf = $this->titleValue->getConfig();
 			if ( $this->content && ( $updateCacheContent === true ||
 				( $updateCacheContent === null && isset( $conf->store ) &&

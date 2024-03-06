@@ -24,7 +24,7 @@ class JCMapDataContentTest extends MediaWikiIntegrationTestCase {
 		}';
 
 	protected function setUp(): void {
-		$this->setMwGlobals( 'wgKartographerMapServer', 'https://maps.wikimedia.org' );
+		$this->overrideConfigValue( 'KartographerMapServer', 'https://maps.wikimedia.org' );
 	}
 
 	/**

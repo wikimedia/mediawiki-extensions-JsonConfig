@@ -119,7 +119,6 @@ class JCHooks implements
 	 * @param string[] &$models
 	 */
 	public function onGetContentModels( &$models ) {
-		global $wgJsonConfigModels;
 		if ( !self::jsonConfigIsStorage() ) {
 			return;
 		}
@@ -128,7 +127,7 @@ class JCHooks implements
 		// TODO: this is copied from onContentHandlerForModelID()
 		$ourModels = array_replace_recursive(
 			\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ),
-			$wgJsonConfigModels
+			MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigModels' )
 		);
 		$models = array_merge( $models, array_keys( $ourModels ) );
 	}
@@ -140,7 +139,6 @@ class JCHooks implements
 	 * @return bool
 	 */
 	public function onContentHandlerForModelID( $modelId, &$handler ) {
-		global $wgJsonConfigModels;
 		if ( !self::jsonConfigIsStorage() ) {
 			return true;
 		}
@@ -148,7 +146,7 @@ class JCHooks implements
 		JCSingleton::init();
 		$models = array_replace_recursive(
 			\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ),
-			$wgJsonConfigModels
+			MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigModels' )
 		);
 		if ( array_key_exists( $modelId, $models ) ) {
 			// This is one of our model IDs
@@ -178,9 +176,8 @@ class JCHooks implements
 	 * @param OutputPage $output
 	 */
 	public function onEditPage__showEditForm_initial( $editPage, $output ) {
-		global $wgJsonConfigUseGUI;
 		if (
-			$wgJsonConfigUseGUI &&
+			$output->getConfig()->get( 'JsonConfigUseGUI' ) &&
 			$editPage->getTitle()->getContentModel() === 'Tabular.JsonConfig'
 		) {
 			$output->addModules( 'ext.jsonConfig.edit' );
@@ -423,8 +420,7 @@ class JCHooks implements
 	 * @param ApiModuleManager $moduleManager Module manager instance
 	 */
 	public function onApiMain__moduleManager( $moduleManager ) {
-		global $wgJsonConfigEnableLuaSupport;
-		if ( $wgJsonConfigEnableLuaSupport ) {
+		if ( $moduleManager->getConfig()->get( 'JsonConfigEnableLuaSupport' ) ) {
 			$moduleManager->addModule( 'jsondata', 'action', JCDataApi::class );
 		}
 	}
@@ -537,11 +533,10 @@ class JCHooks implements
 	private static function jsonConfigIsStorage() {
 		static $isStorage = null;
 		if ( $isStorage === null ) {
-			global $wgJsonConfigs;
 			$isStorage = false;
 			$configs = array_replace_recursive(
 				\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ),
-				$wgJsonConfigs
+				MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigs' )
 			);
 			foreach ( $configs as $jc ) {
 				if ( ( !array_key_exists( 'isLocal', $jc ) || $jc['isLocal'] ) ||

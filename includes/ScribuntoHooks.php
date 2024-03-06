@@ -3,6 +3,7 @@
 namespace JsonConfig;
 
 use MediaWiki\Extension\Scribunto\Hooks\ScribuntoExternalLibrariesHook;
+use MediaWiki\MediaWikiServices;
 
 /**
  * Hook handlers for JsonConfig extension.
@@ -21,8 +22,8 @@ class ScribuntoHooks implements
 	 * @param string[] &$extraLibraries
 	 */
 	public function onScribuntoExternalLibraries( string $engine, array &$extraLibraries ): void {
-		global $wgJsonConfigEnableLuaSupport;
-		if ( $wgJsonConfigEnableLuaSupport && $engine == 'lua' ) {
+		$enableLuaSupport = MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigEnableLuaSupport' );
+		if ( $enableLuaSupport && $engine == 'lua' ) {
 			$extraLibraries['mw.ext.data'] = JCLuaLibrary::class;
 		}
 	}

@@ -71,16 +71,16 @@ class JCSingleton {
 			throw new \LogicException( 'Can force init only in tests' );
 		}
 		$isInitialized = true;
-		global $wgNamespaceContentModels, $wgContentHandlers, $wgJsonConfigs, $wgJsonConfigModels;
+		$config = MediaWikiServices::getInstance()->getMainConfig();
 		[ self::$titleMap, self::$namespaces ] = self::parseConfiguration(
-			$wgNamespaceContentModels,
-			$wgContentHandlers,
+			$config->get( MainConfigNames::NamespaceContentModels ),
+			$config->get( MainConfigNames::ContentHandlers ),
 			array_replace_recursive(
-				\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ), $wgJsonConfigs
+				\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ), $config->get( 'JsonConfigs' )
 			),
 			array_replace_recursive(
 				\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ),
-				$wgJsonConfigModels
+				$config->get( 'JsonConfigModels' )
 			)
 		);
 	}
@@ -421,10 +421,9 @@ class JCSingleton {
 	 * @phan-return class-string
 	 */
 	public static function getContentClass( $modelId ) {
-		global $wgJsonConfigModels;
 		$configModels = array_replace_recursive(
 			\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ),
-			$wgJsonConfigModels
+			MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigModels' )
 		);
 		$class = null;
 		if ( array_key_exists( $modelId, $configModels ) ) {

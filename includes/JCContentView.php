@@ -2,6 +2,7 @@
 
 namespace JsonConfig;
 
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageReference;
 use MediaWiki\Parser\ParserOutput;
 use ParserOptions;
@@ -44,9 +45,9 @@ abstract class JCContentView {
 	 * @return string
 	 */
 	public static function getLicenseIntro() {
-		global $wgJsonConfigAllowedLicenses;
 		$allowedLicenses = '';
-		foreach ( $wgJsonConfigAllowedLicenses as $supLicense ) {
+		$supLicenses = MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigAllowedLicenses' );
+		foreach ( $supLicenses as $supLicense ) {
 			$licenseName = wfMessage( 'jsonconfig-license-name-' . $supLicense )->plain();
 			$allowedLicenses .= '	// "license": "' . $supLicense . '", // ' . $licenseName . PHP_EOL;
 		}

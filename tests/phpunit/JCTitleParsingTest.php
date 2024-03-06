@@ -4,6 +4,7 @@ namespace JsonConfig\Tests;
 
 use JsonConfig\JCSingleton;
 use JsonConfig\JCTitle;
+use MediaWiki\MainConfigNames;
 use MediaWikiIntegrationTestCase;
 
 /**
@@ -21,11 +22,11 @@ class JCTitleParsingTest extends MediaWikiIntegrationTestCase {
 		parent::setUp();
 
 		// Copied from mediawiki/tests/phpunit/includes/title/MediaWikiTitleCodecTest.php
-		$this->setMwGlobals( [
-			'wgDefaultLanguageVariant' => false,
-			'wgMetaNamespace' => 'Project',
-			'wgLocalInterwikis' => [ 'localtestiw' ],
-			'wgCapitalLinks' => false,
+		$this->overrideConfigValues( [
+			MainConfigNames::DefaultLanguageVariant => false,
+			MainConfigNames::MetaNamespace => 'Project',
+			MainConfigNames::LocalInterwikis => [ 'localtestiw' ],
+			MainConfigNames::CapitalLinks => false,
 		] );
 		$this->setUserLang( 'en' );
 		$this->setContentLang( 'en' );
