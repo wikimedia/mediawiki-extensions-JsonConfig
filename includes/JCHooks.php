@@ -185,28 +185,6 @@ class JCHooks implements
 	}
 
 	/**
-	 * Declares JSON as the code editor language for Config: pages.
-	 * This hook only runs if the CodeEditor extension is enabled.
-	 * @param Title $title
-	 * @param string &$lang Page language.
-	 * @return bool
-	 */
-	public static function onCodeEditorGetPageLanguage( $title, &$lang ) {
-		if ( !self::jsonConfigIsStorage() ) {
-			return true;
-		}
-
-		// todo/fixme? We should probably add 'json' lang to only those pages that pass parseTitle()
-		$handler = MediaWikiServices::getInstance()
-			->getContentHandlerFactory()
-			->getContentHandler( $title->getContentModel() );
-		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON || JCSingleton::parseTitle( $title ) ) {
-			$lang = 'json';
-		}
-		return true;
-	}
-
-	/**
 	 * Validates that the revised contents are valid JSON.
 	 * If not valid, rejects edit with error message.
 	 * @param IContextSource $context
@@ -530,7 +508,7 @@ class JCHooks implements
 	 * Faster than doing a full parsing of the $wgJsonConfigs in the JCSingleton::init()
 	 * @return bool
 	 */
-	private static function jsonConfigIsStorage() {
+	public static function jsonConfigIsStorage() {
 		static $isStorage = null;
 		if ( $isStorage === null ) {
 			$isStorage = false;

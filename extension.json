@@ -105,7 +105,7 @@
 		"ArticleUndelete": "main",
 		"BeforePageDisplay": "main",
 		"CanonicalNamespaces": "main",
-		"CodeEditorGetPageLanguage": "JsonConfig\\JCHooks::onCodeEditorGetPageLanguage",
+		"CodeEditorGetPageLanguage": "codeeditor",
 		"ContentHandlerDefaultModelFor": "main",
 		"ContentHandlerForModelID": "main",
 		"GetContentModels": "main",
@@ -124,6 +124,9 @@
 	"HookHandlers": {
 		"main": {
 			"class": "JsonConfig\\JCHooks"
+		},
+		"codeeditor": {
+			"class": "JsonConfig\\CodeEditorHooks"
 		},
 		"scribunto": {
 			"class": "JsonConfig\\ScribuntoHooks"
