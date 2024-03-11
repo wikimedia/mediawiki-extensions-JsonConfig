@@ -33,7 +33,7 @@ class JCTitleParsingTest extends MediaWikiIntegrationTestCase {
 		JCSingleton::getTitleMap(); // Initialize internal Init() flag
 		$this->configBackup = [ JCSingleton::$titleMap, JCSingleton::$namespaces ];
 
-		list( JCSingleton::$titleMap, JCSingleton::$namespaces ) =
+		[ JCSingleton::$titleMap, JCSingleton::$namespaces ] =
 			JCSingleton::parseConfiguration( [ 'modelForNs0', 'modelForNs1' ],
 				[ 'globalModel' => 'something' ], [
 					'model1' => [ 'nsName' => 'All', 'namespace' => 800 ],
@@ -51,7 +51,7 @@ class JCTitleParsingTest extends MediaWikiIntegrationTestCase {
 
 	protected function tearDown(): void {
 		parent::tearDown();
-		list( JCSingleton::$titleMap, JCSingleton::$namespaces ) = $this->configBackup;
+		[ JCSingleton::$titleMap, JCSingleton::$namespaces ] = $this->configBackup;
 	}
 
 	/**

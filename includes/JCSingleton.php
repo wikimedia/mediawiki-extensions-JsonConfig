@@ -72,7 +72,7 @@ class JCSingleton {
 		}
 		$isInitialized = true;
 		global $wgNamespaceContentModels, $wgContentHandlers, $wgJsonConfigs, $wgJsonConfigModels;
-		list( self::$titleMap, self::$namespaces ) = self::parseConfiguration(
+		[ self::$titleMap, self::$namespaces ] = self::parseConfiguration(
 			$wgNamespaceContentModels,
 			$wgContentHandlers,
 			array_replace_recursive(
