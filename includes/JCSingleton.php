@@ -532,7 +532,7 @@ class JCSingleton {
 
 				// At this point, only support wiki namespaces that capitalize title's first char,
 				// but do not enable sub-pages.
-				// This way data can already be stored on Mediawiki namespace everywhere, or
+				// This way data can already be stored on MediaWiki namespace everywhere, or
 				// places like commons and zerowiki.
 				// Another implicit limitation: there might be an issue if data is stored on a wiki
 				// with the non-default ucfirst(), e.g. az, kaa, kk, tr -- they convert "i" to "İ"
