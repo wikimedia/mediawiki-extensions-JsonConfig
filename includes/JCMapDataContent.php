@@ -53,7 +53,8 @@ class JCMapDataContent extends JCDataContent {
 	private static function isValidData() {
 		return static function ( JCValue $v, array $path ) {
 			$value = $v->getValue();
-			if ( !is_object( $value ) && !is_array( $value ) ||
+
+			if ( ( !is_object( $value ) && !is_array( $value ) ) ||
 				!JCMapDataContent::recursiveWalk( $value, false )
 			) {
 				$v->error( 'jsonconfig-err-bad-geojson', $path );
