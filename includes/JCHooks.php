@@ -8,8 +8,10 @@ use ApiModuleManager;
 use Content;
 use IContextSource;
 use MediaWiki\Api\Hook\ApiMain__moduleManagerHook;
+use MediaWiki\Config\Config;
 use MediaWiki\Content\Hook\ContentHandlerForModelIDHook;
 use MediaWiki\Content\Hook\GetContentModelsHook;
+use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\Hook\AlternateEditHook;
 use MediaWiki\Hook\BeforePageDisplayHook;
@@ -22,7 +24,6 @@ use MediaWiki\Hook\PageMoveCompleteHook;
 use MediaWiki\Hook\SkinCopyrightFooterHook;
 use MediaWiki\Hook\TitleGetEditNoticesHook;
 use MediaWiki\Html\Html;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\Hook\ArticleDeleteCompleteHook;
 use MediaWiki\Page\Hook\ArticleUndeleteHook;
@@ -62,6 +63,16 @@ class JCHooks implements
 	PageMoveCompleteHook,
 	GetUserPermissionsErrorsHook
 {
+	private Config $config;
+	private IContentHandlerFactory $contentHandlerFactory;
+
+	public function __construct(
+		Config $config,
+		IContentHandlerFactory $contentHandlerFactory
+	) {
+		$this->config = $config;
+		$this->contentHandlerFactory = $contentHandlerFactory;
+	}
 
 	/**
 	 * Only register NS_CONFIG if running on the MediaWiki instance which houses
@@ -69,7 +80,7 @@ class JCHooks implements
 	 * @param array &$namespaces
 	 */
 	public function onCanonicalNamespaces( &$namespaces ) {
-		if ( !self::jsonConfigIsStorage() ) {
+		if ( !self::jsonConfigIsStorage( $this->config ) ) {
 			return;
 		}
 
@@ -102,7 +113,7 @@ class JCHooks implements
 	 * @return bool
 	 */
 	public function onContentHandlerDefaultModelFor( $title, &$modelId ) {
-		if ( !self::jsonConfigIsStorage() ) {
+		if ( !self::jsonConfigIsStorage( $this->config ) ) {
 			return true;
 		}
 
@@ -119,7 +130,7 @@ class JCHooks implements
 	 * @param string[] &$models
 	 */
 	public function onGetContentModels( &$models ) {
-		if ( !self::jsonConfigIsStorage() ) {
+		if ( !self::jsonConfigIsStorage( $this->config ) ) {
 			return;
 		}
 
@@ -127,7 +138,7 @@ class JCHooks implements
 		// TODO: this is copied from onContentHandlerForModelID()
 		$ourModels = array_replace_recursive(
 			\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ),
-			MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigModels' )
+			$this->config->get( 'JsonConfigModels' )
 		);
 		$models = array_merge( $models, array_keys( $ourModels ) );
 	}
@@ -139,14 +150,14 @@ class JCHooks implements
 	 * @return bool
 	 */
 	public function onContentHandlerForModelID( $modelId, &$handler ) {
-		if ( !self::jsonConfigIsStorage() ) {
+		if ( !self::jsonConfigIsStorage( $this->config ) ) {
 			return true;
 		}
 
 		JCSingleton::init();
 		$models = array_replace_recursive(
 			\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ),
-			MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigModels' )
+			$this->config->get( 'JsonConfigModels' )
 		);
 		if ( array_key_exists( $modelId, $models ) ) {
 			// This is one of our model IDs
@@ -162,7 +173,7 @@ class JCHooks implements
 	 * @param EditPage $editpage
 	 */
 	public function onAlternateEdit( $editpage ) {
-		if ( !self::jsonConfigIsStorage() ) {
+		if ( !self::jsonConfigIsStorage( $this->config ) ) {
 			return;
 		}
 		$jct = JCSingleton::parseTitle( $editpage->getTitle() );
@@ -199,7 +210,7 @@ class JCHooks implements
 		/** @noinspection PhpUnusedParameterInspection */
 		IContextSource $context, Content $content, Status $status, $summary, User $user, $minoredit
 	) {
-		if ( !self::jsonConfigIsStorage() ) {
+		if ( !self::jsonConfigIsStorage( $this->config ) ) {
 			return true;
 		}
 
@@ -242,7 +253,7 @@ class JCHooks implements
 	 * @return bool
 	 */
 	public function onEditPageCopyrightWarning( $title, &$msg ) {
-		if ( self::jsonConfigIsStorage() ) {
+		if ( self::jsonConfigIsStorage( $this->config ) ) {
 			$jct = JCSingleton::parseTitle( $title );
 			if ( $jct ) {
 				$code = self::getTitleLicenseCode( $jct );
@@ -270,7 +281,7 @@ class JCHooks implements
 	 * @param array &$notices
 	 */
 	public function onTitleGetEditNotices( $title, $oldid, &$notices ) {
-		if ( self::jsonConfigIsStorage() ) {
+		if ( self::jsonConfigIsStorage( $this->config ) ) {
 			$jct = JCSingleton::parseTitle( $title );
 			if ( $jct ) {
 				$code = self::getTitleLicenseCode( $jct );
@@ -327,7 +338,7 @@ class JCHooks implements
 	 * @return bool
 	 */
 	public function onSkinCopyrightFooter( $title, $type, &$msg, &$link ) {
-		if ( self::jsonConfigIsStorage() ) {
+		if ( self::jsonConfigIsStorage( $this->config ) ) {
 			$jct = JCSingleton::parseTitle( $title );
 			if ( $jct ) {
 				$code = self::getTitleLicenseCode( $jct );
@@ -351,15 +362,14 @@ class JCHooks implements
 	public function onBeforePageDisplay(
 		/** @noinspection PhpUnusedParameterInspection */ $out, $skin
 	): void {
-		if ( !self::jsonConfigIsStorage() ) {
+		if ( !self::jsonConfigIsStorage( $this->config ) ) {
 			return;
 		}
 
 		$title = $out->getTitle();
 		// todo/fixme? We should probably add ext.jsonConfig style to only those pages
 		// that pass parseTitle()
-		$handler = MediaWikiServices::getInstance()
-			->getContentHandlerFactory()
+		$handler = $this->contentHandlerFactory
 			->getContentHandler( $title->getContentModel() );
 		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON ||
 			JCSingleton::parseTitle( $title )
@@ -371,7 +381,7 @@ class JCHooks implements
 	public function onMovePageIsValidMove(
 		$oldTitle, $newTitle, $status
 	) {
-		if ( !self::jsonConfigIsStorage() ) {
+		if ( !self::jsonConfigIsStorage( $this->config ) ) {
 			return true;
 		}
 
@@ -407,21 +417,21 @@ class JCHooks implements
 		/** @noinspection PhpUnusedParameterInspection */
 		$wikiPage, $user, $summary, $flags, $revisionRecord, $editResult
 	) {
-		return self::onArticleChangeComplete( $wikiPage );
+		return $this->onArticleChangeComplete( $wikiPage );
 	}
 
 	public function onArticleDeleteComplete(
 		/** @noinspection PhpUnusedParameterInspection */
 		$article, $user, $reason, $id, $content, $logEntry, $archivedRevisionCount
 	) {
-		return self::onArticleChangeComplete( $article );
+		return $this->onArticleChangeComplete( $article );
 	}
 
 	public function onArticleUndelete(
 		/** @noinspection PhpUnusedParameterInspection */
 		$title, $created, $comment, $oldPageId, $restoredPages
 	) {
-		return self::onArticleChangeComplete( $title );
+		return $this->onArticleChangeComplete( $title );
 	}
 
 	public function onPageMoveComplete(
@@ -430,8 +440,8 @@ class JCHooks implements
 	) {
 		$title = Title::newFromLinkTarget( $title );
 		$newTitle = Title::newFromLinkTarget( $newTitle );
-		return self::onArticleChangeComplete( $title ) ||
-			self::onArticleChangeComplete( $newTitle );
+		return $this->onArticleChangeComplete( $title ) ||
+			$this->onArticleChangeComplete( $newTitle );
 	}
 
 	/**
@@ -447,7 +457,7 @@ class JCHooks implements
 		/** @noinspection PhpUnusedParameterInspection */
 		$title, $user, $action, &$result
 	) {
-		if ( !self::jsonConfigIsStorage() ) {
+		if ( !self::jsonConfigIsStorage( $this->config ) ) {
 			return true;
 		}
 
@@ -465,8 +475,8 @@ class JCHooks implements
 	 * @param JCContent|null $content
 	 * @return bool
 	 */
-	private static function onArticleChangeComplete( $value, $content = null ) {
-		if ( !self::jsonConfigIsStorage() ) {
+	private function onArticleChangeComplete( $value, $content = null ) {
+		if ( !self::jsonConfigIsStorage( $this->config ) ) {
 			return true;
 		}
 
@@ -506,15 +516,16 @@ class JCHooks implements
 	/**
 	 * Quick check if the current wiki will store any configurations.
 	 * Faster than doing a full parsing of the $wgJsonConfigs in the JCSingleton::init()
+	 * @param Config $config
 	 * @return bool
 	 */
-	public static function jsonConfigIsStorage() {
+	public static function jsonConfigIsStorage( Config $config ) {
 		static $isStorage = null;
 		if ( $isStorage === null ) {
 			$isStorage = false;
 			$configs = array_replace_recursive(
 				\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ),
-				MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigs' )
+				$config->get( 'JsonConfigs' )
 			);
 			foreach ( $configs as $jc ) {
 				if ( ( !array_key_exists( 'isLocal', $jc ) || $jc['isLocal'] ) ||

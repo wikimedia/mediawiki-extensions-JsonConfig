@@ -123,13 +123,24 @@
 	},
 	"HookHandlers": {
 		"main": {
-			"class": "JsonConfig\\JCHooks"
+			"class": "JsonConfig\\JCHooks",
+			"services": [
+				"MainConfig",
+				"ContentHandlerFactory"
+			]
 		},
 		"codeeditor": {
-			"class": "JsonConfig\\CodeEditorHooks"
+			"class": "JsonConfig\\CodeEditorHooks",
+			"services": [
+				"MainConfig",
+				"ContentHandlerFactory"
+			]
 		},
 		"scribunto": {
-			"class": "JsonConfig\\ScribuntoHooks"
+			"class": "JsonConfig\\ScribuntoHooks",
+			"services": [
+				"MainConfig"
+			]
 		}
 	},
 	"config": {

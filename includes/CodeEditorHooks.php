@@ -2,8 +2,9 @@
 
 namespace JsonConfig;
 
+use MediaWiki\Config\Config;
+use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\Extension\CodeEditor\Hooks\CodeEditorGetPageLanguageHook;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 
 /**
@@ -18,6 +19,17 @@ use MediaWiki\Title\Title;
 class CodeEditorHooks implements
 	CodeEditorGetPageLanguageHook
 {
+	private Config $config;
+	private IContentHandlerFactory $contentHandlerFactory;
+
+	public function __construct(
+		Config $config,
+		IContentHandlerFactory $contentHandlerFactory
+	) {
+		$this->config = $config;
+		$this->contentHandlerFactory = $contentHandlerFactory;
+	}
+
 	/**
 	 * Declares JSON as the code editor language for Config: pages.
 	 * This hook only runs if the CodeEditor extension is enabled.
@@ -28,14 +40,12 @@ class CodeEditorHooks implements
 	 * @return bool|void True or no return value to continue or false to abort
 	 */
 	public function onCodeEditorGetPageLanguage( Title $title, ?string &$lang, string $model, string $format ) {
-		if ( !JCHooks::jsonConfigIsStorage() ) {
+		if ( !JCHooks::jsonConfigIsStorage( $this->config ) ) {
 			return;
 		}
 
 		// todo/fixme? We should probably add 'json' lang to only those pages that pass parseTitle()
-		$handler = MediaWikiServices::getInstance()
-			->getContentHandlerFactory()
-			->getContentHandler( $title->getContentModel() );
+		$handler = $this->contentHandlerFactory->getContentHandler( $title->getContentModel() );
 		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON || JCSingleton::parseTitle( $title ) ) {
 			$lang = 'json';
 		}
