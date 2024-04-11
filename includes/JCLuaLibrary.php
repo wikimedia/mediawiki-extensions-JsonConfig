@@ -51,6 +51,8 @@ class JCLuaLibrary extends LibraryBase {
 			$output = $this->getParser()->getOutput();
 			$prevValue = (int)( $output->getPageProperty( $prop ) ?? 0 );
 			$output->setNumericPageProperty( $prop, 1 + $prevValue );
+			// Transition to a tracking category
+			$this->getParser()->addTrackingCategory( 'jsonconfig-use-category' );
 		}
 
 		if ( !$content ) {

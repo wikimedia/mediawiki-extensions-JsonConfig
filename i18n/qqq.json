@@ -64,6 +64,8 @@
 	"jsonconfig-type-name-number": "Description of the type of data contained in this column. Shown for columns that contain numbers\n{{Identical|Number}}",
 	"jsonconfig-type-abbr-boolean": "{{optional}}\nA very short indicator of the type of data contained in this column. Shown for columns that contain booleans (true or false)",
 	"jsonconfig-type-name-boolean": "Description of the type of data contained in this column. Shown for columns that contain booleans (true or false)\n{{Identical|Boolean}}",
+	"jsonconfig-use-category": "{{tracking category name}}\nName of [[mw:Help:Tracking categories|tracking category]] to list pages which use the <code>mw.ext.data.get</code> method provided by the [[:mw:Extension:JsonConfig|JsonConfig]] extension.",
+	"jsonconfig-use-category-desc": "Description on [[Special:TrackingCategories]] for the {{msg-mw|jsonconfig-use-category}} tracking category.",
 	"jsonconfig-license": "Shows license text prefix before giving the specific license.\n\nParameters:\n* $1 - * {{msg-mw|jsonconfig-license-or-later}} or {{msg-mw|jsonconfig-license-CC0-1.0}} or other similar license messages",
 	"jsonconfig-license-not-set": "Shows license warning before content saved with specific license. License should be specific in the content.{{doc-important|Do not translate text that is quoted or inside <nowiki><var></var></nowiki>, <nowiki><kbd></kbd></nowiki>, <nowiki><samp></samp></nowiki>, or <nowiki><code></code></nowiki> in this message.}}",
 	"jsonconfig-license-name-CC0-1.0": "Name of the CC0-1.0 license",

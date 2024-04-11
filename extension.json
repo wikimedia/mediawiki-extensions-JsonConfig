@@ -47,6 +47,9 @@
 	"ExtensionMessagesFiles": {
 		"JsonConfigNamespaces": "JsonConfig.namespaces.php"
 	},
+	"TrackingCategories": [
+		"jsonconfig-use-category"
+	],
 	"AutoloadNamespaces": {
 		"JsonConfig\\": "includes/"
 	},
