@@ -2,7 +2,6 @@
 namespace JsonConfig;
 
 use MediaWiki\MediaWikiServices;
-use ObjectCache;
 
 /**
  * Represents a json blob on a remote wiki.
@@ -15,7 +14,6 @@ class JCCache {
 	private $key;
 	/** @var \BagOStuff */
 	private $cache;
-
 	/** @var bool|string|JCContent */
 	private $content = null;
 
@@ -32,7 +30,8 @@ class JCCache {
 		$this->titleValue = $titleValue;
 		$conf = $this->titleValue->getConfig();
 		$flRev = $conf->flaggedRevs;
-		$this->cache = ObjectCache::getInstance( CACHE_ANYTHING );
+		$this->cache = MediaWikiServices::getInstance()
+			->getObjectCacheFactory()->getInstance( CACHE_ANYTHING );
 		$keyArgs = [
 			'JsonConfig',
 			MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigCacheKeyPrefix' ),
