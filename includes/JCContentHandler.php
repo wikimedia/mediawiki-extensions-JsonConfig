@@ -4,9 +4,9 @@ namespace JsonConfig;
 
 use Content;
 use FormatJson;
-use IContextSource;
 use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Content\Transform\PreSaveTransformParams;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\Parser\ParserOutput;
 use TextContentHandler;
 

@@ -2,7 +2,7 @@
 namespace JsonConfig;
 
 use Content;
-use IContextSource;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Title\Title;
 use SlotDiffRenderer;

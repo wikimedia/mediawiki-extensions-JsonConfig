@@ -5,8 +5,8 @@ namespace JsonConfig\Tests;
 use FormatJson;
 use JsonConfig\JCLuaLibrary;
 use JsonConfig\JCTabularContent;
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
 use MediaWikiIntegrationTestCase;
-use Scribunto_LuaLibraryBase;
 
 /**
  * @package JsonConfigTests
@@ -20,7 +20,7 @@ class JCTabularContentTest extends MediaWikiIntegrationTestCase {
 		$annotations = parent::getAnnotations();
 		if (
 			$this->getName( false ) === 'testLuaTabDataReindexing'
-			&& class_exists( Scribunto_LuaLibraryBase::class )
+			&& class_exists( LibraryBase::class )
 		) {
 			unset( $annotations['method']['@coversNothing'] );
 			$annotations['method']['@covers'][0] = '\JsonConfig\JCLuaLibrary::reindexTabularData';
@@ -102,7 +102,7 @@ class JCTabularContentTest extends MediaWikiIntegrationTestCase {
 	 * @param array $expected
 	 */
 	public function testLuaTabDataReindexing( int $fieldCount, array $data, array $expected ) {
-		if ( !class_exists( Scribunto_LuaLibraryBase::class ) ) {
+		if ( !class_exists( LibraryBase::class ) ) {
 			$this->markTestSkipped( "Scribunto is required for this integration test" );
 		}
 

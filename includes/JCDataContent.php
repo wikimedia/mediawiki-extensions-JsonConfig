@@ -6,7 +6,7 @@ use Language;
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageReference;
-use Parser;
+use MediaWiki\Parser\Parser;
 use ParserOptions;
 use stdClass;
 

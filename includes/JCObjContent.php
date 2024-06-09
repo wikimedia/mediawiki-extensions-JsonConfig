@@ -3,7 +3,7 @@ namespace JsonConfig;
 
 use InvalidArgumentException;
 use LogicException;
-use Message;
+use MediaWiki\Message\Message;
 use stdClass;
 
 /**

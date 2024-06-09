@@ -2,14 +2,14 @@
 
 namespace JsonConfig\Tests;
 
-use Scribunto_LuaEngineTestBase;
+use MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon\LuaEngineTestBase;
 
 /**
  * @covers \JsonConfig\JCLuaLibrary
  *
  * @license GPL-2.0-or-later
  */
-class JCLuaLibraryTest extends Scribunto_LuaEngineTestBase {
+class JCLuaLibraryTest extends LuaEngineTestBase {
 
 	/** @var string */
 	protected static $moduleName = 'JCLuaLibraryTest';

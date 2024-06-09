@@ -2,11 +2,11 @@
 
 namespace JsonConfig;
 
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaError;
 use MediaWiki\MediaWikiServices;
-use Scribunto_LuaError;
-use Scribunto_LuaLibraryBase;
 
-class JCLuaLibrary extends Scribunto_LuaLibraryBase {
+class JCLuaLibrary extends LibraryBase {
 
 	public function register() {
 		$functions = [ 'get' => [ $this, 'get' ] ];
@@ -19,7 +19,7 @@ class JCLuaLibrary extends Scribunto_LuaLibraryBase {
 	 * @param string $titleStr name of the page in the Data namespace
 	 * @param string $langCode language code. If '_' is given, returns all codes
 	 * @return false[]|mixed[]
-	 * @throws Scribunto_LuaError
+	 * @throws LuaError
 	 */
 	public function get( $titleStr, $langCode ) {
 		$this->checkType( 'get', 1, $titleStr, 'string' );
@@ -31,7 +31,7 @@ class JCLuaLibrary extends Scribunto_LuaLibraryBase {
 			if ( $services->getLanguageNameUtils()->isValidCode( $langCode ) ) {
 				$language = $services->getLanguageFactory()->getLanguage( $langCode );
 			} else {
-				throw new Scribunto_LuaError( 'bad argument #2 to "get" (not a valid language code)' );
+				throw new LuaError( 'bad argument #2 to "get" (not a valid language code)' );
 			}
 		} else {
 			$language = null;
@@ -39,7 +39,7 @@ class JCLuaLibrary extends Scribunto_LuaLibraryBase {
 
 		$jct = JCSingleton::parseTitle( $titleStr, NS_DATA );
 		if ( !$jct ) {
-			throw new Scribunto_LuaError( 'bad argument #1 to "get" (not a valid title)' );
+			throw new LuaError( 'bad argument #1 to "get" (not a valid title)' );
 		}
 
 		$content = JCSingleton::getContentFromLocalCache( $jct );

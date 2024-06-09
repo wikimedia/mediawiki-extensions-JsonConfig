@@ -1,9 +1,9 @@
 <?php
 namespace JsonConfig;
 
-use GenderCache;
 use InvalidArgumentException;
 use MapCacheLRU;
+use MediaWiki\Cache\GenderCache;
 use MediaWiki\Config\ServiceOptions;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MainConfigNames;
