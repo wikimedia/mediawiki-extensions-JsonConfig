@@ -6,6 +6,8 @@
  * @ingroup Extensions
  */
 
+@import 'mediawiki.skin.variables.less';
+
 .mw-jsonconfig {
 	border-collapse: collapse;
 	border-spacing: 0;
@@ -30,7 +32,7 @@
 }
 
 .mw-jsonconfig .mw-jsonconfig-value-null {
-	background-color: #eaecf0;
+	background-color: @background-color-neutral;
 }
 
 .mw-jsonconfig-value-info {
@@ -89,11 +91,11 @@
 }
 
 .mw-jsonconfig-editnotice {
-	color: #000;
+	color: @color-emphasized;
 	border: solid 1px #a8a8a8;
 	padding: 0.5em;
 	margin: 0.5em 0;
-	background-color: #fff;
+	background-color: @color-inverted;
 	font-size: 95%;
 	vertical-align: middle;
 	min-height: 30px;
