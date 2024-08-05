@@ -4,11 +4,11 @@ namespace JsonConfig;
 
 use Content;
 use FormatJson;
+use MediaWiki\Content\CodeContentHandler;
 use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Content\Transform\PreSaveTransformParams;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Parser\ParserOutput;
-use TextContentHandler;
 
 /**
  * JSON Json Config content handler
@@ -19,7 +19,7 @@ use TextContentHandler;
  *
  * @author Yuri Astrakhan <yurik@wikimedia.org>
  */
-class JCContentHandler extends TextContentHandler {
+class JCContentHandler extends CodeContentHandler {
 
 	/**
 	 * Internal format to force pretty-printed json serialization
