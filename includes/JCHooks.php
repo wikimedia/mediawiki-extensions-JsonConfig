@@ -302,7 +302,7 @@ class JCHooks implements
 							);
 						}
 						$iconCodes = Html::rawElement(
-							'div', [ 'class' => 'mw-jsonconfig-editnotice-icons' ], $iconCodes
+							'div', [ 'class' => 'mw-jsonconfig-editnotice-icons skin-invert' ], $iconCodes
 						);
 					}
 
