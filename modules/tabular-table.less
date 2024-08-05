@@ -15,8 +15,8 @@
 	}
 
 	th {
-		background-color: #f8f9fa;
-		border: @border-width-base inset #eaecf0;
+		background-color: @background-color-interactive-subtle;
+		border: @border-width-base inset @border-color-muted;
 		border-left-color: @border-color-subtle;
 		border-right-color: @border-color-subtle;
 		color: @color-inverted;
@@ -28,7 +28,7 @@
 		background-color: @background-color-interactive-subtle;
 		padding: 1em 1.5em;
 		border-color: @border-color-subtle;
-		border-top: @border-width-base @border-style-base #eaecf0;
+		border-top: @border-width-base @border-style-base @border-color-muted;
 		border-bottom: @border-subtle;
 		color: @color-progressive;
 		font-size: 1em;
@@ -65,7 +65,7 @@
 	}
 
 	.mw-tabular-row-type th {
-		background-color: #f8f9fa;
+		background-color: @background-color-interactive-subtle;
 		color: @color-subtle;
 		font-family: @font-family-monospace;
 		font-size: 0.8em;
@@ -73,7 +73,7 @@
 	}
 
 	.mw-tabular-row-key th {
-		background-color: #f8f9fa;
+		background-color: @background-color-interactive-subtle;
 		border-top-color: @color-subtle;
 		color: @color-base;
 		font-family: @font-family-monospace;
@@ -90,13 +90,13 @@
 	}
 
 	th[ data-type='number' ],
-	th[ data-type='boolean' ], {
+	th[ data-type='boolean' ] {
 		min-width: 4em;
 		text-align: center;
 	}
 
 	td[ data-type='number' ],
-	td[ data-type='boolean' ], {
+	td[ data-type='boolean' ] {
 		text-align: center;
 	}
 
@@ -105,7 +105,7 @@
 	}
 
 	.mw-tabular-value-null {
-		background-color: #eaecf0;
+		background-color: @background-color-neutral;
 	}
 
 	.mw-tabular-value-info {
