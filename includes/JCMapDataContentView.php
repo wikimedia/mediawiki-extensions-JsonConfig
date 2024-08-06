@@ -68,7 +68,7 @@ EOT;
 				) {
 					$text = "<syntaxhighlight lang=json>\n$jsonText\n</syntaxhighlight>";
 				} else {
-					$text = "<pre>\n$jsonText\n</pre>";
+					$text = "<pre dir=ltr>\n$jsonText\n</pre>";
 				}
 			}
 			$output = $parser->parse( $text, $page, $options, true, true, $revId );
