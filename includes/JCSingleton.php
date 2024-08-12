@@ -473,7 +473,7 @@ class JCSingleton {
 				throw new InvalidArgumentException( '$namespace parameter is missing for string $value' );
 			}
 		} else {
-			wfLogWarning( 'Unexpected title param type ' . gettype( $value ) );
+			wfLogWarning( 'Unexpected title param type ' . get_debug_type( $value ) );
 			return false;
 		}
 
