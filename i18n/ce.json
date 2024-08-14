@@ -8,7 +8,7 @@
 	"nstab-data": "Хаам",
 	"tooltip-ca-nstab-data": "Хьажа хаамийн агӀо",
 	"jsonconfig-desc": "JSON нисйар лато йиш хуьлуьйту вики-проектехь",
-	"jsonconfig-duplicate-field": "Карина цхьанал дукха маьӀна «$1»",
+	"jsonconfig-duplicate-field": "Карийна цхьанал дукха маьӀна «$1»",
 	"jsonconfig-edit-action-apply": "Кхочушде",
 	"jsonconfig-edit-action-cancel": "Йухайаккхар",
 	"jsonconfig-edit-button-label": "Таблица хийца",
