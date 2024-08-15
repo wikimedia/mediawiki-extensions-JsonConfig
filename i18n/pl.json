@@ -6,7 +6,8 @@
 			"Openbk",
 			"Rail",
 			"Railfail536",
-			"SemanticPioneer"
+			"SemanticPioneer",
+			"Woytecr"
 		]
 	},
 	"nstab-data": "Dane",
@@ -65,5 +66,6 @@
 	"jsonconfig-license-notice": "'''Uwaga:''' Edytując tę stronę zgadzasz się na publikowanie twojego wkładu zgodnie z zasadami licencji [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-notice-license-unset": "'''Uwaga:''' Edytując tę stronę zgadzasz się na publikowanie twojego wkładu zgodnie z licencją podaną w polu <code>licence</code>.",
 	"right-jsonconfig-flush": "Zmienianie JsonConfig przez API",
-	"action-jsonconfig-flush": "zmieniania JsonConfig przez API"
+	"action-jsonconfig-flush": "zmieniania JsonConfig przez API",
+	"jsonconfig-blocked-page-creation": "Tytuł strony, który podano, nie pasuje do żadnych wzorów skonfigurowanych dla rozszerzenia JSONConfig dla tej wiki."
 }

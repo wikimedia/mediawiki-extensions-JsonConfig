@@ -94,5 +94,6 @@
 	"jsonconfig-license-notice": "'''注意：''' 編輯此頁面時，您同意根據[{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}]授權條款發布您的貢獻。",
 	"jsonconfig-license-notice-license-unset": "'''請注意：'''當您編輯頁面時，代表您同意基於 <code>licence</code> 欄位裡所指定的授權條款來釋出您的貢獻。",
 	"right-jsonconfig-flush": "經由 API 操控 JsonConfig",
-	"action-jsonconfig-flush": "經由 API 操控 JsonConfig"
+	"action-jsonconfig-flush": "經由 API 操控 JsonConfig",
+	"jsonconfig-blocked-page-creation": "您指定的頁面標題與此 wiki 的 JSONConfig 擴充功能所配置的任何模式皆不相符。"
 }
