@@ -3,7 +3,8 @@
 		"authors": [
 			"Nike",
 			"Pyscowicz",
-			"Valtlait"
+			"Valtlait",
+			"Samoasambia"
 		]
 	},
 	"jsonconfig-edit-action-cancel": "Peruuta",
@@ -27,7 +28,7 @@
 	"jsonconfig-license-name-CC-BY-SA-2.5": "Creative Commons Nimeä-JaaSamoin 2.5",
 	"jsonconfig-license-name-CC-BY-SA-3.0": "Creative Commons Nimeä-JaaSamoin 3.0",
 	"jsonconfig-license-name-CC-BY-SA-4.0": "Creative Commons Nimeä-JaaSamoin 4.0",
-	"jsonconfig-license-name-CC-BY-SA-4.0+": "Creative Commons Nimeä-JaaSamoin 4.0  tai uudempi versio",
+	"jsonconfig-license-name-CC-BY-SA-4.0+": "Creative Commons Nimeä-JaaSamoin 4.0 tai uudempi versio",
 	"jsonconfig-license-url-CC0-1.0": "https://creativecommons.org/publicdomain/zero/1.0/deed.fi",
 	"jsonconfig-license-url-CC-BY-1.0": "https://creativecommons.org/licenses/by/1.0/deed.fi",
 	"jsonconfig-license-url-CC-BY-2.0": "https://creativecommons.org/licenses/by/2.0/deed.fi",
