@@ -47,9 +47,6 @@
 	"ExtensionMessagesFiles": {
 		"JsonConfigNamespaces": "JsonConfig.namespaces.php"
 	},
-	"RawHtmlMessages": [
-		"jsonconfig-license"
-	],
 	"AutoloadNamespaces": {
 		"JsonConfig\\": "includes/"
 	},
@@ -116,7 +113,7 @@
 		"MovePageIsValidMove": "main",
 		"PageSaveComplete": "main",
 		"ScribuntoExternalLibraries": "scribunto",
-		"SkinCopyrightFooter": "main",
+		"SkinCopyrightFooterMessage": "main",
 		"TitleGetEditNotices": "main",
 		"PageMoveComplete": "main",
 		"getUserPermissionsErrors": "main"

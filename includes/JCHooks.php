@@ -20,9 +20,10 @@ use MediaWiki\Hook\EditPage__showEditForm_initialHook;
 use MediaWiki\Hook\EditPageCopyrightWarningHook;
 use MediaWiki\Hook\MovePageIsValidMoveHook;
 use MediaWiki\Hook\PageMoveCompleteHook;
-use MediaWiki\Hook\SkinCopyrightFooterHook;
+use MediaWiki\Hook\SkinCopyrightFooterMessageHook;
 use MediaWiki\Hook\TitleGetEditNoticesHook;
 use MediaWiki\Html\Html;
+use MediaWiki\Message\Message;
 use MediaWiki\Output\Hook\BeforePageDisplayHook;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\Hook\ArticleDeleteCompleteHook;
@@ -33,7 +34,7 @@ use MediaWiki\Status\Status;
 use MediaWiki\Storage\Hook\PageSaveCompleteHook;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
-use MessageSpecifier;
+use Wikimedia\Message\MessageSpecifier;
 
 /**
  * Hook handlers for JsonConfig extension.
@@ -58,7 +59,7 @@ class JCHooks implements
 	EditPageCopyrightWarningHook,
 	MovePageIsValidMoveHook,
 	PageSaveCompleteHook,
-	SkinCopyrightFooterHook,
+	SkinCopyrightFooterMessageHook,
 	TitleGetEditNoticesHook,
 	PageMoveCompleteHook,
 	GetUserPermissionsErrorsHook
@@ -332,21 +333,18 @@ class JCHooks implements
 	 *
 	 * @param Title $title
 	 * @param string $type
-	 * @param string &$msg
-	 * @param string &$link
+	 * @param MessageSpecifier &$msgSpec
 	 *
 	 * @return bool
 	 */
-	public function onSkinCopyrightFooter( $title, $type, &$msg, &$link ) {
+	public function onSkinCopyrightFooterMessage( $title, $type, &$msgSpec ) {
 		if ( self::jsonConfigIsStorage( $this->config ) ) {
 			$jct = JCSingleton::parseTitle( $title );
 			if ( $jct ) {
 				$code = self::getTitleLicenseCode( $jct );
 				if ( $code ) {
-					$msg = 'jsonconfig-license';
-					$link = Html::element( 'a', [
-						'href' => wfMessage( 'jsonconfig-license-url-' . $code )->plain()
-					], wfMessage( 'jsonconfig-license-name-' . $code )->plain() );
+					$msgSpec = Message::newFromSpecifier( 'jsonconfig-license' )
+						->params( "[{{int:jsonconfig-license-url-$code}} {{int:jsonconfig-license-name-$code}}]" );
 					return false;
 				}
 			}
