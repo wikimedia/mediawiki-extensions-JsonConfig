@@ -1,7 +1,7 @@
 <?php
 namespace JsonConfig;
 
-use Content;
+use MediaWiki\Content\Content;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Title\Title;

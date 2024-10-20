@@ -1,12 +1,12 @@
 <?php
 namespace JsonConfig;
 
-use ExtensionRegistry;
-use FormatJson;
+use MediaWiki\Json\FormatJson;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageReference;
+use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Parser\ParserOutput;
-use ParserOptions;
+use MediaWiki\Registration\ExtensionRegistry;
 
 /**
  * @package JsonConfig

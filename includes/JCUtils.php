@@ -2,9 +2,9 @@
 
 namespace JsonConfig;
 
-use FormatJson;
 use InvalidArgumentException;
-use Language;
+use MediaWiki\Json\FormatJson;
+use MediaWiki\Language\Language;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Status\Status;
 use MediaWiki\StubObject\StubUserLang;

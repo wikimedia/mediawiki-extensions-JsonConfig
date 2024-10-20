@@ -1,8 +1,8 @@
 <?php
 namespace JsonConfig;
 
-use ApiBase;
-use ApiResult;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiResult;
 use MediaWiki\Title\Title;
 use Wikimedia\ParamValidator\ParamValidator;
 

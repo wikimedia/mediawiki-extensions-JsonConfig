@@ -9,6 +9,7 @@ use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MainConfigSchema;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Title\MalformedTitleException;
 use MediaWiki\Title\MediaWikiTitleCodec;
 use MediaWiki\Title\Title;
@@ -76,10 +77,10 @@ class JCSingleton {
 			$config->get( MainConfigNames::NamespaceContentModels ),
 			$config->get( MainConfigNames::ContentHandlers ),
 			array_replace_recursive(
-				\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ), $config->get( 'JsonConfigs' )
+				ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ), $config->get( 'JsonConfigs' )
 			),
 			array_replace_recursive(
-				\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ),
+				ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ),
 				$config->get( 'JsonConfigModels' )
 			)
 		);
@@ -422,7 +423,7 @@ class JCSingleton {
 	 */
 	public static function getContentClass( $modelId ) {
 		$configModels = array_replace_recursive(
-			\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ),
+			ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ),
 			MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigModels' )
 		);
 		$class = null;

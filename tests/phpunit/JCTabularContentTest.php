@@ -2,10 +2,10 @@
 
 namespace JsonConfig\Tests;
 
-use FormatJson;
 use JsonConfig\JCLuaLibrary;
 use JsonConfig\JCTabularContent;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
+use MediaWiki\Json\FormatJson;
 use MediaWikiIntegrationTestCase;
 
 /**

@@ -4,10 +4,11 @@
 
 namespace JsonConfig;
 
-use ApiModuleManager;
-use Content;
+use MediaWiki\Api\ApiModuleManager;
 use MediaWiki\Api\Hook\ApiMain__moduleManagerHook;
 use MediaWiki\Config\Config;
+use MediaWiki\Content\Content;
+use MediaWiki\Content\ContentHandler;
 use MediaWiki\Content\Hook\ContentHandlerForModelIDHook;
 use MediaWiki\Content\Hook\GetContentModelsHook;
 use MediaWiki\Content\IContentHandlerFactory;
@@ -29,6 +30,7 @@ use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\Hook\ArticleDeleteCompleteHook;
 use MediaWiki\Page\Hook\ArticleUndeleteHook;
 use MediaWiki\Permissions\Hook\GetUserPermissionsErrorsHook;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Revision\Hook\ContentHandlerDefaultModelForHook;
 use MediaWiki\Status\Status;
 use MediaWiki\Storage\Hook\PageSaveCompleteHook;
@@ -138,7 +140,7 @@ class JCHooks implements
 		JCSingleton::init();
 		// TODO: this is copied from onContentHandlerForModelID()
 		$ourModels = array_replace_recursive(
-			\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ),
+			ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ),
 			$this->config->get( 'JsonConfigModels' )
 		);
 		$models = array_merge( $models, array_keys( $ourModels ) );
@@ -147,7 +149,7 @@ class JCHooks implements
 	/**
 	 * Instantiate JCContentHandler if we can handle this modelId
 	 * @param string $modelId
-	 * @param \ContentHandler &$handler
+	 * @param ContentHandler &$handler
 	 * @return bool
 	 */
 	public function onContentHandlerForModelID( $modelId, &$handler ) {
@@ -157,7 +159,7 @@ class JCHooks implements
 
 		JCSingleton::init();
 		$models = array_replace_recursive(
-			\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ),
+			ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' ),
 			$this->config->get( 'JsonConfigModels' )
 		);
 		if ( array_key_exists( $modelId, $models ) ) {
@@ -522,7 +524,7 @@ class JCHooks implements
 		if ( $isStorage === null ) {
 			$isStorage = false;
 			$configs = array_replace_recursive(
-				\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ),
+				ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigs' ),
 				$config->get( 'JsonConfigs' )
 			);
 			foreach ( $configs as $jc ) {

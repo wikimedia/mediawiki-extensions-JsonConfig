@@ -2,12 +2,12 @@
 
 namespace JsonConfig;
 
-use Language;
 use MediaWiki\Html\Html;
+use MediaWiki\Language\Language;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageReference;
 use MediaWiki\Parser\Parser;
-use ParserOptions;
+use MediaWiki\Parser\ParserOptions;
 use stdClass;
 
 /**

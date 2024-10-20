@@ -2,6 +2,7 @@
 namespace JsonConfig;
 
 use MediaWiki\MediaWikiServices;
+use Wikimedia\ObjectCache\BagOStuff;
 
 /**
  * Represents a json blob on a remote wiki.
@@ -12,7 +13,7 @@ class JCCache {
 	private $titleValue;
 	/** @var string */
 	private $key;
-	/** @var \BagOStuff */
+	/** @var BagOStuff */
 	private $cache;
 	/** @var bool|string|JCContent */
 	private $content = null;

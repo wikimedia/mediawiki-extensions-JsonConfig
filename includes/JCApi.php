@@ -1,7 +1,8 @@
 <?php
 namespace JsonConfig;
 
-use ApiBase;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Registration\ExtensionRegistry;
 use Wikimedia\ParamValidator\ParamValidator;
 
 /**
@@ -54,7 +55,7 @@ class JCApi extends ApiBase {
 				$result->addValue(
 					null,
 					'models',
-					\ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' )
+					ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' )
 					+ $this->getConfig()->get( 'JsonConfigModels' )
 				);
 

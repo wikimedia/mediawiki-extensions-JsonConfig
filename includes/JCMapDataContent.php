@@ -1,12 +1,12 @@
 <?php
 namespace JsonConfig;
 
-use FormatJson;
 use Kartographer\SimpleStyleParser;
-use Language;
+use MediaWiki\Json\FormatJson;
+use MediaWiki\Language\Language;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Parser\ParserOptions;
 use MediaWiki\User\User;
-use ParserOptions;
 
 /**
  * @package JsonConfig

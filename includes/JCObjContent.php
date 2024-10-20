@@ -3,6 +3,7 @@ namespace JsonConfig;
 
 use InvalidArgumentException;
 use LogicException;
+use MediaWiki\Json\FormatJson;
 use MediaWiki\Message\Message;
 use stdClass;
 
@@ -49,7 +50,7 @@ abstract class JCObjContent extends JCContent {
 			// ensure that data is sorted in the right order
 			self::markUnchecked( $this->validationData );
 		}
-		return \FormatJson::encode( $this->getDataWithDefaults(), true, \FormatJson::ALL_OK );
+		return FormatJson::encode( $this->getDataWithDefaults(), true, FormatJson::ALL_OK );
 	}
 
 	protected function createDefaultView() {

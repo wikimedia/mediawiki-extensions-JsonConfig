@@ -2,12 +2,12 @@
 
 namespace JsonConfig;
 
-use Content;
-use FormatJson;
 use MediaWiki\Content\CodeContentHandler;
+use MediaWiki\Content\Content;
 use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Content\Transform\PreSaveTransformParams;
 use MediaWiki\Context\IContextSource;
+use MediaWiki\Json\FormatJson;
 use MediaWiki\Parser\ParserOutput;
 
 /**
@@ -36,11 +36,11 @@ class JCContentHandler extends CodeContentHandler {
 	/**
 	 * Returns the content's text as-is.
 	 *
-	 * @param \Content|JCContent $content This is actually a Content object
+	 * @param Content|JCContent $content This is actually a Content object
 	 * @param string|null $format
 	 * @return mixed
 	 */
-	public function serializeContent( \Content $content, $format = null ) {
+	public function serializeContent( Content $content, $format = null ) {
 		$this->checkFormat( $format );
 		$status = $content->getStatus();
 		if ( $status->isGood() ) {
@@ -56,12 +56,12 @@ class JCContentHandler extends CodeContentHandler {
 	}
 
 	/**
-	 * @param \Content|JCContent $oldContent
-	 * @param \Content|JCContent $myContent
-	 * @param \Content|JCContent $yourContent
+	 * @param Content|JCContent $oldContent
+	 * @param Content|JCContent $myContent
+	 * @param Content|JCContent $yourContent
 	 * @return bool|JCContent
 	 */
-	public function merge3( \Content $oldContent, \Content $myContent, \Content $yourContent ) {
+	public function merge3( Content $oldContent, Content $myContent, Content $yourContent ) {
 		// Almost identical clone of the parent's merge3, except that we use pretty-printed merge,
 		// thus allowing much more lenient line-based merging.
 

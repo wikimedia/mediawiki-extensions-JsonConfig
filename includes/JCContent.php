@@ -2,8 +2,10 @@
 
 namespace JsonConfig;
 
-use FormatJson;
+use MediaWiki\Content\TextContent;
+use MediaWiki\Json\FormatJson;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Status\Status;
 use stdClass;
 
@@ -16,7 +18,7 @@ use stdClass;
  * @author Yuri Astrakhan <yurik@wikimedia.org>,
  *   based on Ori Livneh <ori@wikimedia.org> extension schema
  */
-class JCContent extends \TextContent {
+class JCContent extends TextContent {
 	/** @var mixed */
 	private $rawData = null;
 	/** @var stdClass */
@@ -159,7 +161,7 @@ class JCContent extends \TextContent {
 	 */
 	public function getView( $modelId ) {
 		if ( !$this->view ) {
-			$configModels = \ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' )
+			$configModels = ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' )
 				+ MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigModels' );
 			$class = $configModels[$modelId]['view'] ?? null;
 			$this->view = $class ? new $class() : $this->createDefaultView();
