@@ -52,6 +52,8 @@
 	"jsonconfig-type-name-localized": "מתורגם",
 	"jsonconfig-type-name-number": "מחרוזת",
 	"jsonconfig-type-name-boolean": "בוליאני",
+	"jsonconfig-use-category": "דפים שמשתמשים בהרחבה JsonConfig",
+	"jsonconfig-use-category-desc": "הדפים האלה משתמשים בשיטה <code>mw.ext.data.get</code> שמסופקת על־ידי ההרחבה [[:mw:Extension:JsonConfig|JsonConfig]]. השיטה <code>mw.ext.data.get</code> נחשבת לגוזלת משאבים.",
 	"jsonconfig-license": "הנתונים זמינים תחת $1.",
 	"jsonconfig-license-not-set": "עריכת הדף הזה מהווה את הסכמתך לשחרר את תרומתך בהתאם לרישיון המצוין בשדה <code>licence</code>.",
 	"jsonconfig-license-name-CC0-1.0": "קריאייטיב קומונז אפס",

@@ -62,6 +62,7 @@
 	"jsonconfig-type-name-localized": "локализованные",
 	"jsonconfig-type-name-number": "число",
 	"jsonconfig-type-name-boolean": "логическое значение",
+	"jsonconfig-use-category": "Страницы, использующие JsonConfig",
 	"jsonconfig-license": "Данные доступны на условиях $1.",
 	"jsonconfig-license-not-set": "Когда вы редактируете эту страницу, вы соглашаетесь публикацией вашего вклада согласно с лицензией, указанной в поле «<code>лицензия</code>».",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
