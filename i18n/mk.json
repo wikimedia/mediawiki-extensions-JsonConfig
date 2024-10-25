@@ -54,6 +54,8 @@
 	"jsonconfig-type-name-number": "број",
 	"jsonconfig-type-abbr-boolean": "(Бл)",
 	"jsonconfig-type-name-boolean": "Булови",
+	"jsonconfig-use-category": "Страници што го користат додатокот JsonConfig",
+	"jsonconfig-use-category-desc": "Овие страници го користат методот <code>mw.ext.data.get</code> даден од додатокот [[:mw:Extension:JsonConfig|JsonConfig]]. Методот <code>mw.ext.data.get</code> се смета за оптоварувачки.",
 	"jsonconfig-license": "Податоците се достапни под $1.",
 	"jsonconfig-license-not-set": "Уредувајќи ја страницава се согласувате дека ги објавувате придонесите согласно лиценцата укажана во полето <code>licence</code>.",
 	"jsonconfig-license-name-CC0-1.0": "Криејтив комонс Нула",

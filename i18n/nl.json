@@ -55,7 +55,7 @@
 	"jsonconfig-type-name-localized": "gelocaliseerd",
 	"jsonconfig-type-name-number": "getal",
 	"jsonconfig-type-name-boolean": "Boolean",
-	"jsonconfig-use-category": "Pagina's die JsonConfig gebruiken",
+	"jsonconfig-use-category": "Pagina's die de uitbreiding JsonConfig gebruiken",
 	"jsonconfig-use-category-desc": "Deze pagina’s gebruiken de methode <code>mw.ext.data.get</code> die wordt geleverd door de uitbreiding [[:mw:Extension:JsonConfig|JsonConfig]]. De methode <code>mw.ext.data.get</code> wordt als systeembelastend beschouwd.",
 	"jsonconfig-license": "Gegevens beschikbaar onder $1.",
 	"jsonconfig-license-not-set": "Wanneer u deze pagina bewerkt, gaat u ermee akkoord uw bijdrage vrij te geven volgens de licentie die is opgegeven in het veld <code>licence</code>.",
