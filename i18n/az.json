@@ -4,6 +4,14 @@
 			"Nemoralis"
 		]
 	},
+	"tooltip-ca-nstab-data": "Data səhifəsinə bax",
+	"jsonconfig-desc": "JSON konfiqurasiyasının vikidə saxlanmasına imkan verir",
+	"jsonconfig-duplicate-field": "Birdən çox \"$1\" dəyəri tapıldı",
+	"jsonconfig-edit-action-apply": "Tətbiq et",
+	"jsonconfig-edit-action-cancel": "İmtina",
+	"jsonconfig-edit-button-label": "Cədvəl kimi redaktə et",
+	"jsonconfig-edit-dialog-error": "Cədvəl kimi redaktə etmək mümkün deyil: $1",
+	"jsonconfig-edit-dialog-error-data-invalid": "Məlumat sxemə uyğun gəlmir",
 	"jsonconfig-license-url-CC0-1.0": "https://creativecommons.org/publicdomain/zero/1.0/deed.az/",
 	"jsonconfig-license-url-CC-BY-1.0": "https://creativecommons.org/licenses/by/1.0/deed.az",
 	"jsonconfig-license-url-CC-BY-2.0": "https://creativecommons.org/licenses/by/2.0/deed.az",
