@@ -11,7 +11,9 @@
 			"SomeyaMako",
 			"Yurik",
 			"列维劳德",
-			"御坂美琴"
+			"御坂美琴",
+			"Lakejason0",
+			"沈澄心"
 		]
 	},
 	"nstab-data": "数据",
@@ -64,6 +66,7 @@
 	"jsonconfig-license-name-dl-de-zero-2.0": "数据许可证德国 - Zero - 版本 2.0",
 	"jsonconfig-license-name-dl-de-by-1.0": "数据许可证德国 – 署名 – 版本 1.0",
 	"jsonconfig-license-name-dl-de-by-2.0": "数据许可证德国 – 署名 – 版本 2.0",
+	"jsonconfig-license-name-GeoNutzV": "德国地理数据许可协议",
 	"jsonconfig-license-url-CC0-1.0": "https://creativecommons.org/publicdomain/zero/1.0/deed.zh",
 	"jsonconfig-license-copyrightwarning": "通过发布更改，您同意[https://foundation.wikimedia.org/wiki/Terms_of_Use 使用条款]，并且您不可撤销地同意将您的贡献根据[{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}]发布。",
 	"jsonconfig-license-copyrightwarning-license-unset": "通过发布更改，您同意[https://foundation.wikimedia.org/wiki/Terms_of_Use 使用条款]，并且您不可撤销地同意将您的贡献根据<code>licence</code>字段中指定的许可协议发布。",
