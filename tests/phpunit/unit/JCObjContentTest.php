@@ -53,7 +53,7 @@ class JCObjContentTest extends MediaWikiUnitTestCase {
 		$expectedWithDflts,
 		$expectedNoDflts,
 		callable $validators,
-		int $errors = null
+		?int $errors = null
 	) {
 		if ( $expectedWithDflts === true ) {
 			$expectedWithDflts = $initial;
