@@ -30,7 +30,7 @@ class JCSlotDiffRenderer extends SlotDiffRenderer {
 		return $this->textSlotDiffRenderer->getExtraCacheKeys();
 	}
 
-	public function getDiff( Content $oldContent = null, Content $newContent = null ) {
+	public function getDiff( ?Content $oldContent = null, ?Content $newContent = null ) {
 		$this->normalizeContents( $oldContent, $newContent, [ JCContent::class ] );
 		$format = JCContentHandler::CONTENT_FORMAT_JSON_PRETTY;
 
