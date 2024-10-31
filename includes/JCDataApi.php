@@ -30,7 +30,7 @@ class JCDataApi extends ApiBase {
 			$data = $data->getData();
 		} else {
 			/** @var JCDataContent $data */
-			// @phan-suppress-next-line PhanUndeclaredMethod
+			'@phan-var JCDataContent $data';
 			$data = $data->getSafeData( $data->getLocalizedData( $this->getLanguage() ) );
 		}
 

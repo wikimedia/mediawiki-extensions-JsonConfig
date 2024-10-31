@@ -62,7 +62,7 @@ class JCLuaLibrary extends LibraryBase {
 				$result = $content->getData();
 			} else {
 				/** @var JCDataContent $content */
-				// @phan-suppress-next-line PhanUndeclaredMethod
+				'@phan-var JCDataContent $content';
 				$result = $content->getLocalizedData( $language );
 			}
 			// Always re-index tabular data
