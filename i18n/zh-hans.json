@@ -12,7 +12,8 @@
 			"SomeyaMako",
 			"Yurik",
 			"列维劳德",
-			"御坂美琴"
+			"御坂美琴",
+			"沈澄心"
 		]
 	},
 	"nstab-data": "数据",
@@ -65,11 +66,13 @@
 	"jsonconfig-license-name-dl-de-zero-2.0": "数据许可证德国 - Zero - 版本 2.0",
 	"jsonconfig-license-name-dl-de-by-1.0": "数据许可证德国 – 署名 – 版本 1.0",
 	"jsonconfig-license-name-dl-de-by-2.0": "数据许可证德国 – 署名 – 版本 2.0",
+	"jsonconfig-license-name-GeoNutzV": "德国地理数据许可协议",
 	"jsonconfig-license-url-CC0-1.0": "https://creativecommons.org/publicdomain/zero/1.0/deed.zh",
 	"jsonconfig-license-copyrightwarning": "通过发布更改，您同意根据[{{int:jsonconfig-license-url- $1}} {{int:jsonconfig-license-name-$1}}]许可协议的条款发布您的贡献。",
 	"jsonconfig-license-copyrightwarning-license-unset": "通过发布更改，您同意将您的贡献根据<code>licence</code>字段中指定的许可协议发布。",
 	"jsonconfig-license-notice": "'''注意：''' 编辑此页面时，您同意根据[{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}]许可协议的条款发布您的贡献。",
 	"jsonconfig-license-notice-license-unset": "'''注意：''' 编辑此页面时，您同意根据<code>licence</code>中指定的许可证发布您的贡献。",
 	"right-jsonconfig-flush": "通过API操作JsonConfig",
-	"action-jsonconfig-flush": "通过API操作JsonConfig"
+	"action-jsonconfig-flush": "通过API操作JsonConfig",
+	"jsonconfig-blocked-page-creation": "您指定的页面标题与此wiki的JSONConfig扩展配置的任何模式均不匹配。"
 }

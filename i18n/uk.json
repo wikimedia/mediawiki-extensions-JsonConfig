@@ -101,5 +101,6 @@
 	"jsonconfig-license-notice": "'''Примітка:''' Редагуючи цю сторінку, Ви погоджуєтесь на публікацію свого внеску на умовах ліцензії [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-notice-license-unset": "'''Примітка:''' Редагуючи цю сторінку, Ви погоджуєтесь на публікацію свого внеску на умовах ліцензії, зазначеної в полі <code>licence</code>.",
 	"right-jsonconfig-flush": "Управління JsonConfig через API",
-	"action-jsonconfig-flush": "зміну JsonConfig через API"
+	"action-jsonconfig-flush": "зміну JsonConfig через API",
+	"jsonconfig-blocked-page-creation": "Вказана вами назва сторінки не відповідає жодному шаблону, налаштованому для розширення JSONConfig для цієї вікі."
 }
