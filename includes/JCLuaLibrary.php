@@ -71,6 +71,9 @@ class JCLuaLibrary extends LibraryBase {
 			}
 		}
 
+		$output = $this->getParser()->getOutput();
+		JCSingleton::recordJsonLink( $output, $jct );
+
 		return [ self::objectToArray( $result ) ];
 	}
 

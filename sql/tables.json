@@ -1,0 +1,98 @@
+[
+	{
+		"name": "globaljsonlinks_target",
+		"comment": "Holds immutable records of data link reference targets used cross-wiki in `globaljsonlinks`.",
+		"columns": [
+			{
+				"name": "gjlt_id",
+				"comment": "Primary key for records",
+				"type": "bigint",
+				"options": { "unsigned": true, "notnull": true, "autoincrement": true }
+			},
+			{
+				"name": "gjlt_namespace",
+				"comment": "Namespace ID on the central wiki; this is available in $wgJsonConfigs on the other local wikis.",
+				"type": "integer",
+				"options": { "notnull": true }
+			},
+			{
+				"name": "gjlt_title",
+				"comment": "Page title excluding namespace",
+				"type": "binary",
+				"options": { "length": 255, "notnull": true }
+			}
+		],
+		"indexes": [
+			{
+				"name": "gjlt_namespace_title",
+				"columns": [ "gjlt_namespace", "gjlt_title" ],
+				"unique": true
+			}
+		],
+		"pk": [ "gjlt_id" ]
+	},
+	{
+		"name": "globaljsonlinks_wiki",
+		"comment": "Holds immutable records of source wiki ids for data link references in `globaljsonlinks`.",
+		"columns": [
+			{
+				"name": "gjlw_id",
+				"comment": "Primary key for records",
+				"type": "integer",
+				"options": { "unsigned": true, "notnull": true, "autoincrement": true }
+			},
+			{
+				"name": "gjlw_wiki",
+				"comment": "Matches core's si_key for interwiki ids",
+				"type": "binary",
+				"options": { "length": 32, "notnull": true }
+			}
+		],
+		"indexes": [
+			{
+				"name": "gjlw_wiki_id",
+				"columns": [ "gjlw_wiki" ],
+				"unique": true
+			}
+		],
+		"pk": [ "gjlw_id" ]
+	},
+	{
+		"name": "globaljsonlinks",
+		"comment": "Records data link references from local wikis to the shared data wiki",
+		"columns": [
+			{
+				"name": "gjl_wiki",
+				"comment": "Foreign key to gjlw_id with the wiki id string for the client wiki",
+				"type": "integer",
+				"options": { "notnull": true }
+			},
+			{
+				"name": "gjl_namespace",
+				"comment": "Namespace index number on the referring title, must be interpreted in context",
+				"type": "integer",
+				"options": { "notnull": true }
+			},
+			{
+				"name": "gjl_title",
+				"comment": "Text part of the link reference excluding namespace",
+				"type": "binary",
+				"options": { "length": 255, "notnull": true }
+			},
+			{
+				"name": "gjl_target",
+				"comment": "Reference to gjlt_id",
+				"type": "bigint",
+				"options": { "unsigned": true, "notnull": true }
+			}
+		],
+		"indexes": [
+			{
+				"name": "gjl_target_namespace_title",
+				"columns": [ "gjl_target", "gjl_wiki", "gjl_namespace", "gjl_title" ],
+				"unique": false
+			}
+		],
+		"pk": [ "gjl_wiki", "gjl_namespace", "gjl_title", "gjl_target" ]
+	}
+]

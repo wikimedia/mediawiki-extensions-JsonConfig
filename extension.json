@@ -119,14 +119,17 @@
 		"SkinCopyrightFooterMessage": "main",
 		"TitleGetEditNotices": "main",
 		"PageMoveComplete": "main",
-		"getUserPermissionsErrors": "main"
+		"getUserPermissionsErrors": "main",
+		"LoadExtensionSchemaUpdates": "schema",
+		"LinksUpdateComplete": "main"
 	},
 	"HookHandlers": {
 		"main": {
 			"class": "JsonConfig\\JCHooks",
 			"services": [
 				"MainConfig",
-				"ContentHandlerFactory"
+				"ContentHandlerFactory",
+				"JsonConfig.GlobalJsonLinks"
 			]
 		},
 		"codeeditor": {
@@ -141,8 +144,14 @@
 			"services": [
 				"MainConfig"
 			]
+		},
+		"schema": {
+			"class": "JsonConfig\\SchemaHooks"
 		}
 	},
+	"ServiceWiringFiles": [
+		"includes/ServiceWiring.php"
+	],
 	"config": {
 		"JsonConfigs": {
 			"merge_strategy": "array_replace_recursive",
@@ -185,7 +194,13 @@
 		},
 		"JsonConfigUseGUI": {
 			"value": true
+		},
+		"TrackGlobalJsonLinks": {
+			"value": true
 		}
 	},
+	"DatabaseVirtualDomains": [
+		"virtual-globaljsonlinks"
+	],
 	"manifest_version": 2
 }
