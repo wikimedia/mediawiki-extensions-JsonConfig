@@ -55,7 +55,6 @@
 	"jsonconfig-move-aborted-model": "le modèle de configuration JSON de cette page, « $1 », ne correspondra pas au modèle du nouveau titre, « $2 »",
 	"jsonconfig-move-aborted-ns": "le titre de la nouvelle page n’est pas configuré pour contenir une configuration JSON",
 	"jsonconfig-optional-field": "(facultatif)",
-	"jsonconfig-type-abbr-invalid": "(?)",
 	"jsonconfig-type-name-invalid": "non valide",
 	"jsonconfig-type-abbr-string": "(T)",
 	"jsonconfig-type-name-string": "chaîne",
