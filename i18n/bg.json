@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"StanProg",
+			"Ted Masters",
 			"Vlad5250"
 		]
 	},
@@ -27,6 +28,8 @@
 	"jsonconfig-type-name-localized": "локализирано",
 	"jsonconfig-type-name-number": "число",
 	"jsonconfig-type-name-boolean": "булев",
+	"jsonconfig-use-category": "Страници, използващи разширението JsonConfig",
+	"jsonconfig-use-category-desc": "Тези страници използват метода <code>mw.ext.data.get</code>, предоставен от разширението [[:mw:Extension:JsonConfig|JsonConfig]]. Методът <code>mw.ext.data.get</code> е считан за ресурсоемък.",
 	"jsonconfig-license": "Данните са достъпни под $1.",
 	"jsonconfig-license-not-set": "При редактиране на страницата се съгласявате, че публикувате приносите си съгласно лиценза, който е указан в поле <code>лиценз</code>.",
 	"jsonconfig-license-name-CC0-1.0": "Криейтив Комънс Нула",
