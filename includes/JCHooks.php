@@ -13,12 +13,14 @@ use MediaWiki\Content\Hook\ContentHandlerForModelIDHook;
 use MediaWiki\Content\Hook\GetContentModelsHook;
 use MediaWiki\Content\IContentHandlerFactory;
 use MediaWiki\Context\IContextSource;
+use MediaWiki\Deferred\LinksUpdate\LinksUpdate;
 use MediaWiki\EditPage\EditPage;
 use MediaWiki\Hook\AlternateEditHook;
 use MediaWiki\Hook\CanonicalNamespacesHook;
 use MediaWiki\Hook\EditFilterMergedContentHook;
 use MediaWiki\Hook\EditPage__showEditForm_initialHook;
 use MediaWiki\Hook\EditPageCopyrightWarningHook;
+use MediaWiki\Hook\LinksUpdateCompleteHook;
 use MediaWiki\Hook\MovePageIsValidMoveHook;
 use MediaWiki\Hook\PageMoveCompleteHook;
 use MediaWiki\Hook\SkinCopyrightFooterMessageHook;
@@ -64,17 +66,21 @@ class JCHooks implements
 	SkinCopyrightFooterMessageHook,
 	TitleGetEditNoticesHook,
 	PageMoveCompleteHook,
-	GetUserPermissionsErrorsHook
+	GetUserPermissionsErrorsHook,
+	LinksUpdateCompleteHook
 {
 	private Config $config;
 	private IContentHandlerFactory $contentHandlerFactory;
+	private GlobalJsonLinks $globalJsonLinks;
 
 	public function __construct(
 		Config $config,
-		IContentHandlerFactory $contentHandlerFactory
+		IContentHandlerFactory $contentHandlerFactory,
+		GlobalJsonLinks $globalJsonLinks
 	) {
 		$this->config = $config;
 		$this->contentHandlerFactory = $contentHandlerFactory;
+		$this->globalJsonLinks = $globalJsonLinks;
 	}
 
 	/**
@@ -537,5 +543,16 @@ class JCHooks implements
 			}
 		}
 		return $isStorage;
+	}
+
+	/**
+	 * Hook to LinksUpdateComplete
+	 * Deletes old links from usage table and insert new ones.
+	 * @param LinksUpdate $linksUpdater
+	 * @param int|null $ticket
+	 */
+	public function onLinksUpdateComplete( $linksUpdater, $ticket ) {
+		// Track JSON usages in our custom shareable table
+		$this->globalJsonLinks->updateJsonLinks( $linksUpdater );
 	}
 }

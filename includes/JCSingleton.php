@@ -9,6 +9,7 @@ use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MainConfigSchema;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Title\MalformedTitleException;
 use MediaWiki\Title\MediaWikiTitleCodec;
@@ -28,6 +29,7 @@ use stdClass;
  * @license GPL-2.0-or-later
  */
 class JCSingleton {
+
 	/**
 	 * @var array describes how a title should be handled by JsonConfig extension.
 	 * The structure is an array of array of ...:
@@ -582,4 +584,24 @@ class JCSingleton {
 		return $jct ? $jct->getConfig() : $jct;
 	}
 
+	/**
+	 * Record a JsonConfig data usage link for the given parser output;
+	 * in a config with multiple wikis this will save into a shared
+	 * globaljsonlinks table for propagation of cache updates and
+	 * backlinks.
+	 *
+	 * @param ParserOutput $parserOutput
+	 * @param TitleValue $title
+	 */
+	public static function recordJsonLink( $parserOutput, $title ) {
+		// @todo ideally we'd have a cross-wiki title parse so we
+		// could store the namespace here, but it'll interfere with
+		// re-parsing the title later.
+		// Instead we'll rely on the JsonConfig configuration being
+		// as expected with only a single NS_DATA namespace that we
+		// have to track in.
+		if ( $title->getNamespace() === NS_DATA ) {
+			$parserOutput->appendExtensionData( GlobalJsonLinks::KEY_JSONLINKS, $title->getDBkey() );
+		}
+	}
 }
