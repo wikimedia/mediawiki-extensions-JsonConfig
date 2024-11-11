@@ -5,6 +5,7 @@
 			"Jonghaya",
 			"Keysuck",
 			"MemphisA5",
+			"Nikki",
 			"Ykhwong",
 			"그냥기여자"
 		]
@@ -33,7 +34,7 @@
 	"jsonconfig-err-string": "\"$1\" 변수는 문자열이어야 합니다",
 	"jsonconfig-err-url": "\"$1\" 변수는 유효한 URL이어야 합니다",
 	"jsonconfig-optional-field": "(선택 사항)",
-	"jsonconfig-use-category": "JsnoConfig 확장 기능을 사용하는 문서",
+	"jsonconfig-use-category": "JsonConfig 확장 기능을 사용하는 문서",
 	"jsonconfig-license": "$1로 데이터를 이용할 수 있습니다.",
 	"jsonconfig-license-name-CC0-1.0": "크리에이티브 커먼즈 제로",
 	"jsonconfig-license-name-dl-de-zero-2.0": "데이터 라이선스 독일 – 0 – 버전 2.0",
