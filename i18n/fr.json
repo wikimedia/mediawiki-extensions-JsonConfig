@@ -13,7 +13,9 @@
 			"Verdy p",
 			"Wladek92",
 			"Yasten",
-			"Yurik"
+			"Yurik",
+			"JackPotte",
+			"Mahabarata"
 		]
 	},
 	"nstab-data": "Données",
@@ -64,6 +66,8 @@
 	"jsonconfig-type-name-number": "nombre",
 	"jsonconfig-type-abbr-boolean": "(B)",
 	"jsonconfig-type-name-boolean": "booléen",
+	"jsonconfig-use-category": "Pages utilisant l'extension JsonConfig",
+	"jsonconfig-use-category-desc": "Ces pages utilisent la méthode <code>mw.ext.data.get</code> fournie par l'extension [[:mw:Extension:JsonConfig|JsonConfig]]. La méthode <code>mw.ext.data.get</code> est considérée comme coûteuse.",
 	"jsonconfig-license": "Données disponibles sous $1.",
 	"jsonconfig-license-not-set": "Quand vous modifiez cette page, vous acceptez de placer votre contribution sous la licence spécifiée dans le champ <code>licence</code>.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zéro",
@@ -102,10 +106,11 @@
 	"jsonconfig-license-url-dl-de-by-1.0": "https://www.govdata.de/dl-de/by-1-0",
 	"jsonconfig-license-url-dl-de-by-2.0": "https://www.govdata.de/dl-de/by-2-0",
 	"jsonconfig-license-url-GeoNutzV": "https://www.gesetze-im-internet.de/geonutzv/__2.html",
-	"jsonconfig-license-copyrightwarning": "En publiant les modifications, vous acceptez les [https://foundation.wikimedia.org/wiki/Terms_of_Use/fr Conditions d’utilisation] et le placement irrévocable de votre contribution sous [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
-	"jsonconfig-license-copyrightwarning-license-unset": "En publiant les modifications, vous acceptez les [https://foundation.wikimedia.org/wiki/Terms_of_Use Conditions d’utilisation] et de placer irrévocablement votre contribution sous la licence spécifiée dans le champ <code>licence</code>.",
-	"jsonconfig-license-notice": "'''Note :''' quand vous modifiez cette page, vous acceptez de placer votre contribution sous  [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
+	"jsonconfig-license-copyrightwarning": "En publiant des modifications, vous acceptez de placer votre contribution sous la licence [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
+	"jsonconfig-license-copyrightwarning-license-unset": "En publiant des modifications, vous acceptez de placer votre contribution sous la licence spécifiée dans le champ <code>licence</code>.",
+	"jsonconfig-license-notice": "'''Note :''' quand vous modifiez cette page, vous acceptez de placer votre contribution sous les termes de la licence [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-notice-license-unset": "'''Note :''' quand vous modifiez cette page, vous acceptez de placer votre contribution sous la licence spécifiée dans le champ <code>licence</code>.",
 	"right-jsonconfig-flush": "Manipuler JsonConfig par API",
-	"action-jsonconfig-flush": "manipuler JsonConfig au travers de l’API"
+	"action-jsonconfig-flush": "manipuler JsonConfig au travers de l’API",
+	"jsonconfig-blocked-page-creation": "Le titre de page que vous avez spécifié ne correspond à aucun des modèles configurés pour l'extension JSONConfig pour ce wiki."
 }

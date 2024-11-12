@@ -4,7 +4,8 @@
 			"Hamilton Abreu",
 			"Imperadeiro98",
 			"Ngl2016",
-			"Vitorvicentevalente"
+			"Vitorvicentevalente",
+			"Luan"
 		]
 	},
 	"nstab-data": "Dados",
@@ -51,6 +52,8 @@
 	"jsonconfig-type-name-localized": "traduzido",
 	"jsonconfig-type-name-number": "número",
 	"jsonconfig-type-name-boolean": "booliano",
+	"jsonconfig-use-category": "Páginas que utilizam a extensão JsonConfig",
+	"jsonconfig-use-category-desc": "Esta categoria é automaticamente adicionada ás páginas que usam o método <code>mw.ext.data.get</code> fornecido pela extensão [[:mw:Extension:JsonConfig|JsonConfig]]. O método <code>mw.ext.data.get</code> é considerado custoso.",
 	"jsonconfig-license": "Dados disponibilizados com a licença $1.",
 	"jsonconfig-license-not-set": "Ao editar esta página, concorda em publicar a sua contribuição com a licença especificada no campo <code>licence</code> (licença).",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
