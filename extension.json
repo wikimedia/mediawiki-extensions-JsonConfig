@@ -56,6 +56,15 @@
 	"TestAutoloadClasses": {
 		"JsonConfig\\Tests\\ObjContent": "tests/phpunit/unit/ObjContent.php"
 	},
+	"JobClasses": {
+		"globalJsonLinksCachePurge": {
+			"class": "JsonConfig\\GlobalJsonLinksCachePurgeJob",
+			"services": [
+				"JsonConfig.GlobalJsonLinks",
+				"JobQueueGroupFactory"
+			]
+		}
+	},
 	"APIModules": {
 		"jsonconfig": "JsonConfig\\JCApi"
 	},
@@ -129,7 +138,8 @@
 			"services": [
 				"MainConfig",
 				"ContentHandlerFactory",
-				"JsonConfig.GlobalJsonLinks"
+				"JsonConfig.GlobalJsonLinks",
+				"JobQueueGroupFactory"
 			]
 		},
 		"codeeditor": {

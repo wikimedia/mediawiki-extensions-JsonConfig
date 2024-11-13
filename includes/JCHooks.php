@@ -4,6 +4,7 @@
 
 namespace JsonConfig;
 
+use JobSpecification;
 use MediaWiki\Api\ApiModuleManager;
 use MediaWiki\Api\Hook\ApiMain__moduleManagerHook;
 use MediaWiki\Config\Config;
@@ -26,6 +27,7 @@ use MediaWiki\Hook\PageMoveCompleteHook;
 use MediaWiki\Hook\SkinCopyrightFooterMessageHook;
 use MediaWiki\Hook\TitleGetEditNoticesHook;
 use MediaWiki\Html\Html;
+use MediaWiki\JobQueue\JobQueueGroupFactory;
 use MediaWiki\Message\Message;
 use MediaWiki\Output\Hook\BeforePageDisplayHook;
 use MediaWiki\Output\OutputPage;
@@ -72,15 +74,18 @@ class JCHooks implements
 	private Config $config;
 	private IContentHandlerFactory $contentHandlerFactory;
 	private GlobalJsonLinks $globalJsonLinks;
+	private JobQueueGroupFactory $jobQueueGroupFactory;
 
 	public function __construct(
 		Config $config,
 		IContentHandlerFactory $contentHandlerFactory,
-		GlobalJsonLinks $globalJsonLinks
+		GlobalJsonLinks $globalJsonLinks,
+		JobQueueGroupFactory $jobQueueGroupFactory
 	) {
 		$this->config = $config;
 		$this->contentHandlerFactory = $contentHandlerFactory;
 		$this->globalJsonLinks = $globalJsonLinks;
+		$this->jobQueueGroupFactory = $jobQueueGroupFactory;
 	}
 
 	/**
@@ -514,6 +519,18 @@ class JCHooks implements
 						JCUtils::callApi( $req, $query, 'notify remote JsonConfig client' );
 					}
 				}
+
+				// Handle notification of other wikis via job queue on dependency changes
+				// Peer wikis must be configured via $wgLocalDatabases etc.
+				$jobSpec = new JobSpecification(
+					'globalJsonLinksCachePurge',
+					[
+						'namespace' => $value->getNamespace(),
+						'title' => $value->getDBkey(),
+					],
+					[ 'removeDuplicates' => true ]
+				);
+				$this->jobQueueGroupFactory->makeJobQueueGroup()->push( $jobSpec );
 			}
 		}
 		return true;
