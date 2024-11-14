@@ -30,5 +30,6 @@
 	"jsonconfig-license-copyrightwarning-license-unset": "Kui avaldad muudatused, nõustud oma kaastöö avaldamisega väljal <code>licence</code> näidatud litsentsi all.",
 	"jsonconfig-license-notice": "'''Märkus:''' Kui redigeerid seda lehekülge, siis nõustud avaldama oma muudatused litsentsi [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}] tingimustel.",
 	"jsonconfig-license-notice-license-unset": "'''Märkus:''' Kui redigeerid seda lehekülge, siis nõustud avaldama oma muudatused väljal <code>licence</code> näidatud litsentsi all.",
-	"right-jsonconfig-flush": "Muuta JSON-i konfiguratsiooni läbi API"
+	"right-jsonconfig-flush": "Muuta JSON-häälestust API kaudu",
+	"action-jsonconfig-flush": "API kaudu JSON-häälestust muuta"
 }
