@@ -31,8 +31,7 @@ class JCCache {
 		$this->titleValue = $titleValue;
 		$conf = $this->titleValue->getConfig();
 		$flRev = $conf->flaggedRevs;
-		$this->cache = MediaWikiServices::getInstance()
-			->getObjectCacheFactory()->getInstance( CACHE_ANYTHING );
+		$this->cache = MediaWikiServices::getInstance()->getMainWANObjectCache();
 		$keyArgs = [
 			'JsonConfig',
 			MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigCacheKeyPrefix' ),
@@ -113,14 +112,14 @@ class JCCache {
 	public function resetCache( $updateCacheContent = null ) {
 		if ( !MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigDisableCache' ) ) {
 			$conf = $this->titleValue->getConfig();
+			// Delete the old value: this will propagate over WANCache
+			$this->cache->delete( $this->key );
 			if ( $this->content && ( $updateCacheContent === true ||
 				( $updateCacheContent === null && isset( $conf->store ) &&
 					// @phan-suppress-next-line PhanTypeExpectedObjectPropAccess
 					$conf->store->cacheNewValue ) )
 			) {
 				$this->memcSet(); // update cache with the new value
-			} else {
-				$this->cache->delete( $this->key ); // only delete existing value
 			}
 		}
 	}
