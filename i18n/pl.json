@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Chrumps",
+			"IOIOI",
 			"Msz2001",
 			"Openbk",
 			"Rail",
@@ -54,6 +55,7 @@
 	"jsonconfig-type-name-localized": "zlokalizowane dane",
 	"jsonconfig-type-name-number": "liczba",
 	"jsonconfig-type-name-boolean": "wartość logiczna",
+	"jsonconfig-use-category": "Strony używające rozszerzenia JsonConfig",
 	"jsonconfig-license": "Dane dostępne w ramach licencji $1.",
 	"jsonconfig-license-not-set": "Edytując tę stronę zgadzasz się na publikowanie twojego wkładu zgodnie z licencją podaną w polu <code>licence</code>.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
