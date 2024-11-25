@@ -10,6 +10,10 @@ use Wikimedia\ParamValidator\ParamValidator;
  */
 class JCApi extends ApiBase {
 
+	/**
+	 * @param mixed $conf
+	 * @return array
+	 */
 	private static function addStatusConf( $conf ) {
 		// explicitly list values to avoid accidental exposure of private data
 		$res = [
