@@ -47,6 +47,9 @@ class JCMapDataContent extends JCDataContent {
 		return $data;
 	}
 
+	/**
+	 * @return callable
+	 */
 	private static function isValidData() {
 		return static function ( JCValue $v, array $path ) {
 			$value = $v->getValue();
@@ -75,7 +78,7 @@ class JCMapDataContent extends JCDataContent {
 	 * with the single string corresponding to the $lang language, or if $lang is not set,
 	 * validates those values and returns true/false if valid
 	 * @param \stdClass|array &$json
-	 * @param bool|Language $lang
+	 * @param Language|false $lang
 	 * @return bool
 	 */
 	public static function recursiveWalk( &$json, $lang = false ) {
@@ -101,6 +104,13 @@ class JCMapDataContent extends JCDataContent {
 		return true;
 	}
 
+	/**
+	 * @param \stdClass $obj
+	 * @param string $property
+	 * @param Language|false $lang
+	 * @param int $maxlength
+	 * @return bool
+	 */
 	private static function isValidStringOrLocalized( $obj, $property, $lang, $maxlength = 400 ) {
 		if ( property_exists( $obj, $property ) ) {
 			$value = $obj->$property;
