@@ -8,7 +8,6 @@ use stdClass;
 /**
  * A value object class that contains namespace ID, title, and
  * the corresponding jsonconfig configuration
- * @package JsonConfig
  */
 final class JCTitle extends TitleValue {
 

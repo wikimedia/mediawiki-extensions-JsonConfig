@@ -8,7 +8,6 @@ use MediaWikiUnitTestCase;
 use Wikimedia\TestingAccessWrapper;
 
 /**
- * @group JsonConfig
  * @covers \JsonConfig\JCMapDataContent
  */
 class JCMapDataContentUnitTest extends MediaWikiUnitTestCase {

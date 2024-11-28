@@ -8,9 +8,6 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\ParserOptions;
 use MediaWiki\User\User;
 
-/**
- * @package JsonConfig
- */
 class JCMapDataContent extends JCDataContent {
 
 	public function validateContent() {

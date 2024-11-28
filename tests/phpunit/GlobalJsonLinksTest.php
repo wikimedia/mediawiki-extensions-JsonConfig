@@ -10,8 +10,6 @@ use MediaWikiIntegrationTestCase;
 use Wikimedia\TestingAccessWrapper;
 
 /**
- * @package JsonConfigTests
- * @group JsonConfig
  * @group Database
  */
 class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {

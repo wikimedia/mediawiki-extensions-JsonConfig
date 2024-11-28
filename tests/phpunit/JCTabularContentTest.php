@@ -9,8 +9,6 @@ use MediaWiki\Json\FormatJson;
 use MediaWikiIntegrationTestCase;
 
 /**
- * @package JsonConfigTests
- * @group JsonConfig
  * @covers \JsonConfig\JCTabularContent
  */
 class JCTabularContentTest extends MediaWikiIntegrationTestCase {

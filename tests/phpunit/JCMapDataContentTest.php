@@ -8,7 +8,6 @@ use MediaWiki\MainConfigNames;
 use MediaWikiIntegrationTestCase;
 
 /**
- * @group JsonConfig
  * @covers \JsonConfig\JCMapDataContent
  * @group Database
  */

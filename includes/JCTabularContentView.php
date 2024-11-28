@@ -10,7 +10,6 @@ use MediaWiki\Parser\ParserOutput;
 
 /**
  * This class is used in case when there is no custom view defined for JCContent object
- * @package JsonConfig
  */
 class JCTabularContentView extends JCContentView {
 

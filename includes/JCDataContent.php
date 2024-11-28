@@ -10,9 +10,6 @@ use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOptions;
 use stdClass;
 
-/**
- * @package JsonConfig
- */
 abstract class JCDataContent extends JCObjContent {
 
 	/**

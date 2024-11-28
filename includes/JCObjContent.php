@@ -10,7 +10,6 @@ use stdClass;
 /**
  * This class treats all configs as proper object representation of JSON,
  * and offers a number of primitives to simplify validation on all levels
- * @package JsonConfig
  */
 abstract class JCObjContent extends JCContent {
 

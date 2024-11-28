@@ -9,8 +9,6 @@ use MediaWikiUnitTestCase;
 use PHPUnit\Framework\Assert;
 
 /**
- * @package JsonConfigTests
- * @group JsonConfig
  * @covers \JsonConfig\JCObjContent
  */
 class JCObjContentTest extends MediaWikiUnitTestCase {

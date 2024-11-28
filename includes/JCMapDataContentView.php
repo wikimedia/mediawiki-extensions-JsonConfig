@@ -8,10 +8,6 @@ use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Registration\ExtensionRegistry;
 
-/**
- * @package JsonConfig
- */
-
 class JCMapDataContentView extends JCContentView {
 
 	/**

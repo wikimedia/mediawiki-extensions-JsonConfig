@@ -6,7 +6,6 @@ use MediaWiki\Message\Message;
 
 /**
  * A class with validation state that wraps each accessed value in the JCObjContent::validationData
- * @package JsonConfig
  */
 final class JCValue {
 

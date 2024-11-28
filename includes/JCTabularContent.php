@@ -4,9 +4,6 @@ namespace JsonConfig;
 
 use MediaWiki\Language\Language;
 
-/**
- * @package JsonConfig
- */
 class JCTabularContent extends JCDataContent {
 
 	protected function createDefaultView() {

@@ -8,9 +8,6 @@ use MediaWiki\MainConfigNames;
 use MediaWikiIntegrationTestCase;
 
 /**
- * @package JsonConfigTests
- * @group JsonConfig
- * @group Title
  * @group Database
  */
 class JCTitleParsingTest extends MediaWikiIntegrationTestCase {

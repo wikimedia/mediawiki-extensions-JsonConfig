@@ -5,7 +5,6 @@ use Closure;
 
 /**
  * Class JCValidators contains various static validation functions
- * @package JsonConfig
  */
 class JCValidators {
 
