@@ -468,9 +468,7 @@ class JCSingleton {
 
 		// figure out the namespace ID (int) - we don't need to parse the string if ns is unknown
 		if ( $value instanceof LinkTarget ) {
-			if ( $namespace === null ) {
-				$namespace = $value->getNamespace();
-			}
+			$namespace ??= $value->getNamespace();
 		} elseif ( is_string( $value ) ) {
 			if ( $namespace === null ) {
 				throw new InvalidArgumentException( '$namespace parameter is missing for string $value' );

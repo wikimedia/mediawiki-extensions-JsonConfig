@@ -394,9 +394,7 @@ abstract class JCObjContent extends JCContent {
 					if ( !$isJcv ) {
 						$subVal = new JCValue( JCValue::UNCHECKED, $subVal );
 					}
-					if ( $result === null ) {
-						$result = $isObject ? (object)[] : [];
-					}
+					$result ??= $isObject ? (object)[] : [];
 					if ( $isObject ) {
 						$result->$key = $subVal;
 						unset( $val->$key );
@@ -440,9 +438,7 @@ abstract class JCObjContent extends JCContent {
 	 *      JCValue if the value is found
 	 */
 	public function getField( $field, $data = null ) {
-		if ( $data === null ) {
-			$data = $this->getValidationData();
-		}
+		$data ??= $this->getValidationData();
 		foreach ( (array)$field as $fld ) {
 			if ( !is_int( $fld ) && !is_string( $fld ) ) {
 				throw new InvalidArgumentException( 'Field must be either int or string' );

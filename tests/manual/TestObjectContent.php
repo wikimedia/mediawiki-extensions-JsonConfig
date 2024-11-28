@@ -7,8 +7,7 @@ use JsonConfig\JCObjContent;
 
 class TestObjectContent extends JCObjContent {
 	public function __construct( $text, $modelId, $thorough ) {
-		if ( $text === null ) {
-			$text = <<<END
+		$text ??= <<<END
 {
     "dict": {
         "string": "value",
@@ -22,7 +21,6 @@ class TestObjectContent extends JCObjContent {
     "emptydict": {}
 }
 END;
-		}
 		parent::__construct( $text, $modelId, $thorough );
 	}
 
