@@ -31,27 +31,27 @@ use stdClass;
 class JCSingleton {
 
 	/**
-	 * @var array describes how a title should be handled by JsonConfig extension.
+	 * @var array<int,stdClass[]> describes how a title should be handled by JsonConfig extension.
 	 * The structure is an array of array of ...:
 	 * { int_namespace => { name => { allows-sub-namespaces => configuration_array } } }
 	 */
 	public static $titleMap = [];
 
 	/**
-	 * @var string[]|false[] containing all the namespaces handled by JsonConfig
+	 * @var array<int,string|false> containing all the namespaces handled by JsonConfig
 	 * Maps namespace id (int) => namespace name (string).
 	 * If false, presumes the namespace has been registered by core or another extension
 	 */
 	public static $namespaces = [];
 
 	/**
-	 * @var MapCacheLRU[] contains a cache of recently resolved JCTitle's
+	 * @var array<int,MapCacheLRU> contains a cache of recently resolved JCTitle's
 	 *   as namespace => MapCacheLRU
 	 */
 	public static $titleMapCacheLru = [];
 
 	/**
-	 * @var MapCacheLRU[] contains a cache of recently requested content objects
+	 * @var array<int,MapCacheLRU> contains a cache of recently requested content objects
 	 *   as namespace => MapCacheLRU
 	 */
 	public static $mapCacheLru = [];
@@ -89,12 +89,12 @@ class JCSingleton {
 	}
 
 	/**
-	 * @param array $namespaceContentModels $wgNamespaceContentModels
-	 * @param array $contentHandlers $wgContentHandlers
-	 * @param array $configs $wgJsonConfigs
-	 * @param array $models $wgJsonConfigModels
+	 * @param array<int,string> $namespaceContentModels $wgNamespaceContentModels
+	 * @param array<string,mixed> $contentHandlers $wgContentHandlers
+	 * @param array<string,stdClass> $configs $wgJsonConfigs
+	 * @param array<string,mixed> $models $wgJsonConfigModels
 	 * @param bool $warn if true, calls wfLogWarning() for all errors
-	 * @return array [ $titleMap, $namespaces ]
+	 * @return array{0:array<int,stdClass[]>, 1:array<int,string|false>} [ $titleMap, $namespaces ]
 	 */
 	public static function parseConfiguration(
 		array $namespaceContentModels, array $contentHandlers,
@@ -410,7 +410,7 @@ class JCSingleton {
 
 	/**
 	 * Mostly for debugging purposes, this function returns initialized internal JsonConfig settings
-	 * @return array[] map of namespaceIDs to list of configurations
+	 * @return array<int,stdClass[]> map of namespaceIDs to list of configurations
 	 */
 	public static function getTitleMap() {
 		self::init();

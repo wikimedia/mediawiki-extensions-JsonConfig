@@ -3,6 +3,7 @@ namespace JsonConfig;
 
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Registration\ExtensionRegistry;
+use stdClass;
 use Wikimedia\ParamValidator\ParamValidator;
 
 /**
@@ -11,7 +12,7 @@ use Wikimedia\ParamValidator\ParamValidator;
 class JCApi extends ApiBase {
 
 	/**
-	 * @param mixed $conf
+	 * @param stdClass $conf
 	 * @return array
 	 */
 	private static function addStatusConf( $conf ) {
@@ -20,26 +21,35 @@ class JCApi extends ApiBase {
 			'model' => $conf->model,
 			'namespace' => $conf->namespace,
 			'nsName' => $conf->nsName,
-			'nsTalk' => isset( $conf->nsTalk ) && $conf->nsTalk ? $conf->nsTalk : 'default',
+			'nsTalk' => ( $conf->nsTalk ?? '' ) ?: 'default',
 			'isLocal' => $conf->isLocal,
 			'cacheExp' => $conf->cacheExp,
 			'cacheKey' => $conf->cacheKey,
 			'flaggedRevs' => $conf->flaggedRevs,
 		];
-		if ( isset( $conf->remote ) ) {
+		$remote = $conf->remote ?? null;
+		if ( $remote ) {
 			$res['remote'] = [
-				'url' => $conf->remote->url,
-				'username' => $conf->remote->username !== '', // true or false
-				'password' => $conf->remote->password !== '', // true or false
+				'url' => $remote->url,
+				'username' => $remote->username !== '', // true or false
+				'password' => $remote->password !== '', // true or false
 			];
 		}
-		if ( isset( $conf->store ) ) {
+		$store = $conf->store ?? null;
+		if ( $store === false ) {
 			// when store equals to false it's a flag to indicate content is stored externaly
 			$res['store'] = [
-				'cacheNewValue' => $conf->store ? $conf->store->cacheNewValue : null,
-				'notifyUrl' => $conf->store ? $conf->store->notifyUrl : null,
-				'notifyUsername' => $conf->store ? $conf->store->notifyUsername !== '' : false,
-				'notifyPassword' => $conf->store ? $conf->store->notifyPassword !== '' : false,
+				'cacheNewValue' => null,
+				'notifyUrl' => null,
+				'notifyUsername' => false,
+				'notifyPassword' => false,
+			];
+		} elseif ( $store ) {
+			$res['store'] = [
+				'cacheNewValue' => $store->cacheNewValue,
+				'notifyUrl' => $store->notifyUrl,
+				'notifyUsername' => $store->notifyUsername !== '',
+				'notifyPassword' => $store->notifyPassword !== '',
 			];
 		}
 		return $res;
