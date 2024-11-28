@@ -5,7 +5,6 @@ namespace JsonConfig\Tests;
 use JsonConfig\GlobalJsonLinks;
 use JsonConfig\JCSingleton;
 use MediaWiki\MainConfigNames;
-use MediaWiki\MediaWikiServices;
 use MediaWikiIntegrationTestCase;
 use Wikimedia\TestingAccessWrapper;
 
@@ -79,7 +78,7 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 					'globalModel' => 'conflicts with JsonConfig models',
 				] );
 
-		$this->titleParser = MediaWikiServices::getInstance()->getTitleParser();
+		$this->titleParser = $this->getServiceContainer()->getTitleParser();
 	}
 
 	protected function tearDown(): void {
