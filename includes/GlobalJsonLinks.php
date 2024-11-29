@@ -184,7 +184,7 @@ class GlobalJsonLinks {
 					}
 				}
 			}
-			if ( $i == 2 ) {
+			if ( $i === 2 ) {
 				throw new \RuntimeException( 'Unexpected insert conflict' );
 			}
 		}

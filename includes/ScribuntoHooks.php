@@ -31,7 +31,7 @@ class ScribuntoHooks implements
 	 */
 	public function onScribuntoExternalLibraries( string $engine, array &$extraLibraries ): void {
 		$enableLuaSupport = $this->config->get( 'JsonConfigEnableLuaSupport' );
-		if ( $enableLuaSupport && $engine == 'lua' ) {
+		if ( $enableLuaSupport && $engine === 'lua' ) {
 			$extraLibraries['mw.ext.data'] = JCLuaLibrary::class;
 		}
 	}

@@ -49,9 +49,9 @@ class JCTabularContentTest extends MediaWikiIntegrationTestCase {
 			$this->assertTrue( true );
 			$languageFactory = $this->getServiceContainer()->getLanguageFactory();
 			foreach ( $content as $langCode => $expected ) {
-				if ( $langCode == 'raw' ) {
+				if ( $langCode === 'raw' ) {
 					continue;
-				} elseif ( $langCode == '_' ) {
+				} elseif ( $langCode === '_' ) {
 					$actual = $c->getData();
 				} else {
 					$actual = $c->getLocalizedData( $languageFactory->getLanguage( $langCode ) );
