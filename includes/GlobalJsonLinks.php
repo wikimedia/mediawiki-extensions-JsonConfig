@@ -5,6 +5,7 @@ namespace JsonConfig;
 use IDBAccessObject;
 use MediaWiki\Config\ServiceOptions;
 use MediaWiki\Deferred\LinksUpdate\LinksUpdate;
+use MediaWiki\MainConfigNames;
 use MediaWiki\Title\TitleValue;
 use Wikimedia\Rdbms\IConnectionProvider;
 use Wikimedia\Rdbms\IDatabase;
@@ -17,7 +18,7 @@ class GlobalJsonLinks {
 	/** Config vars needed for operation */
 	public const CONFIG_OPTIONS = [
 		'TrackGlobalJsonLinks',
-		'UpdateRowsPerQuery'
+		MainConfigNames::UpdateRowsPerQuery
 	];
 
 	/** @var string */
@@ -219,7 +220,7 @@ class GlobalJsonLinks {
 		}
 
 		$ticket = $ticket ?: $this->connectionProvider->getEmptyTransactionTicket( __METHOD__ );
-		$insertBatches = array_chunk( $insert, $this->config->get( 'UpdateRowsPerQuery' ) );
+		$insertBatches = array_chunk( $insert, $this->config->get( MainConfigNames::UpdateRowsPerQuery ) );
 		foreach ( $insertBatches as $insertBatch ) {
 			$db->newInsertQueryBuilder()
 				->insertInto( 'globaljsonlinks' )
@@ -251,7 +252,7 @@ class GlobalJsonLinks {
 
 		$ticket = $ticket ?: $this->connectionProvider->getEmptyTransactionTicket( __METHOD__ );
 		if ( $to ) {
-			foreach ( array_chunk( $to, $this->config->get( 'UpdateRowsPerQuery' ) ) as $toBatch ) {
+			foreach ( array_chunk( $to, $this->config->get( MainConfigNames::UpdateRowsPerQuery ) ) as $toBatch ) {
 				if ( $toBatch ) {
 					$targets = $this->mapTargets( $toBatch );
 					$where['gjl_target'] = array_values( $targets );
