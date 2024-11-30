@@ -2,9 +2,9 @@
 
 namespace JsonConfig\Tests;
 
-use JsonConfig\GlobalJsonLinks;
 use JsonConfig\JCSingleton;
 use MediaWiki\MainConfigNames;
+use MediaWiki\Title\TitleParser;
 use MediaWikiIntegrationTestCase;
 use Wikimedia\TestingAccessWrapper;
 
@@ -13,11 +13,8 @@ use Wikimedia\TestingAccessWrapper;
  */
 class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 
-	/** @var array */
-	private $configBackup;
-
-	/** @var TitleParser */
-	private $titleParser;
+	private array $configBackup;
+	private TitleParser $titleParser;
 
 	protected function parseTitle( $titleStr ) {
 		$t = $this->titleParser->parseTitle( $titleStr );
@@ -88,9 +85,9 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * @param string $wiki wiki id
-	 * @return GlobalJsonLinks
+	 * @return TestingAccessWrapper
 	 */
-	private function globalJsonLinks( $wiki ) {
+	private function globalJsonLinks( string $wiki ): TestingAccessWrapper {
 		return TestingAccessWrapper::newFromObject(
 			$this->getServiceContainer()
 				->getService( 'JsonConfig.GlobalJsonLinks' )

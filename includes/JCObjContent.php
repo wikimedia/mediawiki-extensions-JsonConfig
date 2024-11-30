@@ -17,10 +17,10 @@ abstract class JCObjContent extends JCContent {
 	 * @var bool if false, prevents multiple fields from having identical names that differ
 	 *   only by casing
 	 */
-	protected $isCaseSensitive = false;
+	protected bool $isCaseSensitive = false;
 
 	/** @var bool if false, ensure the root to be an stdClass, otherwise - an array */
-	protected $isRootArray = false;
+	protected bool $isRootArray = false;
 
 	/**
 	 * @var JCValue contains raw validation results. At first it is a parsed JSON value, with the
@@ -33,7 +33,7 @@ abstract class JCObjContent extends JCContent {
 	protected $dataWithDefaults;
 
 	/** @var bool|null validation status - null=before, true=during, false=done */
-	protected $isValidating = null;
+	protected ?bool $isValidating = null;
 
 	/**
 	 * Override default behavior to include defaults if validation succeeded.
@@ -88,7 +88,7 @@ abstract class JCObjContent extends JCContent {
 	 * @param mixed $data
 	 * @return bool if true, validation should be performed, otherwise all checks will be ignored
 	 */
-	protected function initValidation( $data ) {
+	protected function initValidation( $data ): bool {
 		if ( $this->isValidating !== null ) {
 			throw new LogicException( 'This method may only be called before validation has started' );
 		}
@@ -108,7 +108,7 @@ abstract class JCObjContent extends JCContent {
 	 * Derived validate() must return the result of this function
 	 * @return array|null
 	 */
-	protected function finishValidation() {
+	protected function finishValidation(): ?array {
 		if ( !$this->getStatus()->isGood() ) {
 			return $this->getRawData(); // validation failed, do not modify
 		}
@@ -161,7 +161,7 @@ abstract class JCObjContent extends JCContent {
 	 * @param callable ...$extraValidators
 	 * @return bool true if ok, false otherwise
 	 */
-	public function testOptional( $path, $default, $validator = null, ...$extraValidators ) {
+	public function testOptional( $path, $default, $validator = null, ...$extraValidators ): bool {
 		$vld = self::convertValidators( $validator, $extraValidators );
 		// first validator will replace missing with the default
 		array_unshift( $vld, JCValidators::useDefault( $default ) );
@@ -182,7 +182,7 @@ abstract class JCObjContent extends JCContent {
 	 * @param callable ...$extraValidators
 	 * @return bool true if ok, false otherwise
 	 */
-	public function test( $path, $validator, ...$extraValidators ) {
+	public function test( $path, $validator, ...$extraValidators ): bool {
 		$vld = self::convertValidators( $validator, $extraValidators );
 		return $this->testInt( $path, $vld );
 	}
@@ -202,7 +202,7 @@ abstract class JCObjContent extends JCContent {
 	 * @param callable ...$extraValidators
 	 * @return bool true if all values tested ok, false otherwise
 	 */
-	public function testEach( $path, $validator = null, ...$extraValidators ) {
+	public function testEach( $path, $validator = null, ...$extraValidators ): bool {
 		$vld = self::convertValidators( $validator, $extraValidators );
 		$isOk = true;
 		$path = (array)$path;
@@ -228,7 +228,7 @@ abstract class JCObjContent extends JCContent {
 	 * @param array $validators
 	 * @return bool
 	 */
-	private function testInt( $path, $validators ) {
+	private function testInt( $path, array $validators ): bool {
 		if ( !$this->getStatus()->isOK() ) {
 			return false; // skip all validation in case of a fatal error
 		}
@@ -248,7 +248,7 @@ abstract class JCObjContent extends JCContent {
 	 * @internal param JCValue $status
 	 * @return bool
 	 */
-	private function testRecursive( array $path, array $fldPath, JCValue $jcv, $validators ) {
+	private function testRecursive( array $path, array $fldPath, JCValue $jcv, $validators ): bool {
 		// Go recursively through all fields in path until empty, and validate last
 		if ( !$path ) {
 			// keep this branch here since we allow validation of the whole object ($path==[])
@@ -328,7 +328,7 @@ abstract class JCObjContent extends JCContent {
 	 * @param array $validators
 	 * @return bool
 	 */
-	private function testValue( array $fldPath, JCValue $jcv, $validators ) {
+	private function testValue( array $fldPath, JCValue $jcv, $validators ): bool {
 		// We have reached the last level of the path, test the actual value
 		if ( $validators !== null ) {
 			$isRequired = $jcv->defaultUsed();
@@ -369,7 +369,7 @@ abstract class JCObjContent extends JCContent {
 	 * This is useful for HTML rendering to indicate unchecked items
 	 * @param JCValue $data
 	 */
-	private static function markUnchecked( JCValue $data ) {
+	private static function markUnchecked( JCValue $data ): void {
 		$val = $data->getValue();
 		$isObject = is_object( $val );
 		if ( !$isObject && !is_array( $val ) ) {
@@ -422,7 +422,7 @@ abstract class JCObjContent extends JCContent {
 	 * @param Message $error
 	 * @param bool $isOptional
 	 */
-	public function addValidationError( Message $error, $isOptional = false ) {
+	public function addValidationError( Message $error, bool $isOptional = false ): void {
 		// @TODO fixme - need to re-enable optional field detection & reporting.
 		// Note the string append logic here is broken.
 		// if ( $isOptional ) {
@@ -477,7 +477,7 @@ abstract class JCObjContent extends JCContent {
 	 * @return bool|null true if renamed, false if not found or original unchanged,
 	 *   null if duplicate (error)
 	 */
-	private function normalizeField( JCValue $jcv, $fld, array $fldPath ) {
+	private function normalizeField( JCValue $jcv, $fld, array $fldPath ): ?bool {
 		$valueRef = $jcv->getValue();
 		$foundFld = false;
 		$isError = false;
@@ -519,7 +519,7 @@ abstract class JCObjContent extends JCContent {
 	 * @param array $extraValidators
 	 * @return array of validators
 	 */
-	private static function convertValidators( $param, $extraValidators ) {
+	private static function convertValidators( $param, array $extraValidators ): array {
 		if ( $param === null ) {
 			return []; // no validators given
 		} elseif ( is_array( $param ) && !is_callable( $param, true ) ) {

@@ -139,7 +139,7 @@ class JCApi extends ApiBase {
 					}
 					$content = JCSingleton::parseContent( $jct, $params['content'], true );
 				} else {
-					$content = false;
+					$content = null;
 				}
 
 				$jc = new JCCache( $jct, $content );

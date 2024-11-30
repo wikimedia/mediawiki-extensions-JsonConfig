@@ -3,6 +3,7 @@
 namespace JsonConfig;
 
 use MediaWiki\Language\Language;
+use stdClass;
 
 class JCTabularContent extends JCDataContent {
 
@@ -120,7 +121,7 @@ class JCTabularContent extends JCDataContent {
 
 	/**
 	 * Resolve any override-specific localizations, and add it to $result
-	 * @param \stdClass $result
+	 * @param stdClass $result
 	 * @param Language $lang
 	 */
 	protected function localizeData( $result, Language $lang ) {

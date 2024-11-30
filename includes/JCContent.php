@@ -21,23 +21,20 @@ use stdClass;
 class JCContent extends TextContent {
 	/** @var mixed */
 	private $rawData = null;
-	/** @var stdClass */
+	/** @var stdClass|null */
 	protected $data = null;
-	/** @var Status */
-	private $status;
-	/** @var bool */
-	private $thorough;
-	/** @var bool */
-	private $stripComments;
+	private Status $status;
+	private bool $thorough;
+	private bool $stripComments;
 	/** @var JCContentView|null contains an instance of the view class */
-	private $view = null;
+	private ?JCContentView $view = null;
 
 	/**
 	 * @param string|null $text Json configuration. If null, default content will be inserted instead
 	 * @param string $modelId
 	 * @param bool $thorough True if extra validation should be performed
 	 */
-	public function __construct( $text, $modelId, $thorough ) {
+	public function __construct( ?string $text, string $modelId, bool $thorough ) {
 		$this->stripComments = $text !== null;
 		$text ??= $this->getView( $modelId )->getDefault( $modelId );
 		parent::__construct( $text, $modelId );
@@ -77,19 +74,19 @@ class JCContent extends TextContent {
 	 * Get content status object
 	 * @return Status
 	 */
-	public function getStatus() {
+	public function getStatus(): Status {
 		return $this->status;
 	}
 
 	/**
 	 * @return bool False if this configuration has parsing or validation errors
 	 */
-	public function isValid() {
+	public function isValid(): bool {
 		return $this->status->isGood();
 	}
 
 	/** @inheritDoc */
-	public function isEmpty() {
+	public function isEmpty(): bool {
 		$text = trim( $this->getNativeData() );
 		return $text === '' || $text === '{}';
 	}
@@ -100,7 +97,7 @@ class JCContent extends TextContent {
 	 * @param bool|null $hasLinks
 	 * @return bool
 	 */
-	public function isCountable( $hasLinks = null ) {
+	public function isCountable( $hasLinks = null ): bool {
 		return !$this->isEmpty() && !$this->isRedirect();
 	}
 
@@ -108,7 +105,7 @@ class JCContent extends TextContent {
 	 * Returns true if the text is in JSON format.
 	 * @return bool
 	 */
-	public function isValidJson() {
+	public function isValidJson(): bool {
 		return $this->rawData !== null;
 	}
 
@@ -116,7 +113,7 @@ class JCContent extends TextContent {
 	 * @return bool true if thorough validation may be needed -
 	 *   e.g. rendering HTML or saving new value
 	 */
-	public function thorough() {
+	public function thorough(): bool {
 		return $this->thorough;
 	}
 
@@ -132,7 +129,7 @@ class JCContent extends TextContent {
 	/**
 	 * Perform initial json parsing and validation
 	 */
-	private function parse() {
+	private function parse(): void {
 		$rawText = $this->getNativeData();
 		$parseOpts = FormatJson::TRY_FIXING;
 		if ( $this->stripComments ) {
@@ -160,7 +157,7 @@ class JCContent extends TextContent {
 	 * @param string $modelId is required here because parent ctor might not have ran yet
 	 * @return JCContentView
 	 */
-	public function getView( $modelId ) {
+	public function getView( string $modelId ): JCContentView {
 		if ( !$this->view ) {
 			$configModels = ExtensionRegistry::getInstance()->getAttribute( 'JsonConfigModels' )
 				+ MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigModels' );

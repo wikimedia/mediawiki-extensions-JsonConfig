@@ -27,10 +27,7 @@ class JCContentHandler extends CodeContentHandler {
 	 */
 	public const CONTENT_FORMAT_JSON_PRETTY = 'application/json+pretty';
 
-	/**
-	 * @param string $modelId
-	 */
-	public function __construct( $modelId ) {
+	public function __construct( string $modelId ) {
 		parent::__construct( $modelId, [ CONTENT_FORMAT_JSON, self::CONTENT_FORMAT_JSON_PRETTY ] );
 	}
 

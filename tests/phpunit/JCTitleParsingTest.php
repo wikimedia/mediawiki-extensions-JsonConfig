@@ -12,8 +12,7 @@ use MediaWikiIntegrationTestCase;
  */
 class JCTitleParsingTest extends MediaWikiIntegrationTestCase {
 
-	/** @var array */
-	private $configBackup;
+	private array $configBackup;
 
 	protected function setUp(): void {
 		parent::setUp();

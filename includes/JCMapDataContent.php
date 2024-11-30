@@ -7,6 +7,7 @@ use MediaWiki\Language\Language;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\ParserOptions;
 use MediaWiki\User\User;
+use stdClass;
 
 class JCMapDataContent extends JCDataContent {
 
@@ -77,7 +78,7 @@ class JCMapDataContent extends JCDataContent {
 	 * Recursively walk the geojson to replace localized "title" and "description" values
 	 * with the single string corresponding to the $lang language, or if $lang is not set,
 	 * validates those values and returns true/false if valid
-	 * @param \stdClass|array &$json
+	 * @param stdClass|array &$json
 	 * @param Language|false $lang
 	 * @return bool
 	 */
@@ -105,7 +106,7 @@ class JCMapDataContent extends JCDataContent {
 	}
 
 	/**
-	 * @param \stdClass $obj
+	 * @param stdClass $obj
 	 * @param string $property
 	 * @param Language|false $lang
 	 * @param int $maxlength
