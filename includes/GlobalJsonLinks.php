@@ -2,13 +2,13 @@
 
 namespace JsonConfig;
 
-use IDBAccessObject;
 use MediaWiki\Config\ServiceOptions;
 use MediaWiki\Deferred\LinksUpdate\LinksUpdate;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Title\TitleValue;
 use Wikimedia\Rdbms\IConnectionProvider;
 use Wikimedia\Rdbms\IDatabase;
+use Wikimedia\Rdbms\IDBAccessObject;
 
 class GlobalJsonLinks {
 
