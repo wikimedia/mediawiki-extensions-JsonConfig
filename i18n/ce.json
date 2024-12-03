@@ -48,6 +48,7 @@
 	"jsonconfig-type-name-localized": "локализаци йина",
 	"jsonconfig-type-name-number": "терахь",
 	"jsonconfig-type-name-boolean": "логикин маьӀна",
+	"jsonconfig-use-category": "JsonConfig шордар лелош йолу агӀонаш",
 	"jsonconfig-license": "ТӀекхачаран хаамаш $1 билламашца.",
 	"jsonconfig-license-not-set": "Ахьа хӀара агӀо хуьйцуш, хьо реза хуьллу хьайн къинхьегам арахеца «<code>лицензи</code>» меттигехь билгалйаьккхинчу лицензица.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
