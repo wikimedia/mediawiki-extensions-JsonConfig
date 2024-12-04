@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Alshamiri1",
+			"Lolekek",
 			"Maroen1990",
 			"Meno25",
 			"Tala Ali",
@@ -54,6 +55,7 @@
 	"jsonconfig-type-name-localized": "المترجمة",
 	"jsonconfig-type-name-number": "رقم",
 	"jsonconfig-type-name-boolean": "القيمة المنطقية",
+	"jsonconfig-use-category": "صفحات تستخدم امتداد JsonConfig",
 	"jsonconfig-license": "البيانات متاحة تحت $1.",
 	"jsonconfig-license-not-set": "عندما تقوم بتحرير هذه الصفحة، فإنك توافق على تحرير مساهمتك وفقا للترخيص المحدد في حقل \"الترخيص\".",
 	"jsonconfig-license-name-CC0-1.0": "المشاع الإبداعي صفر",
