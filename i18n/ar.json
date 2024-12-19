@@ -80,5 +80,6 @@
 	"jsonconfig-license-notice": "'''ملاحظة:''' عندما تحرر هذه الصفحة، فإنك توافق على تحرير مساهمتك بموجب [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-notice-license-unset": "'''ملاحظة:''' عندما تحرر هذه الصفحة، فإنك توافق على تحرير مساهمتك وفقا للترخيص المحدد في حقل \"الترخيص\".",
 	"right-jsonconfig-flush": "معالجة JsonConfig عبر API",
-	"action-jsonconfig-flush": "معالجة JsonConfig عبر API"
+	"action-jsonconfig-flush": "معالجة JsonConfig عبر API",
+	"jsonconfig-blocked-page-creation": "عنوان الصفحة الذي حددته لا يتطابق مع أي من الأنماط التي تم تكوينها لامتداد JSONConfig لهذه الويكي."
 }
