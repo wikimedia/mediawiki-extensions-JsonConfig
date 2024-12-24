@@ -56,6 +56,7 @@
 	"jsonconfig-type-name-number": "رقم",
 	"jsonconfig-type-name-boolean": "القيمة المنطقية",
 	"jsonconfig-use-category": "صفحات تستخدم امتداد JsonConfig",
+	"jsonconfig-use-category-desc": "تستخدم هذه الصفحات طريقة <code>mw.ext.data.get</code> التي يوفرها امتداد [[:mw:Extension:JsonConfig|JsonConfig]]. تعتبر طريقة <code>mw.ext.data.get</code> مكلفة.",
 	"jsonconfig-license": "البيانات متاحة تحت $1.",
 	"jsonconfig-license-not-set": "عندما تقوم بتحرير هذه الصفحة، فإنك توافق على تحرير مساهمتك وفقا للترخيص المحدد في حقل \"الترخيص\".",
 	"jsonconfig-license-name-CC0-1.0": "المشاع الإبداعي صفر",
@@ -81,5 +82,6 @@
 	"jsonconfig-license-notice": "'''ملاحظة:''' عندما تحرر هذه الصفحة، فإنك توافق على تحرير مساهمتك بموجب [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-notice-license-unset": "'''ملاحظة:''' عندما تحرر هذه الصفحة، فإنك توافق على تحرير مساهمتك وفقا للترخيص المحدد في حقل \"الترخيص\".",
 	"right-jsonconfig-flush": "معالجة JsonConfig عبر API",
-	"action-jsonconfig-flush": "معالجة JsonConfig عبر API"
+	"action-jsonconfig-flush": "معالجة JsonConfig عبر API",
+	"jsonconfig-blocked-page-creation": "عنوان الصفحة الذي حددته لا يتطابق مع أي من الأنماط التي تم تكوينها لامتداد JSONConfig لهذه الويكي."
 }
