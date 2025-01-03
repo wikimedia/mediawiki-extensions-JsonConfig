@@ -8,6 +8,7 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageReference;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOptions;
+use MediaWiki\StubObject\StubUserLang;
 use stdClass;
 
 abstract class JCDataContent extends JCObjContent {
@@ -82,6 +83,10 @@ abstract class JCDataContent extends JCObjContent {
 		}
 	}
 
+	/**
+	 * @param Language|StubUserLang $lang
+	 * @return string
+	 */
 	public function renderDescription( $lang ) {
 		$description = $this->getField( 'description' );
 		if ( !$description || $description->error() ) {
@@ -130,6 +135,13 @@ abstract class JCDataContent extends JCObjContent {
 		];
 	}
 
+	/**
+	 * @param Parser $parser
+	 * @param PageReference $page
+	 * @param int|null $revId
+	 * @param ParserOptions $options
+	 * @return string
+	 */
 	public function renderSources( Parser $parser, PageReference $page, $revId, ParserOptions $options ) {
 		$sources = $this->getField( 'sources' );
 		if ( !$sources || $sources->error() ) {

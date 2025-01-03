@@ -30,6 +30,9 @@ final class JCTitle extends TitleValue {
 		$this->config = $config;
 	}
 
+	/**
+	 * @return stdClass
+	 */
 	public function getConfig() {
 		return $this->config;
 	}

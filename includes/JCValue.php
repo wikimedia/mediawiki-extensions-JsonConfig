@@ -46,6 +46,10 @@ final class JCValue {
 		return $this->value;
 	}
 
+	/**
+	 * @param mixed $value
+	 * @param int|null $status
+	 */
 	public function setValue( $value, $status = null ) {
 		$this->value = $value;
 		if ( $status !== null ) {
@@ -57,6 +61,10 @@ final class JCValue {
 		}
 	}
 
+	/**
+	 * @param int|null $status
+	 * @return int|null
+	 */
 	public function status( $status = null ) {
 		$val = $this->status;
 		if ( $status !== null ) {
@@ -65,6 +73,10 @@ final class JCValue {
 		return $val;
 	}
 
+	/**
+	 * @param bool|null $sameAsDefault
+	 * @return bool|null
+	 */
 	public function sameAsDefault( $sameAsDefault = null ) {
 		$val = $this->sameAsDefault;
 		if ( $sameAsDefault !== null ) {
@@ -73,6 +85,10 @@ final class JCValue {
 		return $val;
 	}
 
+	/**
+	 * @param bool|null $defaultUsed
+	 * @return bool|null
+	 */
 	public function defaultUsed( $defaultUsed = null ) {
 		$val = $this->defaultUsed;
 		if ( $defaultUsed !== null ) {
@@ -81,10 +97,16 @@ final class JCValue {
 		return $val;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isMissing() {
 		return $this->status === self::MISSING;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isUnchecked() {
 		return $this->status === self::UNCHECKED;
 	}

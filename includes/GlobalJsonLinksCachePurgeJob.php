@@ -5,6 +5,7 @@ namespace JsonConfig;
 use Job;
 use JobSpecification;
 use MediaWiki\JobQueue\JobQueueGroupFactory;
+use MediaWiki\Page\PageReference;
 
 /**
  * Class to insert HTMLCacheUpdate jobs on local wikis to purge all pages that use
@@ -14,6 +15,12 @@ class GlobalJsonLinksCachePurgeJob extends Job {
 	private GlobalJsonLinks $globalJsonLinks;
 	private JobQueueGroupFactory $jobQueueGroupFactory;
 
+	/**
+	 * @param PageReference|null $title
+	 * @param array $params
+	 * @param GlobalJsonLinks $globalJsonLinks
+	 * @param JobQueueGroupFactory $jobQueueGroupFactory
+	 */
 	public function __construct( $title, $params,
 		GlobalJsonLinks $globalJsonLinks,
 		JobQueueGroupFactory $jobQueueGroupFactory
