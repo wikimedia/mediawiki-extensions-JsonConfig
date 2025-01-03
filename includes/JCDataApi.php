@@ -43,6 +43,7 @@ class JCDataApi extends ApiBase {
 		$this->getMain()->setCacheMode( 'public' );
 	}
 
+	/** @inheritDoc */
 	public function getAllowedParams() {
 		return [
 			'title' => [
@@ -52,6 +53,7 @@ class JCDataApi extends ApiBase {
 		];
 	}
 
+	/** @inheritDoc */
 	protected function getExamplesMessages() {
 		return [
 			'action=jsondata&formatversion=2&format=jsonfm&title=Sample.tab'
@@ -61,6 +63,7 @@ class JCDataApi extends ApiBase {
 		];
 	}
 
+	/** @inheritDoc */
 	public function isInternal() {
 		return true;
 	}

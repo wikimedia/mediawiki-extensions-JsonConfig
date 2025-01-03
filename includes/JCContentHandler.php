@@ -88,6 +88,7 @@ class JCContentHandler extends CodeContentHandler {
 		return $this->unserializeContent( $result, $format );
 	}
 
+	/** @inheritDoc */
 	protected function getSlotDiffRendererWithOptions( IContextSource $context, $options = [] ) {
 		return new JCSlotDiffRenderer( $this->createTextSlotDiffRenderer( $options ) );
 	}

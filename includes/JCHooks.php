@@ -389,6 +389,7 @@ class JCHooks implements
 		}
 	}
 
+	/** @inheritDoc */
 	public function onMovePageIsValidMove(
 		$oldTitle, $newTitle, $status
 	) {
@@ -424,6 +425,7 @@ class JCHooks implements
 		}
 	}
 
+	/** @inheritDoc */
 	public function onPageSaveComplete(
 		/** @noinspection PhpUnusedParameterInspection */
 		$wikiPage, $user, $summary, $flags, $revisionRecord, $editResult
@@ -431,6 +433,7 @@ class JCHooks implements
 		return $this->onArticleChangeComplete( $wikiPage );
 	}
 
+	/** @inheritDoc */
 	public function onArticleDeleteComplete(
 		/** @noinspection PhpUnusedParameterInspection */
 		$article, $user, $reason, $id, $content, $logEntry, $archivedRevisionCount
@@ -438,6 +441,7 @@ class JCHooks implements
 		return $this->onArticleChangeComplete( $article );
 	}
 
+	/** @inheritDoc */
 	public function onArticleUndelete(
 		/** @noinspection PhpUnusedParameterInspection */
 		$title, $created, $comment, $oldPageId, $restoredPages
@@ -445,6 +449,7 @@ class JCHooks implements
 		return $this->onArticleChangeComplete( $title );
 	}
 
+	/** @inheritDoc */
 	public function onPageMoveComplete(
 		/** @noinspection PhpUnusedParameterInspection */
 		$title, $newTitle, $user, $pageid, $redirid, $reason, $revisionRecord

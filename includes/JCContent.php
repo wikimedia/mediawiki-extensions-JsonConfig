@@ -88,6 +88,7 @@ class JCContent extends TextContent {
 		return $this->status->isGood();
 	}
 
+	/** @inheritDoc */
 	public function isEmpty() {
 		$text = trim( $this->getNativeData() );
 		return $text === '' || $text === '{}';

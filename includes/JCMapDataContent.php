@@ -124,6 +124,7 @@ class JCMapDataContent extends JCDataContent {
 		return true;
 	}
 
+	/** @inheritDoc */
 	protected function localizeData( $result, Language $lang ) {
 		parent::localizeData( $result, $lang );
 

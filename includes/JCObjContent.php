@@ -126,6 +126,7 @@ abstract class JCObjContent extends JCContent {
 		return $this->data;
 	}
 
+	/** @inheritDoc */
 	public function validate( $data ) {
 		if ( $this->initValidation( $data ) ) {
 			$this->validateContent();

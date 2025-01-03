@@ -155,6 +155,7 @@ class JCApi extends ApiBase {
 		}
 	}
 
+	/** @inheritDoc */
 	public function getAllowedParams() {
 		return [
 			'command' => [

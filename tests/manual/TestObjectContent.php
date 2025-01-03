@@ -6,6 +6,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 use JsonConfig\JCObjContent;
 
 class TestObjectContent extends JCObjContent {
+	/** @inheritDoc */
 	public function __construct( $text, $modelId, $thorough ) {
 		$text ??= <<<END
 {
