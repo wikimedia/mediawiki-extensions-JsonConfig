@@ -8,7 +8,6 @@ use MediaWiki\MainConfigNames;
 use MediaWiki\Title\TitleValue;
 use Wikimedia\Rdbms\IConnectionProvider;
 use Wikimedia\Rdbms\IDatabase;
-use Wikimedia\Rdbms\IDBAccessObject;
 
 class GlobalJsonLinks {
 
@@ -198,11 +197,10 @@ class GlobalJsonLinks {
 	 *
 	 * @param TitleValue $title Title of the page
 	 * @param string[] $links Array of db keys of images used
-	 * @param int $pageIdFlags
-	 * @param int|null $ticket
+	 * @param mixed $ticket Token returned by {@see IConnectionProvider::getEmptyTransactionTicket()}
 	 */
 	private function insertLinks(
-		TitleValue $title, array $links, $pageIdFlags = IDBAccessObject::READ_LATEST, $ticket = null
+		TitleValue $title, array $links, $ticket
 	) {
 		$db = $this->getDB();
 
@@ -238,10 +236,10 @@ class GlobalJsonLinks {
 	 * Deletes all entries from a certain page to certain data pages
 	 *
 	 * @param TitleValue $title Title of the linking page
-	 * @param string[]|null $to target pages to delete or null to remove all
-	 * @param int|null $ticket
+	 * @param string[] $to target pages to delete or null to remove all
+	 * @param mixed $ticket Token returned by {@see IConnectionProvider::getEmptyTransactionTicket()}
 	 */
-	private function deleteLinksFromPage( TitleValue $title, ?array $to = null, $ticket = null ) {
+	private function deleteLinksFromPage( TitleValue $title, array $to, $ticket ) {
 		$db = $this->getDB();
 
 		$where = [
@@ -354,8 +352,9 @@ class GlobalJsonLinks {
 	 * output object and update the database to match.
 	 *
 	 * @param LinksUpdate $linksUpdater
+	 * @param mixed $ticket Token returned by {@see IConnectionProvider::getEmptyTransactionTicket()}
 	 */
-	public function updateJsonLinks( LinksUpdate $linksUpdater ) {
+	public function updateJsonLinks( LinksUpdate $linksUpdater, $ticket ) {
 		if ( !$this->isActive() ) {
 			return;
 		}
@@ -372,10 +371,10 @@ class GlobalJsonLinks {
 
 		// Add new usages and delete removed
 		if ( $added ) {
-			$this->insertLinks( $title, $added );
+			$this->insertLinks( $title, $added, $ticket );
 		}
 		if ( $removed ) {
-			$this->deleteLinksFromPage( $title, $removed );
+			$this->deleteLinksFromPage( $title, $removed, $ticket );
 		}
 	}
 }

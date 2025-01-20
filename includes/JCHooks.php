@@ -571,10 +571,10 @@ class JCHooks implements
 	 * Hook to LinksUpdateComplete
 	 * Deletes old links from usage table and insert new ones.
 	 * @param LinksUpdate $linksUpdater
-	 * @param int|null $ticket
+	 * @param mixed $ticket Token returned by {@see IConnectionProvider::getEmptyTransactionTicket()}
 	 */
 	public function onLinksUpdateComplete( $linksUpdater, $ticket ) {
 		// Track JSON usages in our custom shareable table
-		$this->globalJsonLinks->updateJsonLinks( $linksUpdater );
+		$this->globalJsonLinks->updateJsonLinks( $linksUpdater, $ticket );
 	}
 }

@@ -190,6 +190,7 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 	 */
 	public function testInsertLinks( $targetStr, $sources, $expected ) {
 		$target = $this->parseDataTitle( $targetStr );
+		$ticket = 'xyz';
 
 		foreach ( $sources as $source ) {
 			[ $wiki, $titles ] = $source;
@@ -198,7 +199,7 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 				// todo: this doesn't know non-english namespaces for testing
 				// on the test wiki atm
 				$title = $this->parseTitle( $text );
-				$gjl->insertLinks( $title, [ $targetStr ] );
+				$gjl->insertLinks( $title, [ $targetStr ], $ticket );
 			}
 		}
 
