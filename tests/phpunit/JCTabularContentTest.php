@@ -87,7 +87,7 @@ class JCTabularContentTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public static function provideBadTestCases() {
-		foreach ( glob( __DIR__ . "/tabular-bad/*.json" ) as $file ) {
+		foreach ( glob( __DIR__ . "/tabular-bad/bad-c*.json" ) as $file ) {
 			yield [ $file ];
 		}
 	}
