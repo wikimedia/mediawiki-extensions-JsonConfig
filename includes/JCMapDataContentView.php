@@ -106,6 +106,15 @@ EOT;
     "zoom": 3,
     "latitude": 0,
     "longitude": 0,
+
+	// Optional array of categories for the Map data page.
+    "mediawikiCategories": [
+    	{
+    		"name": "ExampleCategory",
+    		// Optional sort key
+    		"sort": "ExampleSortKey"
+    	}
+    ],
     "data": {
 
         ... GeoJSON ...

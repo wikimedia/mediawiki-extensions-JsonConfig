@@ -8,6 +8,7 @@ use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Content\Transform\PreSaveTransformParams;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Json\FormatJson;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\ParserOutput;
 
 /**
@@ -179,5 +180,31 @@ class JCContentHandler extends CodeContentHandler {
 		}
 
 		$output->setText( $html );
+
+		if ( $content instanceof JCDataContent ) {
+			$this->addCategoriesToParserOutput( $content, $output );
+		}
+	}
+
+	/**
+	 * @param JCDataContent $content
+	 * @param ParserOutput $parserOutput
+	 */
+	protected function addCategoriesToParserOutput( JCDataContent $content, ParserOutput $parserOutput ) {
+		$titleParser = MediaWikiServices::getInstance()->getTitleParser();
+
+		$categoriesField = $content->getField( 'mediawikiCategories' );
+		if ( $categoriesField && !$categoriesField->error() ) {
+			$categories = $categoriesField->getValue();
+			foreach ( $categories as $categoryItem ) {
+				$categoryName = $categoryItem->name;
+				$sortKey = $categoryItem->sort ?? '';
+
+				$categoryTitle = $titleParser->makeTitleValueSafe( NS_CATEGORY, $categoryName );
+				if ( $categoryTitle !== null ) {
+					$parserOutput->addCategory( $categoryTitle->getDBkey(), $sortKey );
+				}
+			}
+		}
 	}
 }

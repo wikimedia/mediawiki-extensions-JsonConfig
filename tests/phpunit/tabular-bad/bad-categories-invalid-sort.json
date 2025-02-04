@@ -1,0 +1,20 @@
+{
+	"license": "CC0-1.0",
+	"schema": {
+		"fields": [
+			{
+				"name": "col1",
+				"type": "string"
+			}
+		]
+	},
+	"mediawikiCategories": [
+		{
+			"name": "Cat",
+			"sort": {
+				"key": "Sorted Cat"
+			}
+		}
+	],
+	"data": []
+}

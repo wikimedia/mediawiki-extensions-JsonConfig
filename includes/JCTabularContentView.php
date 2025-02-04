@@ -199,6 +199,15 @@ class JCTabularContentView extends JCContentView {
         ]
     },
 
+    // Optional array of categories for the Tabular data page.
+    "mediawikiCategories": [
+    	{
+    		"name": "ExampleCategory",
+    		// Optional sort key
+    		"sort": "ExampleSortKey"
+    	}
+    ],
+
     // array of data, with each row being an array of values
     "data": [
         [ 42, "peace" ]

@@ -26,6 +26,7 @@ abstract class JCDataContent extends JCObjContent {
 		$this->test( 'license', JCValidators::isStringLine(), self::isValidLicense() );
 		$this->testOptional( 'description', [ 'en' => '' ], JCValidators::isLocalizedString() );
 		$this->testOptional( 'sources', '', JCValidators::isString() );
+		$this->testOptional( 'mediawikiCategories', [], self::isValidCategories() );
 	}
 
 	/** Returns a validator function to check if the value is a valid string
@@ -40,6 +41,44 @@ abstract class JCDataContent extends JCObjContent {
 					$wgLang->commaList( $allowedLicenses ) );
 				return false;
 			}
+			return true;
+		};
+	}
+
+	/**
+	 * Returns a function to check that categories is a valid array,
+	 * with name and sort (optional) properties.
+	 * @return callable
+	 */
+	public static function isValidCategories() {
+		return static function ( JCValue $v, array $path ) {
+			$categories = $v->getValue();
+			if ( !is_array( $categories ) ) {
+				$v->error( 'jsonconfig-err-array', $path );
+				return false;
+			}
+
+			foreach ( $categories as $idx => $category ) {
+				$itemPath = array_merge( $path, [ $idx ] );
+
+				if ( !is_object( $category ) ) {
+					$v->error( 'jsonconfig-err-category-invalid', $itemPath );
+					return false;
+				}
+
+				if ( !property_exists( $category, 'name' )
+					|| !is_string( $category->name ) ) {
+					$v->error( 'jsonconfig-err-category-name-invalid', $itemPath );
+					return false;
+				}
+
+				if ( property_exists( $category, 'sort' )
+					&& !is_string( $category->sort ) ) {
+					$v->error( 'jsonconfig-err-category-sort-invalid', $itemPath );
+					return false;
+				}
+			}
+
 			return true;
 		};
 	}
@@ -80,6 +119,9 @@ abstract class JCDataContent extends JCObjContent {
 		}
 		if ( property_exists( $data, 'sources' ) ) {
 			$result->sources = $data->sources;
+		}
+		if ( property_exists( $data, 'mediawikiCategories' ) ) {
+			$result->mediawikiCategories = $data->mediawikiCategories;
 		}
 	}
 
@@ -152,4 +194,5 @@ abstract class JCDataContent extends JCObjContent {
 		return Html::rawElement( 'p', [ 'class' => 'mw-jsonconfig-sources' ],
 			$parser->parse( $markup, $page, $options, true, true, $revId )->getRawText() );
 	}
+
 }
