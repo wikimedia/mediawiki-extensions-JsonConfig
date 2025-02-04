@@ -122,13 +122,11 @@ final class JCValue {
 		if ( is_bool( $key ) ) {
 			$this->error = $key;
 		} elseif ( $key !== null ) {
-			$args = func_get_args();
 			if ( is_array( $fieldPath ) ) {
 				// Convert field path to a printable string
-				$args[1] = JCUtils::fieldPathToString( $fieldPath );
+				$fieldPath = JCUtils::fieldPathToString( $fieldPath );
 			}
-			// @phan-suppress-next-line PhanParamTooFewUnpack
-			$this->error = wfMessage( ...$args );
+			$this->error = wfMessage( $key, $fieldPath ?? '', ...$params );
 		}
 		return $this->error;
 	}
