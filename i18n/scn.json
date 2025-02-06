@@ -1,11 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ajeje Brazorf"
+			"Ajeje Brazorf",
+			"Gmelfi"
 		]
 	},
 	"jsonconfig-edit-action-cancel": "Annulla",
 	"jsonconfig-edit-dialog-title": "Cancia JSON",
+	"jsonconfig-err-category-name-invalid": "L'uggettu di catigurìa àvi aviri na pruprità 'nomu' ca è na stringa",
 	"jsonconfig-type-name-invalid": "nun vàliddu",
 	"jsonconfig-type-name-number": "nùmmiru",
 	"jsonconfig-type-name-boolean": "booleanu"
