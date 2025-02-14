@@ -177,13 +177,13 @@ class JCContentHandler extends CodeContentHandler {
 			$html .= $content
 				->getView( $content->getModel() )
 				->valueToHtml( $content, $page, $revId, $parserOptions, $generateHtml, $output );
+
+			if ( $content instanceof JCDataContent ) {
+				$this->addCategoriesToParserOutput( $content, $output );
+			}
 		}
 
 		$output->setText( $html );
-
-		if ( $content instanceof JCDataContent ) {
-			$this->addCategoriesToParserOutput( $content, $output );
-		}
 	}
 
 	/**
