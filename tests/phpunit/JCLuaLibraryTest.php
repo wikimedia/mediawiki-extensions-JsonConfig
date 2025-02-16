@@ -4,6 +4,10 @@ namespace JsonConfig\Tests;
 
 use MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon\LuaEngineTestBase;
 
+if ( !class_exists( LuaEngineTestBase::class ) ) {
+	return;
+}
+
 /**
  * @covers \JsonConfig\JCLuaLibrary
  *
