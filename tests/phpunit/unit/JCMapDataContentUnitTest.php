@@ -1,9 +1,9 @@
 <?php
 
-namespace JsonConfig\Tests;
+namespace MediaWiki\Extension\JsonConfig\Tests;
 
-use JsonConfig\JCMapDataContent;
-use JsonConfig\JCValue;
+use MediaWiki\Extension\JsonConfig\JCMapDataContent;
+use MediaWiki\Extension\JsonConfig\JCValue;
 use MediaWikiUnitTestCase;
 use Wikimedia\TestingAccessWrapper;
 

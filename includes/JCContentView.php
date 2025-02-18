@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageReference;
@@ -59,3 +59,6 @@ $allowedLicenses
 EOT;
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCContentView::class, 'JsonConfig\\JCContentView' );

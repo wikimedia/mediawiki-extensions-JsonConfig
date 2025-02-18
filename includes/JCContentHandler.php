@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Content\CodeContentHandler;
 use MediaWiki\Content\Content;
@@ -207,3 +207,6 @@ class JCContentHandler extends CodeContentHandler {
 		}
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCContentHandler::class, 'JsonConfig\\JCContentHandler' );

@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Html\Html;
 use MediaWiki\Language\Language;
@@ -196,3 +196,6 @@ abstract class JCDataContent extends JCObjContent {
 	}
 
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCDataContent::class, 'JsonConfig\\JCDataContent' );

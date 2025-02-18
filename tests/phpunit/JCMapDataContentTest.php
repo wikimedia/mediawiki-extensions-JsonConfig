@@ -1,9 +1,9 @@
 <?php
 
-namespace JsonConfig\Tests;
+namespace MediaWiki\Extension\JsonConfig\Tests;
 
-use JsonConfig\JCMapDataContent;
 use LogicException;
+use MediaWiki\Extension\JsonConfig\JCMapDataContent;
 use MediaWiki\MainConfigNames;
 use MediaWikiIntegrationTestCase;
 

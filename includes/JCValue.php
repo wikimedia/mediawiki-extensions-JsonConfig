@@ -1,5 +1,5 @@
 <?php
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use InvalidArgumentException;
 use MediaWiki\Message\Message;
@@ -193,3 +193,6 @@ final class JCValue {
 		throw new InvalidArgumentException( 'Type mismatch for field ' . $fld );
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCValue::class, 'JsonConfig\\JCValue' );

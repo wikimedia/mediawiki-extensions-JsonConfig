@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
@@ -216,3 +216,6 @@ class JCTabularContentView extends JCContentView {
 EOT;
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCTabularContentView::class, 'JsonConfig\\JCTabularContentView' );

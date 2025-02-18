@@ -1,5 +1,5 @@
 <?php
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiResult;
@@ -104,3 +104,6 @@ class JCTransformApi extends ApiBase {
 		return true;
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCTransformApi::class, 'JsonConfig\\JCTransformApi' );

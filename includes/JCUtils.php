@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use InvalidArgumentException;
 use MediaWiki\Json\FormatJson;
@@ -256,3 +256,6 @@ class JCUtils {
 	}
 
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCUtils::class, 'JsonConfig\\JCUtils' );

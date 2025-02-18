@@ -49,17 +49,18 @@
 		"JsonConfigNamespaces": "JsonConfig.namespaces.php"
 	},
 	"AutoloadNamespaces": {
-		"JsonConfig\\": "includes/"
+		"JsonConfig\\": "includes/",
+		"MediaWiki\\Extension\\JsonConfig\\": "includes/"
 	},
 	"TestAutoloadNamespaces": {
-		"JsonConfig\\Tests\\": "tests/phpunit/"
+		"MediaWiki\\Extension\\JsonConfig\\Tests\\": "tests/phpunit/"
 	},
 	"TestAutoloadClasses": {
-		"JsonConfig\\Tests\\ObjContent": "tests/phpunit/unit/ObjContent.php"
+		"MediaWiki\\Extension\\JsonConfig\\Tests\\ObjContent": "tests/phpunit/unit/ObjContent.php"
 	},
 	"JobClasses": {
 		"globalJsonLinksCachePurge": {
-			"class": "JsonConfig\\GlobalJsonLinksCachePurgeJob",
+			"class": "MediaWiki\\Extension\\JsonConfig\\GlobalJsonLinksCachePurgeJob",
 			"services": [
 				"JsonConfig.GlobalJsonLinks",
 				"JobQueueGroupFactory"
@@ -67,7 +68,7 @@
 		}
 	},
 	"APIModules": {
-		"jsonconfig": "JsonConfig\\JCApi"
+		"jsonconfig": "MediaWiki\\Extension\\JsonConfig\\JCApi"
 	},
 	"ResourceModules": {
 		"ext.jsonConfig": {
@@ -137,7 +138,7 @@
 	},
 	"HookHandlers": {
 		"main": {
-			"class": "JsonConfig\\JCHooks",
+			"class": "MediaWiki\\Extension\\JsonConfig\\JCHooks",
 			"services": [
 				"JsonConfig.ApiUtils",
 				"MainConfig",
@@ -146,7 +147,7 @@
 			]
 		},
 		"globaljsonlinks": {
-			"class": "JsonConfig\\GJLHooks",
+			"class": "MediaWiki\\Extension\\JsonConfig\\GJLHooks",
 			"services": [
 				"MainConfig",
 				"NamespaceInfo",
@@ -154,32 +155,32 @@
 			]
 		},
 		"codeeditor": {
-			"class": "JsonConfig\\CodeEditorHooks",
+			"class": "MediaWiki\\Extension\\JsonConfig\\CodeEditorHooks",
 			"services": [
 				"MainConfig",
 				"ContentHandlerFactory"
 			]
 		},
 		"codemirror": {
-			"class": "JsonConfig\\CodeMirrorHooks",
+			"class": "MediaWiki\\Extension\\JsonConfig\\CodeMirrorHooks",
 			"services": [
 				"MainConfig",
 				"ContentHandlerFactory"
 			]
 		},
 		"scribunto": {
-			"class": "JsonConfig\\ScribuntoHooks",
+			"class": "MediaWiki\\Extension\\JsonConfig\\ScribuntoHooks",
 			"services": [
 				"MainConfig"
 			]
 		},
 		"schema": {
-			"class": "JsonConfig\\SchemaHooks"
+			"class": "MediaWiki\\Extension\\JsonConfig\\SchemaHooks"
 		}
 	},
 	"SpecialPages": {
 		"GlobalJsonLinks": {
-			"class": "JsonConfig\\SpecialGlobalJsonLinks",
+			"class": "MediaWiki\\Extension\\JsonConfig\\SpecialGlobalJsonLinks",
 			"services": [
 				"JsonConfig.GlobalJsonLinks",
 				"SearchEngineFactory"

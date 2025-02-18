@@ -1,9 +1,9 @@
 <?php
 
-namespace JsonConfig\Tests\Integration;
+namespace MediaWiki\Extension\JsonConfig\Tests\Integration;
 
-use JsonConfig\JCContentHandler;
-use JsonConfig\JCTabularContent;
+use MediaWiki\Extension\JsonConfig\JCContentHandler;
+use MediaWiki\Extension\JsonConfig\JCTabularContent;
 use MediaWiki\Parser\ParserOutput;
 
 /**

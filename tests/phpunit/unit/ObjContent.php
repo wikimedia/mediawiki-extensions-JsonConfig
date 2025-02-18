@@ -1,8 +1,8 @@
 <?php
 
-namespace JsonConfig\Tests;
+namespace MediaWiki\Extension\JsonConfig\Tests;
 
-use JsonConfig\JCObjContent;
+use MediaWiki\Extension\JsonConfig\JCObjContent;
 
 class ObjContent extends JCObjContent {
 	/** @var callable|null */

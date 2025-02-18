@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Language\Language;
 
@@ -161,3 +161,6 @@ class JCTabularContent extends JCDataContent {
 		}
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCTabularContent::class, 'JsonConfig\\JCTabularContent' );

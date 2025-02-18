@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Config\Config;
 use MediaWiki\Extension\Scribunto\Hooks\ScribuntoExternalLibrariesHook;
@@ -32,3 +32,6 @@ class ScribuntoHooks implements
 		}
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( ScribuntoHooks::class, 'JsonConfig\\ScribuntoHooks' );

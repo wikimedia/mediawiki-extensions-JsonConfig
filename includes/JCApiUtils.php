@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Http\HttpRequestFactory;
 use MediaWiki\Json\FormatJson;
@@ -115,3 +115,6 @@ class JCApiUtils {
 		return Status::newGood( $res );
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCApiUtils::class, 'JsonConfig\\JCApiUtils' );

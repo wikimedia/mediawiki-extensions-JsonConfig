@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Config\Config;
 use MediaWiki\Deferred\LinksUpdate\LinksUpdate;
@@ -127,3 +127,6 @@ class GJLHooks implements
 		$this->globalJsonLinks->updateLinks( $title, $pages, $ticket );
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( GJLHooks::class, 'JsonConfig\\GJLHooks' );

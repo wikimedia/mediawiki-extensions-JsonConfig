@@ -1,10 +1,10 @@
 <?php
 
-namespace JsonConfig\Tests;
+namespace MediaWiki\Extension\JsonConfig\Tests;
 
-use JsonConfig\GlobalJsonLinks;
-use JsonConfig\JCSingleton;
 use MediaWiki\Cache\GenderCache;
+use MediaWiki\Extension\JsonConfig\GlobalJsonLinks;
+use MediaWiki\Extension\JsonConfig\JCSingleton;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Title\TitleParser;
 use MediaWiki\Title\TitleValue;

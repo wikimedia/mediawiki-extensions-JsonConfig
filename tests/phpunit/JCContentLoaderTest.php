@@ -1,13 +1,13 @@
 <?php
 
-namespace JsonConfig\Tests;
+namespace MediaWiki\Extension\JsonConfig\Tests;
 
-use JsonConfig\JCApiUtils;
-use JsonConfig\JCContentLoader;
-use JsonConfig\JCContentWrapper;
-use JsonConfig\JCSingleton;
-use JsonConfig\JCTransform;
-use JsonConfig\JCTransformer;
+use MediaWiki\Extension\JsonConfig\JCApiUtils;
+use MediaWiki\Extension\JsonConfig\JCContentLoader;
+use MediaWiki\Extension\JsonConfig\JCContentWrapper;
+use MediaWiki\Extension\JsonConfig\JCSingleton;
+use MediaWiki\Extension\JsonConfig\JCTransform;
+use MediaWiki\Extension\JsonConfig\JCTransformer;
 use MediaWiki\Status\Status;
 
 /**

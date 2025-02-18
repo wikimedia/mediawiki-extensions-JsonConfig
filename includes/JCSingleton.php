@@ -1,5 +1,5 @@
 <?php
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use InvalidArgumentException;
 use MapCacheLRU;
@@ -655,3 +655,6 @@ class JCSingleton {
 		}, $links );
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCSingleton::class, 'JsonConfig\\JCSingleton' );

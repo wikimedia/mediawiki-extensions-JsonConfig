@@ -1,5 +1,5 @@
 <?php
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use InvalidArgumentException;
 use MediaWiki\Title\TitleValue;
@@ -37,3 +37,6 @@ final class JCTitle extends TitleValue {
 		return $this->config;
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCTitle::class, 'JsonConfig\\JCTitle' );

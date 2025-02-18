@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Config\Config;
 use MediaWiki\MainConfigNames;
@@ -546,3 +546,6 @@ class GlobalJsonLinks {
 		return intval( $builder->fetchField() );
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( GlobalJsonLinks::class, 'JsonConfig\\GlobalJsonLinks' );

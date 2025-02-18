@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Status\Status;
 
@@ -167,3 +167,6 @@ class JCContentLoader {
 		return $args;
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCContentLoader::class, 'JsonConfig\\JCContentLoader' );

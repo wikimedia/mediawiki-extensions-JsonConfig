@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Config\Config;
 use MediaWiki\Content\IContentHandlerFactory;
@@ -50,3 +50,6 @@ class CodeEditorHooks implements
 		}
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( CodeEditorHooks::class, 'JsonConfig\\CodeEditorHooks' );

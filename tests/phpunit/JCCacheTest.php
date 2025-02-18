@@ -1,9 +1,9 @@
 <?php
 
-namespace JsonConfig\Tests\Integration;
+namespace MediaWiki\Extension\JsonConfig\Tests\Integration;
 
-use JsonConfig\JCCache;
-use JsonConfig\JCTitle;
+use MediaWiki\Extension\JsonConfig\JCCache;
+use MediaWiki\Extension\JsonConfig\JCTitle;
 use MediaWiki\Page\WikiPage;
 use MediaWikiIntegrationTestCase;
 use Wikimedia\ObjectCache\EmptyBagOStuff;

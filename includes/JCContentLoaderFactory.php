@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 class JCContentLoaderFactory {
 	public function __construct(
@@ -14,3 +14,6 @@ class JCContentLoaderFactory {
 			->title( $title );
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCContentLoaderFactory::class, 'JsonConfig\\JCContentLoaderFactory' );

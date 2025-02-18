@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Api\ApiModuleManager;
 use MediaWiki\Api\Hook\ApiMain__moduleManagerHook;
@@ -552,3 +552,6 @@ class JCHooks implements
 		return $isStorage;
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCHooks::class, 'JsonConfig\\JCHooks' );

@@ -1,5 +1,5 @@
 <?php
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use Closure;
 
@@ -308,3 +308,6 @@ class JCValidators {
 	}
 
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCValidators::class, 'JsonConfig\\JCValidators' );

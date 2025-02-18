@@ -3,7 +3,7 @@
  * JsonConfig schema hooks for updating globaljsonlinks* tables.
  */
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Installer\DatabaseUpdater;
 use MediaWiki\Installer\Hook\LoadExtensionSchemaUpdatesHook;
@@ -37,3 +37,6 @@ class SchemaHooks implements LoadExtensionSchemaUpdatesHook {
 	}
 
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( SchemaHooks::class, 'JsonConfig\\SchemaHooks' );

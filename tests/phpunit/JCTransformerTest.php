@@ -1,10 +1,10 @@
 <?php
 
-namespace JsonConfig\Tests;
+namespace MediaWiki\Extension\JsonConfig\Tests;
 
-use JsonConfig\JCSingleton;
-use JsonConfig\JCTabularContent;
-use JsonConfig\JCTransform;
+use MediaWiki\Extension\JsonConfig\JCSingleton;
+use MediaWiki\Extension\JsonConfig\JCTabularContent;
+use MediaWiki\Extension\JsonConfig\JCTransform;
 use MediaWiki\Json\FormatJson;
 use MediaWiki\MediaWikiServices;
 

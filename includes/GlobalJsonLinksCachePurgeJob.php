@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\JobQueue\Job;
 use MediaWiki\JobQueue\JobQueueGroupFactory;
@@ -64,3 +64,6 @@ class GlobalJsonLinksCachePurgeJob extends Job {
 	}
 
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( GlobalJsonLinksCachePurgeJob::class, 'JsonConfig\\GlobalJsonLinksCachePurgeJob' );

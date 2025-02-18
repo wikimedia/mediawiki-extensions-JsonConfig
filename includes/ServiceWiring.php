@@ -1,9 +1,9 @@
 <?php
 
-use JsonConfig\GlobalJsonLinks;
-use JsonConfig\JCApiUtils;
-use JsonConfig\JCContentLoaderFactory;
-use JsonConfig\JCTransformer;
+use MediaWiki\Extension\JsonConfig\GlobalJsonLinks;
+use MediaWiki\Extension\JsonConfig\JCApiUtils;
+use MediaWiki\Extension\JsonConfig\JCContentLoaderFactory;
+use MediaWiki\Extension\JsonConfig\JCTransformer;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\WikiMap\WikiMap;
 

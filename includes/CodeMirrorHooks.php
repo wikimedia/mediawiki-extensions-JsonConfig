@@ -1,7 +1,7 @@
 <?php
 declare( strict_types = 1 );
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Config\Config;
 use MediaWiki\Content\IContentHandlerFactory;
@@ -39,3 +39,6 @@ class CodeMirrorHooks implements CodeMirrorGetModeHook {
 		return true;
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( CodeMirrorHooks::class, 'JsonConfig\\CodeMirrorHooks' );

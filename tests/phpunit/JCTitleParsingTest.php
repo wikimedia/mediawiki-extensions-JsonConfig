@@ -1,9 +1,9 @@
 <?php
 
-namespace JsonConfig\Tests;
+namespace MediaWiki\Extension\JsonConfig\Tests;
 
-use JsonConfig\JCSingleton;
-use JsonConfig\JCTitle;
+use MediaWiki\Extension\JsonConfig\JCSingleton;
+use MediaWiki\Extension\JsonConfig\JCTitle;
 use MediaWiki\MainConfigNames;
 use MediaWikiIntegrationTestCase;
 

@@ -1,5 +1,5 @@
 <?php
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use InvalidArgumentException;
 use LogicException;
@@ -529,3 +529,6 @@ abstract class JCObjContent extends JCContent {
 		}
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCObjContent::class, 'JsonConfig\\JCObjContent' );

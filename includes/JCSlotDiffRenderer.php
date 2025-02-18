@@ -1,5 +1,5 @@
 <?php
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Content\Content;
 use MediaWiki\Context\IContextSource;
@@ -38,3 +38,6 @@ class JCSlotDiffRenderer extends SlotDiffRenderer {
 		return $this->textSlotDiffRenderer->getTextDiff( $oldText, $newText );
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCSlotDiffRenderer::class, 'JsonConfig\\JCSlotDiffRenderer' );

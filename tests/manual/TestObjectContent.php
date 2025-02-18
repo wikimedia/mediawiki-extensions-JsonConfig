@@ -3,7 +3,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die( -1 );
 }
 
-use JsonConfig\JCObjContent;
+use MediaWiki\Extension\JsonConfig\JCObjContent;
 
 class TestObjectContent extends JCObjContent {
 	/** @inheritDoc */

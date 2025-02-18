@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Content\TextContent;
 use MediaWiki\Json\FormatJson;
@@ -179,3 +179,6 @@ class JCContent extends TextContent {
 		return new JCDefaultContentView();
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCContent::class, 'JsonConfig\\JCContent' );

@@ -7,7 +7,7 @@
  * Based on GlobalUsage extension's SpecialGlobalUsage
  */
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\HTMLForm\HTMLForm;
 use MediaWiki\MainConfigNames;
@@ -260,3 +260,6 @@ class SpecialGlobalJsonLinks extends SpecialPage {
 		return 'media';
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( SpecialGlobalJsonLinks::class, 'JsonConfig\\SpecialGlobalJsonLinks' );

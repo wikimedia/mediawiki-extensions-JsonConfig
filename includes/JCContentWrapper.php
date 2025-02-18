@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
@@ -149,3 +149,6 @@ class JCContentWrapper {
 		}
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCContentWrapper::class, 'JsonConfig\\JCContentWrapper' );

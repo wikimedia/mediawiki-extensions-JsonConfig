@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Html\Html;
 use MediaWiki\Json\FormatJson;
@@ -156,3 +156,6 @@ class JCDefaultContentView extends JCContentView {
 		return true;
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCDefaultContentView::class, 'JsonConfig\\JCDefaultContentView' );

@@ -1,5 +1,5 @@
 <?php
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use Kartographer\SimpleStyleParser;
 use MediaWiki\Json\FormatJson;
@@ -152,3 +152,6 @@ class JCMapDataContent extends JCDataContent {
 		return new JCMapDataContentView();
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCMapDataContent::class, 'JsonConfig\\JCMapDataContent' );

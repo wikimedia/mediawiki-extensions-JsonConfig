@@ -1,5 +1,5 @@
 <?php
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\MediaWikiServices;
 use Wikimedia\ObjectCache\WANObjectCache;
@@ -244,3 +244,6 @@ class JCCache {
 		return $pageInfo;
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCCache::class, 'JsonConfig\\JCCache' );

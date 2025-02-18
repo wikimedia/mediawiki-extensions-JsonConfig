@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Title\NamespaceInfo;
 use MediaWiki\Title\TitleValue;
@@ -324,3 +324,6 @@ class GlobalJsonLinksQuery {
 		return count( $this->result );
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( GlobalJsonLinksQuery::class, 'JsonConfig\\GlobalJsonLinksQuery' );

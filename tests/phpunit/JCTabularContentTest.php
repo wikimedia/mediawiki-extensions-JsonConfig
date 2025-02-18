@@ -1,9 +1,9 @@
 <?php
 
-namespace JsonConfig\Tests;
+namespace MediaWiki\Extension\JsonConfig\Tests;
 
-use JsonConfig\JCLuaLibrary;
-use JsonConfig\JCTabularContent;
+use MediaWiki\Extension\JsonConfig\JCLuaLibrary;
+use MediaWiki\Extension\JsonConfig\JCTabularContent;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
 use MediaWiki\Json\FormatJson;
 use MediaWikiIntegrationTestCase;

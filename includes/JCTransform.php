@@ -1,6 +1,6 @@
 <?php
 
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use Article;
 use MediaWiki\Context\RequestContext;
@@ -156,3 +156,6 @@ class JCTransform {
 		return $status;
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCTransform::class, 'JsonConfig\\JCTransform' );

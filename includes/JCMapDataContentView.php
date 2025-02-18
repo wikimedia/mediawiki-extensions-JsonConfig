@@ -1,5 +1,5 @@
 <?php
-namespace JsonConfig;
+namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Json\FormatJson;
 use MediaWiki\MediaWikiServices;
@@ -124,3 +124,6 @@ EOT;
 EOT;
 	}
 }
+
+/** @deprecated Temporary backwards-compatible class alias */
+class_alias( JCMapDataContentView::class, 'JsonConfig\\JCMapDataContentView' );

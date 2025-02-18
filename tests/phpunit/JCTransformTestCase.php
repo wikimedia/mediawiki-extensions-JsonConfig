@@ -1,8 +1,8 @@
 <?php
 
-namespace JsonConfig\Tests;
+namespace MediaWiki\Extension\JsonConfig\Tests;
 
-use JsonConfig\JCSingleton;
+use MediaWiki\Extension\JsonConfig\JCSingleton;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 
@@ -34,7 +34,7 @@ class JCTransformTestCase extends MediaWikiIntegrationTestCase {
 				]
 			],
 			'JsonConfigModels' => [
-				'Tabular.JsonConfig' => 'JsonConfig\JCTabularContent'
+				'Tabular.JsonConfig' => 'MediaWiki\Extension\JsonConfig\JCTabularContent'
 			],
 		] );
 		JCSingleton::init( /* force */ true );
