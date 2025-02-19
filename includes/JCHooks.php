@@ -40,9 +40,7 @@ use MediaWiki\Status\Status;
 use MediaWiki\Storage\Hook\PageSaveCompleteHook;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
-use Skin;
 use Wikimedia\Message\MessageSpecifier;
-use WikiPage;
 
 /**
  * Hook handlers for JsonConfig extension.
@@ -370,7 +368,7 @@ class JCHooks implements
 	/**
 	 * Adds CSS for pretty-printing configuration on NS_CONFIG pages.
 	 * @param OutputPage $out
-	 * @param Skin $skin
+	 * @param \Skin $skin
 	 */
 	public function onBeforePageDisplay(
 		/** @noinspection PhpUnusedParameterInspection */ $out, $skin
@@ -489,16 +487,16 @@ class JCHooks implements
 	}
 
 	/**
-	 * @param WikiPage|Title $value
+	 * @param \WikiPage|Title $value
 	 * @param JCContent|null $content
 	 * @return bool
 	 */
-	private function onArticleChangeComplete( $value, ?JCContent $content = null ) {
+	private function onArticleChangeComplete( $value, $content = null ) {
 		if ( !self::jsonConfigIsStorage( $this->config ) ) {
 			return true;
 		}
 
-		if ( $value ) {
+		if ( $value && ( !$content || $content instanceof JCContent ) ) {
 			if ( method_exists( $value, 'getTitle' ) ) {
 				$value = $value->getTitle();
 			}

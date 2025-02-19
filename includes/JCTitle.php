@@ -11,7 +11,10 @@ use stdClass;
  */
 final class JCTitle extends TitleValue {
 
-	private stdClass $config;
+	/**
+	 * @var stdClass
+	 */
+	private $config;
 
 	/**
 	 * JCTitle constructor.
@@ -19,7 +22,7 @@ final class JCTitle extends TitleValue {
 	 * @param string $dbkey
 	 * @param stdClass $config JsonConfig configuration object
 	 */
-	public function __construct( int $namespace, string $dbkey, stdClass $config ) {
+	public function __construct( $namespace, $dbkey, stdClass $config ) {
 		if ( $namespace !== $config->namespace ) {
 			throw new InvalidArgumentException( 'Namespace does not match config' );
 		}
@@ -30,7 +33,7 @@ final class JCTitle extends TitleValue {
 	/**
 	 * @return stdClass
 	 */
-	public function getConfig(): stdClass {
+	public function getConfig() {
 		return $this->config;
 	}
 }

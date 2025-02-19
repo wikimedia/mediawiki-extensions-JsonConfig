@@ -2,7 +2,6 @@
 namespace JsonConfig;
 
 use InvalidArgumentException;
-use LogicException;
 use MapCacheLRU;
 use MediaWiki\Cache\GenderCache;
 use MediaWiki\Config\ServiceOptions;
@@ -17,7 +16,6 @@ use MediaWiki\Title\MediaWikiTitleCodec;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleParser;
 use MediaWiki\Title\TitleValue;
-use ReflectionMethod;
 use stdClass;
 
 /**
@@ -73,7 +71,7 @@ class JCSingleton {
 			return;
 		}
 		if ( $force && !defined( 'MW_PHPUNIT_TEST' ) ) {
-			throw new LogicException( 'Can force init only in tests' );
+			throw new \LogicException( 'Can force init only in tests' );
 		}
 		$isInitialized = true;
 		$config = MediaWikiServices::getInstance()->getMainConfig();
@@ -398,16 +396,16 @@ class JCSingleton {
 	 * @param TitleValue $titleValue
 	 * @param string $jsonText json content
 	 * @param bool $isSaving if true, performs extensive validation during unserialization
-	 * @return JCContent|null Returns null if the title is not handled by the settings
+	 * @return bool|JCContent Returns false if the title is not handled by the settings
 	 */
-	public static function parseContent( TitleValue $titleValue, $jsonText, $isSaving = false ): ?JCContent {
+	public static function parseContent( TitleValue $titleValue, $jsonText, $isSaving = false ) {
 		$jct = self::parseTitle( $titleValue );
 		if ( $jct ) {
 			$handler = new JCContentHandler( $jct->getConfig()->model );
 			return $handler->unserializeContent( $jsonText, null, $isSaving );
 		}
 
-		return null;
+		return false;
 	}
 
 	/**
@@ -498,7 +496,7 @@ class JCSingleton {
 					// XXX Direct instantiation of MediaWikiTitleCodec isn't allowed. If core
 					// doesn't support our use-case, core needs to be fixed to allow this.
 					$oldArgStyle =
-						( new ReflectionMethod( MediaWikiTitleCodec::class, '__construct' ) )
+						( new \ReflectionMethod( MediaWikiTitleCodec::class, '__construct' ) )
 						->getParameters()[2]->getName() === 'localInterwikis';
 					self::$titleParser = new MediaWikiTitleCodec(
 						$language,

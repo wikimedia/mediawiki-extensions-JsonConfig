@@ -9,7 +9,8 @@ use SlotDiffRenderer;
 use TextSlotDiffRenderer;
 
 class JCSlotDiffRenderer extends SlotDiffRenderer {
-	private TextSlotDiffRenderer $textSlotDiffRenderer;
+	/** @var TextSlotDiffRenderer */
+	private $textSlotDiffRenderer;
 
 	public function __construct(
 		TextSlotDiffRenderer $textSlotDiffRenderer

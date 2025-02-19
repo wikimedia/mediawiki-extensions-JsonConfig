@@ -7,7 +7,6 @@ use MediaWiki\Json\FormatJson;
 use MediaWiki\Page\PageReference;
 use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Parser\ParserOutput;
-use stdClass;
 
 /**
  * This class is used in case when there is no custom view defined for JCContent object
@@ -30,7 +29,7 @@ class JCDefaultObjContentView extends JCDefaultContentView {
 	public function valueToHtml(
 		JCContent $content, PageReference $page, $revId, ParserOptions $options, $generateHtml,
 		ParserOutput &$output
-	): string {
+	) {
 		return $this->renderValue( $content, $content->getValidationData(), [] );
 	}
 
@@ -41,7 +40,7 @@ class JCDefaultObjContentView extends JCDefaultContentView {
 	 * @param array $path path to this field
 	 * @return string HTML.
 	 */
-	public function renderValue( JCContent $content, $data, array $path ): string {
+	public function renderValue( JCContent $content, $data, array $path ) {
 		if ( $data instanceof JCValue ) {
 			$value = $data->getValue();
 			if ( !is_array( $value ) && !is_object( $value ) ) {
@@ -64,8 +63,8 @@ class JCDefaultObjContentView extends JCDefaultContentView {
 	 * @param array $path path to this field
 	 * @return string
 	 */
-	public function renderTableRow( JCContent $content, $data, array $path ): string {
-		$attribs = $data instanceof JCValue ? $this->getValueAttributes( $data ) : [];
+	public function renderTableRow( JCContent $content, $data, array $path ) {
+		$attribs = $data instanceof JCValue ? $this->getValueAttributes( $data ) : null;
 		$content = $this->renderRowContent( $content, $data, $path );
 		return Html::rawElement( 'tr', $attribs, $content );
 	}
@@ -76,7 +75,7 @@ class JCDefaultObjContentView extends JCDefaultContentView {
 	 * @internal param JCValue|mixed $data
 	 * @return array|null
 	 */
-	public function getValueAttributes( JCValue $jcv ): ?array {
+	public function getValueAttributes( JCValue $jcv ) {
 		if ( $jcv->error() ) {
 			return [ 'class' => 'mw-jsonconfig-error' ];
 		} elseif ( $jcv->sameAsDefault() ) {
@@ -93,14 +92,14 @@ class JCDefaultObjContentView extends JCDefaultContentView {
 	 * Determine if data is a special container that needs to be rendered as a comma-separated list.
 	 * By default,
 	 * @param JCContent $content
-	 * @param array|stdClass $data
+	 * @param array|\stdClass $data
 	 * @param array $path
 	 * @return bool
 	 */
 	public function isList(
 		/** @noinspection PhpUnusedParameterInspection */
 		JCContent $content, $data, array $path
-	): bool {
+	) {
 		if ( !is_array( $data ) ) {
 			return false;
 		}

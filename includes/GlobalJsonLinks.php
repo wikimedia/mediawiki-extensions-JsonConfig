@@ -6,7 +6,6 @@ use MediaWiki\Config\ServiceOptions;
 use MediaWiki\Deferred\LinksUpdate\LinksUpdate;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Title\TitleValue;
-use RuntimeException;
 use Wikimedia\Rdbms\IConnectionProvider;
 use Wikimedia\Rdbms\IDatabase;
 
@@ -21,10 +20,23 @@ class GlobalJsonLinks {
 		MainConfigNames::UpdateRowsPerQuery
 	];
 
-	private string $wiki;
-	private IConnectionProvider $connectionProvider;
-	private ?IDatabase $db = null;
-	private ServiceOptions $config;
+	/** @var string */
+	private $wiki;
+
+	/**
+	 * @var IConnectionProvider
+	 */
+	private $connectionProvider;
+
+	/**
+	 * @var IDatabase
+	 */
+	private $db;
+
+	/**
+	 * @var ServiceOptions
+	 */
+	private $config;
 
 	/**
 	 * Construct a GlobalJsonLinks instance for a certain wiki.
@@ -33,11 +45,7 @@ class GlobalJsonLinks {
 	 * @param IConnectionProvider $connectionProvider
 	 * @param string $wiki wiki id of the wiki
 	 */
-	public function __construct(
-		ServiceOptions $config,
-		IConnectionProvider $connectionProvider,
-		string $wiki
-	) {
+	public function __construct( ServiceOptions $config, IConnectionProvider $connectionProvider, $wiki ) {
 		$this->config = $config;
 		$this->connectionProvider = $connectionProvider;
 		$this->wiki = $wiki;
@@ -49,7 +57,7 @@ class GlobalJsonLinks {
 	 * @param string $wiki wiki id of another wiki to work with
 	 * @return GlobalJsonLinks
 	 */
-	public function forWiki( string $wiki ): GlobalJsonLinks {
+	public function forWiki( $wiki ) {
 		return new GlobalJsonLinks( $this->config, $this->connectionProvider, $wiki );
 	}
 
@@ -58,7 +66,7 @@ class GlobalJsonLinks {
 	 * keep it undeployed.
 	 * @return bool
 	 */
-	private function isActive(): bool {
+	private function isActive() {
 		return boolval( $this->config->get( 'TrackGlobalJsonLinks' ) );
 	}
 
@@ -67,7 +75,7 @@ class GlobalJsonLinks {
 	 * This will use the local database if no alternate is configured.
 	 * @return IDatabase
 	 */
-	private function getDB(): IDatabase {
+	private function getDB() {
 		if ( !$this->db ) {
 			$this->db = $this->connectionProvider->getPrimaryDatabase( 'virtual-globaljsonlinks' );
 		}
@@ -81,7 +89,7 @@ class GlobalJsonLinks {
 	 *
 	 * @return int row id of current wiki
 	 */
-	private function mapWiki(): int {
+	private function mapWiki() {
 		$db = $this->getDB();
 
 		$fields = [
@@ -108,7 +116,7 @@ class GlobalJsonLinks {
 				return intval( $db->insertId() );
 			}
 		}
-		throw new RuntimeException( 'Unexpected insert conflict' );
+		throw new \RuntimeException( 'Unexpected insert conflict' );
 	}
 
 	/**
@@ -123,7 +131,7 @@ class GlobalJsonLinks {
 	 * @param string[] $targets as normalized dbkeys
 	 * @return array map of title to primary key
 	 */
-	private function mapTargets( array $targets ): array {
+	private function mapTargets( array $targets ) {
 		$db = $this->getDB();
 
 		$results = $db->newSelectQueryBuilder()
@@ -177,7 +185,7 @@ class GlobalJsonLinks {
 				}
 			}
 			if ( $i === 2 ) {
-				throw new RuntimeException( 'Unexpected insert conflict' );
+				throw new \RuntimeException( 'Unexpected insert conflict' );
 			}
 		}
 
@@ -192,10 +200,8 @@ class GlobalJsonLinks {
 	 * @param mixed $ticket Token returned by {@see IConnectionProvider::getEmptyTransactionTicket()}
 	 */
 	private function insertLinks(
-		TitleValue $title,
-		array $links,
-		$ticket
-	): void {
+		TitleValue $title, array $links, $ticket
+	) {
 		$db = $this->getDB();
 
 		$wikiId = $this->mapWiki();
@@ -233,7 +239,7 @@ class GlobalJsonLinks {
 	 * @param string[] $to target pages to delete or null to remove all
 	 * @param mixed $ticket Token returned by {@see IConnectionProvider::getEmptyTransactionTicket()}
 	 */
-	private function deleteLinksFromPage( TitleValue $title, array $to, $ticket ): void {
+	private function deleteLinksFromPage( TitleValue $title, array $to, $ticket ) {
 		$db = $this->getDB();
 
 		$where = [
@@ -270,7 +276,7 @@ class GlobalJsonLinks {
 	 * @param TitleValue $target page name of target data page
 	 * @return array[] set of ['wiki', 'namespace', 'title'] arrays
 	 */
-	public function getLinksToTarget( TitleValue $target ): array {
+	public function getLinksToTarget( TitleValue $target ) {
 		if ( !$this->isActive() ) {
 			return [];
 		}
@@ -308,7 +314,7 @@ class GlobalJsonLinks {
 	 * @param TitleValue $title linking page
 	 * @return string[] set of title keys
 	 */
-	public function getLinksFromPage( TitleValue $title ): array {
+	public function getLinksFromPage( TitleValue $title ) {
 		if ( !$this->isActive() ) {
 			return [];
 		}
@@ -348,7 +354,7 @@ class GlobalJsonLinks {
 	 * @param LinksUpdate $linksUpdater
 	 * @param mixed $ticket Token returned by {@see IConnectionProvider::getEmptyTransactionTicket()}
 	 */
-	public function updateJsonLinks( LinksUpdate $linksUpdater, $ticket ): void {
+	public function updateJsonLinks( LinksUpdate $linksUpdater, $ticket ) {
 		if ( !$this->isActive() ) {
 			return;
 		}

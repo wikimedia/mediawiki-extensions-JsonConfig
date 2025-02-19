@@ -9,11 +9,14 @@ use MediaWiki\Message\Message;
  */
 final class JCValue {
 
-	private int $status;
+	/** @var int */
+	private $status;
 	/** @var mixed */
 	private $value;
-	private ?bool $sameAsDefault = false;
-	private ?bool $defaultUsed = false;
+	/** @var bool|null */
+	private $sameAsDefault = false;
+	/** @var bool|null */
+	private $defaultUsed = false;
 	/** @var bool|Message */
 	private $error = false;
 
@@ -33,7 +36,7 @@ final class JCValue {
 	 * @param int $status
 	 * @param mixed $value
 	 */
-	public function __construct( int $status, $value ) {
+	public function __construct( $status, $value ) {
 		$this->status = $status;
 		$this->value = $value;
 	}
@@ -47,7 +50,7 @@ final class JCValue {
 	 * @param mixed $value
 	 * @param int|null $status
 	 */
-	public function setValue( $value, $status = null ): void {
+	public function setValue( $value, $status = null ) {
 		$this->value = $value;
 		if ( $status !== null ) {
 			$this->status( $status );
@@ -97,14 +100,14 @@ final class JCValue {
 	/**
 	 * @return bool
 	 */
-	public function isMissing(): bool {
+	public function isMissing() {
 		return $this->status === self::MISSING;
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function isUnchecked(): bool {
+	public function isUnchecked() {
 		return $this->status === self::UNCHECKED;
 	}
 
@@ -115,7 +118,7 @@ final class JCValue {
 	 * @param mixed ...$params
 	 * @return bool|Message
 	 */
-	public function error( $key = null, ?array $fieldPath = null, ...$params ) {
+	public function error( $key = null, $fieldPath = null, ...$params ) {
 		if ( is_bool( $key ) ) {
 			$this->error = $key;
 		} elseif ( $key !== null ) {
@@ -168,7 +171,7 @@ final class JCValue {
 	 * @param string|int $fld
 	 * @return bool
 	 */
-	public function fieldExists( $fld ): bool {
+	public function fieldExists( $fld ) {
 		if ( is_object( $this->value ) && is_string( $fld ) ) {
 			return property_exists( $this->value, $fld );
 		} elseif ( is_array( $this->value ) && ( is_string( $fld ) || is_int( $fld ) ) ) {

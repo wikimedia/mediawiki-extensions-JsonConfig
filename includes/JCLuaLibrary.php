@@ -5,7 +5,6 @@ namespace JsonConfig;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaError;
 use MediaWiki\MediaWikiServices;
-use stdClass;
 
 class JCLuaLibrary extends LibraryBase {
 
@@ -99,7 +98,7 @@ class JCLuaLibrary extends LibraryBase {
 
 	/**
 	 * Reindex tabular data so it can be processed by Lua more easily
-	 * @param stdClass $data
+	 * @param \stdClass $data
 	 */
 	public static function reindexTabularData( $data ) {
 		$columnCount = count( $data->schema->fields );

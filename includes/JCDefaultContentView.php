@@ -7,7 +7,6 @@ use MediaWiki\Json\FormatJson;
 use MediaWiki\Page\PageReference;
 use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Parser\ParserOutput;
-use stdClass;
 
 /**
  * This class is used in case when there is no custom view defined for JCContent object
@@ -123,7 +122,7 @@ class JCDefaultContentView extends JCContentView {
 	/**
 	 * Determine if data is a container and should be rendered as a complex structure
 	 * @param JCContent $content
-	 * @param array|stdClass $data
+	 * @param array|\stdClass $data
 	 * @param array $path
 	 * @return bool
 	 */
@@ -138,7 +137,7 @@ class JCDefaultContentView extends JCContentView {
 	 * Determine if data is a special container that needs to be rendered as a comma-separated list.
 	 * By default,
 	 * @param JCContent $content
-	 * @param array|stdClass $data
+	 * @param array|\stdClass $data
 	 * @param array $path
 	 * @return bool
 	 */
