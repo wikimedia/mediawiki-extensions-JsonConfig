@@ -87,7 +87,7 @@ mw.JsonConfig.JsonEditDialog.prototype.initialize = function () {
 mw.JsonConfig.JsonEditDialog.prototype.getSetupProcess = function ( data ) {
 	return mw.JsonConfig.JsonEditDialog.super.prototype.getSetupProcess.call( this, data )
 		.next( function () {
-			var i, fields, fieldNames;
+			let i, fields, fieldNames;
 
 			this.json = data;
 
@@ -102,12 +102,8 @@ mw.JsonConfig.JsonEditDialog.prototype.getSetupProcess = function ( data ) {
 			this.data = this.json.data;
 
 			fields = this.json.schema.fields;
-			fieldNames = fields.map( function ( value ) {
-				return value.name;
-			} );
-			this.fieldTypes = fields.map( function ( value ) {
-				return value.type;
-			} );
+			fieldNames = fields.map( ( value ) => value.name );
+			this.fieldTypes = fields.map( ( value ) => value.type );
 
 			// Insert column metadata
 			for ( i = 0; i < fieldNames.length; i++ ) {
@@ -128,7 +124,7 @@ mw.JsonConfig.JsonEditDialog.prototype.getSetupProcess = function ( data ) {
  * @throws {Error}
  */
 mw.JsonConfig.JsonEditDialog.prototype.validateJson = function () {
-	var json = this.json;
+	const json = this.json;
 
 	if ( !Array.isArray( json.data ) ) {
 		throw new Error( mw.msg( 'jsonconfig-edit-dialog-error-data-missing' ) );
@@ -143,28 +139,22 @@ mw.JsonConfig.JsonEditDialog.prototype.validateJson = function () {
 	}
 
 	if (
-		!json.schema.fields.every( function ( field ) {
-			return typeof field.name === 'string';
-		} )
+		!json.schema.fields.every( ( field ) => typeof field.name === 'string' )
 	) {
 		throw new Error( mw.msg( 'jsonconfig-edit-dialog-error-field-name-missing' ) );
 	}
 
 	// TODO: Handle 'boolean' and 'localized' types
 	if (
-		!json.schema.fields.every( function ( field ) {
-			return ( field.type === 'number' || field.type === 'string' );
-		} )
+		!json.schema.fields.every( ( field ) => ( field.type === 'number' || field.type === 'string' ) )
 	) {
 		throw new Error( mw.msg( 'jsonconfig-edit-dialog-error-field-type-invalid' ) );
 	}
 
 	// Each data item is an array with the same length as fields
 	if (
-		!json.data.every( function ( item ) {
-			return Array.isArray( item ) &&
-				item.length === json.schema.fields.length;
-		} )
+		!json.data.every( ( item ) => Array.isArray( item ) &&
+				item.length === json.schema.fields.length )
 	) {
 		throw new Error( mw.msg( 'jsonconfig-edit-dialog-error-data-invalid' ) );
 	}
@@ -188,7 +178,7 @@ mw.JsonConfig.JsonEditDialog.prototype.getActionProcess = function ( action ) {
 	switch ( action ) {
 		case 'apply':
 			return new OO.ui.Process( function () {
-				var i, j, data;
+				let i, j, data;
 
 				data = this.tableWidget.model.data;
 
