@@ -3,18 +3,13 @@ namespace JsonConfig;
 
 use InvalidArgumentException;
 use MapCacheLRU;
-use MediaWiki\Cache\GenderCache;
-use MediaWiki\Config\ServiceOptions;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MainConfigNames;
-use MediaWiki\MainConfigSchema;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Parser\Sanitizer;
 use MediaWiki\Registration\ExtensionRegistry;
-use MediaWiki\Title\MalformedTitleException;
-use MediaWiki\Title\MediaWikiTitleCodec;
 use MediaWiki\Title\Title;
-use MediaWiki\Title\TitleParser;
 use MediaWiki\Title\TitleValue;
 use stdClass;
 
@@ -55,11 +50,6 @@ class JCSingleton {
 	 *   as namespace => MapCacheLRU
 	 */
 	public static $mapCacheLru = [];
-
-	/**
-	 * @var TitleParser cached invariant title parser
-	 */
-	public static $titleParser;
 
 	/**
 	 * Initializes singleton state by parsing $wgJsonConfig* values
@@ -491,52 +481,10 @@ class JCSingleton {
 			// Parse string if needed
 			// TODO: should the string parsing also be cached?
 			if ( is_string( $value ) ) {
-				$language = MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( 'en' );
-				if ( !self::$titleParser ) {
-					// XXX Direct instantiation of MediaWikiTitleCodec isn't allowed. If core
-					// doesn't support our use-case, core needs to be fixed to allow this.
-					$oldArgStyle =
-						( new \ReflectionMethod( MediaWikiTitleCodec::class, '__construct' ) )
-						->getParameters()[2]->getName() === 'localInterwikis';
-					self::$titleParser = new MediaWikiTitleCodec(
-						$language,
-						new GenderCache(),
-						$oldArgStyle ? []
-							// @phan-suppress-next-line PhanUndeclaredConstantOfClass Not merged yet
-							: new ServiceOptions( MediaWikiTitleCodec::CONSTRUCTOR_OPTIONS, [
-								MainConfigNames::LegalTitleChars =>
-									MainConfigSchema::LegalTitleChars['default'],
-								MainConfigNames::LocalInterwikis => [],
-							] ),
-						new FauxInterwikiLookup(),
-						MediaWikiServices::getInstance()->getNamespaceInfo()
-					);
-				}
-				// Interwiki prefixes are a special case for title parsing:
-				// first letter is not capitalized, namespaces are not resolved, etc.
-				// So we prepend an interwiki prefix to fool title codec, and later remove it.
-				try {
-					$value = FauxInterwikiLookup::INTERWIKI_PREFIX . ':' . $value;
-					$title = self::$titleParser->parseTitle( $value );
-
-					// Defensive coding - ensure the parsing has proceeded as expected
-					if ( $title->getDBkey() === '' || $title->getNamespace() !== NS_MAIN ||
-						$title->hasFragment() ||
-						$title->getInterwiki() !== FauxInterwikiLookup::INTERWIKI_PREFIX
-					) {
-						return null;
-					}
-				} catch ( MalformedTitleException $e ) {
+				$dbKey = self::normalizeTitleString( $value );
+				if ( $dbKey === null ) {
 					return null;
 				}
-
-				// At this point, only support wiki namespaces that capitalize title's first char,
-				// but do not enable sub-pages.
-				// This way data can already be stored on MediaWiki namespace everywhere, or
-				// places like commons and zerowiki.
-				// Another implicit limitation: there might be an issue if data is stored on a wiki
-				// with the non-default ucfirst(), e.g. az, kaa, kk, tr -- they convert "i" to "İ"
-				$dbKey = $language->ucfirst( $title->getDBkey() );
 			} else {
 				$dbKey = $value->getDBkey();
 			}
@@ -567,6 +515,104 @@ class JCSingleton {
 			// return false if JC doesn't know anything about this namespace
 			return false;
 		}
+	}
+
+	/**
+	 * Normalize a title string in a way that is similar to
+	 * MediaWikiTitleCodec::splitTitleString(), but does not depend on local wiki config.
+	 *
+	 * @param string $text
+	 * @return string|null
+	 */
+	private static function normalizeTitleString( string $text ) {
+		$filteredText = Sanitizer::decodeCharReferencesAndNormalize( $text );
+		$dbkey = str_replace( ' ', '_', $filteredText );
+
+		// Strip Unicode bidi characters
+		$dbkey = preg_replace( '/[\x{200E}\x{200F}\x{202A}-\x{202E}]+/u', '', $dbkey );
+		if ( $dbkey === null ) {
+			// Regex had an error. Most likely this is caused by invalid UTF-8
+			return null;
+		}
+
+		// Clean up whitespace
+		$dbkey = preg_replace(
+			'/[ _\xA0\x{1680}\x{180E}\x{2000}-\x{200A}\x{2028}\x{2029}\x{202F}\x{205F}\x{3000}]+/u',
+			'_',
+			$dbkey
+		);
+		$dbkey = trim( $dbkey, '_' );
+		if ( strpos( $dbkey, \UtfNormal\Constants::UTF8_REPLACEMENT ) !== false ) {
+			// Contained illegal UTF-8 sequences or forbidden Unicode chars.
+			return null;
+		}
+
+		// Strip initial colon
+		if ( str_starts_with( $dbkey, ':' ) ) {
+			$dbkey = substr( $dbkey, 1 );
+			$dbkey = trim( $dbkey, '_' );
+		}
+
+		if ( $dbkey === '' ) {
+			return null;
+		}
+
+		// Reject illegal characters
+		$rxTc = '/' .
+			// Any character not allowed is forbidden...
+			'[^ %!"$&\'()*,\\-.\\/0-9:;=?@A-Z\\\\^_`a-z~\\x80-\\xFF+]' .
+			// URL percent encoding sequences interfere with the ability
+			// to round-trip titles -- you can't link to them consistently.
+			'|%[0-9A-Fa-f]{2}' .
+			// XML/HTML character references produce similar issues.
+			'|&[A-Za-z0-9\x80-\xff]+;' .
+			'/S';
+		if ( preg_match( $rxTc, $dbkey ) ) {
+			return null;
+		}
+
+		// Pages with "/./" or "/../" appearing in the URLs will often be un-
+		// reachable due to the way web browsers deal with 'relative' URLs.
+		// Also, they conflict with subpage syntax.  Forbid them explicitly.
+		if (
+			str_contains( $dbkey, '.' ) &&
+			(
+				$dbkey === '.' || $dbkey === '..' ||
+				str_starts_with( $dbkey, './' ) ||
+				str_starts_with( $dbkey, '../' ) ||
+				str_contains( $dbkey, '/./' ) ||
+				str_contains( $dbkey, '/../' ) ||
+				str_ends_with( $dbkey, '/.' ) ||
+				str_ends_with( $dbkey, '/..' )
+			)
+		) {
+			return null;
+		}
+
+		// Magic tilde sequences? Nu-uh!
+		if ( strpos( $dbkey, '~~~' ) !== false ) {
+			return null;
+		}
+
+		// Limit the size of titles to 255 bytes
+		if ( strlen( $dbkey ) > 255 ) {
+			return null;
+		}
+
+		// Any remaining initial :s are illegal.
+		if ( str_starts_with( $dbkey, ':' ) ) {
+			return null;
+		}
+
+		// At this point, only support wiki namespaces that capitalize title's first char,
+		// but do not enable sub-pages.
+		// This way data can already be stored on MediaWiki namespace everywhere, or
+		// places like commons and zerowiki.
+		// Another implicit limitation: there might be an issue if data is stored on a wiki
+		// with the non-default ucfirst(), e.g. az, kaa, kk, tr -- they convert "i" to "İ"
+		return MediaWikiServices::getInstance()->getLanguageFactory()
+			->getLanguage( 'en' )
+			->ucfirst( $dbkey );
 	}
 
 	/**
