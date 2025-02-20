@@ -1,8 +1,4 @@
 ( function () {
-	let openDialogButton,
-		windowManager,
-		editDialog;
-
 	function openErrorWindow( error ) {
 		const errorMessage = mw.message( 'jsonconfig-edit-dialog-error', error );
 		OO.ui.alert(
@@ -13,25 +9,26 @@
 		);
 	}
 
-	editDialog = new mw.JsonConfig.JsonEditDialog();
+	const editDialog = new mw.JsonConfig.JsonEditDialog();
 
-	windowManager = OO.ui.getWindowManager();
+	const windowManager = OO.ui.getWindowManager();
 	windowManager.addWindows( [ editDialog ] );
 
-	openDialogButton = new OO.ui.ButtonWidget( {
+	const openDialogButton = new OO.ui.ButtonWidget( {
 		label: mw.msg( 'jsonconfig-edit-button-label' )
 	} );
 	openDialogButton.on( 'click', () => {
 		// eslint-disable-next-line no-jquery/no-global-selector
-		let data, $textbox = $( '#wpTextbox1' );
+		const $textbox = $( '#wpTextbox1' );
 
+		let contents;
 		try {
-			data = JSON.parse( $textbox.textSelection( 'getContents' ) );
+			contents = JSON.parse( $textbox.textSelection( 'getContents' ) );
 		} catch ( error ) {
 			openErrorWindow( error );
 		}
 
-		windowManager.openWindow( 'jsonEdit', data ).closed.then( ( data ) => {
+		windowManager.openWindow( 'jsonEdit', contents ).closed.then( ( data ) => {
 			if ( data.error ) {
 				openErrorWindow( data.error );
 			} else if ( data.action === 'apply' ) {

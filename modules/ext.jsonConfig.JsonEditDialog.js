@@ -87,8 +87,6 @@ mw.JsonConfig.JsonEditDialog.prototype.initialize = function () {
 mw.JsonConfig.JsonEditDialog.prototype.getSetupProcess = function ( data ) {
 	return mw.JsonConfig.JsonEditDialog.super.prototype.getSetupProcess.call( this, data )
 		.next( function () {
-			let i, fields, fieldNames;
-
 			this.json = data;
 
 			try {
@@ -101,17 +99,17 @@ mw.JsonConfig.JsonEditDialog.prototype.getSetupProcess = function ( data ) {
 
 			this.data = this.json.data;
 
-			fields = this.json.schema.fields;
-			fieldNames = fields.map( ( value ) => value.name );
+			const fields = this.json.schema.fields;
+			const fieldNames = fields.map( ( value ) => value.name );
 			this.fieldTypes = fields.map( ( value ) => value.type );
 
 			// Insert column metadata
-			for ( i = 0; i < fieldNames.length; i++ ) {
+			for ( let i = 0; i < fieldNames.length; i++ ) {
 				this.tableWidget.insertColumn( null, i, i, fieldNames[ i ] );
 			}
 
 			// Insert row data (with no metadata)
-			for ( i = 0; i < this.data.length; i++ ) {
+			for ( let i = 0; i < this.data.length; i++ ) {
 				this.tableWidget.insertRow( this.data[ i ] );
 			}
 		}, this );
@@ -178,14 +176,12 @@ mw.JsonConfig.JsonEditDialog.prototype.getActionProcess = function ( action ) {
 	switch ( action ) {
 		case 'apply':
 			return new OO.ui.Process( function () {
-				let i, j, data;
-
-				data = this.tableWidget.model.data;
+				const data = this.tableWidget.model.data;
 
 				// Ensure data values are correct type
 				// TODO: Handle 'boolean' and 'localized' types
-				for ( i = 0; i < data.length; i++ ) {
-					for ( j = 0; j < data[ i ].length; j++ ) {
+				for ( let i = 0; i < data.length; i++ ) {
+					for ( let j = 0; j < data[ i ].length; j++ ) {
 						if ( this.fieldTypes[ j ] === 'number' ) {
 							data[ i ][ j ] = +data[ i ][ j ];
 						}
