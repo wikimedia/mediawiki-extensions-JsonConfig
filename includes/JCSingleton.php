@@ -233,7 +233,7 @@ class JCSingleton {
 						}
 					} elseif ( $ns === NS_CONFIG ) {
 						$warnFunc( "JsonConfig: Parameter 'nsName' in \$wgJsonConfigs['$confId'] " .
-							"is not supported for namespace == NS_CONFIG ($ns)" );
+							"is not supported for namespace $ns (NS_CONFIG)" );
 					} else {
 						$nsName = $conf->nsName;
 						$nsTalk = $conf->nsTalk ?? $nsName . '_talk';
