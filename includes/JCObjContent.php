@@ -367,9 +367,8 @@ abstract class JCObjContent extends JCContent {
 	 * Recursively reorder all sub-elements - checked first, followed by unchecked.
 	 * Also, convert all sub-elements to JCValue(UNCHECKED) if at least one of them was JCValue
 	 * This is useful for HTML rendering to indicate unchecked items
-	 * @param JCValue $data
 	 */
-	private static function markUnchecked( JCValue $data ) {
+	private static function markUnchecked( JCValue $data ): void {
 		$val = $data->getValue();
 		$isObject = is_object( $val );
 		if ( !$isObject && !is_array( $val ) ) {
