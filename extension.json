@@ -112,6 +112,7 @@
 		"ApiMain::moduleManager": "main",
 		"ArticleDeleteComplete": "main",
 		"ArticleUndelete": "main",
+		"ArticleViewFooter": "globaljsonlinks",
 		"BeforePageDisplay": "main",
 		"CanonicalNamespaces": "main",
 		"CodeEditorGetPageLanguage": "codeeditor",
@@ -130,7 +131,7 @@
 		"PageMoveComplete": "main",
 		"getUserPermissionsErrors": "main",
 		"LoadExtensionSchemaUpdates": "schema",
-		"LinksUpdateComplete": "main"
+		"LinksUpdateComplete": "globaljsonlinks"
 	},
 	"HookHandlers": {
 		"main": {
@@ -138,8 +139,15 @@
 			"services": [
 				"MainConfig",
 				"ContentHandlerFactory",
-				"JsonConfig.GlobalJsonLinks",
 				"JobQueueGroupFactory"
+			]
+		},
+		"globaljsonlinks": {
+			"class": "JsonConfig\\GJLHooks",
+			"services": [
+				"MainConfig",
+				"NamespaceInfo",
+				"JsonConfig.GlobalJsonLinks"
 			]
 		},
 		"codeeditor": {
@@ -206,6 +214,9 @@
 			"value": true
 		},
 		"TrackGlobalJsonLinks": {
+			"value": true
+		},
+		"TrackGlobalJsonLinksNamespaces": {
 			"value": true
 		}
 	},

@@ -4,7 +4,10 @@ namespace JsonConfig\Tests;
 
 use JsonConfig\GlobalJsonLinks;
 use JsonConfig\JCSingleton;
+use MediaWiki\Cache\GenderCache;
 use MediaWiki\MainConfigNames;
+use MediaWiki\Title\TitleParser;
+use MediaWiki\Title\TitleValue;
 use MediaWikiIntegrationTestCase;
 use Wikimedia\TestingAccessWrapper;
 
@@ -43,6 +46,26 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 		return $out;
 	}
 
+	/**
+	 * Returns a mock GenderCache that will consider a user "female" if the
+	 * first part of the user name ends with "a" and "male" otherwise for
+	 * grammatical purposes.
+	 *
+	 * Duplicated from MediaWikiTitleCodecTest
+	 *
+	 * @return GenderCache
+	 */
+	private function getGenderCache() {
+		$genderCache = $this->createMock( GenderCache::class );
+
+		$genderCache->method( 'getGenderOf' )
+			->willReturnCallback( static function ( $userName ) {
+				return preg_match( '/^[^- _]+a( |_|$)/u', $userName ) ? 'female' : 'male';
+			} );
+
+		return $genderCache;
+	}
+
 	protected function setUp(): void {
 		parent::setUp();
 
@@ -53,8 +76,9 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 			MainConfigNames::LocalInterwikis => [ 'localtestiw' ],
 			MainConfigNames::CapitalLinks => false,
 		] );
-		$this->setUserLang( 'en' );
-		$this->setContentLang( 'en' );
+		$this->setUserLang( 'pl' );
+		$this->setContentLang( 'pl' );
+		$this->setService( 'GenderCache', $this->getGenderCache() );
 
 		JCSingleton::getTitleMap(); // Initialize internal Init() flag
 		$this->configBackup = [ JCSingleton::$titleMap, JCSingleton::$namespaces ];
@@ -103,35 +127,95 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 	 * @covers \JsonConfig\GlobalJsonLinks::mapWiki
 	 */
 	public function testMapWiki( $a, $b, $shouldMatch ) {
-		$gjl = $this->globalJsonLinks( $a );
-		$idA = $gjl->mapWiki();
+		[ $wikiA, $nsA, $nsTextA, $titleA ] = $a;
+		$gjl = $this->globalJsonLinks( $wikiA );
+		$tvA = new TitleValue( $nsA, $titleA );
+		$idA = $gjl->mapWiki( $tvA );
+		$savedA = $gjl->getWiki( $idA );
 
-		[ $wiki ] = $b;
-		$gjl = $this->globalJsonLinks( $b );
-		$idB = $gjl->mapWiki();
+		[ $wikiB, $nsB, $nsTextB, $titleB ] = $b;
+		$gjl = $this->globalJsonLinks( $wikiB );
+		$tvB = new TitleValue( $nsB, $titleB );
+		$idB = $gjl->mapWiki( $tvB );
+		$savedB = $gjl->getWiki( $idB );
+
+		$this->assertTrue( $idA > 0, "id should be non-zero" );
+		$this->assertTrue( $idB > 0, "id should be non-zero" );
+
+		$this->assertSame( $wikiA, $savedA['wiki'], "namespace should match" );
+		$this->assertSame( $wikiB, $savedB['wiki'], "namespace should match" );
+
+		$this->assertSame( $nsA, $savedA['namespace'], "namespace should match" );
+		$this->assertSame( $nsB, $savedB['namespace'], "namespace should match" );
+
+		$this->assertSame( $nsTextA, $savedA['namespaceText'], "namespace text should match" );
+		$this->assertSame( $nsTextB, $savedB['namespaceText'], "namespace text should match" );
+
+		$backA = $gjl->getLinksFromPage( $tvA );
+		$backB = $gjl->getLinksFromPage( $tvB );
 
 		if ( $shouldMatch ) {
-			$this->assertSame( $idA, $idB );
+			$this->assertSame( $idA, $idB, 'wiki/ns ids should match' );
 		} else {
-			$this->assertNotSame( $idA, $idB );
+			$this->assertNotSame( $idA, $idB, 'wiki/ns ids should not match' );
 		}
 	}
 
 	public static function provideWikis() {
 		return [
 			[
-				'enwiki', // wiki
-				'enwiki', // second set
+				[ 'enwiki', NS_MAIN, '', 'Foobar' ],
+				[ 'enwiki', NS_MAIN, '', 'Bizbax' ],
 				true // should match
 			],
 			[
-				'dewiki',
-				'dewiki',
+				[ 'dewiki', NS_MAIN, '', 'Foobar' ],
+				[ 'dewiki', NS_MAIN, '', 'Bizbax' ],
 				true // should match
 			],
 			[
-				'enwiki',
-				'dewiki',
+				[ 'enwiki', NS_MAIN, '', 'Foobar' ],
+				[ 'dewiki', NS_MAIN, '', 'Foobar' ],
+				false // should not match
+			],
+			[
+				[ 'enwiki', NS_MAIN, '', 'Bizbax' ],
+				[ 'dewiki', NS_MAIN, '', 'Bizbax' ],
+				false // should not match
+			],
+			[
+				[ 'plwiki', NS_MAIN, '', 'Foobar' ],
+				[ 'plwiki', NS_TALK, 'Dyskusja', 'Foobar' ],
+				false // should not match
+			],
+			[
+				[ 'plwiki', NS_TALK, 'Dyskusja', 'Foobar' ],
+				[ 'plwiki', NS_TALK, 'Dyskusja', 'Bizbax' ],
+				true // should match
+			],
+			[
+				[ 'plwiki', NS_USER_TALK, 'Dyskusja_użytkownika', 'DefaultUser1' ],
+				[ 'plwiki', NS_USER_TALK, 'Dyskusja_użytkownika', 'DefaultUser2' ],
+				true // should match
+			],
+			[
+				[ 'plwiki', NS_USER_TALK, 'Dyskusja_użytkowniczki', 'Barbara' ],
+				[ 'plwiki', NS_USER_TALK, 'Dyskusja_użytkowniczki', 'Marta' ],
+				true // should match
+			],
+			[
+				[ 'plwiki', NS_USER_TALK, 'Dyskusja_użytkownika', 'Oleg' ],
+				[ 'plwiki', NS_USER_TALK, 'Dyskusja_użytkownika', 'Tomasz' ],
+				true // should match
+			],
+			[
+				[ 'plwiki', NS_USER_TALK, 'Dyskusja_użytkowniczki', 'Barbara' ],
+				[ 'plwiki', NS_USER_TALK, 'Dyskusja_użytkownika', 'Oleg' ],
+				false // should not match
+			],
+			[
+				[ 'plwiki', NS_USER_TALK, 'Dyskusja_użytkownika', 'Tomasz' ],
+				[ 'plwiki', NS_USER_TALK, 'Dyskusja_użytkowniczki', 'Marta' ],
 				false // should not match
 			],
 		];
@@ -196,10 +280,64 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 			[ $wiki, $titles ] = $source;
 			$gjl = $this->globalJsonLinks( $wiki );
 			foreach ( $titles as $text ) {
-				// todo: this doesn't know non-english namespaces for testing
-				// on the test wiki atm
 				$title = $this->parseTitle( $text );
 				$gjl->insertLinks( $title, [ $targetStr ], $ticket );
+			}
+		}
+
+		$wiki = 'commonswiki';
+		$gjl = $this->globalJsonLinks( $wiki );
+		$links = $gjl->getLinksToTarget( $target );
+
+		$this->assertSame( $expected, $links );
+	}
+
+	/**
+	 * @dataProvider provideLinks
+	 * @covers \JsonConfig\GlobalJsonLinks::updateLinks
+	 * @covers \JsonConfig\GlobalJsonLinks::getLinksToTarget
+	 */
+	public function testUpdateLinks( $targetStr, $sources, $expected ) {
+		$target = $this->parseDataTitle( $targetStr );
+		$ticket = 'xyz';
+
+		// Force namespace name tracking off to test migration
+		$this->overrideConfigValues( [
+			'TrackGlobalJsonLinksNamespaces' => false,
+		] );
+
+		foreach ( $sources as $source ) {
+			[ $wiki, $titles ] = $source;
+			$gjl = $this->globalJsonLinks( $wiki );
+			foreach ( $titles as $text ) {
+				$title = $this->parseTitle( $text );
+				$gjl->updateLinks( $title, [ $targetStr ], $ticket );
+			}
+		}
+
+		$wiki = 'commonswiki';
+		$gjl = $this->globalJsonLinks( $wiki );
+		$links = $gjl->getLinksToTarget( $target );
+
+		$canonicalNamespaces = $this->getServiceContainer()->getNamespaceInfo()->getCanonicalNamespaces();
+		$filtered = [];
+		foreach ( $expected as $row ) {
+			$row['namespaceText'] = $canonicalNamespaces[$row['namespace']];
+			$filtered[] = $row;
+		}
+		$this->assertSame( $filtered, $links );
+
+		// And force namespaces back on.
+		$this->overrideConfigValues( [
+			'TrackGlobalJsonLinksNamespaces' => true,
+		] );
+
+		foreach ( $sources as $source ) {
+			[ $wiki, $titles ] = $source;
+			$gjl = $this->globalJsonLinks( $wiki );
+			foreach ( $titles as $text ) {
+				$title = $this->parseTitle( $text );
+				$gjl->updateLinks( $title, [ $targetStr ], $ticket );
 			}
 		}
 
@@ -220,45 +358,45 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 			[
 				'Sample_1.tab',
 				[
-					[ 'enwiki', [ 'Paris' ] ]
+					[ 'enwiki', [ 'London' ] ]
 				],
 				[
-					[ 'wiki' => 'enwiki', 'namespace' => 0, 'title' => 'Paris' ],
+					[ 'wiki' => 'enwiki', 'namespace' => 0, 'namespaceText' => '', 'title' => 'London' ],
 				]
 			],
 			[
 				'Sample_1.tab',
 				[
-					[ 'enwiki', [ 'Paris', 'London' ] ]
+					[ 'enwiki', [ 'Warsaw', 'London' ] ]
 				],
 				[
-					[ 'wiki' => 'enwiki', 'namespace' => 0, 'title' => 'London' ],
-					[ 'wiki' => 'enwiki', 'namespace' => 0, 'title' => 'Paris' ],
+					[ 'wiki' => 'enwiki', 'namespace' => 0, 'namespaceText' => '', 'title' => 'London' ],
+					[ 'wiki' => 'enwiki', 'namespace' => 0, 'namespaceText' => '', 'title' => 'Warsaw' ],
 				]
 			],
 			[
 				'Sample_1.tab',
 				[
-					[ 'enwiki', [ 'Paris', 'London' ] ],
-					[ 'frwiki', [ 'Paris', 'Londres' ] ]
+					[ 'enwiki', [ 'Warsaw', 'London' ] ],
+					[ 'plwiki', [ 'Warszawa', 'Londyn' ] ]
 				],
 				[
-					[ 'wiki' => 'enwiki', 'namespace' => 0, 'title' => 'London' ],
-					[ 'wiki' => 'enwiki', 'namespace' => 0, 'title' => 'Paris' ],
-					[ 'wiki' => 'frwiki', 'namespace' => 0, 'title' => 'Londres' ],
-					[ 'wiki' => 'frwiki', 'namespace' => 0, 'title' => 'Paris' ],
+					[ 'wiki' => 'enwiki', 'namespace' => 0, 'namespaceText' => '', 'title' => 'London' ],
+					[ 'wiki' => 'enwiki', 'namespace' => 0, 'namespaceText' => '', 'title' => 'Warsaw' ],
+					[ 'wiki' => 'plwiki', 'namespace' => 0, 'namespaceText' => '', 'title' => 'Londyn' ],
+					[ 'wiki' => 'plwiki', 'namespace' => 0, 'namespaceText' => '', 'title' => 'Warszawa' ],
 				]
 			],
 			[
 				'Sample_1.tab',
 				[
-					[ 'enwiki', [ 'Paris' ] ],
-					[ 'enwiki', [ 'Talk:Paris' ] ]
-					// todo -- this test wiki doesn't know the right namespaces for local insertion of Discussion: ns
+					[ 'plwiki', [ 'Warszawa' ] ],
+					[ 'plwiki', [ 'Dyskusja:Warszawa' ] ]
+					// note -- this test instance will be configured to polish all around, see setUp
 				],
 				[
-					[ 'wiki' => 'enwiki', 'namespace' => 0, 'title' => 'Paris' ],
-					[ 'wiki' => 'enwiki', 'namespace' => 1, 'title' => 'Paris' ],
+					[ 'wiki' => 'plwiki', 'namespace' => 0, 'namespaceText' => '', 'title' => 'Warszawa' ],
+					[ 'wiki' => 'plwiki', 'namespace' => 1, 'namespaceText' => 'Dyskusja', 'title' => 'Warszawa' ],
 				]
 			]
 		];

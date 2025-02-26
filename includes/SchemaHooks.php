@@ -16,9 +16,24 @@ class SchemaHooks implements LoadExtensionSchemaUpdatesHook {
 	 */
 	public function onLoadExtensionSchemaUpdates( $updater ) {
 		$dir = dirname( __DIR__ ) . '/sql';
-
 		$type = $updater->getDB()->getType();
-		$updater->addExtensionTable( 'globaljsonlinks', "$dir/$type/tables-generated.sql" );
+
+		$updater->addExtensionUpdateOnVirtualDomain( [
+			'virtual-globaljsonlinks',
+			'addTable',
+			'globaljsonlinks',
+			"$dir/$type/tables-generated.sql",
+			true
+		] );
+
+		$updater->addExtensionUpdateOnVirtualDomain( [
+			'virtual-globaljsonlinks',
+			'addField',
+			'globaljsonlinks_wiki',
+			'gjlw_namespace_text',
+			"$dir/$type/patch-gjlw_namespace_text.sql",
+			true
+		] );
 	}
 
 }

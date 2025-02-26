@@ -113,5 +113,10 @@
 	"jsonconfig-license-notice-license-unset": "Text to warn the user to specifiy license.{{doc-important|Do not translate text that is quoted or inside <nowiki><var></var></nowiki>, <nowiki><kbd></kbd></nowiki>, <nowiki><samp></samp></nowiki>, or <nowiki><code></code></nowiki> in this message.}}",
 	"right-jsonconfig-flush": "{{doc-right|jsonconfig-flush}}",
 	"action-jsonconfig-flush": "{{doc-action|jsonconfig-flush}}",
-	"jsonconfig-blocked-page-creation": "Error message explaining why you cannot create a page with the given title, because it does not match any of the configured patterns.\nSee https://www.mediawiki.org/wiki/Extension:JsonConfig#Configuration for details."
+	"jsonconfig-blocked-page-creation": "Error message explaining why you cannot create a page with the given title, because it does not match any of the configured patterns.\nSee https://www.mediawiki.org/wiki/Extension:JsonConfig#Configuration for details.",
+	"jsonconfig-localjsonlinks": "Section heading on Data: namespace pages describing usage within the current wiki",
+	"jsonconfig-localjsonlinks-of-page": "Note on Data: namespace pages explaining that these pages use this data page in some way.",
+	"jsonconfig-globaljsonlinks": "Section heading on Data: namespace pages describing usage on other wikis.",
+	"jsonconfig-globaljsonlinks-of-page": "Note on Data: namespace pages explaining that these are other wikis using the page from here.",
+	"jsonconfig-globaljsonlinks-on-wiki": "Subsection heading in list of Data: namespace page usage showing usage from an individual wiki. Parameter is the URL to the wiki."
 }

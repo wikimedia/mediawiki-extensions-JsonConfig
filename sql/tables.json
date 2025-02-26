@@ -33,7 +33,7 @@
 	},
 	{
 		"name": "globaljsonlinks_wiki",
-		"comment": "Holds immutable records of source wiki ids for data link references in `globaljsonlinks`.",
+		"comment": "Holds immutable records of source wiki ids and namespace names for data link references in `globaljsonlinks`.",
 		"columns": [
 			{
 				"name": "gjlw_id",
@@ -46,12 +46,24 @@
 				"comment": "Matches core's si_key for interwiki ids",
 				"type": "binary",
 				"options": { "length": 32, "notnull": true }
+			},
+			{
+				"name": "gjlw_namespace",
+				"comment": "Namespace index number on referring titles, or NULL for legacy rows using canonical namespace names",
+				"type": "integer",
+				"options": { "notnull": false }
+			},
+			{
+				"name": "gjlw_namespace_text",
+				"comment": "Namespace text form as it appears on referring titles; multiple forms may be in use for a single namespace in some localizations",
+				"type": "binary",
+				"options": { "length": 255, "notnull": false }
 			}
 		],
 		"indexes": [
 			{
-				"name": "gjlw_wiki_id",
-				"columns": [ "gjlw_wiki" ],
+				"name": "gjlw_wiki_id_namespace",
+				"columns": [ "gjlw_wiki", "gjlw_namespace", "gjlw_namespace_text" ],
 				"unique": true
 			}
 		],

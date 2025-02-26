@@ -11,7 +11,9 @@ return [
 		return new GlobalJsonLinks(
 			new ServiceOptions( GlobalJsonLinks::CONFIG_OPTIONS, $services->getMainConfig() ),
 			$services->getConnectionProvider(),
-			WikiMap::getCurrentWikiId(),
+			$services->getNamespaceInfo(),
+			$services->getTitleFormatter(),
+			WikiMap::getCurrentWikiId()
 		);
 	}
 ];

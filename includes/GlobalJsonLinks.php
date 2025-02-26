@@ -3,8 +3,9 @@
 namespace JsonConfig;
 
 use MediaWiki\Config\ServiceOptions;
-use MediaWiki\Deferred\LinksUpdate\LinksUpdate;
 use MediaWiki\MainConfigNames;
+use MediaWiki\Title\NamespaceInfo;
+use MediaWiki\Title\TitleFormatter;
 use MediaWiki\Title\TitleValue;
 use Wikimedia\Rdbms\IConnectionProvider;
 use Wikimedia\Rdbms\IDatabase;
@@ -17,6 +18,7 @@ class GlobalJsonLinks {
 	/** Config vars needed for operation */
 	public const CONFIG_OPTIONS = [
 		'TrackGlobalJsonLinks',
+		'TrackGlobalJsonLinksNamespaces',
 		MainConfigNames::UpdateRowsPerQuery
 	];
 
@@ -26,15 +28,40 @@ class GlobalJsonLinks {
 	private ServiceOptions $config;
 
 	/**
+	 * @var NamespaceInfo
+	 */
+	private $namespaceInfo;
+
+	/**
+	 * @var TitleFormatter
+	 */
+	private $titleFormatter;
+
+	/**
+	 * @var string[]
+	 */
+	private $canonicalNamespaces;
+
+	/**
 	 * Construct a GlobalJsonLinks instance for a certain wiki.
 	 *
 	 * @param ServiceOptions $config
 	 * @param IConnectionProvider $connectionProvider
+	 * @param NamespaceInfo $namespaceInfo
+	 * @param TitleFormatter $titleFormatter
 	 * @param string $wiki wiki id of the wiki
 	 */
-	public function __construct( ServiceOptions $config, IConnectionProvider $connectionProvider, string $wiki ) {
+	public function __construct( ServiceOptions $config,
+		IConnectionProvider $connectionProvider,
+		NamespaceInfo $namespaceInfo,
+		TitleFormatter $titleFormatter,
+		string $wiki
+	) {
 		$this->config = $config;
 		$this->connectionProvider = $connectionProvider;
+		$this->namespaceInfo = $namespaceInfo;
+		$this->canonicalNamespaces = $namespaceInfo->getCanonicalNamespaces();
+		$this->titleFormatter = $titleFormatter;
 		$this->wiki = $wiki;
 	}
 
@@ -45,7 +72,12 @@ class GlobalJsonLinks {
 	 * @return self
 	 */
 	public function forWiki( string $wiki ): self {
-		return new self( $this->config, $this->connectionProvider, $wiki );
+		return new self( $this->config,
+			$this->connectionProvider,
+			$this->namespaceInfo,
+			$this->titleFormatter,
+			$wiki
+		);
 	}
 
 	/**
@@ -54,6 +86,15 @@ class GlobalJsonLinks {
 	 */
 	private function isActive(): bool {
 		return boolval( $this->config->get( 'TrackGlobalJsonLinks' ) );
+	}
+
+	/**
+	 * Should we use the gjlw_namespace_text field? Keep feature flag off if
+	 * needed when coordinating deployment of patch-gjlw_namespace_text.sql
+	 * @return bool
+	 */
+	private function useNamespaceText() {
+		return boolval( $this->config->get( 'TrackGlobalJsonLinksNamespaces' ) );
 	}
 
 	/**
@@ -67,17 +108,29 @@ class GlobalJsonLinks {
 
 	/**
 	 * Look up or insert a globaljsonlinks_namespace row with a partial
-	 * source reference with wiki id. We will only ever be operating on
-	 * one at a time (per source page), the current wiki.
+	 * source reference with wiki id and namespace. We will only ever be
+	 * operating on one at a time (per source page), on the current wiki.
 	 *
+	 * @param TitleValue $title
 	 * @return int row id of current wiki
 	 */
-	private function mapWiki(): int {
+	private function mapWiki( TitleValue $title ): int {
 		$db = $this->getDB();
 
 		$fields = [
 			'gjlw_wiki' => $this->wiki,
 		];
+		if ( $this->useNamespaceText() ) {
+			// Namespace texts may vary by title in some cases such as localized NS_USER
+			// namespaces that vary based on the user's configured gender setting.
+			// However there are few variants which repeat a lot, so we break them out
+			// to the smaller grouping table along with the source wiki that owns them.
+			$fields['gjlw_namespace'] = $title->getNamespace();
+			$fields['gjlw_namespace_text'] = $this->titleFormatter->getNamespaceName(
+				$title->getNamespace(),
+				$title->getDBKey()
+			);
+		}
 
 		for ( $i = 0; $i < 2; $i++ ) {
 			$id = intval( $db->newSelectQueryBuilder()
@@ -100,6 +153,36 @@ class GlobalJsonLinks {
 			}
 		}
 		throw new \RuntimeException( 'Unexpected insert conflict' );
+	}
+
+	/**
+	 * Retrieve a `globaljsonlinks_wiki` entry for inspection.
+	 * @param int $id
+	 * @return array|null
+	 */
+	public function getWiki( $id ): ?array {
+		$db = $this->getDB();
+
+		$fields = [ 'gjlw_wiki' ];
+		if ( $this->useNamespaceText() ) {
+			$fields[] = 'gjlw_namespace';
+			$fields[] = 'gjlw_namespace_text';
+		}
+
+		$row = $db->newSelectQueryBuilder()
+			->select( $fields )
+			->from( 'globaljsonlinks_wiki' )
+			->where( [ 'gjlw_id' => $id ] )
+			->caller( __METHOD__ )
+			->fetchRow();
+		if ( !$row ) {
+			return null;
+		}
+		return [
+			'wiki' => $row->gjlw_wiki,
+			'namespace' => isset( $row->gjlw_namespace ) ? intval( $row->gjlw_namespace ) : null,
+			'namespaceText' => $row->gjlw_namespace_text ?? null,
+		];
 	}
 
 	/**
@@ -187,17 +270,18 @@ class GlobalJsonLinks {
 	): void {
 		$db = $this->getDB();
 
-		$wikiId = $this->mapWiki();
+		$wikiId = $this->mapWiki( $title );
 		$targetMap = $this->mapTargets( $links );
 
 		$insert = [];
 		foreach ( $targetMap as $target => $targetId ) {
-			$insert[] = [
+			$row = [
 				'gjl_wiki' => $wikiId,
 				'gjl_namespace' => $title->getNamespace(),
 				'gjl_title' => $title->getDBkey(),
 				'gjl_target' => $targetId,
 			];
+			$insert[] = $row;
 		}
 
 		$ticket = $ticket ?: $this->connectionProvider->getEmptyTransactionTicket( __METHOD__ );
@@ -226,7 +310,7 @@ class GlobalJsonLinks {
 		$db = $this->getDB();
 
 		$where = [
-			'gjl_wiki' => $this->mapWiki(),
+			'gjl_wiki' => $this->mapWiki( $title ),
 			'gjl_namespace' => $title->getNamespace(),
 			'gjl_title' => $title->getDBkey(),
 		];
@@ -257,7 +341,7 @@ class GlobalJsonLinks {
 	/**
 	 * Gets list of backlinks for the given target data page.
 	 * @param TitleValue $target page name of target data page
-	 * @return array[] set of ['wiki', 'namespace', 'title'] arrays
+	 * @return array[] set of ['wiki', 'namespace', 'namespaceText', 'title'] arrays
 	 */
 	public function getLinksToTarget( TitleValue $target ): array {
 		if ( !$this->isActive() ) {
@@ -265,12 +349,24 @@ class GlobalJsonLinks {
 		}
 
 		$db = $this->getDB();
+		$cols = [
+			'gjlw_wiki',
+			'gjl_namespace',
+			'gjl_title',
+		];
+		if ( $this->useNamespaceText() ) {
+			$cols[] = 'gjlw_namespace_text';
+		}
+		// Note this ordering may require filesort of the output set, but this
+		// is expected to be small enough for that to be reasonable
+		// on any single data page reference.
+		//
+		// If this proves to be a problem in the future on the DB side, consider
+		// loosening the traditional namespace ordering or post-processing.
+		// -- bvibber 2025-02-21
+		$orderBy = [ 'gjlw_wiki', 'gjl_namespace', 'gjl_title' ];
 		$result = $db->newSelectQueryBuilder()
-			->select( [
-				'gjlw_wiki',
-				'gjl_namespace',
-				'gjl_title',
-			] )
+			->select( $cols )
 			->from( 'globaljsonlinks' )
 			->join( 'globaljsonlinks_target', /* alias: */ null, 'gjl_target=gjlt_id' )
 			->join( 'globaljsonlinks_wiki', /* alias: */ null, 'gjl_wiki=gjlw_id' )
@@ -278,6 +374,7 @@ class GlobalJsonLinks {
 				'gjlt_namespace' => $target->getNamespace(),
 				'gjlt_title' => $target->getDBkey(),
 			] )
+			->orderBy( $orderBy )
 			->caller( __METHOD__ )
 			->fetchResultSet();
 
@@ -286,6 +383,9 @@ class GlobalJsonLinks {
 			$links[] = [
 				'wiki' => $row->gjlw_wiki,
 				'namespace' => intval( $row->gjl_namespace ),
+				'namespaceText' => $row->gjlw_namespace_text ??
+					$this->canonicalNamespaces[$row->gjl_namespace] ??
+					'',
 				'title' => $row->gjl_title,
 			];
 		}
@@ -303,6 +403,11 @@ class GlobalJsonLinks {
 		}
 
 		$db = $this->getDB();
+		$where = [
+			'gjlw_wiki' => $this->wiki,
+			'gjl_namespace' => $title->getNamespace(),
+			'gjl_title' => $title->getDBkey(),
+		];
 		$result = $db->newSelectQueryBuilder()
 			->select( [
 				'gjlt_namespace',
@@ -311,11 +416,7 @@ class GlobalJsonLinks {
 			->from( 'globaljsonlinks' )
 			->join( 'globaljsonlinks_target', /* alias: */ null, 'gjl_target=gjlt_id' )
 			->join( 'globaljsonlinks_wiki', /* alias: */ null, 'gjl_wiki=gjlw_id' )
-			->where( [
-				'gjlw_wiki' => $this->wiki,
-				'gjl_namespace' => $title->getNamespace(),
-				'gjl_title' => $title->getDBkey(),
-			] )
+			->where( $where )
 			->caller( __METHOD__ )
 			->fetchResultSet();
 
@@ -331,21 +432,66 @@ class GlobalJsonLinks {
 	}
 
 	/**
+	 * Delete `globaljsonlinks` rows that refer to legacy rows in
+	 * `globaljsonlinks_wiki` without the namespace text.
+	 *
+	 * @param TitleValue $title linking page
+	 */
+	public function deleteLegacyRows( TitleValue $title ) {
+		if ( !$this->isActive() ) {
+			return;
+		}
+		if ( !$this->useNamespaceText() ) {
+			return;
+		}
+
+		$db = $this->getDB();
+
+		$legacyMapping = intval( $db->newSelectQueryBuilder()
+			->select( 'gjlw_id' )
+			->from( 'globaljsonlinks_wiki' )
+			->where( [
+				'gjlw_wiki' => $this->wiki,
+				'gjlw_namespace' => null,
+				'gjlw_namespace_text' => null,
+			] )
+			->join( 'globaljsonlinks', /* alias: */ null, [
+				'gjl_wiki=gjlw_id',
+				'gjl_namespace' => $title->getNamespace(),
+				'gjl_title' => $title->getDBkey(),
+			] )
+			->caller( __METHOD__ )
+			->fetchField() );
+		if ( $legacyMapping === 0 ) {
+			return;
+		}
+
+		$db->newDeleteQueryBuilder()
+			->deleteFrom( 'globaljsonlinks' )
+			->where( [
+				'gjl_wiki' => $legacyMapping,
+				'gjl_namespace' => $title->getNamespace(),
+				'gjl_title' => $title->getDBkey(),
+			] )
+			->caller( __METHOD__ )
+			->execute();
+	}
+
+	/**
 	 * Extract the saved JsonConfig usage links from the given parser
 	 * output object and update the database to match.
 	 *
-	 * @param LinksUpdate $linksUpdater
+	 * @param TitleValue $title
+	 * @param string[] $pages
 	 * @param mixed $ticket Token returned by {@see IConnectionProvider::getEmptyTransactionTicket()}
 	 */
-	public function updateJsonLinks( LinksUpdate $linksUpdater, $ticket ): void {
+	public function updateLinks( TitleValue $title, array $pages, $ticket ) {
 		if ( !$this->isActive() ) {
 			return;
 		}
 
-		$title = $linksUpdater->getTitle()->getTitleValue();
-		$pages = array_keys(
-			$linksUpdater->getParserOutput()->getExtensionData( self::KEY_JSONLINKS ) ?? []
-		);
+		$this->deleteLegacyRows( $title );
+
 		$existing = $this->getLinksFromPage( $title );
 
 		// Calculate changes
