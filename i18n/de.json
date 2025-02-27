@@ -69,5 +69,10 @@
 	"jsonconfig-license-notice-license-unset": "'''Hinweis:''' Wenn du diese Seite bearbeitest, stimmst du der Veröffentlichung deines Beitrags unter der im Feld <code>licence</code> angegebenen Lizenz zu.",
 	"right-jsonconfig-flush": "JSON-Konfiguration über die API verändern",
 	"action-jsonconfig-flush": "JsonConfig über die API zu verändern",
-	"jsonconfig-blocked-page-creation": "Der angegebene Seitentitel stimmt mit keinem der für die JSONConfig-Erweiterung für dieses Wiki konfigurierten Muster überein."
+	"jsonconfig-blocked-page-creation": "Der angegebene Seitentitel stimmt mit keinem der für die JSONConfig-Erweiterung für dieses Wiki konfigurierten Muster überein.",
+	"jsonconfig-localjsonlinks": "Datennutzung für $1",
+	"jsonconfig-localjsonlinks-of-page": "Die folgenden Seiten verwenden diese Datenseite:",
+	"jsonconfig-globaljsonlinks": "Datennutzung auf anderen Wikis",
+	"jsonconfig-globaljsonlinks-of-page": "Die folgenden anderen Wikis verwenden diese Datenseite:",
+	"jsonconfig-globaljsonlinks-on-wiki": "Verwendung auf $1"
 }
