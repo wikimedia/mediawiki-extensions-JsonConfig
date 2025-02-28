@@ -70,5 +70,10 @@
 	"jsonconfig-license-notice-license-unset": "'''הערה:''' עריכת הדף הזה מהווה את הסכמתך לשחרר את תרומתך בהתאם לרישיון המצוין בשדה <code>licence</code>.",
 	"right-jsonconfig-flush": "טיפול ב־JsonConfig באמצעות API",
 	"action-jsonconfig-flush": "לשלוט ב־JsonConfig דרך API",
-	"jsonconfig-blocked-page-creation": "כותרת הדף שציינת אינה תואמת לאף אחת מהתבניות שהוגדרו עבור תוסף JSONConfig עבור הוויקי הזה."
+	"jsonconfig-blocked-page-creation": "כותרת הדף שציינת אינה תואמת לאף אחת מהתבניות שהוגדרו עבור תוסף JSONConfig עבור הוויקי הזה.",
+	"jsonconfig-localjsonlinks": "שימוש בנתונים באתר $1",
+	"jsonconfig-localjsonlinks-of-page": "הדפים הבאים משתמשים בדף הנתונים הזה:",
+	"jsonconfig-globaljsonlinks": "שימוש בנתונים באתרי ויקי אחרים",
+	"jsonconfig-globaljsonlinks-of-page": "אתרי הוויקי האחרים הבאים משתמשים בדף הנתונים הזה:",
+	"jsonconfig-globaljsonlinks-on-wiki": "שימוש באתר $1"
 }

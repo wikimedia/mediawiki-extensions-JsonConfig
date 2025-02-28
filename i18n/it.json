@@ -44,5 +44,8 @@
 	"jsonconfig-use-category": "Pagine che utilizzano l'estensione JsonConfig",
 	"jsonconfig-license": "Dati disponibili in base alla licenza $1.",
 	"jsonconfig-license-not-set": "Quando modifichi questa pagina, acconsenti rilasciare i tuoi contributi in base alla licenza indicata nel campo <code>licence</code> .",
-	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero"
+	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
+	"jsonconfig-localjsonlinks": "Utilizzo dei dati su $1",
+	"jsonconfig-globaljsonlinks": "Utilizzo dei dati su altri wiki",
+	"jsonconfig-globaljsonlinks-on-wiki": "Utilizzo su $1"
 }
