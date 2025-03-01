@@ -91,6 +91,20 @@ class JCTitleParsingTest extends MediaWikiIntegrationTestCase {
 			[ 'Sub/space', 900, 'Sub/space' ],
 			[ 'with:colon', 900, 'With:colon' ],
 			[ 'With:colon', 900, 'With:colon' ],
+
+			// unusual inputs where the handling differs from normal MediaWiki title rules
+			// (these cases are here just to document the behavior without endorsing it)
+			[ '_foo', 800, 'Foo' ],
+			[ ':foo', 800, 'Foo' ],
+			[ ':_foo', 800, 'Foo' ],
+			[ '_:foo', 800, 'Foo' ],
+			[ '', 800, false ],
+			[ ':', 800, null ],
+			[ '_', 800, null ],
+			[ ':_', 800, null ],
+			[ '_:', 800, null ],
+			[ 'foo#bar', 800, null ],
+			[ '#bar', 800, null ],
 		];
 	}
 
