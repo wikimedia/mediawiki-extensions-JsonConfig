@@ -99,5 +99,10 @@
 	"jsonconfig-license-notice-license-unset": "'''Напомена:''' Кога ја уредувате страницава, се согласувате дека ги објавувате вашите придонеси под лиценцата укажана во полето <code>licence</code>.",
 	"right-jsonconfig-flush": "Работа со JsonConfig преку извршник",
 	"action-jsonconfig-flush": "работа со JsonConfig преку приложник",
-	"jsonconfig-blocked-page-creation": "Насловот на страницата што ја укажавте не одговара на ниедна од шемите поставени во додатокот JSONConfig за ова вики."
+	"jsonconfig-blocked-page-creation": "Насловот на страницата што ја укажавте не одговара на ниедна од шемите поставени во додатокот JSONConfig за ова вики.",
+	"jsonconfig-localjsonlinks": "Употреба на податоците на $1",
+	"jsonconfig-localjsonlinks-of-page": "Следниве страници ја користат оваа податочна страница:",
+	"jsonconfig-globaljsonlinks": "Употреба на податоците на други викија",
+	"jsonconfig-globaljsonlinks-of-page": "Оваа податочна страница се користи на следниве други викија:",
+	"jsonconfig-globaljsonlinks-on-wiki": "Употреба на $1"
 }
