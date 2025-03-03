@@ -12,7 +12,7 @@ use MediaWiki\Hook\LinksUpdateCompleteHook;
 use MediaWiki\Page\Hook\ArticleViewFooterHook;
 use MediaWiki\Parser\Sanitizer;
 use MediaWiki\Title\NamespaceInfo;
-use WikiMap;
+use MediaWiki\WikiMap\WikiMap;
 
 /**
  * Hook handlers for JsonConfig extension.
