@@ -525,27 +525,16 @@ class JCSingleton {
 	 * @return string|null
 	 */
 	private static function normalizeTitleString( string $text ) {
-		$filteredText = Sanitizer::decodeCharReferencesAndNormalize( $text );
-		$dbkey = str_replace( ' ', '_', $filteredText );
+		// Decode character references (why??)
+		$dbkey = Sanitizer::decodeCharReferencesAndNormalize( $text );
 
-		// Strip Unicode bidi characters
-		$dbkey = preg_replace( '/[\x{200E}\x{200F}\x{202A}-\x{202E}]+/u', '', $dbkey );
-		if ( $dbkey === null ) {
-			// Regex had an error. Most likely this is caused by invalid UTF-8
-			return null;
-		}
-
-		// Clean up whitespace
+		// Collapse and normalize whitespace
 		$dbkey = preg_replace(
 			'/[ _\xA0\x{1680}\x{180E}\x{2000}-\x{200A}\x{2028}\x{2029}\x{202F}\x{205F}\x{3000}]+/u',
 			'_',
 			$dbkey
 		);
 		$dbkey = trim( $dbkey, '_' );
-		if ( strpos( $dbkey, \UtfNormal\Constants::UTF8_REPLACEMENT ) !== false ) {
-			// Contained illegal UTF-8 sequences or forbidden Unicode chars.
-			return null;
-		}
 
 		// Strip initial colon
 		if ( str_starts_with( $dbkey, ':' ) ) {
@@ -553,54 +542,32 @@ class JCSingleton {
 			$dbkey = trim( $dbkey, '_' );
 		}
 
-		if ( $dbkey === '' ) {
+		// Size must be between 1 and 255 bytes
+		if ( $dbkey === '' || strlen( $dbkey ) > 255 ) {
 			return null;
 		}
 
-		// Reject illegal characters
-		$rxTc = '/' .
-			// Any character not allowed is forbidden...
-			'[^ %!"$&\'()*,\\-.\\/0-9:;=?@A-Z\\\\^_`a-z~\\x80-\\xFF+]' .
-			// URL percent encoding sequences interfere with the ability
-			// to round-trip titles -- you can't link to them consistently.
-			'|%[0-9A-Fa-f]{2}' .
-			// XML/HTML character references produce similar issues.
-			'|&[A-Za-z0-9\x80-\xff]+;' .
-			'/S';
-		if ( preg_match( $rxTc, $dbkey ) ) {
-			return null;
-		}
-
-		// Pages with "/./" or "/../" appearing in the URLs will often be un-
-		// reachable due to the way web browsers deal with 'relative' URLs.
-		// Also, they conflict with subpage syntax.  Forbid them explicitly.
-		if (
-			str_contains( $dbkey, '.' ) &&
-			(
-				$dbkey === '.' || $dbkey === '..' ||
-				str_starts_with( $dbkey, './' ) ||
-				str_starts_with( $dbkey, '../' ) ||
-				str_contains( $dbkey, '/./' ) ||
-				str_contains( $dbkey, '/../' ) ||
-				str_ends_with( $dbkey, '/.' ) ||
-				str_ends_with( $dbkey, '/..' )
-			)
-		) {
-			return null;
-		}
-
-		// Magic tilde sequences? Nu-uh!
-		if ( strpos( $dbkey, '~~~' ) !== false ) {
-			return null;
-		}
-
-		// Limit the size of titles to 255 bytes
-		if ( strlen( $dbkey ) > 255 ) {
-			return null;
-		}
-
-		// Any remaining initial :s are illegal.
-		if ( str_starts_with( $dbkey, ':' ) ) {
+		// Find illegal characters and sequences
+		$rxTc = <<<REGEX
+			<
+			# Any character not allowed is forbidden
+			[^%!"$&'()*,\-./0-9:;=?@A-Z\\\\^_`a-z~+\x{0080}-\x{10FFFF}]
+			# URL percent encoding sequences are not allowed
+			| %[0-9A-Fa-f]{2}
+			# XML/HTML character references are not allowed
+			| &[A-Za-z0-9\x{0080}-\x{10FFFF}]+;
+			# Bidi and replacement characters are not allowed
+			| [\x{200E}\x{200F}\x{202A}-\x{202E}\x{FFFD}]
+			# Relative path components
+			| (/ | ^) \.{1,2} (/ | $)
+			# Signature-like sequences
+			| ~~~
+			# Initial colons
+			| ^:
+			>ux
+			REGEX;
+		// Reject matching titles or those that cause preg_match() failure
+		if ( preg_match( $rxTc, $dbkey ) !== 0 ) {
 			return null;
 		}
 
