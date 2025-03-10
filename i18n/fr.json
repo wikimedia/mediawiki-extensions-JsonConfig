@@ -5,6 +5,7 @@
 			"Derugon",
 			"Gomoko",
 			"Hpetit",
+			"JLTRY",
 			"JackPotte",
 			"Mahabarata",
 			"McDutchie",
@@ -42,6 +43,9 @@
 	"jsonconfig-err-bad-geojson": "Le paramètre « $1 » doit être un objet de données GeoJSON valide ou un tableau d’objets GeoJSON. Si le champ <code>properties</code> contient <code>title</code> ou <code>description</code>, ils doivent être soit des chaînes sur une seule ligne sans tabulations ni espaces à la fin, soit des objets multilingues de ce genre de chaînes, par exemple <kbd>{ \"en\": \"Chaîne en anglais\", ... }</kbd>",
 	"jsonconfig-err-bad-type": "Le paramètre « $1 » doit être un type valide, comme <code>string</code> (chaîne), <code>number</code> (nombre) ou <code>boolean</code> (booléen)",
 	"jsonconfig-err-bool": "Le paramètre « $1 » doit valoir soit <code>true</code> (vrai), soit <code>false</code> (faux)",
+	"jsonconfig-err-category-invalid": "Chaque catégorie doit être un objet, avec une propriété 'name' qui est une chaîne et éventuellement une propriété 'sort' qui est une chaîne",
+	"jsonconfig-err-category-name-invalid": "L'objet de catégorie doit avoir une propriété 'nom' qui est une chaîne",
+	"jsonconfig-err-category-sort-invalid": "La propriété \"sort\" de catégorie doit être une chaîne",
 	"jsonconfig-err-integer": "Le paramètre « $1 » doit être un nombre entier",
 	"jsonconfig-err-license": "Le paramètre « $1 » doit être l’un des codes de licence valides, par exemple $2",
 	"jsonconfig-err-localized": "Le paramètre « $1 » doit être un objet qui fait correspondre des codes de langue valides à des chaînes sur une ligne sans tabulation ni espaces à la fin, par exemple <kbd>{ \"en\": \"Chaîne en anglais\", ... }</kbd>",
@@ -112,5 +116,10 @@
 	"jsonconfig-license-notice-license-unset": "'''Note :''' quand vous modifiez cette page, vous acceptez de placer votre contribution sous la licence spécifiée dans le champ <code>licence</code>.",
 	"right-jsonconfig-flush": "Manipuler JsonConfig par API",
 	"action-jsonconfig-flush": "manipuler JsonConfig au travers de l’API",
-	"jsonconfig-blocked-page-creation": "Le titre de page que vous avez spécifié ne correspond à aucun des modèles configurés pour l'extension JSONConfig pour ce wiki."
+	"jsonconfig-blocked-page-creation": "Le titre de page que vous avez spécifié ne correspond à aucun des modèles configurés pour l'extension JSONConfig pour ce wiki.",
+	"jsonconfig-localjsonlinks": "Utilisation des données sur $1",
+	"jsonconfig-localjsonlinks-of-page": "Les pages suivantes utilisent cette page de données :",
+	"jsonconfig-globaljsonlinks": "Utilisation des données sur d'autres wikis",
+	"jsonconfig-globaljsonlinks-of-page": "Les autres wikis suivants utilisent cette page de données :",
+	"jsonconfig-globaljsonlinks-on-wiki": "Utilisation sur $1"
 }
