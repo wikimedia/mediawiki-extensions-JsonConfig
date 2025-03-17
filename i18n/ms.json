@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Tofeiku"
+			"Tofeiku",
+			"Hakimi97"
 		]
 	},
 	"jsonconfig-err-bool": "Parameter \"$1\" mestilah 'true' atau 'false'",
