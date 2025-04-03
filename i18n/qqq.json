@@ -116,8 +116,17 @@
 	"jsonconfig-blocked-page-creation": "Error message explaining why you cannot create a page with the given title, because it does not match any of the configured patterns.\nSee https://www.mediawiki.org/wiki/Extension:JsonConfig#Configuration for details.",
 	"jsonconfig-localjsonlinks": "Section heading on Data: namespace pages describing usage within the current wiki",
 	"jsonconfig-localjsonlinks-of-page": "Note on Data: namespace pages explaining that these pages use this data page in some way.",
+	"globaljsonlinks": "Human-readable title for Special:GlobalJsonLinks when no page is selected",
 	"jsonconfig-globaljsonlinks": "Section heading on Data: namespace pages describing usage on other wikis.",
 	"jsonconfig-globaljsonlinks-on-wiki": "Subsection heading in list of Data: namespace page usage showing usage from an individual wiki.\n\nParameters:\n* $1 - linking page\n* $2 - source wiki.",
 	"jsonconfig-globaljsonlinks-of-page": "Note on Data: namespace pages explaining that these are other wikis using the page from here.",
-	"jsonconfig-globaljsonlinks-additional": "Text displayed on the footer of a JSON data page that indicates that there are additional global usage links than those listed."
+	"jsonconfig-globaljsonlinks-more": "Link to Special:GlobalJsonLinks with a target page parameter if there are more usage links than can be displayed.\n\nParameters:\n* $1 - target page",
+	"jsonconfig-globaljsonlinks-header": "Header explaining what Special:GlobalJsonLinks does, listing pages on remote wikis that link to a given data page.",
+	"jsonconfig-globaljsonlinks-header-target": "Header detail linking to the target data page.\n\nParameters:\n* $1 - target page title",
+	"jsonconfig-globaljsonlinks-for": "Page title for Special:GlobalJsonLinks.\n\nParameters:\n* $1 - target page name",
+	"jsonconfig-globaljsonlinks-ok": "Label for search button in input form on Special:GlobalJsonLinks",
+	"jsonconfig-globaljsonlinks-text": "Subheading for input form on Special:GlobalJsonLinks",
+	"jsonconfig-globaljsonlinks-no-results": "Result text when no usage links are found for the given page on Special:GlobalJsonLinks",
+	"jsonconfig-globaljsonlinks-remote": "Error result shown on Special:GlobalJsonLinks when viewed on a remote wiki that does not have local data page storage. This can be customized to link to the proper place on the store wiki.\n\nParameters:\n* $1 - target page name",
+	"jsonconfig-globaljsonlinks-disabled": "Error result shown on Special:GlobalJsonLinks when $wgTrackGlobalJsonLinks is disabled."
 }

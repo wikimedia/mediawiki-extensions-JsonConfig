@@ -106,8 +106,17 @@
 	"jsonconfig-blocked-page-creation": "The page title you have specified does not match any of the patterns configured for the JSONConfig extension for this wiki.",
 	"jsonconfig-localjsonlinks": "Data usage on $1",
 	"jsonconfig-localjsonlinks-of-page": "The following pages use this data page:",
+	"globaljsonlinks": "Global data usage",
 	"jsonconfig-globaljsonlinks": "Data usage on other wikis",
 	"jsonconfig-globaljsonlinks-on-wiki": "Usage on $2",
 	"jsonconfig-globaljsonlinks-of-page": "The following other wikis use this data page:",
-	"jsonconfig-globaljsonlinks-additional": "And additional usages..."
+	"jsonconfig-globaljsonlinks-more": "View [[{{#Special:GlobalJsonLinks}}/$1|more global usage]] of this data page.",
+	"jsonconfig-globaljsonlinks-header": "This page shows where a page is loaded in a data pipeline fetch on other wikis. You can also find that information at the bottom of the data description page.",
+	"jsonconfig-globaljsonlinks-header-target": "Pages with Data: load dependencies on [[:$1]]",
+	"jsonconfig-globaljsonlinks-for": "Links for $1",
+	"jsonconfig-globaljsonlinks-ok": "Search",
+	"jsonconfig-globaljsonlinks-text": "Search global data usage",
+	"jsonconfig-globaljsonlinks-no-results": "[[:$1]] is not used locally or on other wikis.",
+	"jsonconfig-globaljsonlinks-remote": "Data usage link tracking must be checked from the central store wiki.",
+	"jsonconfig-globaljsonlinks-disabled": "Data usage link tracking is disabled."
 }

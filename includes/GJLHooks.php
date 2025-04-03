@@ -114,9 +114,8 @@ class GJLHooks implements
 				. '<div id="mw-datapage-section-globaljsonlinks">'
 				. $context->msg( 'jsonconfig-globaljsonlinks-of-page' )->parseAsBlock()
 				. "<ul>\n" . $guHtml . "</ul>\n";
-
 			if ( $query->hasMore() ) {
-				$html .= $context->msg( 'jsonconfig-globaljsonlinks-additional' )->parseAsBlock();
+				$html .= $context->msg( 'jsonconfig-globaljsonlinks-more', $targetName )->parseAsBlock();
 			}
 			$html .= '</div>';
 			$context->getOutput()->addHtml( $html );

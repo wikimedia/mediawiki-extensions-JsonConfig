@@ -45,6 +45,7 @@
 		]
 	},
 	"ExtensionMessagesFiles": {
+		"JsonConfigAliases": "JsonConfig.aliases.php",
 		"JsonConfigNamespaces": "JsonConfig.namespaces.php"
 	},
 	"TrackingCategories": [
@@ -165,6 +166,15 @@
 		},
 		"schema": {
 			"class": "JsonConfig\\SchemaHooks"
+		}
+	},
+	"SpecialPages": {
+		"GlobalJsonLinks": {
+			"class": "JsonConfig\\SpecialGlobalJsonLinks",
+			"services": [
+				"JsonConfig.GlobalJsonLinks",
+				"SearchEngineFactory"
+			]
 		}
 	},
 	"ServiceWiringFiles": [
