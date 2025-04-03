@@ -8,6 +8,7 @@ use MediaWiki\MediaWikiServices;
 
 class JCLuaLibrary extends LibraryBase {
 
+	/** @inheritDoc */
 	public function register() {
 		$functions = [ 'get' => [ $this, 'get' ] ];
 		$moduleFileName = __DIR__ . DIRECTORY_SEPARATOR . 'JCLuaLibrary.lua';

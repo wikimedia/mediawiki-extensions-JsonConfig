@@ -31,6 +31,7 @@ class GlobalJsonLinksCachePurgeJob extends Job {
 		$this->removeDuplicates = true; // expensive
 	}
 
+	/** @inheritDoc */
 	public function run() {
 		$title = $this->getTitle();
 		if ( !$title->inNamespace( NS_DATA ) ) {
