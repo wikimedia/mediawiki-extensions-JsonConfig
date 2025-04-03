@@ -146,6 +146,7 @@ class JCMapDataContent extends JCDataContent {
 		$result->data = $geojson;
 	}
 
+	/** @inheritDoc */
 	protected function createDefaultView() {
 		return new JCMapDataContentView();
 	}

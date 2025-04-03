@@ -6,6 +6,7 @@ use MediaWiki\Language\Language;
 
 class JCTabularContent extends JCDataContent {
 
+	/** @inheritDoc */
 	protected function createDefaultView() {
 		return new JCTabularContentView();
 	}

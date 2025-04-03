@@ -52,6 +52,7 @@ abstract class JCObjContent extends JCContent {
 		return FormatJson::encode( $this->getDataWithDefaults(), true, FormatJson::ALL_OK );
 	}
 
+	/** @inheritDoc */
 	protected function createDefaultView() {
 		return new JCDefaultObjContentView();
 	}
