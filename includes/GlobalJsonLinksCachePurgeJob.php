@@ -2,9 +2,9 @@
 
 namespace JsonConfig;
 
-use Job;
-use JobSpecification;
+use MediaWiki\JobQueue\Job;
 use MediaWiki\JobQueue\JobQueueGroupFactory;
+use MediaWiki\JobQueue\JobSpecification;
 use MediaWiki\Page\PageReference;
 
 /**

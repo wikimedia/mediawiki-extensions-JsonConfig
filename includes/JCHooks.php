@@ -4,7 +4,6 @@
 
 namespace JsonConfig;
 
-use JobSpecification;
 use MediaWiki\Api\ApiModuleManager;
 use MediaWiki\Api\Hook\ApiMain__moduleManagerHook;
 use MediaWiki\Config\Config;
@@ -26,14 +25,17 @@ use MediaWiki\Hook\SkinCopyrightFooterMessageHook;
 use MediaWiki\Hook\TitleGetEditNoticesHook;
 use MediaWiki\Html\Html;
 use MediaWiki\JobQueue\JobQueueGroupFactory;
+use MediaWiki\JobQueue\JobSpecification;
 use MediaWiki\Message\Message;
 use MediaWiki\Output\Hook\BeforePageDisplayHook;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Page\Hook\ArticleDeleteCompleteHook;
 use MediaWiki\Page\Hook\ArticleUndeleteHook;
+use MediaWiki\Page\WikiPage;
 use MediaWiki\Permissions\Hook\GetUserPermissionsErrorsHook;
 use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Revision\Hook\ContentHandlerDefaultModelForHook;
+use MediaWiki\Skin\Skin;
 use MediaWiki\Status\Status;
 use MediaWiki\Storage\Hook\PageSaveCompleteHook;
 use MediaWiki\Title\Title;
@@ -364,7 +366,7 @@ class JCHooks implements
 	/**
 	 * Adds CSS for pretty-printing configuration on NS_CONFIG pages.
 	 * @param OutputPage $out
-	 * @param \Skin $skin
+	 * @param Skin $skin
 	 */
 	public function onBeforePageDisplay(
 		/** @noinspection PhpUnusedParameterInspection */ $out, $skin
@@ -483,7 +485,7 @@ class JCHooks implements
 	}
 
 	/**
-	 * @param \WikiPage|Title $value
+	 * @param WikiPage|Title $value
 	 * @param JCContent|null $content
 	 * @return bool
 	 */
