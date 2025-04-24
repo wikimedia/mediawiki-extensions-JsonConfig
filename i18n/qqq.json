@@ -117,6 +117,7 @@
 	"jsonconfig-localjsonlinks": "Section heading on Data: namespace pages describing usage within the current wiki",
 	"jsonconfig-localjsonlinks-of-page": "Note on Data: namespace pages explaining that these pages use this data page in some way.",
 	"jsonconfig-globaljsonlinks": "Section heading on Data: namespace pages describing usage on other wikis.",
+	"jsonconfig-globaljsonlinks-on-wiki": "Subsection heading in list of Data: namespace page usage showing usage from an individual wiki.\n\nParameters:\n* $1 - linking page\n* $2 - source wiki.",
 	"jsonconfig-globaljsonlinks-of-page": "Note on Data: namespace pages explaining that these are other wikis using the page from here.",
-	"jsonconfig-globaljsonlinks-on-wiki": "Subsection heading in list of Data: namespace page usage showing usage from an individual wiki. Parameter is the URL to the wiki."
+	"jsonconfig-globaljsonlinks-additional": "Text displayed on the footer of a JSON data page that indicates that there are additional global usage links than those listed."
 }

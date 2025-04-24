@@ -6,12 +6,12 @@ namespace JsonConfig;
 
 use Article;
 use MediaWiki\Config\Config;
-use MediaWiki\Context\IContextSource;
 use MediaWiki\Deferred\LinksUpdate\LinksUpdate;
 use MediaWiki\Hook\LinksUpdateCompleteHook;
 use MediaWiki\Page\Hook\ArticleViewFooterHook;
 use MediaWiki\Parser\Sanitizer;
 use MediaWiki\Title\NamespaceInfo;
+use MediaWiki\Title\Title;
 use MediaWiki\WikiMap\WikiMap;
 
 /**
@@ -26,6 +26,14 @@ class GJLHooks implements
 	ArticleViewFooterHook,
 	LinksUpdateCompleteHook
 {
+	/**
+	 * Maximum number of global usage links to get in a single query.
+	 */
+	private const GLOBAL_JSONLINKS_QUERY_LIMIT = 50;
+
+	/** @var GlobalJsonLinksQuery[] */
+	private static $queryCache = [];
+
 	private Config $config;
 	private NamespaceInfo $namespaceInfo;
 	private GlobalJsonLinks $globalJsonLinks;
@@ -38,6 +46,30 @@ class GJLHooks implements
 		$this->config = $config;
 		$this->namespaceInfo = $namespaceInfo;
 		$this->globalJsonLinks = $globalJsonLinks;
+	}
+
+	/**
+	 * Get an executed query for use on json data pages
+	 *
+	 * @param Title $title Json data page to query for
+	 * @return GlobalJsonLinksQuery Query object, already executed
+	 */
+	private function getDataPageQuery( Title $title ): GlobalJsonLinksQuery {
+		$name = $title->getDBkey();
+		if ( !isset( self::$queryCache[$name] ) ) {
+			$query = $this->globalJsonLinks->batchQuery( $title->getTitleValue() );
+			$query->setLimit( self::GLOBAL_JSONLINKS_QUERY_LIMIT );
+			$query->execute();
+
+			self::$queryCache[$name] = $query;
+
+			// Limit cache size to 100
+			if ( count( self::$queryCache ) > self::GLOBAL_JSONLINKS_QUERY_LIMIT ) {
+				array_shift( self::$queryCache );
+			}
+		}
+
+		return self::$queryCache[$name];
 	}
 
 	/**
@@ -55,98 +87,42 @@ class GJLHooks implements
 			return true;
 		}
 
-		$title = $article->getTitle()->getTitleValue();
+		$title = $article->getTitle();
 		if ( $title->getNamespace() != NS_DATA ) {
 			return true;
 		}
 
-		$self = [];
-		$others = [];
-		$results = $this->globalJsonLinks->getLinksToTarget( $title );
-		$currentWiki = WikiMap::getCurrentWikiId();
-		$canonicalNamespaces = $this->namespaceInfo->getCanonicalNamespaces();
-		foreach ( $results as $item ) {
-			$wiki = $item['wiki'];
-			$namespace = $item['namespace'];
-			$namespaceText = $item['namespaceText']
-				?? $canonicalNamespaces[$namespace]
-					?? strval( $namespace );
-			$title = $namespaceText;
-			if ( $title !== '' ) {
-				$title .= ':';
-			}
-			$title .= $item['title'];
-			if ( $wiki === $currentWiki ) {
-				$self[] = $title;
-			} else {
-				$others[$wiki][] = $title;
-			}
-		}
-
 		$context = $article->getContext();
+		$targetName = $title->getPrefixedText();
+		$query = $this->getDataPageQuery( $title );
 
-		if ( count( $self ) ) {
-			$wikiName = WikiMap::getWikiName( $currentWiki );
-			$html = '<h2 id="localjsonlinks">'
-				. $context->msg( 'jsonconfig-localjsonlinks', $wikiName )->escaped() . "</h2>\n"
-				. '<div id="mw-datapage-section-localjsonlinks">'
-				. $context->msg( 'jsonconfig-localjsonlinks-of-page' )->parseAsBlock()
-				. "<ul>\n"
-				. $this->usageTrackingFooterForWiki( $context, $currentWiki, $self )
-				. "</ul>\n"
-				. "</div>";
-			$context->getOutput()->addHtml( $html );
+		$guHtml = '';
+		foreach ( $query->getSinglePageResult() as $wiki => $result ) {
+			$wikiName = WikiMap::getWikiName( $wiki );
+			$escWikiName = Sanitizer::escapeClass( $wikiName );
+			$guHtml .= "<li class='mw-gjl-onwiki-$escWikiName'>" . $context->msg(
+				'jsonconfig-globaljsonlinks-on-wiki',
+				$targetName, $wikiName )->parse() . "\n<ul>";
+			foreach ( $result as $item ) {
+				$guHtml .= "\t<li>" . GlobalLinkItemFormatter::formatItem( $item ) . "</li>\n";
+			}
+			$guHtml .= "</ul></li>\n";
 		}
 
-		if ( count( $others ) ) {
-			$html = '<h2 id="globaljsonlinks">'
-				. $context->msg( 'jsonconfig-globaljsonlinks' )->escaped() . "</h2>\n"
+		if ( $guHtml ) {
+			$html = '<h2 id="globaljsonlinks">' . $context->msg( 'jsonconfig-globaljsonlinks' )->escaped() . "</h2>\n"
 				. '<div id="mw-datapage-section-globaljsonlinks">'
 				. $context->msg( 'jsonconfig-globaljsonlinks-of-page' )->parseAsBlock()
-				. "<ul>\n";
-			foreach ( $others as $wiki => $titles ) {
-				$html .= $this->usageTrackingFooterForWiki( $context, $wiki, $titles );
+				. "<ul>\n" . $guHtml . "</ul>\n";
+
+			if ( $query->hasMore() ) {
+				$html .= $context->msg( 'jsonconfig-globaljsonlinks-additional' )->parseAsBlock();
 			}
-			$html .= "</ul>\n"
-				. "</div>";
+			$html .= '</div>';
 			$context->getOutput()->addHtml( $html );
 		}
+
 		return true;
-	}
-
-	/**
-	 * Convert list of remote titles to a nice bit of HTML.
-	 * @param IContextSource $context
-	 * @param string $wiki
-	 * @param string[] $titles
-	 * @return string $html
-	 */
-	private function usageTrackingFooterForWiki( IContextSource $context, string $wiki, array $titles ): string {
-		$wikiName = WikiMap::getWikiName( $wiki );
-		$escWikiName = Sanitizer::escapeClass( $wikiName );
-		$html = '';
-		$html .= "<li class='mw-gjl-onwiki-$escWikiName'>"
-			. $context->msg( 'jsonconfig-globaljsonlinks-on-wiki', $wikiName )->parse()
-			. "\n<ul>";
-		foreach ( $titles as $title ) {
-			$html .= "\t<li>" . $this->formatForeignLink( $wiki, $title ) . "</li>\n";
-		}
-		$html .= "</ul></li>\n";
-		return $html;
-	}
-
-	/**
-	 * @param string $wiki
-	 * @param string $title
-	 * @return string HTML link
-	 */
-	private function formatForeignLink( string $wiki, string $title ): string {
-		$link = WikiMap::makeForeignLink(
-			$wiki, $title,
-			str_replace( '_', ' ', $title )
-		);
-		// Return only the title if no link can be constructed
-		return $link === false ? htmlspecialchars( $title ) : $link;
 	}
 
 	/**

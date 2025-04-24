@@ -2,7 +2,7 @@
 
 namespace JsonConfig;
 
-use MediaWiki\Config\ServiceOptions;
+use MediaWiki\Config\Config;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Title\NamespaceInfo;
 use MediaWiki\Title\TitleFormatter;
@@ -15,17 +15,10 @@ class GlobalJsonLinks {
 	/** Extension data key for global JSON links */
 	public const KEY_JSONLINKS = 'JsonConfig:globaljsonlinks';
 
-	/** Config vars needed for operation */
-	public const CONFIG_OPTIONS = [
-		'TrackGlobalJsonLinks',
-		'TrackGlobalJsonLinksNamespaces',
-		MainConfigNames::UpdateRowsPerQuery
-	];
-
 	private string $wiki;
 	private IConnectionProvider $connectionProvider;
 	private IDatabase $db;
-	private ServiceOptions $config;
+	private Config $config;
 
 	/**
 	 * @var NamespaceInfo
@@ -45,13 +38,13 @@ class GlobalJsonLinks {
 	/**
 	 * Construct a GlobalJsonLinks instance for a certain wiki.
 	 *
-	 * @param ServiceOptions $config
+	 * @param Config $config
 	 * @param IConnectionProvider $connectionProvider
 	 * @param NamespaceInfo $namespaceInfo
 	 * @param TitleFormatter $titleFormatter
 	 * @param string $wiki wiki id of the wiki
 	 */
-	public function __construct( ServiceOptions $config,
+	public function __construct( Config $config,
 		IConnectionProvider $connectionProvider,
 		NamespaceInfo $namespaceInfo,
 		TitleFormatter $titleFormatter,
@@ -84,7 +77,7 @@ class GlobalJsonLinks {
 	 * Should we be touching the DB? Leave feature flag option off to
 	 * keep it undeployed.
 	 */
-	private function isActive(): bool {
+	public function isActive(): bool {
 		return boolval( $this->config->get( 'TrackGlobalJsonLinks' ) );
 	}
 
@@ -95,6 +88,13 @@ class GlobalJsonLinks {
 	 */
 	private function useNamespaceText() {
 		return boolval( $this->config->get( 'TrackGlobalJsonLinksNamespaces' ) );
+	}
+
+	/**
+	 * Are we on the shared repository / store wiki?
+	 */
+	public function onSharedRepo(): bool {
+		return JCHooks::jsonConfigIsStorage( $this->config );
 	}
 
 	/**
@@ -505,5 +505,10 @@ class GlobalJsonLinks {
 		if ( $removed ) {
 			$this->deleteLinksFromPage( $title, $removed, $ticket );
 		}
+	}
+
+	public function batchQuery( TitleValue $target ): GlobalJsonLinksQuery {
+		return new GlobalJsonLinksQuery( $this->connectionProvider,
+			$this->namespaceInfo, $target );
 	}
 }

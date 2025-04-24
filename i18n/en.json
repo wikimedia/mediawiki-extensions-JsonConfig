@@ -107,6 +107,7 @@
 	"jsonconfig-localjsonlinks": "Data usage on $1",
 	"jsonconfig-localjsonlinks-of-page": "The following pages use this data page:",
 	"jsonconfig-globaljsonlinks": "Data usage on other wikis",
+	"jsonconfig-globaljsonlinks-on-wiki": "Usage on $2",
 	"jsonconfig-globaljsonlinks-of-page": "The following other wikis use this data page:",
-	"jsonconfig-globaljsonlinks-on-wiki": "Usage on $1"
+	"jsonconfig-globaljsonlinks-additional": "And additional usages..."
 }

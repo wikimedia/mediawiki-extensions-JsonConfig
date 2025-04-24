@@ -8,6 +8,7 @@ use MediaWiki\Cache\GenderCache;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Title\TitleParser;
 use MediaWiki\Title\TitleValue;
+use MediaWiki\WikiMap\WikiMap;
 use MediaWikiIntegrationTestCase;
 use Wikimedia\TestingAccessWrapper;
 
@@ -402,4 +403,30 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 		];
 	}
 
+	/**
+	 * @dataProvider provideBatchQueryOffset
+	 * @covers \JsonConfig\GlobalJsonLinks::batchQuery
+	 * @covers \JsonConfig\GlobalJsonLinksQuery::setOffset
+	 * @covers \JsonConfig\GlobalJsonLinksQuery::validateOffsetArray
+	 * @covers \JsonConfig\GlobalJsonLinksQuery::hasOffset
+	 */
+	public function testBatchQueryOffset( $offset, $expected ) {
+		$gjl = $this->globalJsonLinks( WikiMap::getCurrentWikiId() );
+		$batch = $gjl->batchQuery( new TitleValue( NS_DATA, 'Test.tab' ) );
+		$result = $batch->setOffset( $offset );
+		$this->assertSame( $expected, $result );
+		$this->assertSame( $expected, $batch->hasOffset() );
+	}
+
+	public static function provideBatchQueryOffset() {
+		return [
+			[ '', false ],
+			[ '1', false ],
+			[ '1|2', false ],
+			[ '1|2|3', false ],
+			[ '1|2|3|4', false ],
+			[ '1|2|3|4|5', true ],
+			[ '1|2|3|4|5|6', false ]
+		];
+	}
 }
