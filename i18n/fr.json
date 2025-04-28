@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"0x010C",
+			"Bananax47",
 			"Derugon",
 			"Gomoko",
 			"Hpetit",
@@ -120,6 +121,6 @@
 	"jsonconfig-localjsonlinks": "Utilisation des données sur $1",
 	"jsonconfig-localjsonlinks-of-page": "Les pages suivantes utilisent cette page de données :",
 	"jsonconfig-globaljsonlinks": "Utilisation des données sur d'autres wikis",
-	"jsonconfig-globaljsonlinks-of-page": "Les autres wikis suivants utilisent cette page de données :",
-	"jsonconfig-globaljsonlinks-on-wiki": "Utilisation sur $1"
+	"jsonconfig-globaljsonlinks-on-wiki": "Utilisation sur $2",
+	"jsonconfig-globaljsonlinks-of-page": "Les autres wikis suivants utilisent cette page de données :"
 }

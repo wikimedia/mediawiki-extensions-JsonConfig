@@ -32,5 +32,5 @@
 	"jsonconfig-license-copyrightwarning": "Објављивањем измена, прихватате да објавите свој допринос под лиценцама [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-copyrightwarning-license-unset": "Објављивањем измена, прихватате да објавите свој допринос под лиценцама наведеним у пољу <code>licence</code>.",
 	"jsonconfig-license-notice": "'''Напомена:''' Уређивањем ове странице прихватате да објавите свој допринос под лиценцом [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
-	"jsonconfig-globaljsonlinks-on-wiki": "Употреба на $1"
+	"jsonconfig-globaljsonlinks-on-wiki": "Употреба на $2"
 }

@@ -5,6 +5,6 @@
 		]
 	},
 	"jsonconfig-type-name-boolean": "ਬੂਲੀਅਨ (ਸੱਚ/ਝੂਠ ਕਿਸਮ)",
-	"jsonconfig-globaljsonlinks-of-page": "ਹੇਠ ਲਿਖੇ ਹੋਰ ਵਿਕੀ ਇਸ ਡੇਟਾ ਵਰਕੇ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹਨ:",
-	"jsonconfig-globaljsonlinks-on-wiki": "$1 ਉੱਤੇ ਵਰਤੋਂ"
+	"jsonconfig-globaljsonlinks-on-wiki": "$2 ਉੱਤੇ ਵਰਤੋਂ",
+	"jsonconfig-globaljsonlinks-of-page": "ਹੇਠ ਲਿਖੇ ਹੋਰ ਵਿਕੀ ਇਸ ਡੇਟਾ ਵਰਕੇ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹਨ:"
 }

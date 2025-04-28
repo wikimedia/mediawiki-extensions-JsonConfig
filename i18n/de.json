@@ -73,6 +73,7 @@
 	"jsonconfig-localjsonlinks": "Datennutzung für $1",
 	"jsonconfig-localjsonlinks-of-page": "Die folgenden Seiten verwenden diese Datenseite:",
 	"jsonconfig-globaljsonlinks": "Datennutzung auf anderen Wikis",
+	"jsonconfig-globaljsonlinks-on-wiki": "Verwendung auf $2",
 	"jsonconfig-globaljsonlinks-of-page": "Die folgenden anderen Wikis verwenden diese Datenseite:",
-	"jsonconfig-globaljsonlinks-on-wiki": "Verwendung auf $1"
+	"jsonconfig-globaljsonlinks-additional": "Und zusätzliche Verwendungen …"
 }

@@ -74,6 +74,6 @@
 	"jsonconfig-localjsonlinks": "שימוש בנתונים באתר $1",
 	"jsonconfig-localjsonlinks-of-page": "הדפים הבאים משתמשים בדף הנתונים הזה:",
 	"jsonconfig-globaljsonlinks": "שימוש בנתונים באתרי ויקי אחרים",
-	"jsonconfig-globaljsonlinks-of-page": "אתרי הוויקי האחרים הבאים משתמשים בדף הנתונים הזה:",
-	"jsonconfig-globaljsonlinks-on-wiki": "שימוש באתר $1"
+	"jsonconfig-globaljsonlinks-on-wiki": "שימוש באתר $2",
+	"jsonconfig-globaljsonlinks-of-page": "אתרי הוויקי האחרים הבאים משתמשים בדף הנתונים הזה:"
 }
