@@ -247,7 +247,7 @@ class JCHooks implements
 	 */
 	private static function getTitleLicenseCode( JCTitle $jct ) {
 		$jctContent = JCSingleton::getContent( $jct );
-		if ( $jctContent && $jctContent instanceof JCDataContent ) {
+		if ( $jctContent && $jctContent instanceof JCDataContent && $jctContent->isValid() ) {
 			$license = $jctContent->getLicenseObject();
 			if ( $license ) {
 				return $license['code'];
