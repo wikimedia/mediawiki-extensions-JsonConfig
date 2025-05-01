@@ -43,7 +43,7 @@ class JCContentHandlerTest extends \MediaWikiIntegrationTestCase {
 		}
 	}
 
-	public function provideCategoryData(): array {
+	public static function provideCategoryData(): array {
 		return [
 			'categories' => [
 				[
