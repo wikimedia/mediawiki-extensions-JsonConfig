@@ -40,6 +40,8 @@ return [
 		);
 	},
 	'JsonConfig.Utils' => static function ( MediaWikiServices $services ): JCUtils {
-		return new JCUtils();
+		return new JCUtils(
+			$services->getLanguageNameUtils()
+		);
 	},
 ];

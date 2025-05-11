@@ -5,15 +5,20 @@ namespace MediaWiki\Extension\JsonConfig;
 use InvalidArgumentException;
 use MediaWiki\Json\FormatJson;
 use MediaWiki\Language\Language;
-use MediaWiki\MediaWikiServices;
+use MediaWiki\Languages\LanguageNameUtils;
 use MediaWiki\Status\Status;
 use MediaWiki\StubObject\StubUserLang;
 use stdClass;
 
 /**
- * Various useful utility functions (all static)
+ * Various useful utility functions
  */
 class JCUtils {
+
+	public function __construct(
+		private readonly LanguageNameUtils $languageNameUtils,
+	) {
+	}
 
 	/**
 	 * Uses wfLogWarning() to report an error.
@@ -167,8 +172,8 @@ class JCUtils {
 	 * @param array $arr
 	 * @return bool
 	 */
-	public static function isListOfLangs( $arr ) {
-		$languageNameUtils = MediaWikiServices::getInstance()->getLanguageNameUtils();
+	private function isListOfLangs( $arr ) {
+		$languageNameUtils = $this->languageNameUtils;
 		return count( $arr ) === count( array_filter( $arr, static function ( $v ) use ( $languageNameUtils ) {
 			return is_string( $v ) && $languageNameUtils->isValidBuiltInCode( $v );
 		} ) );
@@ -180,10 +185,10 @@ class JCUtils {
 	 * @param int $maxlength
 	 * @return bool
 	 */
-	public static function isLocalizedArray( $arr, $maxlength ) {
+	public function isLocalizedArray( $arr, $maxlength ) {
 		if ( is_array( $arr ) &&
 			$arr &&
-			self::isListOfLangs( array_keys( $arr ) )
+			$this->isListOfLangs( array_keys( $arr ) )
 		) {
 			$validStrCount = count( array_filter( $arr, function ( $str ) use ( $maxlength ) {
 				return self::isValidLineString( $str, $maxlength );
