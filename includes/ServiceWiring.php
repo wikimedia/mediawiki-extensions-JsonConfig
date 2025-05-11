@@ -4,6 +4,7 @@ use MediaWiki\Extension\JsonConfig\GlobalJsonLinks;
 use MediaWiki\Extension\JsonConfig\JCApiUtils;
 use MediaWiki\Extension\JsonConfig\JCContentLoaderFactory;
 use MediaWiki\Extension\JsonConfig\JCTransformer;
+use MediaWiki\Extension\JsonConfig\JCUtils;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\WikiMap\WikiMap;
 
@@ -37,5 +38,8 @@ return [
 				$services->getService( 'Scribunto.EngineFactory' ) :
 				null
 		);
+	},
+	'JsonConfig.Utils' => static function ( MediaWikiServices $services ): JCUtils {
+		return new JCUtils();
 	},
 ];

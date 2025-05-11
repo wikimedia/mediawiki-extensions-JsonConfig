@@ -4,8 +4,10 @@ namespace MediaWiki\Extension\JsonConfig\Tests;
 
 use LogicException;
 use MediaWiki\Extension\JsonConfig\JCMapDataContent;
+use MediaWiki\Extension\JsonConfig\JCValue;
 use MediaWiki\MainConfigNames;
 use MediaWikiIntegrationTestCase;
+use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers \MediaWiki\Extension\JsonConfig\JCMapDataContent
@@ -215,4 +217,32 @@ class JCMapDataContentTest extends MediaWikiIntegrationTestCase {
 		$this->assertSame( 'TestCategory', $localized->mediawikiCategories[0]->name );
 		$this->assertSame( 'SortTest', $localized->mediawikiCategories[0]->sort );
 	}
+
+	/**
+	 * @dataProvider provideLocalizedDataToValidate
+	 */
+	public function testLocalizedPropertyValidation( $value, bool $expected ) {
+		/** @var JCMapDataContent $content */
+		$content = TestingAccessWrapper::newFromClass( JCMapDataContent::class );
+		$validator = $content->isValidData();
+
+		$value = new JCValue( 0, $value );
+
+		$this->assertSame( $expected, $validator( $value, [] ) );
+		$this->assertSame( $expected, !$value->error() );
+	}
+
+	public static function provideLocalizedDataToValidate() {
+		return [
+			[ null, false ],
+			[ [], true ],
+			[ [ (object)[] ], true ],
+			[ (object)[], true ],
+			[ [ (object)[ 'properties' => (object)[ 'title' => '' ] ] ], true ],
+			[ [ (object)[ 'properties' => (object)[ 'title' => null ] ] ], false ],
+			[ (object)[ 'properties' => (object)[ 'title' => '' ] ], true ],
+			[ (object)[ 'properties' => (object)[ 'title' => null ] ], false ],
+		];
+	}
+
 }

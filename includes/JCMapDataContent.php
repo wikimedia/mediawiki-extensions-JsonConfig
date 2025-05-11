@@ -56,7 +56,7 @@ class JCMapDataContent extends JCDataContent {
 			$value = $v->getValue();
 
 			if ( ( !is_object( $value ) && !is_array( $value ) ) ||
-				!JCMapDataContent::recursiveWalk( $value, false )
+				!self::recursiveWalk( $value, false )
 			) {
 				$v->error( 'jsonconfig-err-bad-geojson', $path );
 				return false;
@@ -116,7 +116,8 @@ class JCMapDataContent extends JCDataContent {
 		if ( property_exists( $obj, $property ) ) {
 			$value = $obj->$property;
 			if ( !$lang ) {
-				return is_object( $value ) ? JCUtils::isLocalizedArray( (array)$value, $maxlength )
+				$utils = MediaWikiServices::getInstance()->getService( 'JsonConfig.Utils' );
+				return is_object( $value ) ? $utils->isLocalizedArray( (array)$value, $maxlength )
 					: JCUtils::isValidLineString( $value, $maxlength );
 			} elseif ( is_object( $value ) ) {
 				$obj->$property = JCUtils::pickLocalizedString( $value, $lang );

@@ -2,6 +2,7 @@
 namespace MediaWiki\Extension\JsonConfig;
 
 use Closure;
+use MediaWiki\MediaWikiServices;
 
 /**
  * Class JCValidators contains various static validation functions
@@ -206,7 +207,8 @@ class JCValidators {
 	 * @return Closure
 	 */
 	public static function isLocalizedString( $nullable = false, $maxlength = 400 ) {
-		return static function ( JCValue $jcv, array $path ) use ( $nullable, $maxlength ) {
+		$utils = MediaWikiServices::getInstance()->getService( 'JsonConfig.Utils' );
+		return static function ( JCValue $jcv, array $path ) use ( $nullable, $maxlength, $utils ) {
 			if ( !$jcv->isMissing() ) {
 				$v = $jcv->getValue();
 				if ( $nullable && $v === null ) {
@@ -215,7 +217,7 @@ class JCValidators {
 				if ( is_object( $v ) ) {
 					$v = (array)$v;
 				}
-				if ( JCUtils::isLocalizedArray( $v, $maxlength ) ) {
+				if ( $utils->isLocalizedArray( $v, $maxlength ) ) {
 					// Sort array so that the values are sorted alphabetically
 					ksort( $v );
 					$jcv->setValue( (object)$v );
