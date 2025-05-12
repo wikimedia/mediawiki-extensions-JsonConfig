@@ -53,6 +53,7 @@
 	"jsonconfig-license-name-dl-de-zero-2.0": "Германи хаамийн лицензи — Нолан — Верси 2.0",
 	"jsonconfig-license-name-dl-de-by-1.0": "Германи хаамийн лицензи — Атрибуци — Верси 1.0",
 	"jsonconfig-license-name-dl-de-by-2.0": "Германи хаамийн лицензи — Атрибуци — Верси 2.0",
+	"jsonconfig-license-name-GeoNutzV": "Geo Data лицензи Германи",
 	"jsonconfig-license-notice-license-unset": "'''Билгалдаккхар:''' АгӀо хийцарца, хьо реза хуьллу хьайн къинхьегам арахуьйцуш хиларна <code>license</code> меттигехь билгалйаьккхинчу лицензица.",
 	"right-jsonconfig-flush": "API-ца JsonConfig-на урхалла дар",
 	"action-jsonconfig-flush": "API-ца JsonConfig-на урхалла дар"
