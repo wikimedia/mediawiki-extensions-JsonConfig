@@ -72,8 +72,17 @@
 	"jsonconfig-blocked-page-creation": "Der angegebene Seitentitel stimmt mit keinem der für die JSONConfig-Erweiterung für dieses Wiki konfigurierten Muster überein.",
 	"jsonconfig-localjsonlinks": "Datennutzung für $1",
 	"jsonconfig-localjsonlinks-of-page": "Die folgenden Seiten verwenden diese Datenseite:",
+	"globaljsonlinks": "Globale Datenverwendung",
 	"jsonconfig-globaljsonlinks": "Datennutzung auf anderen Wikis",
 	"jsonconfig-globaljsonlinks-on-wiki": "Verwendung auf $2",
 	"jsonconfig-globaljsonlinks-of-page": "Die folgenden anderen Wikis verwenden diese Datenseite:",
-	"jsonconfig-globaljsonlinks-additional": "Und zusätzliche Verwendungen …"
+	"jsonconfig-globaljsonlinks-more": "[{{#Special:GlobalJsonLinks}}/$1|Weitere globale Verwendungen]] dieser Datenseite anschauen.",
+	"jsonconfig-globaljsonlinks-header": "Diese Seite zeigt, wo eine Seite in einer Datenpipeline auf anderen Wikis geladen wird. Diese Informationen findest du auch am Ende der Datenbeschreibungsseite.",
+	"jsonconfig-globaljsonlinks-header-target": "Seiten mit Daten: Abhängigkeiten laden von [[:$1]]",
+	"jsonconfig-globaljsonlinks-for": "Links für $1",
+	"jsonconfig-globaljsonlinks-ok": "Suchen",
+	"jsonconfig-globaljsonlinks-text": "Suche nach globaler Datennutzung",
+	"jsonconfig-globaljsonlinks-no-results": "[[:$1]] wird weder lokal noch auf anderen Wikis verwendet.",
+	"jsonconfig-globaljsonlinks-remote": "Die Verfolgung der Datennutzung muss über das zentrale Speicher-Wiki überprüft werden.",
+	"jsonconfig-globaljsonlinks-disabled": "Die Verfolgung der Datennutzung ist deaktiviert."
 }

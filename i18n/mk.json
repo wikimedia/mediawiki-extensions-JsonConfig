@@ -104,6 +104,5 @@
 	"jsonconfig-localjsonlinks-of-page": "Следниве страници ја користат оваа податочна страница:",
 	"jsonconfig-globaljsonlinks": "Употреба на податоците на други викија",
 	"jsonconfig-globaljsonlinks-on-wiki": "Употреба на $2",
-	"jsonconfig-globaljsonlinks-of-page": "Оваа податочна страница се користи на следниве други викија:",
-	"jsonconfig-globaljsonlinks-additional": "И дополнителни употреби..."
+	"jsonconfig-globaljsonlinks-of-page": "Оваа податочна страница се користи на следниве други викија:"
 }

@@ -91,6 +91,5 @@
 	"jsonconfig-localjsonlinks-of-page": "الصفحات التالية تستخدم صفحة البيانات هذه:",
 	"jsonconfig-globaljsonlinks": "استخدام البيانات على الويكيات الأخرى",
 	"jsonconfig-globaljsonlinks-on-wiki": "الاستخدام على $2",
-	"jsonconfig-globaljsonlinks-of-page": "تستخدم الويكيات الأخرى التالية صفحة البيانات هذه:",
-	"jsonconfig-globaljsonlinks-additional": "واستخدامات إضافية..."
+	"jsonconfig-globaljsonlinks-of-page": "تستخدم الويكيات الأخرى التالية صفحة البيانات هذه:"
 }

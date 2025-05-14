@@ -78,6 +78,5 @@
 	"jsonconfig-localjsonlinks-of-page": "De volgende pagina’s gebruiken deze gegevenspagina:",
 	"jsonconfig-globaljsonlinks": "Gebruik van gegevens op andere wiki’s",
 	"jsonconfig-globaljsonlinks-on-wiki": "Gebruik op $2",
-	"jsonconfig-globaljsonlinks-of-page": "De volgende andere wiki’s gebruiken deze gegevenspagina:",
-	"jsonconfig-globaljsonlinks-additional": "En nog meer toepassingen…"
+	"jsonconfig-globaljsonlinks-of-page": "De volgende andere wiki’s gebruiken deze gegevenspagina:"
 }

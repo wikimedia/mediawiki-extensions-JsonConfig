@@ -75,6 +75,5 @@
 	"jsonconfig-localjsonlinks-of-page": "As seguintes páxinas usan esta páxina de datos:",
 	"jsonconfig-globaljsonlinks": "Uso de datos noutros wikis",
 	"jsonconfig-globaljsonlinks-on-wiki": "Uso en $2",
-	"jsonconfig-globaljsonlinks-of-page": "Os seguintes wikis usan esta páxina de datos:",
-	"jsonconfig-globaljsonlinks-additional": "E usos adicionais..."
+	"jsonconfig-globaljsonlinks-of-page": "Os seguintes wikis usan esta páxina de datos:"
 }
