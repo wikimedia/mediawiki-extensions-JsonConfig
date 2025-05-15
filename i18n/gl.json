@@ -73,7 +73,17 @@
 	"jsonconfig-blocked-page-creation": "O título da páxina que especificaches non coincide con ningún dos patróns configurados neste wiki para a extensión JSONConfig.",
 	"jsonconfig-localjsonlinks": "Uso de datos en $1",
 	"jsonconfig-localjsonlinks-of-page": "As seguintes páxinas usan esta páxina de datos:",
+	"globaljsonlinks": "Uso global de datos",
 	"jsonconfig-globaljsonlinks": "Uso de datos noutros wikis",
 	"jsonconfig-globaljsonlinks-on-wiki": "Uso en $2",
-	"jsonconfig-globaljsonlinks-of-page": "Os seguintes wikis usan esta páxina de datos:"
+	"jsonconfig-globaljsonlinks-of-page": "Os seguintes wikis usan esta páxina de datos:",
+	"jsonconfig-globaljsonlinks-more": "Ollar [[{{#Special:GlobalJsonLinks}}/$1|máis usos globais]] desta páxina de datos.",
+	"jsonconfig-globaljsonlinks-header": "Esta páxina amosa onde se carga unha páxina nunha busca de datos noutros wikis. Tamén podes atopar esa información ao final da páxina de descrición dos datos.",
+	"jsonconfig-globaljsonlinks-header-target": "Páxinas con datos: cargar as dependencias en \"[[:$1]]\"",
+	"jsonconfig-globaljsonlinks-for": "Ligazóns cara a \"$1\"",
+	"jsonconfig-globaljsonlinks-ok": "Procurar",
+	"jsonconfig-globaljsonlinks-text": "Procurar o uso global de datos",
+	"jsonconfig-globaljsonlinks-no-results": "\"[[:$1]]\" non se emprega localmente nin noutros wikis.",
+	"jsonconfig-globaljsonlinks-remote": "O seguimento da ligazón de uso de datos debe comprobarse no wiki de almacenamento central.",
+	"jsonconfig-globaljsonlinks-disabled": "O seguimento da ligazón de uso de datos está desactivado."
 }

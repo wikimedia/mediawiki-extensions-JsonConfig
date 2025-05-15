@@ -47,5 +47,6 @@
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
 	"jsonconfig-localjsonlinks": "Utilizzo dei dati su $1",
 	"jsonconfig-globaljsonlinks": "Utilizzo dei dati su altri wiki",
-	"jsonconfig-globaljsonlinks-on-wiki": "Utilizzo su $2"
+	"jsonconfig-globaljsonlinks-on-wiki": "Utilizzo su $2",
+	"jsonconfig-globaljsonlinks-for": "Collegamenti per $1"
 }
