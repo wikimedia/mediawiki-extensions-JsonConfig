@@ -69,7 +69,17 @@
 	"jsonconfig-blocked-page-creation": "Ахь билгалйаьккхина агӀонан цӀе нийса ца йогӀу цхьана а кепашца, хӀокху викин JSONConfig шордарна хӀоттийначу.",
 	"jsonconfig-localjsonlinks": "Лелина хаамаш $1 тӀехь",
 	"jsonconfig-localjsonlinks-of-page": "ХӀокху агӀонаш тӀехь лелайо хӀара хаамийн агӀо:",
+	"globaljsonlinks": "Хаамаш глобалан лелор",
 	"jsonconfig-globaljsonlinks": "Кхечу викишкахь хаамаш лелор",
 	"jsonconfig-globaljsonlinks-on-wiki": "Лелор $2",
-	"jsonconfig-globaljsonlinks-of-page": "Кхин а викиша лелайо хӀара хаамийн агӀо:"
+	"jsonconfig-globaljsonlinks-of-page": "Кхин а викиша лелайо хӀара хаамийн агӀо:",
+	"jsonconfig-globaljsonlinks-more": "Хьовса [[{{#Special:GlobalJsonLinks}}/$1|кхин а глобалан лелор]] хӀара хаамийн агӀо.",
+	"jsonconfig-globaljsonlinks-header": "ХӀокху агӀоно гойту кхечу викишкахь хаамийн конвейеран агӀо мичахь чуйоьллина йу. Иштта и информаци карор йу хьуна хаамех лаьцна дуьйцучу агӀонан бухахь.",
+	"jsonconfig-globaljsonlinks-header-target": "Хаамаш болу агӀонаш: дозуш дерш [[:$1]] чудахар.",
+	"jsonconfig-globaljsonlinks-for": "Хьажоргаш $1 тӀехь",
+	"jsonconfig-globaljsonlinks-ok": "Лахар",
+	"jsonconfig-globaljsonlinks-text": "Хаамаш глобалан лелор леха",
+	"jsonconfig-globaljsonlinks-no-results": "[[:$1]] лелаш йац локалан а, йа кхечу викишкахь а.",
+	"jsonconfig-globaljsonlinks-remote": "ХӀуманаш лелоран хьажоргашна тӀаьхьакхиар хьажа деза йаккъера ларман вики агӀонехь.",
+	"jsonconfig-globaljsonlinks-disabled": "Хаамашна лелорна ларлелор дӀадаьккхина."
 }
