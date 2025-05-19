@@ -122,7 +122,7 @@
 	"jsonconfig-globaljsonlinks-of-page": "Note on Data: namespace pages explaining that these are other wikis using the page from here.",
 	"jsonconfig-globaljsonlinks-more": "Link to Special:GlobalJsonLinks with a target page parameter if there are more usage links than can be displayed.\n\nParameters:\n* $1 - target page",
 	"jsonconfig-globaljsonlinks-header": "Header explaining what Special:GlobalJsonLinks does, listing pages on remote wikis that link to a given data page.",
-	"jsonconfig-globaljsonlinks-header-target": "Header detail linking to the target data page.\n\nParameters:\n* $1 - target page title",
+	"jsonconfig-globaljsonlinks-header-target": "Header detail linking to the target data page. \"Data:\" is the namespace name and shouldn't be translated.\n\nParameters:\n* $1 - target page title",
 	"jsonconfig-globaljsonlinks-for": "Page title for Special:GlobalJsonLinks.\n\nParameters:\n* $1 - target page name",
 	"jsonconfig-globaljsonlinks-ok": "Label for search button in input form on Special:GlobalJsonLinks",
 	"jsonconfig-globaljsonlinks-text": "Subheading for input form on Special:GlobalJsonLinks",

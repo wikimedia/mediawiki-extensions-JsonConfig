@@ -73,7 +73,13 @@
 	"jsonconfig-blocked-page-creation": "כותרת הדף שציינת אינה תואמת לאף אחת מהתבניות שהוגדרו עבור תוסף JSONConfig עבור הוויקי הזה.",
 	"jsonconfig-localjsonlinks": "שימוש בנתונים באתר $1",
 	"jsonconfig-localjsonlinks-of-page": "הדפים הבאים משתמשים בדף הנתונים הזה:",
+	"globaljsonlinks": "שימוש גלובלי בנתונים",
 	"jsonconfig-globaljsonlinks": "שימוש בנתונים באתרי ויקי אחרים",
 	"jsonconfig-globaljsonlinks-on-wiki": "שימוש באתר $2",
-	"jsonconfig-globaljsonlinks-of-page": "אתרי הוויקי האחרים הבאים משתמשים בדף הנתונים הזה:"
+	"jsonconfig-globaljsonlinks-of-page": "אתרי הוויקי האחרים הבאים משתמשים בדף הנתונים הזה:",
+	"jsonconfig-globaljsonlinks-more": "צפייה ב[[{{#Special:GlobalJsonLinks}}/$1|שימושים גלובליים נוספים]] של דף הנתונים הזה.",
+	"jsonconfig-globaljsonlinks-header": "הדף הזה מציג איפה הקובץ נטען בתהליך אחזור הנתונים באתרי ויקי אחרים. אפשר גם למצוא את המידע הזה בתחתית דף תיאור הנתונים.",
+	"jsonconfig-globaljsonlinks-header-target": "דפים עם תלויות בטעינת Data מהדף [[:$1]]",
+	"jsonconfig-globaljsonlinks-for": "קישורים עבור $1",
+	"jsonconfig-globaljsonlinks-ok": "חיפוש"
 }
