@@ -22,7 +22,7 @@ class JCTabularContent extends JCDataContent {
 				global $wgLang;
 				$value = JCUtils::pickLocalizedString( $value, $wgLang );
 			}
-			if ( preg_match( '/^[ .\pL\pN]*$/i', $value ) ) {
+			if ( preg_match( '/^[ .\pL\pN]*$/i', $value ?? '' ) ) {
 				// Optimization: spaces, letters, numbers, and dots are returned without <nowiki>
 				return $value;
 			}
