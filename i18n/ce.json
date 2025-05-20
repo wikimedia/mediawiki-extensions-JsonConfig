@@ -62,5 +62,6 @@
 	"jsonconfig-license-notice": "'''Билгалдаккхар:''' АгӀо хийцарца хьо реза хуьллу хьайн къинхьегам арахуьйцуш хиларна [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}] лицензин билламашца.",
 	"jsonconfig-license-notice-license-unset": "'''Билгалдаккхар:''' АгӀо хийцарца, хьо реза хуьллу хьайн къинхьегам арахуьйцуш хиларна <code>license</code> меттигехь билгалйаьккхинчу лицензица.",
 	"right-jsonconfig-flush": "API-ца JsonConfig-на урхалла дар",
-	"action-jsonconfig-flush": "API-ца JsonConfig-на урхалла дар"
+	"action-jsonconfig-flush": "API-ца JsonConfig-на урхалла дар",
+	"jsonconfig-blocked-page-creation": "Ахь билгалйаьккхина агӀонан цӀе нийса ца йогӀу цхьана а кепашца, хӀокху викин JSONConfig шордарна хӀоттийначу."
 }
