@@ -94,6 +94,7 @@
 	"jsonconfig-globaljsonlinks": "استخدام البيانات على الويكيات الأخرى",
 	"jsonconfig-globaljsonlinks-on-wiki": "الاستخدام على $2",
 	"jsonconfig-globaljsonlinks-of-page": "تستخدم الويكيات الأخرى التالية صفحة البيانات هذه:",
+	"jsonconfig-globaljsonlinks-more": "عرض [[{{#Special:GlobalJsonLinks}}/$1|المزيد من الاستخدام العالمي]] لصفحة البيانات هذه.",
 	"jsonconfig-globaljsonlinks-header": "تُظهر هذه الصفحة مكان تحميل الصفحة في عملية جلب البيانات من wiki أخرى. يمكنك أيضًا العثور على هذه المعلومات أسفل صفحة وصف البيانات.",
 	"jsonconfig-globaljsonlinks-header-target": "الصفحات التي تحتوي على بيانات: تحميل التبعيات على [[:$1]]",
 	"jsonconfig-globaljsonlinks-for": "روابط مقابل $1",

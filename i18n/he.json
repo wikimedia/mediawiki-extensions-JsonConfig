@@ -81,5 +81,9 @@
 	"jsonconfig-globaljsonlinks-header": "הדף הזה מציג איפה הקובץ נטען בתהליך אחזור הנתונים באתרי ויקי אחרים. אפשר גם למצוא את המידע הזה בתחתית דף תיאור הנתונים.",
 	"jsonconfig-globaljsonlinks-header-target": "דפים עם תלויות בטעינת Data מהדף [[:$1]]",
 	"jsonconfig-globaljsonlinks-for": "קישורים עבור $1",
-	"jsonconfig-globaljsonlinks-ok": "חיפוש"
+	"jsonconfig-globaljsonlinks-ok": "חיפוש",
+	"jsonconfig-globaljsonlinks-text": "חיפוש שימוש גלובלי בנתונים",
+	"jsonconfig-globaljsonlinks-no-results": "הדף [[:$1]] אינו בשימוש מקומי וגם לא באתרי ויקי אחרים.",
+	"jsonconfig-globaljsonlinks-remote": "יש לבדוק את מעקב קישורי השימוש בנתונים בוויקי המאגר המרכזי.",
+	"jsonconfig-globaljsonlinks-disabled": "מעקב אחר קישורי שימוש בנתונים מושבת."
 }
