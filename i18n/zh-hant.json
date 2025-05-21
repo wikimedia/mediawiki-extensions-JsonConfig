@@ -101,5 +101,7 @@
 	"right-jsonconfig-flush": "經由 API 操控 JsonConfig",
 	"action-jsonconfig-flush": "經由 API 操控 JsonConfig",
 	"jsonconfig-blocked-page-creation": "您指定的頁面標題與此 wiki 的 JSONConfig 擴充功能所配置的任何模式皆不相符。",
+	"jsonconfig-localjsonlinks": "資料在$1的使用情況",
+	"jsonconfig-globaljsonlinks": "資料在其他wiki的使用情況",
 	"jsonconfig-globaljsonlinks-on-wiki": "$2的使用情況"
 }
