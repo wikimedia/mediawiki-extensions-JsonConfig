@@ -6,6 +6,7 @@
 			"Keysuck",
 			"MemphisA5",
 			"Nikki",
+			"YeBoy371",
 			"Ykhwong",
 			"그냥기여자"
 		]
@@ -39,5 +40,8 @@
 	"jsonconfig-license-name-CC0-1.0": "크리에이티브 커먼즈 제로",
 	"jsonconfig-license-name-dl-de-zero-2.0": "데이터 라이선스 독일 – 0 – 버전 2.0",
 	"jsonconfig-license-name-dl-de-by-1.0": "데이터 라이선스 독일 – 저작자 표시 – 버전 1.0",
-	"jsonconfig-license-name-dl-de-by-2.0": "데이터 라이선스 독일 – 저작자 표시 – 버전 2.0"
+	"jsonconfig-license-name-dl-de-by-2.0": "데이터 라이선스 독일 – 저작자 표시 – 버전 2.0",
+	"globaljsonlinks": "글로벌 데이터 사용률",
+	"jsonconfig-globaljsonlinks-ok": "검색",
+	"jsonconfig-globaljsonlinks-text": "글로벌 데이터 사용률 검색"
 }
