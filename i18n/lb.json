@@ -25,5 +25,6 @@
 	"jsonconfig-use-category-desc": "Dës Säite benotzen d'Method <code>mw.ext.data.get</code> vun der [[:mw:Extension:JsonConfig|JsonConfig]]-Erweiderung. D'Method <code>mw.ext.data.get</code> gëllt als opwänneg.",
 	"jsonconfig-license": "D'Donnéeë sinn disponibel ënner $1.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
-	"right-jsonconfig-flush": "JsonConfig iwwer d'API manipuléieren"
+	"right-jsonconfig-flush": "JsonConfig iwwer d'API manipuléieren",
+	"jsonconfig-globaljsonlinks-ok": "Sichen"
 }

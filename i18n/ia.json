@@ -79,5 +79,7 @@
 	"jsonconfig-globaljsonlinks-for": "Ligamines pro $1",
 	"jsonconfig-globaljsonlinks-ok": "Cercar",
 	"jsonconfig-globaljsonlinks-text": "Cercar uso global de datos",
-	"jsonconfig-globaljsonlinks-no-results": "[[:$1]] non es usate localmente ni sur altere wikis."
+	"jsonconfig-globaljsonlinks-no-results": "[[:$1]] non es usate localmente ni sur altere wikis.",
+	"jsonconfig-globaljsonlinks-remote": "Le traciamento de ligamines pro le uso de datos debe esser verificate a partir del wiki de immagazinage central.",
+	"jsonconfig-globaljsonlinks-disabled": "Le traciamento de ligamines pro le uso de datos es disactivate."
 }
