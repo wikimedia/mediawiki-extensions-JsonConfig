@@ -194,8 +194,8 @@ class GlobalJsonLinks {
 	 * in any given batch, and that it's acceptable to issue multiple queries
 	 * in this case during background batch updates.
 	 *
-	 * @param string[] $targets as normalized dbkeys
-	 * @return array<string,int> map of title to primary key
+	 * @param TitleValue[] $targets as, possibly remote, title values
+	 * @return array<string,int> map of namespace id:title to primary key
 	 */
 	private function mapTargets( array $targets ): array {
 		$db = $this->getDB();
@@ -223,8 +223,8 @@ class GlobalJsonLinks {
 
 		foreach ( $missing as $title ) {
 			$fields = [
-				'gjlt_namespace' => NS_DATA,
-				'gjlt_title' => $title,
+				'gjlt_namespace' => $title->getNamespace(),
+				'gjlt_title' => $title->getDbKey(),
 			];
 			$id = 0;
 			for ( $i = 0; $i < 2; $i++ ) {
@@ -245,7 +245,7 @@ class GlobalJsonLinks {
 							->fetchField() );
 					}
 					if ( $id ) {
-						$map[$title] = intval( $id );
+						$map[$title->getNamespace() . ':' . $title->getDbKey()] = intval( $id );
 						break;
 					}
 				}
@@ -262,7 +262,7 @@ class GlobalJsonLinks {
 	 * Sets the images used by a certain page
 	 *
 	 * @param TitleValue $title Title of the page
-	 * @param string[] $links Array of db keys of images used
+	 * @param TitleValue[] $links Array of titles of referenced resources
 	 * @param mixed $ticket Token returned by {@see IConnectionProvider::getEmptyTransactionTicket()}
 	 */
 	private function insertLinks(
@@ -303,7 +303,7 @@ class GlobalJsonLinks {
 	 * Deletes all entries from a certain page to certain data pages
 	 *
 	 * @param TitleValue $title Title of the linking page
-	 * @param string[] $to target pages to delete or null to remove all
+	 * @param TitleValue[] $to target pages to delete or null to remove all
 	 * @param mixed $ticket Token returned by {@see IConnectionProvider::getEmptyTransactionTicket()}
 	 */
 	private function deleteLinksFromPage( TitleValue $title, array $to, $ticket ): void {
@@ -395,7 +395,7 @@ class GlobalJsonLinks {
 	/**
 	 * Gets list of out-links for the given source page.
 	 * @param TitleValue $title linking page
-	 * @return string[] set of title keys
+	 * @return TitleValue[] set of titles, may be remote
 	 */
 	public function getLinksFromPage( TitleValue $title ): array {
 		if ( !$this->isActive() ) {
@@ -422,11 +422,7 @@ class GlobalJsonLinks {
 
 		$links = [];
 		foreach ( $result as $row ) {
-			if ( $row->gjlt_namespace == NS_DATA ) {
-				// @todo either handle more complex namespace scenarios
-				// or explicitly forbid that so we don't need the target ns.
-				$links[] = $row->gjlt_title;
-			}
+			$links[] = new TitleValue( $row->gjlt_namespace, $row->gjlt_title );
 		}
 		return $links;
 	}
@@ -482,7 +478,7 @@ class GlobalJsonLinks {
 	 * output object and update the database to match.
 	 *
 	 * @param TitleValue $title
-	 * @param string[] $pages
+	 * @param TitleValue[] $pages
 	 * @param mixed $ticket Token returned by {@see IConnectionProvider::getEmptyTransactionTicket()}
 	 */
 	public function updateLinks( TitleValue $title, array $pages, $ticket ) {

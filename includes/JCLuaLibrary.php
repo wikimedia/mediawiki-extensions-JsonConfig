@@ -82,8 +82,9 @@ class JCLuaLibrary extends LibraryBase {
 	 *
 	 * @param mixed $v
 	 * @return mixed
+	 * @internal
 	 */
-	private static function objectToArray( $v ) {
+	public static function objectToArray( $v ) {
 		if ( is_object( $v ) ) {
 			$v = get_object_vars( $v );
 		}

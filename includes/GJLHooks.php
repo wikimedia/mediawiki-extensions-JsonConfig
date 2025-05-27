@@ -133,9 +133,7 @@ class GJLHooks implements
 	public function onLinksUpdateComplete( $linksUpdater, $ticket ) {
 		// Track JSON usages in our custom shareable table
 		$title = $linksUpdater->getTitle()->getTitleValue();
-		$pages = array_keys(
-			$linksUpdater->getParserOutput()->getExtensionData( GlobalJsonLinks::KEY_JSONLINKS ) ?? []
-		);
+		$pages = JCSingleton::getJsonLinks( $linksUpdater->getParserOutput() );
 		$this->globalJsonLinks->updateLinks( $title, $pages, $ticket );
 	}
 }

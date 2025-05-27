@@ -1,0 +1,81 @@
+{
+	"data": {
+		"license": "CC0-1.0",
+		"description": {
+			"en": "Test data set"
+		},
+		"schema": {
+			"fields": [
+				{
+					"name": "date",
+					"type": "string",
+					"title": {
+						"en": "Date",
+						"fr": "Date"
+					}
+				},
+				{
+					"name": "pc",
+					"type": "number",
+					"title": {
+						"en": "PC",
+						"fr": "PC"
+					}
+				},
+				{
+					"name": "liberal",
+					"type": "number",
+					"title": {
+						"en": "Liberal",
+						"fr": "Libéral"
+					}
+				},
+				{
+					"name": "ndp",
+					"type": "number",
+					"title": {
+						"en": "NDP",
+						"fr": "NPD"
+					}
+				},
+				{
+					"name": "bq",
+					"type": "number",
+					"title": {
+						"en": "BQ",
+						"fr": "BQ"
+					}
+				},
+				{
+					"name": "reform",
+					"type": "number",
+					"title": {
+						"en": "Reform",
+						"fr": "Réform"
+					}
+				}
+			]
+		},
+		"data": [
+			[
+				"1993-09-30",
+				25,
+				39,
+				6,
+				12,
+				17
+			]
+		]
+	},
+	"expiry": 86400,
+	"dependencies": [
+		{
+			"namespace": 828,
+			"title": "JCTransform_samples"
+		},
+		{
+			"namespace": 486,
+			"title": "Sample_input.tab"
+		}
+	]
+}

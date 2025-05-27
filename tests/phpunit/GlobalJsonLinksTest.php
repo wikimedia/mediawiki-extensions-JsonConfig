@@ -39,12 +39,10 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 		return $jct;
 	}
 
-	protected function parseDataTitles( $arr ) {
-		$out = [];
-		foreach ( $arr as $titleStr ) {
-			$out[] = $this->parseTitle( $titleStr );
-		}
-		return $out;
+	protected function titles( $arr ) {
+		return array_map( static function ( $str ) {
+			return new TitleValue( NS_DATA, $str );
+		}, $arr );
 	}
 
 	/**
@@ -230,10 +228,10 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 		$wiki = 'enwiki';
 		$gjl = $this->globalJsonLinks( $wiki );
 
-		$mapA = $gjl->mapTargets( $a );
+		$mapA = $gjl->mapTargets( $this->titles( $a ) );
 		ksort( $mapA );
 
-		$mapB = $gjl->mapTargets( $b );
+		$mapB = $gjl->mapTargets( $this->titles( $b ) );
 		ksort( $mapB );
 
 		if ( $shouldMatch ) {
@@ -282,7 +280,7 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 			$gjl = $this->globalJsonLinks( $wiki );
 			foreach ( $titles as $text ) {
 				$title = $this->parseTitle( $text );
-				$gjl->insertLinks( $title, [ $targetStr ], $ticket );
+				$gjl->insertLinks( $title, [ $target ], $ticket );
 			}
 		}
 
@@ -312,7 +310,7 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 			$gjl = $this->globalJsonLinks( $wiki );
 			foreach ( $titles as $text ) {
 				$title = $this->parseTitle( $text );
-				$gjl->updateLinks( $title, [ $targetStr ], $ticket );
+				$gjl->updateLinks( $title, [ $target ], $ticket );
 			}
 		}
 
@@ -338,7 +336,7 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 			$gjl = $this->globalJsonLinks( $wiki );
 			foreach ( $titles as $text ) {
 				$title = $this->parseTitle( $text );
-				$gjl->updateLinks( $title, [ $targetStr ], $ticket );
+				$gjl->updateLinks( $title, [ $target ], $ticket );
 			}
 		}
 

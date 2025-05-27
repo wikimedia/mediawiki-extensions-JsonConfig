@@ -148,7 +148,7 @@ class JCTabularContent extends JCDataContent {
 
 		if ( !$isLocalized ) {
 			// There are no localized strings in the data, optimize
-			$result->data = $data->data;
+			$result->data = $data->data ?? [];
 		} else {
 			$result->data = array_map( static function ( $row ) use ( $localize, $isLocalized ) {
 				foreach ( $isLocalized as $ind ) {
@@ -157,7 +157,7 @@ class JCTabularContent extends JCDataContent {
 					}
 				}
 				return $row;
-			}, $data->data );
+			}, $data->data ?? [] );
 		}
 	}
 }

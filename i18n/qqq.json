@@ -128,5 +128,16 @@
 	"jsonconfig-globaljsonlinks-text": "Subheading for input form on Special:GlobalJsonLinks",
 	"jsonconfig-globaljsonlinks-no-results": "Result text when no usage links are found for the given page on Special:GlobalJsonLinks",
 	"jsonconfig-globaljsonlinks-remote": "Error result shown on Special:GlobalJsonLinks when viewed on a remote wiki that does not have local data page storage. This can be customized to link to the proper place on the store wiki.\n\nParameters:\n* $1 - target page name",
-	"jsonconfig-globaljsonlinks-disabled": "Error result shown on Special:GlobalJsonLinks when $wgTrackGlobalJsonLinks is disabled."
+	"jsonconfig-globaljsonlinks-disabled": "Error result shown on Special:GlobalJsonLinks when $wgTrackGlobalJsonLinks is disabled.",
+	"jsonconfig-transform-disabled": "Error message if something tries to run Lua transforms but Lua integration is disabled.",
+	"jsonconfig-transform-missing-data": "Error message if content cannot be loaded into a JSON transform operation due to missing page.\n\nParameters:\n* $1 - data page name",
+	"jsonconfig-transform-invalid-data": "Error message if invalid content is loaded into a JSON transform operation.\n\nParameters:\n* $1 - data page name",
+	"jsonconfig-transform-invalid-module": "Error message if a Lua Module reference for a Data transform is invalid.\n\nParameters:\n* $1 - module name",
+	"jsonconfig-transform-invalid-module-engine": "Error message if a Lua Module loads an unexpected engine type.\n\nParameters:\n* $1 - module name",
+	"jsonconfig-transform-invalid-module-name": "Error message if a Lua Module for a Data transform cannot be loaded.\n\nParameters:\n* $1 - module name",
+	"jsonconfig-transform-invalid-function": "Error message if a Lua Module is loaded but the function cannot be found.\n\nParameters:\n* $1 - module name\n* $2 - function name",
+	"jsonconfig-transform-failed": "Error message if a Lua Data transform fails to run.\n\nParameters:\n* $1 - module name\n* $2 - function name",
+	"jsonconfig-transform-error": "Error message if a Lua Data transform reports an exception.\n\nParameters:\n* $1 - module name\n* $2 - function name\n* $3 - exception class\n* $4 - error message",
+	"jsonconfig-internal-api-error": "Error message if an internal API request reports failure.\n\nParameters:\n* $1 - message codename\n* $2 - reported error message text",
+	"jsonconfig-internal-state": "Error message returned in case of invalid internal state, indicating a programming error."
 }

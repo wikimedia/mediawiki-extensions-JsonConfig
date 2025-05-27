@@ -118,5 +118,16 @@
 	"jsonconfig-globaljsonlinks-text": "Search global data usage",
 	"jsonconfig-globaljsonlinks-no-results": "[[:$1]] is not used locally or on other wikis.",
 	"jsonconfig-globaljsonlinks-remote": "Data usage link tracking must be checked from the central store wiki.",
-	"jsonconfig-globaljsonlinks-disabled": "Data usage link tracking is disabled."
+	"jsonconfig-globaljsonlinks-disabled": "Data usage link tracking is disabled.",
+	"jsonconfig-transform-disabled": "Lua integration for Data: pages is disabled.",
+	"jsonconfig-transform-missing-data": "Missing source data page $1.",
+	"jsonconfig-transform-invalid-data": "Invalid source data page $1.",
+	"jsonconfig-transform-invalid-module": "Invalid Lua module $1.",
+	"jsonconfig-transform-invalid-module-engine": "Invalid engine for Lua module $1.",
+	"jsonconfig-transform-invalid-module-name": "Invalid Lua module name $1.",
+	"jsonconfig-transform-invalid-function": "Invalid function; module $1 function $2.",
+	"jsonconfig-transform-failed": "Failure running Lua transform in module $1 function $2.",
+	"jsonconfig-transform-error": "$3 running Lua transform in module $1 function $2: $4",
+	"jsonconfig-internal-api-error": "Internal API request failed with code $1: $2",
+	"jsonconfig-internal-state": "Invalid internal state."
 }

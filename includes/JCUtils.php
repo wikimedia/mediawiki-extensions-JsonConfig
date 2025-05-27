@@ -3,6 +3,7 @@
 namespace JsonConfig;
 
 use InvalidArgumentException;
+use MediaWiki\Http\HttpRequestFactory;
 use MediaWiki\Json\FormatJson;
 use MediaWiki\Language\Language;
 use MediaWiki\MediaWikiServices;
@@ -15,6 +16,15 @@ use stdClass;
  * Various useful utility functions (all static)
  */
 class JCUtils {
+
+	/**
+	 * @var HttpRequestFactory
+	 */
+	private $httpRequestFactory;
+
+	public function __construct( HttpRequestFactory $httpRequestFactory ) {
+		$this->httpRequestFactory = $httpRequestFactory;
+	}
 
 	/**
 	 * Uses wfLogWarning() to report an error.
@@ -54,47 +64,8 @@ class JCUtils {
 	 * @return MWHttpRequest|false
 	 */
 	public static function initApiRequestObj( $url, $username, $password ) {
-		$apiUri = wfAppendQuery( $url, [ 'format' => 'json' ] );
-		$options = [
-			'timeout' => 3,
-			'connectTimeout' => 'default',
-			'method' => 'POST',
-		];
-		$req = MediaWikiServices::getInstance()->getHttpRequestFactory()
-			->create( $apiUri, $options, __METHOD__ );
-
-		if ( $username && $password ) {
-			$tokenQuery = [
-				'action' => 'query',
-				'meta' => 'tokens',
-				'type' => 'login',
-			];
-			$query = [
-				'action' => 'login',
-				'lgname' => $username,
-				'lgpassword' => $password,
-			];
-			$res = self::callApi( $req, $tokenQuery, 'get login token' );
-			if ( $res !== false ) {
-				if ( isset( $res['query']['tokens']['logintoken'] ) ) {
-					$query['lgtoken'] = $res['query']['tokens']['logintoken'];
-					$res = self::callApi( $req, $query, 'login with token' );
-				}
-			}
-			if ( $res === false ) {
-				$req = false;
-			} elseif ( !isset( $res['login']['result'] ) ||
-				$res['login']['result'] !== 'Success'
-			) {
-				self::warn( 'Failed to login', [
-						'url' => $url,
-						'user' => $username,
-						'result' => $res['login']['result'] ?? '???'
-				] );
-				$req = false;
-			}
-		}
-		return $req;
+		return MediaWikiServices::getInstance()->getService( 'JsonConfig.ApiUtils' )
+			->initApiRequestObj( $url, $username, $password );
 	}
 
 	/**
@@ -105,28 +76,20 @@ class JCUtils {
 	 * @return array|false api result or false on error
 	 */
 	public static function callApi( $req, $query, $debugMsg ) {
-		$req->setData( $query );
-		$status = $req->execute();
-		if ( !$status->isGood() ) {
-			self::warn(
-				'API call failed to ' . $debugMsg,
-				[ 'status' => Status::wrap( $status )->getWikiText() ],
-				$query
-			);
-			return false;
-		}
-		$res = FormatJson::decode( $req->getContent(), true );
-		if ( isset( $res['warnings'] ) ) {
-			self::warn( 'API call had warnings trying to ' . $debugMsg,
-				[ 'warnings' => $res['warnings'] ], $query );
-		}
-		if ( isset( $res['error'] ) ) {
-			self::warn(
-				'API call failed trying to ' . $debugMsg, [ 'error' => $res['error'] ], $query
-			);
-			return false;
-		}
-		return $res;
+		return MediaWikiServices::getInstance()->getService( 'JsonConfig.ApiUtils' )
+			->callApi( $req, $query, $debugMsg );
+	}
+
+	/**
+	 * Make an API call on a given request object and warn in case of failures
+	 * @param MWHttpRequest $req logged-in session
+	 * @param array $query api call parameters
+	 * @param string $debugMsg extra message for debug logs in case of failure
+	 * @return Status<array> api result or error
+	 */
+	public static function callApiStatus( $req, $query, $debugMsg ): Status {
+		return MediaWikiServices::getInstance()->getService( 'JsonConfig.ApiUtils' )
+			->callApiStatus( $req, $query, $debugMsg );
 	}
 
 	/**
@@ -311,4 +274,31 @@ class JCUtils {
 		$map = (array)$map;
 		return reset( $map ) ? : '';
 	}
+
+	/**
+	 * Cache may return raw JSON strings, and internally we may work with raw
+	 * objects, so rehydrate those to standard content objects.
+	 * @param JCTitle $title
+	 * @param JCContent|stdClass|string|false $content
+	 * @param bool $thorough whether to include full validation on input
+	 * @return Status<JCContent>
+	 */
+	public static function hydrate( JCTitle $title, $content, $thorough = false ): Status {
+		$handler = new JCContentHandler( $title->getConfig()->model );
+		if ( $content instanceof stdClass ) {
+			$content = json_encode( $content );
+		}
+		if ( is_string( $content ) ) {
+			$content = $handler->unserializeContent( $content, null, $thorough );
+		}
+		if ( $content instanceof JCContent ) {
+			return Status::newGood( $content );
+		}
+		if ( $content === false ) {
+			// JCCache->get returns false for missing page.
+			return Status::newFatal( 'jsonconfig-transform-missing-data', $title->getDbKey() );
+		}
+		return Status::newFatal( 'jsonconfig-transform-invalid-data', $title->getDbKey() );
+	}
+
 }

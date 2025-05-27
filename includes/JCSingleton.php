@@ -380,6 +380,27 @@ class JCSingleton {
 	}
 
 	/**
+	 * Start up a JCContentLoader pipeline for the given title.
+	 *
+	 * Additional parameters (currently just the transform options) may be passed
+	 * to the loader, and it will return a JCContentWrapper or a fatal error in a Status.
+	 *
+	 * This allows access to the transforms, and reports back any modified expiry time
+	 * and dependency information that might need to be recorded with a more complex
+	 * request than getContent() allows.
+	 *
+	 * Extensions that make use of Data: page fetches in their rendering pipelines and
+	 * need to support global dependency tracking or Lua transforms should use this method.
+	 *
+	 * @param TitleValue $titleValue the Data: page to load, may be remote
+	 * @return JCContentLoader for additional loading options and metadata
+	 */
+	public static function getContentLoader( TitleValue $titleValue ): JCContentLoader {
+		$jct = self::parseTitle( $titleValue );
+		return MediaWikiServices::getInstance()->getService( 'JsonConfig.ContentLoader' )->title( $jct );
+	}
+
+	/**
 	 * Parse json text into a content object for the given title.
 	 * Namespace ID does not need to be defined in the current wiki,
 	 * as long as it is defined in $wgJsonConfigs.
@@ -601,18 +622,37 @@ class JCSingleton {
 	 * globaljsonlinks table for propagation of cache updates and
 	 * backlinks.
 	 *
-	 * @param ParserOutput $parserOutput
-	 * @param TitleValue $title
+	 * Note: when using a JCContentWrapper, call its addToParserOutput()
+	 * method rather than using this directly.
 	 */
-	public static function recordJsonLink( $parserOutput, $title ) {
-		// @todo ideally we'd have a cross-wiki title parse so we
-		// could store the namespace here, but it'll interfere with
-		// re-parsing the title later.
-		// Instead we'll rely on the JsonConfig configuration being
-		// as expected with only a single NS_DATA namespace that we
-		// have to track in.
-		if ( $title->getNamespace() === NS_DATA ) {
-			$parserOutput->appendExtensionData( GlobalJsonLinks::KEY_JSONLINKS, $title->getDBkey() );
-		}
+	public static function recordJsonLink( ParserOutput $parserOutput, TitleValue $title ) {
+		// Note that remote namespaces may not exist locally!
+		// These always refer to pages on the JsonConfig store wiki,
+		// round-tripping TitleValues into strings.
+		$pair = $title->getNamespace() . '|' . $title->getDBkey();
+		$parserOutput->appendExtensionData( GlobalJsonLinks::KEY_JSONLINKS, $pair );
+	}
+
+	/**
+	 * Extract the recorded list of target pages for cache invalidations via
+	 * data-load logic. Pages may  be on a remote wiki, so be careful with
+	 * namespaces.
+	 *
+	 * @return TitleValue[]
+	 */
+	public static function getJsonLinks( ParserOutput $parserOutput ): array {
+		$links = array_keys( $parserOutput->getExtensionData( GlobalJsonLinks::KEY_JSONLINKS ) ?? [] );
+		return array_map( static function ( $str ) {
+			$bits = explode( '|', $str );
+			if ( count( $bits ) > 1 ) {
+				$namespace = intval( $bits[0] );
+				$title = $bits[1];
+			} else {
+				// Old parser cache entries may have only supported NS_DATA deps.
+				$namespace = NS_DATA;
+				$title = $bits[0];
+			}
+			return new TitleValue( $namespace, $title );
+		}, $links );
 	}
 }

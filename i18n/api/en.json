@@ -19,6 +19,12 @@
 	"apihelp-jsondata-param-title": "Title to get. By default assumes namespace to be \"Data:\"",
 	"apihelp-jsondata-example-1": "Get JSON content of the Sample.tab page, localized to user's language",
 	"apihelp-jsondata-example-2": "Get JSON content of the Sample.tab page localized to French",
+	"apihelp-jsontransform-summary": "Retrieve JSON data transformed by a Lua function.",
+	"apihelp-jsontransform-param-title": "Title to process without namespace prefix.",
+	"apihelp-jsontransform-param-jtmodule": "Name of Lua module to load transform code from. Defaults to Module: namespace.",
+	"apihelp-jsontransform-param-jtfunction": "Name of Lua function to run",
+	"apihelp-jsontransform-param-jtargs": "Sequence of strings to pass as arguments to the Lua transform function",
+	"apihelp-jsontransform-example-1": "Get JSON content of the Sample.tab page running through a Lua transform",
 	"apierror-jsonconfig-paramrequired": "Parameter <var>$1</var> is required for this command.",
 	"apierror-jsonconfig-badtitle": "The page specified by <var>namespace</var> and <var>title</var> parameters is either invalid or is not registered in JsonConfig configuration."
 }

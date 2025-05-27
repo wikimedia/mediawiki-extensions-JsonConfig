@@ -29,5 +29,11 @@
 	"apihelp-jsondata-example-1": "{{doc-apihelp-example|jsondata}}",
 	"apihelp-jsondata-example-2": "{{doc-apihelp-example|jsondata}}",
 	"apierror-jsonconfig-paramrequired": "{{doc-apierror}}\n\nParameters:\n* $1 - Parameter name",
-	"apierror-jsonconfig-badtitle": "{{doc-apierror}}"
+	"apierror-jsonconfig-badtitle": "{{doc-apierror}}",
+	"apihelp-jsontransform-summary": "{{doc-apihelp-summary|jsontransform}}",
+	"apihelp-jsontransform-param-title": "{{doc-apihelp-param|jsontransform|title}}",
+	"apihelp-jsontransform-param-jtmodule": "{{doc-apihelp-param|jsontransform|jtmodule}}",
+	"apihelp-jsontransform-param-jtfunction": "{{doc-apihelp-param|jsontransform|jtfunction}}",
+	"apihelp-jsontransform-param-jtargs": "{{doc-apihelp-param|jsontransform|jtargs}}\nSequence of strings passed as key=value pairs.",
+	"apihelp-jsontransform-example-1": "{{doc-apihelp-example|jsontransform}}"
 }
