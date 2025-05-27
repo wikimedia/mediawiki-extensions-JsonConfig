@@ -173,7 +173,7 @@ class JCCache {
 			$conf = $this->titleValue->getConfig();
 			$remote = $conf->remote;
 			// @phan-suppress-next-line PhanTypeExpectedObjectPropAccessButGotNull
-			$req = JCUtils::initApiRequestObj( $remote->url, $remote->username, $remote->password );
+			$req = JCUtils::initApiRequestObj( $remote->url, $remote->username ?? null, $remote->password ?? null );
 			if ( !$req ) {
 				break;
 			}

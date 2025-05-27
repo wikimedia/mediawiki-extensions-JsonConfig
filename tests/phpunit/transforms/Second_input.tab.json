@@ -1,0 +1,59 @@
+{
+	"license": "CC0-1.0",
+	"description": {
+		"en": "Test data set 2"
+	},
+	"schema": {
+		"fields": [
+			{
+				"name": "date",
+				"type": "string",
+				"title": {
+					"en": "Date",
+					"fr": "Date"
+				}
+			},
+			{
+				"name": "pc",
+				"type": "number",
+				"title": {
+					"en": "PC",
+					"fr": "PC"
+				}
+			},
+			{
+				"name": "liberal",
+				"type": "number",
+				"title": {
+					"en": "Liberal",
+					"fr": "Libéral"
+				}
+			},
+			{
+				"name": "ndp",
+				"type": "number",
+				"title": {
+					"en": "NDP",
+					"fr": "NPD"
+				}
+			},
+			{
+				"name": "reform",
+				"type": "number",
+				"title": {
+					"en": "Reform",
+					"fr": "Réform"
+				}
+			}
+		]
+	},
+	"data": [
+		[
+			"1988-11-21",
+			43.02,
+			31.92,
+			20.38,
+			2.09
+		]
+	]
+}

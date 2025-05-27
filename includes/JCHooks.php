@@ -418,8 +418,12 @@ class JCHooks implements
 	 * @param ApiModuleManager $moduleManager Module manager instance
 	 */
 	public function onApiMain__moduleManager( $moduleManager ) {
-		if ( $moduleManager->getConfig()->get( 'JsonConfigEnableLuaSupport' ) ) {
+		$config = $moduleManager->getConfig();
+		if ( $config->get( 'JsonConfigEnableLuaSupport' ) ) {
 			$moduleManager->addModule( 'jsondata', 'action', JCDataApi::class );
+			if ( $config->get( 'JsonConfigTransformsEnabled' ) ) {
+				$moduleManager->addModule( 'jsontransform', 'action', JCTransformApi::class );
+			}
 		}
 	}
 

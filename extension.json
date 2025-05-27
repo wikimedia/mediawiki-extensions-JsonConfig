@@ -52,7 +52,8 @@
 		"jsonconfig-use-category"
 	],
 	"AutoloadNamespaces": {
-		"JsonConfig\\": "includes/"
+		"JsonConfig\\": "includes/",
+		"JsonConfig\\Tests\\": "tests/phpunit/"
 	},
 	"TestAutoloadClasses": {
 		"JsonConfig\\Tests\\ObjContent": "tests/phpunit/unit/ObjContent.php"
@@ -228,6 +229,10 @@
 		},
 		"TrackGlobalJsonLinksNamespaces": {
 			"value": true
+		},
+		"JsonConfigTransformsEnabled": {
+			"value": false,
+			"description": "Enable use of Lua transforms on Data: page loaders through JCContentLoader and action=jsontransform. Requires Scribunto and $wgJsonConfigEnableLuaSupport to function."
 		}
 	},
 	"DatabaseVirtualDomains": [
