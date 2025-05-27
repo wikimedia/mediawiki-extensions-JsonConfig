@@ -48,10 +48,6 @@ class JCLuaLibrary extends LibraryBase {
 			$this->incrementExpensiveFunctionCount();
 			$content = JCSingleton::getContent( $jct );
 
-			$prop = 'jsonconfig_getdata';
-			$output = $this->getParser()->getOutput();
-			$prevValue = (int)( $output->getPageProperty( $prop ) ?? 0 );
-			$output->setNumericPageProperty( $prop, 1 + $prevValue );
 			// Transition to a tracking category
 			$this->getParser()->addTrackingCategory( 'jsonconfig-use-category' );
 		}
