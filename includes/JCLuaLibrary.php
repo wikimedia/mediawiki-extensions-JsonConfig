@@ -99,21 +99,23 @@ class JCLuaLibrary extends LibraryBase {
 	 * @param \stdClass $data
 	 */
 	public static function reindexTabularData( $data ) {
-		$columnCount = count( $data->schema->fields );
-		$rowCount = count( $data->data );
+		$fields = $data->schema->fields ?? [];
+		$rowData = $data->data ?? [];
+		$columnCount = count( $fields );
+		$rowCount = count( $rowData );
 		if ( $columnCount > 0 ) {
 			$rowIndexes = range( 1, $columnCount );
-			$data->schema->fields = array_combine( $rowIndexes, $data->schema->fields );
+			$data->schema->fields = array_combine( $rowIndexes, $fields );
 			if ( $rowCount > 0 ) {
 				$data->data =
 					array_combine( range( 1, $rowCount ),
 						array_map( static function ( $row ) use ( $rowIndexes ) {
 							return array_combine( $rowIndexes, $row );
-						}, $data->data ) );
+						}, $rowData ) );
 			}
 		} elseif ( $rowCount > 0 ) {
 			// Weird, but legal
-			$data->data = array_combine( range( 1, $rowCount ), $data->data );
+			$data->data = array_combine( range( 1, $rowCount ), $rowData );
 		}
 	}
 }
