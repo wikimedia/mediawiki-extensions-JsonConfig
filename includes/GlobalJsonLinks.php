@@ -422,7 +422,7 @@ class GlobalJsonLinks {
 
 		$links = [];
 		foreach ( $result as $row ) {
-			$links[] = new TitleValue( $row->gjlt_namespace, $row->gjlt_title );
+			$links[] = new TitleValue( intval( $row->gjlt_namespace ), $row->gjlt_title );
 		}
 		return $links;
 	}
