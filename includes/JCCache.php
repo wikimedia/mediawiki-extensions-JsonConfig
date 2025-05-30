@@ -54,60 +54,50 @@ class JCCache {
 	 * @return string|JCContent|false Content string/object or false if irretrievable.
 	 */
 	public function get() {
-		if ( $this->content ) {
-			return $this->content;
-		}
-
-		if ( $this->disableJsonConfigCache() ) {
-			return $this->fetchContent();
-		}
-
-		return $this->cache->getWithSetCallback(
-			$this->key,
-			$this->cacheExpiration,
-			function ( $oldValue, &$ttl ) {
-				$content = $this->fetchContent() ?: '';
-
-				// If the content is invalid, store an empty string to prevent repeated attempts
-				if ( !$content ) {
-					$ttl = 10;
+		if ( $this->content === null ) {
+			$value = $this->memcGet(); // Get content from the memcached
+			if ( $value === false ) {
+				if ( $this->titleValue->getConfig()->store ) {
+					$this->loadLocal(); // Get it from the local wiki
+				} else {
+					$this->loadRemote(); // Get it from HTTP
 				}
-
-				if ( !is_string( $content ) ) {
-					$content = $content->getText();
-				}
-
-				return $content;
+				$this->memcSet(); // Save result to memcached
+			} elseif ( $value === '' ) {
+				$this->content = false; // Invalid ID was cached
+			} else {
+				$this->content = $value; // Content was cached
 			}
-		);
-	}
-
-	/**
-	 * Returns true if caching is disabled for JsonConfig
-	 *
-	 * TODO: Use this method in upcoming refactorings.
-	 *
-	 * @return bool
-	 */
-	private function disableJsonConfigCache(): bool {
-		return MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigDisableCache' );
-	}
-
-	/**
-	 * Retrieves the content of the JSON config if the page
-	 * exists on the local wiki or over HTTP and set the content
-	 * property (on-demand).
-	 *
-	 * @return string|JCContent|false
-	 */
-	private function fetchContent() {
-		if ( $this->titleValue->getConfig()->store ) {
-			$this->loadLocal(); // Get it from the local wiki
-		} else {
-			$this->loadRemote(); // Get it from HTTP
 		}
 
 		return $this->content;
+	}
+
+	/**
+	 * Retrieves content from memcached.
+	 * @return string|bool Carrier config or false if not in cache.
+	 */
+	private function memcGet() {
+		return MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigDisableCache' ) ?
+			false :
+			$this->cache->get( $this->key );
+	}
+
+	/**
+	 * Store $this->content in memcached.
+	 * If the content is invalid, store an empty string to prevent repeated attempts
+	 */
+	private function memcSet() {
+		if ( !MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigDisableCache' ) ) {
+			// caching an error condition for short time
+			$exp = $this->content ? $this->cacheExpiration : 10;
+			$value = $this->content ?: '';
+			if ( !is_string( $value ) ) {
+				$value = $value->getNativeData();
+			}
+
+			$this->cache->set( $this->key, $value, $exp );
+		}
 	}
 
 	/**
@@ -120,7 +110,7 @@ class JCCache {
 	 *   (either get() was called before, or it was set via ctor)
 	 */
 	public function resetCache( $updateCacheContent = null ) {
-		if ( !$this->disableJsonConfigCache() ) {
+		if ( !MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigDisableCache' ) ) {
 			$conf = $this->titleValue->getConfig();
 			// Delete the old value: this will propagate over WANCache
 			$this->cache->delete( $this->key );
@@ -129,12 +119,7 @@ class JCCache {
 					// @phan-suppress-next-line PhanTypeExpectedObjectPropAccess
 					$conf->store->cacheNewValue ) )
 			) {
-				$value = $this->content;
-				if ( !is_string( $value ) ) {
-					$value = $value->getText();
-				}
-
-				$this->cache->set( $this->key, $value, $this->cacheExpiration );
+				$this->memcSet(); // update cache with the new value
 			}
 		}
 	}
