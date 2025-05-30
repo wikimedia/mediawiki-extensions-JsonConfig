@@ -139,6 +139,7 @@
 		"main": {
 			"class": "JsonConfig\\JCHooks",
 			"services": [
+				"JsonConfig.ApiUtils",
 				"MainConfig",
 				"ContentHandlerFactory",
 				"JobQueueGroupFactory"

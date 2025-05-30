@@ -172,8 +172,9 @@ class JCCache {
 			$result = false;
 			$conf = $this->titleValue->getConfig();
 			$remote = $conf->remote;
+			$apiUtils = MediaWikiServices::getInstance()->getService( 'JsonConfig.ApiUtils' );
 			// @phan-suppress-next-line PhanTypeExpectedObjectPropAccessButGotNull
-			$req = JCUtils::initApiRequestObj( $remote->url, $remote->username ?? null, $remote->password ?? null );
+			$req = $apiUtils->initApiRequestObj( $remote->url, $remote->username ?? null, $remote->password ?? null );
 			if ( !$req ) {
 				break;
 			}
@@ -236,7 +237,8 @@ class JCCache {
 	 * @return bool|mixed
 	 */
 	private function getPageFromApi( $articleName, $req, $query ) {
-		$revInfo = JCUtils::callApi( $req, $query, 'get remote JsonConfig' );
+		$apiUtils = MediaWikiServices::getInstance()->getService( 'JsonConfig.ApiUtils' );
+		$revInfo = $apiUtils->callApi( $req, $query, 'get remote JsonConfig' );
 		if ( $revInfo === false ) {
 			return false;
 		}
