@@ -76,7 +76,7 @@
 	"jsonconfig-globaljsonlinks": "Datennutzung auf anderen Wikis",
 	"jsonconfig-globaljsonlinks-on-wiki": "Verwendung auf $2",
 	"jsonconfig-globaljsonlinks-of-page": "Die folgenden anderen Wikis verwenden diese Datenseite:",
-	"jsonconfig-globaljsonlinks-more": "[{{#Special:GlobalJsonLinks}}/$1|Weitere globale Verwendungen]] dieser Datenseite anschauen.",
+	"jsonconfig-globaljsonlinks-more": "[[{{#Special:GlobalJsonLinks}}/$1|Weitere globale Verwendungen]] dieser Datenseite anschauen.",
 	"jsonconfig-globaljsonlinks-header": "Diese Seite zeigt, wo eine Seite in einer Datenpipeline auf anderen Wikis geladen wird. Diese Informationen findest du auch am Ende der Datenbeschreibungsseite.",
 	"jsonconfig-globaljsonlinks-header-target": "Seiten mit Daten: Abhängigkeiten laden von [[:$1]]",
 	"jsonconfig-globaljsonlinks-for": "Links für $1",
@@ -84,5 +84,16 @@
 	"jsonconfig-globaljsonlinks-text": "Suche nach globaler Datennutzung",
 	"jsonconfig-globaljsonlinks-no-results": "[[:$1]] wird weder lokal noch auf anderen Wikis verwendet.",
 	"jsonconfig-globaljsonlinks-remote": "Die Verfolgung der Datennutzung muss über das zentrale Speicher-Wiki überprüft werden.",
-	"jsonconfig-globaljsonlinks-disabled": "Die Verfolgung der Datennutzung ist deaktiviert."
+	"jsonconfig-globaljsonlinks-disabled": "Die Verfolgung der Datennutzung ist deaktiviert.",
+	"jsonconfig-transform-disabled": "Lua-Integration für Daten: Seiten sind deaktiviert.",
+	"jsonconfig-transform-missing-data": "Fehlende Quelldatenseite $1.",
+	"jsonconfig-transform-invalid-data": "Ungültige Quelldatenseite $1.",
+	"jsonconfig-transform-invalid-module": "Ungültiges Lua-Modul $1.",
+	"jsonconfig-transform-invalid-module-engine": "Ungültige Engine für Lua-Modul $1.",
+	"jsonconfig-transform-invalid-module-name": "Ungültiger Lua-Modulname $1.",
+	"jsonconfig-transform-invalid-function": "Ungültige Funktion; Modul $1 Funktion $2.",
+	"jsonconfig-transform-failed": "Fehler beim Ausführen der Lua-Transformation im Modul $1 Funktion $2.",
+	"jsonconfig-transform-error": "$3 Ausführen der Lua-Transformation im Modul $1 Funktion $2: $4",
+	"jsonconfig-internal-api-error": "Interne API-Anforderung mit Code $1 fehlgeschlagen: $2",
+	"jsonconfig-internal-state": "Ungültiger interner Status."
 }

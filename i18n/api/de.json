@@ -19,6 +19,12 @@
 	"apihelp-jsondata-param-title": "Abzurufender Titel. Standardmäßig wird der Namensraum „Data:“ angenommen.",
 	"apihelp-jsondata-example-1": "Ruft den JSON-Inhalt für die Seite Sample.tab, lokalisiert in die Benutzersprache, ab.",
 	"apihelp-jsondata-example-2": "Ruft den JSON-Inhalt für die Seite Sample.tab, lokalisiert in Französisch, ab.",
+	"apihelp-jsontransform-summary": "JSON-Daten, die durch eine Lua-Funktion transformiert wurden, abrufen.",
+	"apihelp-jsontransform-param-title": "Zu verarbeitender Titel ohne Namensraum-Präfix.",
+	"apihelp-jsontransform-param-jtmodule": "Name des Lua-Moduls, aus dem der Transformationscode geladen werden soll. Standardmäßig „Module: Namespace“.",
+	"apihelp-jsontransform-param-jtfunction": "Name der auszuführenden Lua-Funktion",
+	"apihelp-jsontransform-param-jtargs": "Zeichenfolgenfolge, die als Argumente an die Lua-Transformationsfunktion übergeben wird",
+	"apihelp-jsontransform-example-1": "Holt den JSON-Inhalt der Sample.tab-Seite, der über eine Lua-Transformation ausgeführt wird",
 	"apierror-jsonconfig-paramrequired": "Der Parameter <var>$1</var> ist für diesen Befehl erforderlich.",
 	"apierror-jsonconfig-badtitle": "Die durch die Parameter <var>namespace</var> und <var>title</var> angegebene Seite ist entweder ungültig oder in der JsonConfig-Konfiguration nicht registriert."
 }

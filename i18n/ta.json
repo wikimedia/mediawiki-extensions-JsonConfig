@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Matrix"
+		]
+	},
+	"jsonconfig-internal-api-error": "$1 : $2 குறியீட்டுடன் உள்ளக API கோரிக்கை தோல்வியடைந்தது.",
+	"jsonconfig-internal-state": "தவறான உள் நிலை."
+}

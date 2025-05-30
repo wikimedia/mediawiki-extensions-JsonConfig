@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"22593",
 			"GuoPC",
 			"Hanyanbo98",
 			"Hudafu",
@@ -76,5 +77,6 @@
 	"jsonconfig-license-notice-license-unset": "'''注意：''' 编辑此页面时，您同意根据<code>licence</code>中指定的许可证发布您的贡献。",
 	"right-jsonconfig-flush": "通过API操作JsonConfig",
 	"action-jsonconfig-flush": "通过API操作JsonConfig",
-	"jsonconfig-blocked-page-creation": "您指定的页面标题与此wiki的JSONConfig扩展配置的任何模式均不匹配。"
+	"jsonconfig-blocked-page-creation": "您指定的页面标题与此wiki的JSONConfig扩展配置的任何模式均不匹配。",
+	"jsonconfig-internal-state": "无效的内部状态。"
 }

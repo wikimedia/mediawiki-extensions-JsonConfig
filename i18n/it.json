@@ -48,5 +48,9 @@
 	"jsonconfig-localjsonlinks": "Utilizzo dei dati su $1",
 	"jsonconfig-globaljsonlinks": "Utilizzo dei dati su altri wiki",
 	"jsonconfig-globaljsonlinks-on-wiki": "Utilizzo su $2",
-	"jsonconfig-globaljsonlinks-for": "Collegamenti per $1"
+	"jsonconfig-globaljsonlinks-for": "Collegamenti per $1",
+	"jsonconfig-transform-invalid-data": "Pagina dati sorgente non valida $1.",
+	"jsonconfig-transform-invalid-module": "Modulo Lua non valido $1.",
+	"jsonconfig-transform-invalid-function": "Funzione non valida; modulo $1 funzione $2.",
+	"jsonconfig-internal-state": "Stato interno non valido."
 }

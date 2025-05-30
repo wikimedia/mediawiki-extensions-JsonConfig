@@ -26,5 +26,10 @@
 	"jsonconfig-license": "D'Donnéeë sinn disponibel ënner $1.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
 	"right-jsonconfig-flush": "JsonConfig iwwer d'API manipuléieren",
-	"jsonconfig-globaljsonlinks-ok": "Sichen"
+	"jsonconfig-globaljsonlinks-ok": "Sichen",
+	"jsonconfig-transform-invalid-module": "Ongültege Lua-Modul $1.",
+	"jsonconfig-transform-invalid-module-name": "Ongültege Lua-Modul-Numm $1.",
+	"jsonconfig-transform-invalid-function": "Ongülteg Funktioun; Modul $1 Funktioun $2.",
+	"jsonconfig-internal-api-error": "Intern API-Ufro feelgeschloe mam Code $1: $2",
+	"jsonconfig-internal-state": "Ongültegen internen Zoustand."
 }
