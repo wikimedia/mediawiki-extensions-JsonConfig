@@ -85,5 +85,16 @@
 	"jsonconfig-globaljsonlinks-text": "חיפוש שימוש גלובלי בנתונים",
 	"jsonconfig-globaljsonlinks-no-results": "הדף [[:$1]] אינו בשימוש מקומי וגם לא באתרי ויקי אחרים.",
 	"jsonconfig-globaljsonlinks-remote": "יש לבדוק את מעקב קישורי השימוש בנתונים בוויקי המאגר המרכזי.",
-	"jsonconfig-globaljsonlinks-disabled": "מעקב אחר קישורי שימוש בנתונים מושבת."
+	"jsonconfig-globaljsonlinks-disabled": "מעקב אחר קישורי שימוש בנתונים מושבת.",
+	"jsonconfig-transform-disabled": "שילוב לואה עבור דפי Data:‎ מושבת.",
+	"jsonconfig-transform-missing-data": "דף נתוני המקור $1 חסר.",
+	"jsonconfig-transform-invalid-data": "דף נתוני המקור $1 אינו תקין.",
+	"jsonconfig-transform-invalid-module": "יחידת לואה בלתי־תקינה $1.",
+	"jsonconfig-transform-invalid-module-engine": "מנוע בלתי־תקין עבור יחידת הלואה $1.",
+	"jsonconfig-transform-invalid-module-name": "שם יחידת לואה בלתי־תקין $1.",
+	"jsonconfig-transform-invalid-function": "פונקציה בלתי־תקינה; יחידה $1 פונקציה $2.",
+	"jsonconfig-transform-failed": "כשל בהרצת התמרת לואה ביחידה $1 פונקציה $2.",
+	"jsonconfig-transform-error": "חריג $3 בהרצת התמרת לואה ביחידה $1 בפונקציה $2: השגיאה היא $4",
+	"jsonconfig-internal-api-error": "בקשת API פנימית נכשלה עם קוד $1: השגיאה היא $2",
+	"jsonconfig-internal-state": "מצב פנימי בלתי־תקין."
 }
