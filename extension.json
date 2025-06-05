@@ -97,12 +97,12 @@
 				"jsonconfig-edit-dialog-error",
 				"jsonconfig-edit-dialog-error-data-invalid",
 				"jsonconfig-edit-dialog-error-data-missing",
-				"jsonconfig-edit-dialog-error-data-too-large",
 				"jsonconfig-edit-dialog-error-field-name-missing",
 				"jsonconfig-edit-dialog-error-field-type-invalid",
 				"jsonconfig-edit-dialog-error-fields-missing",
 				"jsonconfig-edit-dialog-error-schema-missing",
-				"jsonconfig-edit-dialog-title"
+				"jsonconfig-edit-dialog-title",
+				"jsonconfig-edit-dialog-warning-data-large"
 			]
 		}
 	},
