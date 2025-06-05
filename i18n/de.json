@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Brettchenweber",
+			"McDutchie",
 			"Metalhead64",
 			"Umherirrender",
 			"Yurik"
@@ -85,7 +86,7 @@
 	"jsonconfig-globaljsonlinks-no-results": "[[:$1]] wird weder lokal noch auf anderen Wikis verwendet.",
 	"jsonconfig-globaljsonlinks-remote": "Die Verfolgung der Datennutzung muss über das zentrale Speicher-Wiki überprüft werden.",
 	"jsonconfig-globaljsonlinks-disabled": "Die Verfolgung der Datennutzung ist deaktiviert.",
-	"jsonconfig-transform-disabled": "Lua-Integration für Daten: Seiten sind deaktiviert.",
+	"jsonconfig-transform-disabled": "Die Lua-Integration für „Data:“-Seiten ist deaktiviert.",
 	"jsonconfig-transform-missing-data": "Fehlende Quelldatenseite $1.",
 	"jsonconfig-transform-invalid-data": "Ungültige Quelldatenseite $1.",
 	"jsonconfig-transform-invalid-module": "Ungültiges Lua-Modul $1.",

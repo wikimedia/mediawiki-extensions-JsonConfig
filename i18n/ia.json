@@ -81,5 +81,12 @@
 	"jsonconfig-globaljsonlinks-text": "Cercar uso global de datos",
 	"jsonconfig-globaljsonlinks-no-results": "[[:$1]] non es usate localmente ni sur altere wikis.",
 	"jsonconfig-globaljsonlinks-remote": "Le traciamento de ligamines pro le uso de datos debe esser verificate a partir del wiki de immagazinage central.",
-	"jsonconfig-globaljsonlinks-disabled": "Le traciamento de ligamines pro le uso de datos es disactivate."
+	"jsonconfig-globaljsonlinks-disabled": "Le traciamento de ligamines pro le uso de datos es disactivate.",
+	"jsonconfig-transform-disabled": "Le integration con Lua pro paginas ‘Data:’ es disactivate.",
+	"jsonconfig-transform-missing-data": "Le pagina de datos fonte $1 manca.",
+	"jsonconfig-transform-invalid-data": "Le pagina de datos fonte $1 non es valide.",
+	"jsonconfig-transform-invalid-module": "Le modulo Lua $1 non es valide.",
+	"jsonconfig-transform-invalid-module-engine": "Le motor pro le modulo Lua $1 non es valide.",
+	"jsonconfig-transform-invalid-module-name": "Le nomine de modulo Lua $1 non es valide.",
+	"jsonconfig-transform-invalid-function": "Function non valide; modulo $1, function $2."
 }

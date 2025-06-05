@@ -3,6 +3,7 @@
 		"authors": [
 			"0x010C",
 			"Gomoko",
+			"JLTRY",
 			"Thibaut120094",
 			"Verdy p",
 			"Wladek92"
@@ -23,6 +24,12 @@
 	"apihelp-jsondata-param-title": "Titre à récupérer. Par défaut, l’espace de noms est supposé être « Data: ».",
 	"apihelp-jsondata-example-1": "Obtenir le contenu JSON de la page « Sample.tab », régionalisée dans la langue de l’utilisateur",
 	"apihelp-jsondata-example-2": "Obtenir le contenu JSON de la page « Sample.tab » régionalisée en français",
+	"apihelp-jsontransform-summary": "Récupérer les données JSON transformées par une fonction Lua.",
+	"apihelp-jsontransform-param-title": "Titre à traiter sans le préfixe de l’espace de noms.",
+	"apihelp-jsontransform-param-jtmodule": "Nom du module Lua à partir duquel charger le code de transformation. La valeur par défaut est Module : namespace.",
+	"apihelp-jsontransform-param-jtfunction": "Nom de la fonction Lua à exécuter",
+	"apihelp-jsontransform-param-jtargs": "Séquence de chaînes à passer comme arguments à la fonction de transformation Lua",
+	"apihelp-jsontransform-example-1": "Obtenir le contenu JSON de la page Sample.tab exécutée via une transformation Lua",
 	"apierror-jsonconfig-paramrequired": "Le paramètre <var>$1</var> est nécessaire pour cette commande.",
 	"apierror-jsonconfig-badtitle": "La page spécifiée par les paramètres <var>namespace</var> et <var>title</var> est soit invalide, soit non inscrite dans la configuration JsonConfig."
 }

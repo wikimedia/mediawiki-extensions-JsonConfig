@@ -20,6 +20,12 @@
 	"apihelp-jsondata-param-title": "Наслов за повикување. По основно се претпоставува дека именскиот простор е „Data:“",
 	"apihelp-jsondata-example-1": "Дава JSON-содржина на страницата Sample.tab page, локализирана на јазикот на корисникот",
 	"apihelp-jsondata-example-2": "Дава JSON-содржина на страницата Sample.tab, локализирана на француски",
+	"apihelp-jsontransform-summary": "Добивање на JSON-податоци преобразени со Lua-функција.",
+	"apihelp-jsontransform-param-title": "Наслов за обработка без претставка за именски простор.",
+	"apihelp-jsontransform-param-jtmodule": "Име на Lua-модулот од кој ќе се вчита преобразниот код. По основно гласи Module: namespace.",
+	"apihelp-jsontransform-param-jtfunction": "Име на Lua-функцијата што ќе се пушти",
+	"apihelp-jsontransform-param-jtargs": "Последователност од низи за давање како аргументи на Lua-функцијата за преобразба",
+	"apihelp-jsontransform-example-1": "Добивање на JSON-содржина на страницата Sample.tab што работи преку Lua-преобразба",
 	"apierror-jsonconfig-paramrequired": "Наредбава го бара параметарот <var>$1</var>.",
 	"apierror-jsonconfig-badtitle": "Оваа страница укажана од параметрите <var>namespace</var> и <var>title</var> е неважечка, или не е пријавена во поставките на JsonConfig."
 }
