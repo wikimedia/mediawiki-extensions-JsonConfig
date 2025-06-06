@@ -65,6 +65,12 @@ mw.JsonConfig.JsonEditDialog.prototype.initialize = function () {
 	this.data = null;
 	this.fieldTypes = null;
 
+	this.sizeWarning = new OO.ui.MessageWidget( {
+		type: 'warning',
+		showClose: true,
+		label: mw.msg( 'jsonconfig-edit-dialog-warning-data-large' )
+	} );
+
 	this.tableWidget = new mw.widgets.TableWidget( {
 		showRowLabels: false,
 		allowRowInsertion: true,
@@ -77,7 +83,7 @@ mw.JsonConfig.JsonEditDialog.prototype.initialize = function () {
 		scrollable: true
 	} );
 
-	this.panel.$element.append( this.tableWidget.$element );
+	this.panel.$element.append( this.sizeWarning.$element, this.tableWidget.$element );
 	this.$body.append( this.panel.$element );
 };
 
@@ -102,6 +108,8 @@ mw.JsonConfig.JsonEditDialog.prototype.getSetupProcess = function ( data ) {
 			const fields = this.json.schema.fields;
 			const fieldNames = fields.map( ( value ) => value.name );
 			this.fieldTypes = fields.map( ( value ) => value.type );
+
+			this.sizeWarning.toggle( this.json.data.length * this.json.schema.fields.length > 5000 );
 
 			// Insert column metadata
 			for ( let i = 0; i < fieldNames.length; i++ ) {
@@ -155,10 +163,6 @@ mw.JsonConfig.JsonEditDialog.prototype.validateJson = function () {
 				item.length === json.schema.fields.length )
 	) {
 		throw new Error( mw.msg( 'jsonconfig-edit-dialog-error-data-invalid' ) );
-	}
-
-	if ( json.data.length * json.schema.fields.length > 5000 ) {
-		throw new Error( mw.msg( 'jsonconfig-edit-dialog-error-data-too-large' ) );
 	}
 };
 
