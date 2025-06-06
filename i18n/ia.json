@@ -88,5 +88,9 @@
 	"jsonconfig-transform-invalid-module": "Le modulo Lua $1 non es valide.",
 	"jsonconfig-transform-invalid-module-engine": "Le motor pro le modulo Lua $1 non es valide.",
 	"jsonconfig-transform-invalid-module-name": "Le nomine de modulo Lua $1 non es valide.",
-	"jsonconfig-transform-invalid-function": "Function non valide; modulo $1, function $2."
+	"jsonconfig-transform-invalid-function": "Function non valide; modulo $1, function $2.",
+	"jsonconfig-transform-failed": "Fallimento de execution del transformation Lua in le modulo $1, function $2.",
+	"jsonconfig-transform-error": "$3 durante le execution del transformation Lua in le modulo $1, function $2: $4",
+	"jsonconfig-internal-api-error": "Le requesta API interne ha fallite con codice $1: $2",
+	"jsonconfig-internal-state": "Stato interne non valide."
 }

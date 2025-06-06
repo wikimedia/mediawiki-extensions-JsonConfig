@@ -6,6 +6,7 @@
 			"Lolekek",
 			"Maroen1990",
 			"Meno25",
+			"Mohammed Qays",
 			"Tala Ali",
 			"ديفيد",
 			"عبد الإله صديقي",
@@ -102,5 +103,7 @@
 	"jsonconfig-globaljsonlinks-text": "البحث عن استخدام البيانات العالمي",
 	"jsonconfig-globaljsonlinks-no-results": "[[:$1]] لا يتم استخدامه محليًا أو على wiki آخر.",
 	"jsonconfig-globaljsonlinks-remote": "يجب التحقق من رابط تتبع استخدام البيانات من متجر wiki المركزي.",
-	"jsonconfig-globaljsonlinks-disabled": "تم تعطيل رابط تتبع استخدام البيانات."
+	"jsonconfig-globaljsonlinks-disabled": "تم تعطيل رابط تتبع استخدام البيانات.",
+	"jsonconfig-transform-invalid-function": "وظيفة غير صالحة؛ الوحدة $1 الوظيفة $2.",
+	"jsonconfig-internal-state": "حالة داخلية غير صالحة."
 }

@@ -3,6 +3,7 @@
 		"authors": [
 			"LaMagiaaa",
 			"Meno25",
+			"Mohammed Qays",
 			"ديفيد"
 		]
 	},
@@ -21,6 +22,7 @@
 	"apihelp-jsondata-param-title": "عنوان للحصول عليه، افتراضيا نطاق ليكون \"البيانات:\"",
 	"apihelp-jsondata-example-1": "احصل على محتوى JSON من صفحة Sample.tab، مترجمة إلى لغة المستخدم",
 	"apihelp-jsondata-example-2": "احصل على محتوى JSON من صفحة Sample.tab، مترجمة إلى الفرنسية",
+	"apihelp-jsontransform-param-title": "عنوان العملية بدون بادئة اسم النطاق.",
 	"apierror-jsonconfig-paramrequired": "الوسيط <var>$1</var> مطلوب لهذا الأمر.",
 	"apierror-jsonconfig-badtitle": "الصفحة المحددة بواسطة الوسائط <var>namespace</var> و<var>title</var> إما غير صالحة أو غير مسجلة في تكوين JsonConfig."
 }
