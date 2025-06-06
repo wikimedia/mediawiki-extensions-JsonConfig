@@ -120,6 +120,13 @@ mw.JsonConfig.JsonEditDialog.prototype.getSetupProcess = function ( data ) {
 			for ( let i = 0; i < this.data.length; i++ ) {
 				this.tableWidget.insertRow( this.data[ i ] );
 			}
+
+			// Make the dialog fullscreen if the usual size would require horizontal scrolling (T275192)
+			this.setSize( 'large' );
+			if ( this.panel.$element.prop( 'scrollWidth' ) > this.panel.$element.prop( 'clientWidth' ) ) {
+				this.setSize( 'full' );
+			}
+
 		}, this );
 };
 
