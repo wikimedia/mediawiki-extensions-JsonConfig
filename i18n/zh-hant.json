@@ -23,7 +23,6 @@
 	"jsonconfig-edit-dialog-error": "無法以表格編輯：$1",
 	"jsonconfig-edit-dialog-error-data-invalid": "資料不符合架構",
 	"jsonconfig-edit-dialog-error-data-missing": "缺少 JSON <code>data</code> 屬性或不是一個陣列",
-	"jsonconfig-edit-dialog-error-data-too-large": "資料集太大無法以表格編輯",
 	"jsonconfig-edit-dialog-error-field-name-missing": "每個欄位必須要有名稱",
 	"jsonconfig-edit-dialog-error-field-type-invalid": "要以表格編輯，每個欄位必須是 <code>number</code> 或 <code>string</code> 類型",
 	"jsonconfig-edit-dialog-error-fields-missing": "缺少 JSON <code>schema.fields</code> 屬性或不是一個陣列",

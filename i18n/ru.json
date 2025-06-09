@@ -28,7 +28,6 @@
 	"jsonconfig-edit-dialog-error": "Невозможно изменить как таблицу: $1",
 	"jsonconfig-edit-dialog-error-data-invalid": "Данные не соответствуют схеме",
 	"jsonconfig-edit-dialog-error-data-missing": "Свойство <code>данных</code> JSON отсутствует или не является массивом",
-	"jsonconfig-edit-dialog-error-data-too-large": "Набор данных слишком большой для изменения в виде таблицы",
 	"jsonconfig-edit-dialog-error-field-name-missing": "Каждое поле должно содержать имя",
 	"jsonconfig-edit-dialog-error-field-type-invalid": "Для изменения в виде таблицы каждое поле должно иметь тип <code>number</code> или <code>string</code>",
 	"jsonconfig-edit-dialog-error-fields-missing": "Свойство JSON <code>schema.fields</code> отсутствует или не является массивом",

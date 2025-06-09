@@ -27,7 +27,6 @@
 	"jsonconfig-edit-dialog-error": "无法以表格形式编辑：$1",
 	"jsonconfig-edit-dialog-error-data-invalid": "数据与图式不匹配",
 	"jsonconfig-edit-dialog-error-data-missing": "JSON的<code>data</code>属性缺失或不是数组",
-	"jsonconfig-edit-dialog-error-data-too-large": "数据集太大，无法编辑为表格",
 	"jsonconfig-edit-dialog-error-field-name-missing": "每个字段必须有一个名称",
 	"jsonconfig-edit-dialog-error-field-type-invalid": "要作为表格编辑，每一个区域都应有<code>number</code>或<code>string</code>数据类型",
 	"jsonconfig-edit-dialog-error-fields-missing": "JSON的<code>schema.fields</code>属性缺失或不是数组",

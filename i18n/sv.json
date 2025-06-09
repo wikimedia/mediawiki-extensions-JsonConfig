@@ -17,7 +17,6 @@
 	"jsonconfig-edit-dialog-error": "Kunde inte redigera som tabell: $1",
 	"jsonconfig-edit-dialog-error-data-invalid": "Datat matchar inte schemat",
 	"jsonconfig-edit-dialog-error-data-missing": "JSON <code>data</code>-egenskapen saknas eller är inte en array",
-	"jsonconfig-edit-dialog-error-data-too-large": "Datasetet är för stort för att redigeras som tabell",
 	"jsonconfig-edit-dialog-error-field-name-missing": "Varje fält måste ha ett namn",
 	"jsonconfig-edit-dialog-error-field-type-invalid": "För att redigera som tabell behöver varje fält ha typen <code>number</code> eller <code>string</code>",
 	"jsonconfig-edit-dialog-error-fields-missing": "JSON <code>schema.fields</code>-egenskapen saknas eller är inte en array",

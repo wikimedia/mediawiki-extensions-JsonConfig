@@ -21,7 +21,6 @@
 	"jsonconfig-edit-dialog-error": "ناتوان از ویرایش به‌عنوان یک جدول: $1",
 	"jsonconfig-edit-dialog-error-data-invalid": "داده‌ها با طرحواره منطبق نیستند",
 	"jsonconfig-edit-dialog-error-data-missing": "ویژگی <code>data</code> در جی‌سان موجود نیست یا از نوع آرایه نیست",
-	"jsonconfig-edit-dialog-error-data-too-large": "مجموعه‌داده بزرگ‌تر از آن است که قابل ویرایش به‌عنوان جدول باشد",
 	"jsonconfig-edit-dialog-error-field-name-missing": "هر فیلد باید دارای یک نام باشد",
 	"jsonconfig-edit-dialog-error-field-type-invalid": "برای ویرایش به‌عنوان یک جدول، هر فیلد باید دارای نوع <code>number</code> یا <code>string</code> باشد",
 	"jsonconfig-edit-dialog-error-fields-missing": "ویژگی <code>schema.fields</code> در جی‌سان موجود نیست یا از نوع آرایه نیست",

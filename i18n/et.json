@@ -15,7 +15,6 @@
 	"jsonconfig-edit-dialog-error": "Ei saa tabelina redigeerida: $1.",
 	"jsonconfig-edit-dialog-error-data-invalid": "andmed ei vasta skeemile",
 	"jsonconfig-edit-dialog-error-data-missing": "JSON-i atribuut <code>data</code> puudub või see pole massiiv",
-	"jsonconfig-edit-dialog-error-data-too-large": "andmestik on tabelina redigeerimiseks liiga suur",
 	"jsonconfig-edit-dialog-error-field-name-missing": "igal väljal peab olema nimi",
 	"jsonconfig-edit-dialog-error-field-type-invalid": "tabelina redigeerimiseks peab iga väli olema tüübiga <code>number</code> või <code>string</code>",
 	"jsonconfig-edit-dialog-error-fields-missing": "JSON-i atribuut <code>schema.fields</code> puudub või see pole massiiv",

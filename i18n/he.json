@@ -18,7 +18,6 @@
 	"jsonconfig-edit-dialog-error": "לא ניתן לערוך בתור טבלה: $1",
 	"jsonconfig-edit-dialog-error-data-invalid": "הנתונים אינם מתאימים לסכמה",
 	"jsonconfig-edit-dialog-error-data-missing": "מאפיין <code>data</code> של JSON חסר או שאינו מערך",
-	"jsonconfig-edit-dialog-error-data-too-large": "ערכת הנתונים גדולה מדי לעריכה בתור טבלה",
 	"jsonconfig-edit-dialog-error-field-name-missing": "לכל שדה צריך להיות שם",
 	"jsonconfig-edit-dialog-error-field-type-invalid": "כדי לערוך בתור טבלה, לכל שדה צריך להיות סוג <code>number</code> או <code>string</code>",
 	"jsonconfig-edit-dialog-error-fields-missing": "מאפיין <code>schema.fields</code> של JSON חסר או שאינו מערך",

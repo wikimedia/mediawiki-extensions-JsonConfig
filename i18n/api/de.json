@@ -21,7 +21,7 @@
 	"apihelp-jsondata-example-2": "Ruft den JSON-Inhalt für die Seite Sample.tab, lokalisiert in Französisch, ab.",
 	"apihelp-jsontransform-summary": "JSON-Daten, die durch eine Lua-Funktion transformiert wurden, abrufen.",
 	"apihelp-jsontransform-param-title": "Zu verarbeitender Titel ohne Namensraum-Präfix.",
-	"apihelp-jsontransform-param-jtmodule": "Name des Lua-Moduls, aus dem der Transformationscode geladen werden soll. Standardmäßig „Module: Namespace“.",
+	"apihelp-jsontransform-param-jtmodule": "Name des Lua-Moduls, aus dem der Transformationscode geladen werden soll. Standardmäßig ist es der Namensraum „Module:“.",
 	"apihelp-jsontransform-param-jtfunction": "Name der auszuführenden Lua-Funktion",
 	"apihelp-jsontransform-param-jtargs": "Zeichenfolgenfolge, die als Argumente an die Lua-Transformationsfunktion übergeben wird",
 	"apihelp-jsontransform-example-1": "Holt den JSON-Inhalt der Sample.tab-Seite, der über eine Lua-Transformation ausgeführt wird",

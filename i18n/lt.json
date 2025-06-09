@@ -16,7 +16,6 @@
 	"jsonconfig-edit-dialog-error": "Negalima redaguoti kaip lentelės: $1",
 	"jsonconfig-edit-dialog-error-data-invalid": "Duomenys neatitinka schemos",
 	"jsonconfig-edit-dialog-error-data-missing": "Trūksta JSON <code>data</code> elemento arba nėra masyvas",
-	"jsonconfig-edit-dialog-error-data-too-large": "Duomenų rinkinys per didelis, kad būtų galima redaguoti kaip lentelę",
 	"jsonconfig-edit-dialog-error-field-name-missing": "Kiekvienas laukas turi turėti pavadinimą",
 	"jsonconfig-edit-dialog-error-field-type-invalid": "Norint redaguoti kaip lentelę, kiekviename lauke turi būti tipas <code>number</code> arba <code>string</code>",
 	"jsonconfig-edit-dialog-error-fields-missing": "Trūksta JSON <code>schema.fields</code> elemento arba nėra masyvas",

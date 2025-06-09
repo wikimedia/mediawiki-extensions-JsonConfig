@@ -16,7 +16,6 @@
 	"jsonconfig-edit-dialog-error": "Не може да се уреди како табела: $1",
 	"jsonconfig-edit-dialog-error-data-invalid": "Податоците не одговараат на шемата",
 	"jsonconfig-edit-dialog-error-data-missing": "Недостасува својството <code>data</code> на JSON или не е строј",
-	"jsonconfig-edit-dialog-error-data-too-large": "Податочниот збир е преголем за да се уредува како табела",
 	"jsonconfig-edit-dialog-error-field-name-missing": "Секое поле мора да има назив",
 	"jsonconfig-edit-dialog-error-field-type-invalid": "За да се уреди како табела, секое поле мора да биде од типот <code>number</code> или <code>string</code>",
 	"jsonconfig-edit-dialog-error-fields-missing": "Недостасува својството <code>schema.fields</code> на JSON или не е строј",
@@ -104,5 +103,9 @@
 	"jsonconfig-localjsonlinks-of-page": "Следниве страници ја користат оваа податочна страница:",
 	"jsonconfig-globaljsonlinks": "Употреба на податоците на други викија",
 	"jsonconfig-globaljsonlinks-on-wiki": "Употреба на $2",
-	"jsonconfig-globaljsonlinks-of-page": "Оваа податочна страница се користи на следниве други викија:"
+	"jsonconfig-globaljsonlinks-of-page": "Оваа податочна страница се користи на следниве други викија:",
+	"jsonconfig-globaljsonlinks-for": "Врски за $1",
+	"jsonconfig-globaljsonlinks-ok": "Пребарај",
+	"jsonconfig-globaljsonlinks-text": "Пребарување на глобалната употреба на податоци",
+	"jsonconfig-globaljsonlinks-no-results": "[[:$1]] не се користи месно или на други викија."
 }

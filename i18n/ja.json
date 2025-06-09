@@ -24,7 +24,6 @@
 	"jsonconfig-edit-button-label": "テーブルとして編集",
 	"jsonconfig-edit-dialog-error": "テーブルとして編集できません：$1",
 	"jsonconfig-edit-dialog-error-data-invalid": "データがスキーマと一致しません",
-	"jsonconfig-edit-dialog-error-data-too-large": "データセットが大きすぎるためテーブルとして編集できません",
 	"jsonconfig-edit-dialog-error-field-name-missing": "各フィールドは名前が必須です",
 	"jsonconfig-edit-dialog-title": "JSONを編集",
 	"jsonconfig-err-array": "パラメーター「$1」はリストでなければなりません。例: <kbd>[\"値1\", \"値2\", ...]</kbd>",

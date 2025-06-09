@@ -21,7 +21,6 @@
 	"jsonconfig-edit-dialog-error": "Nie można edytować jako tabeli: $1",
 	"jsonconfig-edit-dialog-error-data-invalid": "Dane nie odpowiadają schematowi",
 	"jsonconfig-edit-dialog-error-data-missing": "Własność JSON <code>data</code> nie jest obecna lub nie jest tablicą",
-	"jsonconfig-edit-dialog-error-data-too-large": "Zestaw danych jest zbyt duży, aby edytować go jako tabelę",
 	"jsonconfig-edit-dialog-error-field-name-missing": "Każde pole musi mieć nazwę",
 	"jsonconfig-edit-dialog-error-field-type-invalid": "Aby edytować dane jako tabelę, każde pole musi mieć typ <code>number</code> lub <code>string</code>",
 	"jsonconfig-edit-dialog-error-fields-missing": "Własność JSON <code>schema.fields</code> nie jest obecna lub nie jest tablicą",

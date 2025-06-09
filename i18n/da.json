@@ -15,7 +15,6 @@
 	"jsonconfig-edit-dialog-error": "Kan ikke redigere som en tabel: $1",
 	"jsonconfig-edit-dialog-error-data-invalid": "Data stemmer ikke overens med skemaet",
 	"jsonconfig-edit-dialog-error-data-missing": "JSON- <code>data</code> mangler eller er ikke et array",
-	"jsonconfig-edit-dialog-error-data-too-large": "Datasættet er for stort til at redigere som en tabel",
 	"jsonconfig-edit-dialog-error-field-name-missing": "Hvert felt skal have et navn",
 	"jsonconfig-edit-dialog-error-field-type-invalid": "For at redigere som en tabel skal hvert felt have <code>number</code> eller <code>string</code>",
 	"jsonconfig-edit-dialog-error-fields-missing": "JSON- <code>data</code> mangler eller er ikke et array",

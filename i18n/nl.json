@@ -21,7 +21,6 @@
 	"jsonconfig-edit-dialog-error": "Kan niet als tabel bewerken: $1",
 	"jsonconfig-edit-dialog-error-data-invalid": "Gegevens komen niet overeen met het schema",
 	"jsonconfig-edit-dialog-error-data-missing": "De JSON-eigenschap <code>data</code> ontbreekt of is geen array",
-	"jsonconfig-edit-dialog-error-data-too-large": "De gegevensreeks is te groot om als tabel te bewerken",
 	"jsonconfig-edit-dialog-error-field-name-missing": "Elk veld moet een naam hebben",
 	"jsonconfig-edit-dialog-error-field-type-invalid": "Om als tabel te bewerken moet elk veld het type <code>number</code> of <code>string</code> hebben",
 	"jsonconfig-edit-dialog-error-fields-missing": "De JSON-eigenschap <code>schema.fields</code> ontbreekt of is geen array",

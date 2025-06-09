@@ -19,6 +19,12 @@
 	"apihelp-jsondata-param-title": "Le titulo a obtener. Si non specificate alteremente, assume que le spatio de nomines es \"Data:\".",
 	"apihelp-jsondata-example-1": "Obtener contento JSON del pagina Sample.tab, localisate in le lingua del usator.",
 	"apihelp-jsondata-example-2": "Obtener contento JSON del pagina Sample.tab, localisate in francese.",
+	"apihelp-jsontransform-summary": "Recuperar datos JSON transformate per un function Lua.",
+	"apihelp-jsontransform-param-title": "Titulo a tractar sin prefixo de spatio de nomines.",
+	"apihelp-jsontransform-param-jtmodule": "Nomine del modulo Lua desde le qual cargar le codice de transformation. Per predefinition, le spatio de nomines es Module:.",
+	"apihelp-jsontransform-param-jtfunction": "Nomine del function Lua a executar",
+	"apihelp-jsontransform-param-jtargs": "Sequentia de catenas a passar como argumentos al function de transformation Lua",
+	"apihelp-jsontransform-example-1": "Obtener le contento JSON del pagina Sample.tab que se executa per un transformation Lua",
 	"apierror-jsonconfig-paramrequired": "Le parametro <var>$1</var> es necessari pro iste commando.",
 	"apierror-jsonconfig-badtitle": "Le pagina specificate per le parametros <var>namespace</var> e <var>title</var> non es valide o non es registrate in le configuration JsonConfig."
 }

@@ -13,7 +13,6 @@
 	"jsonconfig-edit-dialog-error": "Cədvəl kimi redaktə etmək mümkün deyil: $1",
 	"jsonconfig-edit-dialog-error-data-invalid": "Məlumat sxemə uyğun gəlmir",
 	"jsonconfig-edit-dialog-error-data-missing": "JSON <code>data</code> parametri yoxdur və ya massiv deyil",
-	"jsonconfig-edit-dialog-error-data-too-large": "Dataset cədvəl kimi redaktə etmək üçün çox böyükdür",
 	"jsonconfig-edit-dialog-error-field-name-missing": "Hər sahənin adı olmalıdır",
 	"jsonconfig-edit-dialog-error-field-type-invalid": "Cədvəl kimi redaktə etmək üçün hər bir sahədə tip <code>number</code> və ya <code>string</code> olmalıdır",
 	"jsonconfig-edit-dialog-error-fields-missing": "JSON <code>schema.fields</code> parametri yoxdur və ya massiv deyil",

@@ -22,7 +22,12 @@
 	"apihelp-jsondata-param-title": "عنوان للحصول عليه، افتراضيا نطاق ليكون \"البيانات:\"",
 	"apihelp-jsondata-example-1": "احصل على محتوى JSON من صفحة Sample.tab، مترجمة إلى لغة المستخدم",
 	"apihelp-jsondata-example-2": "احصل على محتوى JSON من صفحة Sample.tab، مترجمة إلى الفرنسية",
+	"apihelp-jsontransform-summary": "استرداد بيانات JSON المحولة بواسطة دالة لوا.",
 	"apihelp-jsontransform-param-title": "عنوان العملية بدون بادئة اسم النطاق.",
+	"apihelp-jsontransform-param-jtmodule": "اسم وحدة Lua لتحميل كود التحويل منها. الافتراضي هو الوحدة: مساحة الاسم.",
+	"apihelp-jsontransform-param-jtfunction": "اسم وظيفة لوا التي سيتم تشغيلها",
+	"apihelp-jsontransform-param-jtargs": "تسلسل السلاسل التي سيتم تمريرها كوسائط إلى دالة التحويل Lua",
+	"apihelp-jsontransform-example-1": "الحصول على محتوى JSON لصفحة Sample.tab التي تعمل من خلال تحويل Lua",
 	"apierror-jsonconfig-paramrequired": "الوسيط <var>$1</var> مطلوب لهذا الأمر.",
 	"apierror-jsonconfig-badtitle": "الصفحة المحددة بواسطة الوسائط <var>namespace</var> و<var>title</var> إما غير صالحة أو غير مسجلة في تكوين JsonConfig."
 }

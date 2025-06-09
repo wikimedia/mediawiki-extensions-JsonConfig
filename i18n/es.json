@@ -28,7 +28,6 @@
 	"jsonconfig-edit-dialog-error": "No se puede editar como una tabla: $1",
 	"jsonconfig-edit-dialog-error-data-invalid": "Los datos no coinciden con el esquema",
 	"jsonconfig-edit-dialog-error-data-missing": "La propiedad JSON <code>data</code> está ausente o no es una matriz",
-	"jsonconfig-edit-dialog-error-data-too-large": "El conjunto de datos es demasiado grande para editarlo como una tabla",
 	"jsonconfig-edit-dialog-error-field-name-missing": "Cada campo debe tener un nombre",
 	"jsonconfig-edit-dialog-error-field-type-invalid": "Para editar como tabla, cada campo debe ser de tipo <code>number</code> o <code>string</code>",
 	"jsonconfig-edit-dialog-error-fields-missing": "La propiedad JSON <code>schema.fields</code> está ausente o no es una matriz",
