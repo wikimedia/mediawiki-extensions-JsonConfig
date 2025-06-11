@@ -147,4 +147,16 @@ function p.prepend( tab, args )
 	return tab
 end
 
+function p.double( tab, args )
+	-- doubles all numeric values in-place
+	for _, row in ipairs( tab.data ) do
+		for i, val in ipairs( row ) do
+			if tab.schema.fields[i].type == "number" then
+				row[i] = val * 2
+			end
+		end
+	end
+	return tab
+end
+
 return p
