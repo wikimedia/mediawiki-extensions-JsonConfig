@@ -397,7 +397,7 @@ class JCSingleton {
 	 */
 	public static function getContentLoader( TitleValue $titleValue ): JCContentLoader {
 		$jct = self::parseTitle( $titleValue );
-		return MediaWikiServices::getInstance()->getService( 'JsonConfig.ContentLoader' )->title( $jct );
+		return MediaWikiServices::getInstance()->getService( 'JsonConfig.ContentLoaderFactory' )->get( $jct );
 	}
 
 	/**
