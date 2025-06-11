@@ -54,7 +54,7 @@ class JCContentLoaderTest extends JCTransformTestCase {
 		$this->assertTrue( $status->isOk(), 'local fetch' );
 		$this->assertEquals( $expected, $status->getValue()->toJson(), 'local fetch' );
 
-		$config = $jct->getConfig();
+		$config = clone $jct->getConfig();
 		$config->store = null;
 		$config->remote = (object)[
 			'url' => 'http://example.com/fake-test',
@@ -95,5 +95,33 @@ class JCContentLoaderTest extends JCTransformTestCase {
 				'output-prepend.json',
 			]
 		];
+	}
+
+	public function testMutability() {
+		$inFile = 'Sample_input.tab';
+		$jct = JCSingleton::parseTitle( $inFile, NS_DATA );
+		$transform = new JCTransform( 'JCTransform samples', 'double', [] );
+		$identity = json_decode( file_get_contents( __DIR__ . '/transforms/output-plain.json' ) );
+		$double = json_decode( file_get_contents( __DIR__ . '/transforms/output-double.json' ) );
+
+		$status = JCSingleton::getContentLoader( $jct )
+			->load();
+		$this->assertTrue( $status->isOk(), 'non-transformed 1' );
+		$plain1 = $status->getValue()->toJson();
+
+		$status = JCSingleton::getContentLoader( $jct )
+			->transform( $transform )
+			->load();
+		$this->assertTrue( $status->isOk(), 'transformed' );
+		$transformed = $status->getValue()->toJson();
+
+		$status = JCSingleton::getContentLoader( $jct )
+			->load();
+		$this->assertTrue( $status->isOk(), 'non-transformed 2' );
+		$plain2 = $status->getValue()->toJson();
+
+		$this->assertEquals( $identity, $plain1, 'plain1 run should be identical' );
+		$this->assertEquals( $double, $transformed, 'transform run should be expected' );
+		$this->assertEquals( $identity, $plain2, 'plain2 run should be identical' );
 	}
 }

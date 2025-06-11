@@ -2,7 +2,7 @@
 
 use JsonConfig\GlobalJsonLinks;
 use JsonConfig\JCApiUtils;
-use JsonConfig\JCContentLoader;
+use JsonConfig\JCContentLoaderFactory;
 use JsonConfig\JCTransformer;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\WikiMap\WikiMap;
@@ -14,8 +14,8 @@ return [
 			$services->getHttpRequestFactory()
 		);
 	},
-	'JsonConfig.ContentLoader' => static function ( MediaWikiServices $services ): JCContentLoader {
-		return new JCContentLoader(
+	'JsonConfig.ContentLoaderFactory' => static function ( MediaWikiServices $services ): JCContentLoaderFactory {
+		return new JCContentLoaderFactory(
 			$services->getService( 'JsonConfig.Transformer' ),
 			$services->getService( 'JsonConfig.ApiUtils' )
 		);
