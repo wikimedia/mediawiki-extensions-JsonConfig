@@ -33,5 +33,8 @@
 	"jsonconfig-license-notice": "'''Märkus:''' Kui redigeerid seda lehekülge, siis nõustud avaldama oma muudatused litsentsi [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}] tingimustel.",
 	"jsonconfig-license-notice-license-unset": "'''Märkus:''' Kui redigeerid seda lehekülge, siis nõustud avaldama oma muudatused väljal <code>licence</code> näidatud litsentsi all.",
 	"right-jsonconfig-flush": "Muuta JSON-häälestust API kaudu",
-	"action-jsonconfig-flush": "API kaudu JSON-häälestust muuta"
+	"action-jsonconfig-flush": "API kaudu JSON-häälestust muuta",
+	"jsonconfig-globaljsonlinks": "Andmete kasutus teistes vikides",
+	"jsonconfig-globaljsonlinks-on-wiki": "Kasutus vikis $2",
+	"jsonconfig-globaljsonlinks-of-page": "Seda andmelehekülge kasutavad järgmised teised vikid:"
 }
