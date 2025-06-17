@@ -4,6 +4,7 @@
 			"BaRaN6161 TURK",
 			"Cobija",
 			"Joseph",
+			"Leo",
 			"MrSchipunov",
 			"MuratTheTurkish",
 			"Pedian4169",
@@ -66,5 +67,7 @@
 	"jsonconfig-license-notice": "'''Not:''' Bu sayfayı düzenlediğinizde, katkınızı [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}] altında bırakmayı kabul edersiniz.",
 	"jsonconfig-license-notice-license-unset": "'''Not:''' Bu sayfayı düzenlediğinizde, katkınızı <code>licence</code> alanında belirtilen lisansa göre bırakmayı kabul edersiniz.",
 	"right-jsonconfig-flush": "API ile JsonConfig'i değiştir",
-	"action-jsonconfig-flush": "API ile JsonConfig'i değiştir"
+	"action-jsonconfig-flush": "API ile JsonConfig'i değiştir",
+	"globaljsonlinks": "Küresel veri kullanımı",
+	"jsonconfig-globaljsonlinks-header": "Bu sayfa, bir sayfanın diğer vikilerde veri hattı getirme işleminde nereye yüklendiğini gösterir. Bu bilgiyi ayrıca veri açıklama sayfasının en altında da bulabilirsiniz."
 }
