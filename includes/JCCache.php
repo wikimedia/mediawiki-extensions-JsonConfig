@@ -54,39 +54,38 @@ class JCCache {
 	 * @return string|JCContent|false Content string/object or false if irretrievable.
 	 */
 	public function get() {
-		if ( $this->content ) {
-			return $this->content;
-		}
-
-		if ( $this->disableJsonConfigCache() ) {
-			return $this->fetchContent();
-		}
-
-		$value = $this->cache->getWithSetCallback(
-			$this->key,
-			$this->cacheExpiration,
-			function ( $oldValue, &$ttl ) {
-				$content = $this->fetchContent() ?: '';
-
-				// If the content is invalid, store an empty string to prevent repeated attempts
-				if ( !$content ) {
-					$ttl = 10;
-				}
-
-				if ( !is_string( $content ) ) {
-					$content = $content->getText();
-				}
-
-				return $content;
+		if ( $this->content === null ) {
+			if ( $this->disableJsonConfigCache() ) {
+				return $this->fetchContent();
 			}
-		);
 
-		if ( $value === '' ) {
-			$this->content = false;
-			return $this->content;
+			$value = $this->cache->getWithSetCallback(
+				$this->key,
+				$this->cacheExpiration,
+				function ( $oldValue, &$ttl ) {
+					// If the content is invalid, store an empty string to prevent repeated attempts
+					$content = $this->fetchContent() ?: '';
+
+					if ( !$content ) {
+						$ttl = 10;
+					}
+
+					if ( !is_string( $content ) ) {
+						$content = $content->getText();
+					}
+
+					return $content;
+				}
+			);
+
+			if ( $value === '' ) {
+				$this->content = false;
+			} else {
+				$this->content = $value;
+			}
 		}
 
-		return $value;
+		return $this->content;
 	}
 
 	/**
