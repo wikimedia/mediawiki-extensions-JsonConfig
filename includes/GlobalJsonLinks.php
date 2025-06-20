@@ -242,6 +242,7 @@ class GlobalJsonLinks {
 							->select( [ 'gjlt_id' ] )
 							->from( 'globaljsonlinks_target' )
 							->where( $fields )
+							->caller( __METHOD__ )
 							->fetchField() );
 					}
 					if ( $id ) {
