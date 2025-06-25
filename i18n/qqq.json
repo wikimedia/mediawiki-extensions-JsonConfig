@@ -45,7 +45,7 @@
 	"jsonconfig-err-category-sort-invalid": "Error message shown when a category object's 'sort' property is not a string{{doc-important|Do not translate text that is quoted or inside <nowiki><var></var></nowiki>, <nowiki><kbd></kbd></nowiki>, <nowiki><samp></samp></nowiki>, or <nowiki><code></code></nowiki> in this message.}}",
 	"jsonconfig-err-integer": "A field named \"$1\" is not a valid integer. Parameters:\n* $1 - field name",
 	"jsonconfig-err-license": "A field named \"$1\" is not a valid license code. Parameters:\n* $1 - field name\n* $2 - one or more of the comma-separated allowed license codes",
-	"jsonconfig-err-localized": "A field named \"$1\" is not a valid localized string (string available in multiple languages). Parameters:\n* $1 - field name.{{doc-important|Do not translate text that is quoted or inside <nowiki><var></var></nowiki>, <nowiki><kbd></kbd></nowiki>, <nowiki><samp></samp></nowiki>, or <nowiki><code></code></nowiki> in this message.}}",
+	"jsonconfig-err-localized": "A field named \"$1\" is not a valid localized string (string available in multiple languages). Parameters:\n* $1 - field name.\n* $2 - maximum allowed string length{{doc-important|Do not translate text that is quoted or inside <nowiki><var></var></nowiki>, <nowiki><kbd></kbd></nowiki>, <nowiki><samp></samp></nowiki>, or <nowiki><code></code></nowiki> in this message.}}",
 	"jsonconfig-err-number": "A field named \"$1\" is not a valid number. Parameters:\n* $1 - field name",
 	"jsonconfig-err-object-expected": "The field named \"$1\" is not a valid object. Parameters:\n* $1 - field name",
 	"jsonconfig-err-root-array-expected": "Entire JSON data was not a list surrounded by the [...] brackets",

@@ -222,7 +222,7 @@ class JCValidators {
 					return true;
 				}
 			}
-			$jcv->error( 'jsonconfig-err-localized', $path );
+			$jcv->error( 'jsonconfig-err-localized', $path, $maxlength );
 			return false;
 		};
 	}
