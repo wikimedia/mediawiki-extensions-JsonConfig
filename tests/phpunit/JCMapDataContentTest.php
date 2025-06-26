@@ -23,6 +23,8 @@ class JCMapDataContentTest extends MediaWikiIntegrationTestCase {
 		}';
 
 	protected function setUp(): void {
+		$this->markTestSkippedIfExtensionNotLoaded( 'Kartographer' );
+		parent::setUp();
 		$this->overrideConfigValue( 'KartographerMapServer', 'https://maps.wikimedia.org' );
 	}
 
