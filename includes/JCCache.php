@@ -108,9 +108,9 @@ class JCCache {
 	 */
 	private function fetchContent() {
 		if ( $this->titleValue->getConfig()->store ) {
-			$this->loadLocal(); // Get it from the local wiki
+			$this->content = $this->loadLocal(); // Get it from the local wiki
 		} else {
-			$this->loadRemote(); // Get it from HTTP
+			$this->content = $this->loadRemote(); // Get it from HTTP
 		}
 
 		return $this->content;
@@ -146,8 +146,9 @@ class JCCache {
 	}
 
 	/**
-	 * Retrieves the config from the local storage,
-	 * and sets $this->content to the content object or false
+	 * Retrieve the config from the local storage
+	 *
+	 * @return bool|string|JCContent
 	 */
 	private function loadLocal() {
 		// @fixme @bug handle flagged revisions
@@ -167,11 +168,13 @@ class JCCache {
 				$result = false;
 			}
 		}
-		$this->content = $result;
+		return $result;
 	}
 
 	/**
-	 * Retrieves the config using HTTP and sets $this->content to string or false
+	 * Retrieve the content over HTTP from another wiki
+	 *
+	 * @return bool|string
 	 */
 	private function loadRemote() {
 		do {
@@ -232,7 +235,7 @@ class JCCache {
 			}
 		} while ( false );
 
-		$this->content = $result;
+		return $result;
 	}
 
 	/** Given a legal set of API parameters, return page from API
