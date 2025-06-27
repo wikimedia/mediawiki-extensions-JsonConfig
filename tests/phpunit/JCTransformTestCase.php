@@ -16,6 +16,7 @@ class JCTransformTestCase extends MediaWikiIntegrationTestCase {
 	 * Load up the sample filter lua state
 	 */
 	protected function setUp(): void {
+		$this->markTestSkippedIfExtensionNotLoaded( 'Scribunto' );
 		parent::setUp();
 
 		$this->overrideConfigValues( [

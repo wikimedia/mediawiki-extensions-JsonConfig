@@ -5,7 +5,6 @@ namespace JsonConfig\Tests;
 use JsonConfig\JCSingleton;
 use JsonConfig\JCTabularContent;
 use JsonConfig\JCTransform;
-use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
 use MediaWiki\Json\FormatJson;
 use MediaWiki\MediaWikiServices;
 
@@ -23,10 +22,6 @@ class JCTransformerTest extends JCTransformTestCase {
 	 * @param string $expectedFile
 	 */
 	public function testFilterData( $module, $func, $args, $inFile, $expectedFile ) {
-		if ( !class_exists( LibraryBase::class ) ) {
-			$this->markTestSkipped( "Scribunto is required for this integration test" );
-		}
-
 		$inJson = file_get_contents( __DIR__ . '/transforms/' . $inFile . ".json" );
 		$content = new JCTabularContent( $inJson, 'Tabular.JsonConfig', true );
 		if ( $content->isValid() ) {

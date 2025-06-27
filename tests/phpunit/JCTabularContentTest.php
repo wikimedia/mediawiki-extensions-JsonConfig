@@ -13,6 +13,11 @@ use MediaWikiIntegrationTestCase;
  */
 class JCTabularContentTest extends MediaWikiIntegrationTestCase {
 
+	protected function setUp(): void {
+		parent::setUp();
+		$this->markTestSkippedIfExtensionNotLoaded( 'Scribunto' );
+	}
+
 	public function getAnnotations(): array {
 		// HACK phpunit can't handle @covers annotations referring to classes which cannot be loaded
 		$annotations = parent::getAnnotations();
@@ -100,10 +105,6 @@ class JCTabularContentTest extends MediaWikiIntegrationTestCase {
 	 * @param array $expected
 	 */
 	public function testLuaTabDataReindexing( int $fieldCount, array $data, array $expected ) {
-		if ( !class_exists( LibraryBase::class ) ) {
-			$this->markTestSkipped( "Scribunto is required for this integration test" );
-		}
-
 		$value = (object)[
 			'schema' => (object)[
 				'fields' => array_fill( 0, $fieldCount, (object)[] ),
