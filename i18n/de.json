@@ -37,7 +37,7 @@
 	"jsonconfig-err-category-sort-invalid": "Die Kategorieeigenschaft „sort“ muss eine Zeichenfolge sein",
 	"jsonconfig-err-integer": "Parameter „$1“ muss eine ganze Zahl sein",
 	"jsonconfig-err-license": "Der Parameter „$1“ muss einer der gültigen Lizenzcodes sein, zum Beispiel $2",
-	"jsonconfig-err-localized": "Der Parameter „$1“ muss ein Objekt sein, das gültige Sprachcodes auf einzelne Zeilenzeichenfolgen abbildet ohne Tabulatoren oder anschließende Leerzeichen, z.&nbsp;B. <kbd>{ \"en\":\"String in English\", … }</kbd>",
+	"jsonconfig-err-localized": "Der Parameter „$1“ muss ein Objekt sein, das gültige Sprachcodes auf einzelne Zeilenzeichenfolgen nicht länger als $2 Zeichen abbildet ohne Tabulatoren oder anschließende Leerzeichen, z.&nbsp;B. <kbd>{ \"en\":\"String in English\", … }</kbd>",
 	"jsonconfig-err-number": "Der Parameter „$1“ muss eine Zahl sein",
 	"jsonconfig-err-object-expected": "Es wird erwartet, dass der Wert bei „$1“ ein Objekt umgeben von geschweiften Klammern ({…}) ist",
 	"jsonconfig-err-root-array-expected": "JSON-Daten sollten eine Liste sein, umgeben von eckigen Klammern ([…])",
