@@ -52,7 +52,9 @@
 		"jsonconfig-use-category"
 	],
 	"AutoloadNamespaces": {
-		"JsonConfig\\": "includes/",
+		"JsonConfig\\": "includes/"
+	},
+	"TestAutoloadNamespaces": {
 		"JsonConfig\\Tests\\": "tests/phpunit/"
 	},
 	"TestAutoloadClasses": {
