@@ -50,7 +50,7 @@
 	"jsonconfig-err-category-sort-invalid": "La propriété \"sort\" de catégorie doit être une chaîne",
 	"jsonconfig-err-integer": "Le paramètre « $1 » doit être un nombre entier",
 	"jsonconfig-err-license": "Le paramètre « $1 » doit être l’un des codes de licence valides, par exemple $2",
-	"jsonconfig-err-localized": "Le paramètre « $1 » doit être un objet qui fait correspondre des codes de langue valides à des chaînes sur une ligne sans tabulation ni espaces à la fin, par exemple <kbd>{ \"en\": \"Chaîne en anglais\", ... }</kbd>",
+	"jsonconfig-err-localized": "Le paramètre « $1 » doit être un objet qui fait correspondre des codes de langue valides à des chaînes pas plus longues que $2 caractères, sans tabulation ni espaces à la fin, par exemple <kbd>{ \"en\": \"Chaîne en anglais\", ... }</kbd>",
 	"jsonconfig-err-number": "Le paramètre « $1 » doit être un nombre",
 	"jsonconfig-err-object-expected": "La valeur en « $1 » était censée être un objet entouré d’accolades <kbd>{ ... }</kbd>",
 	"jsonconfig-err-root-array-expected": "Les données JSON devraient être une liste entourée de crochets <kbd>[ ... ]</kbd>",

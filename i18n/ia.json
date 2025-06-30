@@ -33,7 +33,7 @@
 	"jsonconfig-err-category-sort-invalid": "Le proprietate ‘sort’ del categoria debe esser un catena de characteres",
 	"jsonconfig-err-integer": "Le parametro \"$1\" debe esser un numero integre",
 	"jsonconfig-err-license": "Le parametro \"$1\" debe esser un del codices de licentia valide, per exemplo $2",
-	"jsonconfig-err-localized": "Le parametro \"$1\" debe esser un objecto que mappa le codices de lingua valide a singule lineas de texto sin tabulationes e sin spatios al fin, p.ex. <kbd>{ \"ia\":\"Texto in interlingua\", ... }</kbd>",
+	"jsonconfig-err-localized": "Le parametro “$1” debe esser un objecto que mappa le codices de lingua valide a singule lineas de texto non plus longe de $2 characteres, sin tabulationes e sin spatios al fin, p.ex. <kbd>{ \"ia\":\"Texto in interlingua\", ... }</kbd>",
 	"jsonconfig-err-number": "Le parametro \"$1\" debe esser un numero",
 	"jsonconfig-err-object-expected": "Le valor de \"$1\" debe esser un objecto circumferite per accolladas {...}",
 	"jsonconfig-err-root-array-expected": "Le datos JSON debe esser un lista circumferite per parentheses quadrate [...]",
