@@ -8,7 +8,6 @@ use MediaWiki\Language\Language;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Status\Status;
 use MediaWiki\StubObject\StubUserLang;
-use MWHttpRequest;
 use stdClass;
 
 /**
@@ -45,41 +44,6 @@ class JCUtils {
 			$msg .= is_scalar( $v ) ? $v : FormatJson::encode( $v );
 		}
 		wfLogWarning( $msg );
-	}
-
-	/** Init HTTP request object to make requests to the API, and login
-	 * @param string $url
-	 * @param string $username
-	 * @param string $password
-	 * @return MWHttpRequest|false
-	 */
-	public static function initApiRequestObj( $url, $username, $password ) {
-		return MediaWikiServices::getInstance()->getService( 'JsonConfig.ApiUtils' )
-			->initApiRequestObj( $url, $username, $password );
-	}
-
-	/**
-	 * Make an API call on a given request object and warn in case of failures
-	 * @param MWHttpRequest $req logged-in session
-	 * @param array $query api call parameters
-	 * @param string $debugMsg extra message for debug logs in case of failure
-	 * @return array|false api result or false on error
-	 */
-	public static function callApi( $req, $query, $debugMsg ) {
-		return MediaWikiServices::getInstance()->getService( 'JsonConfig.ApiUtils' )
-			->callApi( $req, $query, $debugMsg );
-	}
-
-	/**
-	 * Make an API call on a given request object and warn in case of failures
-	 * @param MWHttpRequest $req logged-in session
-	 * @param array $query api call parameters
-	 * @param string $debugMsg extra message for debug logs in case of failure
-	 * @return Status<array> api result or error
-	 */
-	public static function callApiStatus( $req, $query, $debugMsg ): Status {
-		return MediaWikiServices::getInstance()->getService( 'JsonConfig.ApiUtils' )
-			->callApiStatus( $req, $query, $debugMsg );
 	}
 
 	/**

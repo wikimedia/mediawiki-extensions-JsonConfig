@@ -72,15 +72,18 @@ class JCHooks implements
 {
 	private const NAMESPACE_CACHE_TTL = 3600;
 
+	private JCApiUtils $apiUtils;
 	private Config $config;
 	private IContentHandlerFactory $contentHandlerFactory;
 	private JobQueueGroupFactory $jobQueueGroupFactory;
 
 	public function __construct(
+		JCApiUtils $apiUtils,
 		Config $config,
 		IContentHandlerFactory $contentHandlerFactory,
 		JobQueueGroupFactory $jobQueueGroupFactory
 	) {
+		$this->apiUtils = $apiUtils;
 		$this->config = $config;
 		$this->contentHandlerFactory = $contentHandlerFactory;
 		$this->jobQueueGroupFactory = $jobQueueGroupFactory;
@@ -513,7 +516,7 @@ class JCHooks implements
 				if ( $store->notifyUrl ) {
 					$req =
 						// @phan-suppress-next-line PhanTypeExpectedObjectPropAccess
-						JCUtils::initApiRequestObj( $store->notifyUrl, $store->notifyUsername,
+						$this->apiUtils->initApiRequestObj( $store->notifyUrl, $store->notifyUsername,
 							// @phan-suppress-next-line PhanTypeExpectedObjectPropAccess
 							$store->notifyPassword );
 					if ( $req ) {
@@ -523,7 +526,7 @@ class JCHooks implements
 							'command' => 'reload',
 							'title' => $jct->getNamespace() . ':' . $jct->getDBkey(),
 						];
-						JCUtils::callApi( $req, $query, 'notify remote JsonConfig client' );
+						$this->apiUtils->callApi( $req, $query, 'notify remote JsonConfig client' );
 					}
 				}
 
