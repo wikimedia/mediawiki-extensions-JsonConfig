@@ -3,7 +3,6 @@
 namespace JsonConfig;
 
 use InvalidArgumentException;
-use MediaWiki\Http\HttpRequestFactory;
 use MediaWiki\Json\FormatJson;
 use MediaWiki\Language\Language;
 use MediaWiki\MediaWikiServices;
@@ -16,15 +15,6 @@ use stdClass;
  * Various useful utility functions (all static)
  */
 class JCUtils {
-
-	/**
-	 * @var HttpRequestFactory
-	 */
-	private $httpRequestFactory;
-
-	public function __construct( HttpRequestFactory $httpRequestFactory ) {
-		$this->httpRequestFactory = $httpRequestFactory;
-	}
 
 	/**
 	 * Uses wfLogWarning() to report an error.
