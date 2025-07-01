@@ -41,7 +41,8 @@ class JCMapDataContent extends JCDataContent {
 
 		$data = parent::getSafeData( $data );
 
-		$ssp = SimpleStyleParser::newFromParser( $parser );
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$ssp = SimpleStyleParser::newFromParser( $parser, $config );
 		$ssp->normalizeAndSanitize( $data->data );
 
 		return $data;
