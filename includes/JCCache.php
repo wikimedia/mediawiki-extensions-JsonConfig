@@ -150,7 +150,7 @@ class JCCache {
 	 *
 	 * @return bool|string|JCContent
 	 */
-	private function loadLocal() {
+	protected function loadLocal() {
 		// @fixme @bug handle flagged revisions
 		$result = MediaWikiServices::getInstance()
 			->getWikiPageFactory()

@@ -2,14 +2,12 @@
 
 namespace JsonConfig\Tests\Integration;
 
-use HashBagOStuff;
 use JsonConfig\JCCache;
 use JsonConfig\JCContent;
 use JsonConfig\JCTitle;
 use MediaWiki\Page\WikiPage;
 use MediaWikiIntegrationTestCase;
-use Wikimedia\ObjectCache\WANObjectCache;
-use Wikimedia\TestingAccessWrapper;
+use Wikimedia\ObjectCache\EmptyBagOStuff;
 
 /**
  * @covers \JsonConfig\JCCache
@@ -30,138 +28,154 @@ class JCCacheTest extends MediaWikiIntegrationTestCase {
 			'cacheExp' => 100,
 			'store' => true,
 		];
-
 		return new JCTitle( NS_MAIN, $page->getDBkey(), $config );
 	}
 
-	private function newJCCache( bool $withContentOverride = false ): JCCache {
-		$content = $withContentOverride ? new JCContent( '{}', 'test', false ) : null;
-		return new JCCache(
-			$this->newJCTitle( $this->getExistingTestPage( 'Foobar' ) ),
-			$content
-		);
+	/** @return JCCache|\PHPUnit\Framework\MockObject\MockObject */
+	private function newJCCache( WikiPage $page, bool $enableOverride = false, ?callable &$load = null ) {
+		$title = $this->newJCTitle( $page );
+		$content = $enableOverride
+			? new JCContent( '{ "foo": 1000 }', 'Test.Example', false )
+			: null;
+		if ( $load === null ) {
+			return new JCCache( $title, $content );
+		} else {
+			$store = $this->getMockBuilder( JCCache::class )
+				->setConstructorArgs( [ $title, $content ] )
+				->onlyMethods( [ 'loadLocal' ] )
+				->getMock();
+
+			$store->method( 'loadLocal' )
+				->willReturnCallback( static fn () => $load() );
+
+			return $store;
+		}
 	}
 
-	public function testGetWithoutContentOverride(): void {
-		$cache = $this->newJCCache();
-
-		$result = $cache->get();
-		$this->assertSame(
-			'Test content for JCCacheTest-newJCCache',
-			$result
-		);
+	public function testGetDefault() {
+		// Default options (no content override), real page, real cache, real db load.
+		$store = $this->newJCCache( $this->getExistingTestPage() );
+		$this->assertSame( 'Test content for JCCacheTest-testGetDefault', $store->get() );
 	}
 
-	public function testGetWithContentOverride(): void {
-		$cache = $this->newJCCache( true );
-		$result = $cache->get();
+	public function testGetWithNonExistingPage() {
+		$store = $this->newJCCache( $this->getNonExistingTestPage() );
+		$this->assertFalse( $store->get() );
+	}
 
+	public function testGetWithContentOverride() {
+		$page = $this->getExistingTestPage();
+		$store = $this->newJCCache( $page, true );
+
+		$result = $store->get();
 		$this->assertInstanceOf( JCContent::class, $result );
-		$this->assertSame( '{}', $result->getText() );
+		$this->assertSame( '{ "foo": 1000 }', $result->getText() );
+
+		// Overrides must not have leaked into a shared cache.
+		$store = $this->newJCCache( $page, false );
+		$this->assertSame( 'Test content for JCCacheTest-testGetWithContentOverride', $store->get() );
+
+		// Override must work regardless of caching.
+		$this->overrideConfigValue( 'JsonConfigDisableCache', true );
+		$store = $this->newJCCache( $page, true );
+		$result = $store->get();
+		$this->assertInstanceOf( JCContent::class, $result );
+		$this->assertSame( '{ "foo": 1000 }', $result->getText() );
 	}
 
-	public function testGetWithNonExistingPage(): void {
-		$wanCache = new WANObjectCache( [ 'cache' => new HashBagOStuff() ] );
-		$this->setService( 'MainWANObjectCache', $wanCache );
+	public function testGetProcessCache() {
+		// Mock main cache so we can differentiate between main and process cache hit.
+		$this->setMainCache( new EmptyBagOStuff() );
+		$called = 0;
+		$mockLoad = static function () use ( &$called ) {
+			$called++;
+			return "Content from load call $called";
+		};
+		$page = $this->getExistingTestPage();
+		// These represent Requests A and B
+		$storeA = $this->newJCCache( $page, false, $mockLoad );
+		$storeB = $this->newJCCache( $page, false, $mockLoad );
 
-		// NOTE: We're testing here with a non-existing test page. So we can't
-		// use the newJCCache() helper. As that is for existing pages.
-		$cache = new JCCache(
-			$this->newJCTitle( $this->getNonexistingTestPage( 'Foobar' ) ),
-			null
-		);
+		$this->assertSame( 'Content from load call 1', $storeA->get(), 'Req A miss' );
+		$this->assertSame( 'Content from load call 2', $storeB->get(), 'Req B miss' );
+		$this->assertSame( 2, $called );
 
-		$result = $cache->get();
-		$this->assertFalse( $result );
+		$called = 0;
+		$this->assertSame( 'Content from load call 1', $storeA->get(), 'Req A hit' );
+		$this->assertSame( 'Content from load call 2', $storeB->get(), 'Req B hit' );
+		$this->assertSame( 0, $called, 'Process cache hit' );
+
+		// Again, with with a non-existing page
+		$called = 0;
+		$mockLoad = static function () use ( &$called ) {
+			$called++;
+			return false;
+		};
+		$page = $this->getNonExistingTestPage();
+		$storeA = $this->newJCCache( $page, false, $mockLoad );
+		$storeB = $this->newJCCache( $page, false, $mockLoad );
+
+		$this->assertFalse( $storeA->get() );
+		$this->assertSame( 1, $called, 'Req A miss' );
+		$this->assertFalse( $storeB->get() );
+		$this->assertSame( 2, $called, 'Req B miss' );
+
+		$called = 0;
+		$this->assertFalse( $storeA->get() );
+		$this->assertFalse( $storeB->get() );
+		$this->assertSame( 0, $called, 'Process cache hit' );
 	}
 
-	private function getCacheKeyAndCacheObjectForTesting( $cache ): array {
-		$jcCache = TestingAccessWrapper::newFromObject( $cache );
-		// We want to ensure there is no cache entry for this key.
-		$cacheKey = $jcCache->key;
-		$wanCache = $jcCache->cache;
-		$content = $jcCache->content;
+	public function testGetMainCache() {
+		$called = 0;
+		$mockLoad = static function () use ( &$called ) {
+			$called++;
+			return "Content from load call $called";
+		};
+		$page = $this->getExistingTestPage();
+		// Request A and B: Separate instances, so they don't share a process cache.
+		$storeA = $this->newJCCache( $page, false, $mockLoad );
+		$storeB = $this->newJCCache( $page, false, $mockLoad );
 
-		return [ $cacheKey, $wanCache, $content ];
+		$this->assertSame( 'Content from load call 1', $storeA->get(), 'Req A miss' );
+		$this->assertSame( 'Content from load call 1', $storeB->get(), 'Req B hit' );
+		$this->assertSame( 1, $called );
+
+		// Again, with with a non-existing page
+		$called = 0;
+		$mockLoad = static function () use ( &$called ) {
+			$called++;
+			return false;
+		};
+		$page = $this->getNonExistingTestPage();
+		$storeA = $this->newJCCache( $page, false, $mockLoad );
+		$storeB = $this->newJCCache( $page, false, $mockLoad );
+
+		$this->assertFalse( $storeA->get(), 'Req A miss' );
+		$this->assertFalse( $storeB->get(), 'Req B hit' );
+		$this->assertSame( 1, $called );
 	}
 
-	public function testGetWithCacheDisabled(): void {
+	public function testGetWithMainCacheDisabled() {
 		$this->overrideConfigValue( 'JsonConfigDisableCache', true );
 
-		$cache = $this->newJCCache();
-		$result = $cache->get();
+		// Same as testGetMainCache, but expect a second load as we can't share between instances.
+		$called = 0;
+		$mockLoad = static function () use ( &$called ) {
+			$called++;
+			return "Content from load call $called";
+		};
+		$page = $this->getExistingTestPage();
+		$storeA = $this->newJCCache( $page, false, $mockLoad );
+		$storeB = $this->newJCCache( $page, false, $mockLoad );
 
-		[ $cacheKey, $wanCache ] = $this->getCacheKeyAndCacheObjectForTesting( $cache );
+		$this->assertSame( 'Content from load call 1', $storeA->get(), 'Req A miss' );
+		$this->assertSame( 'Content from load call 2', $storeB->get(), 'Req B miss' );
+		$this->assertSame( 2, $called );
 
-		$this->assertFalse( $wanCache->get( $cacheKey ) );
-		$this->assertSame(
-			'Test content for JCCacheTest-newJCCache',
-			$result
-		);
+		$called = 0;
+		$this->assertSame( 'Content from load call 1', $storeA->get(), 'Req A hit' );
+		$this->assertSame( 'Content from load call 2', $storeB->get(), 'Req B hit' );
+		$this->assertSame( 0, $called, 'Process cache unaffected by wgJsonConfigDisableCache' );
 	}
-
-	public function testGetWithCacheEnabled(): void {
-		$cache = $this->newJCCache();
-		$result = $cache->get();
-
-		[ $cacheKey, $wanCache ] = $this->getCacheKeyAndCacheObjectForTesting( $cache );
-
-		// The value returned as $results should be the same value that matches
-		// the key in the cache.
-		$this->assertSame(
-			'Test content for JCCacheTest-newJCCache',
-			$wanCache->get( $cacheKey )
-		);
-		$this->assertSame(
-			'Test content for JCCacheTest-newJCCache',
-			$result
-		);
-	}
-
-	public function testGetWithContentOverrideAndCacheEnabled(): void {
-		$cache = $this->newJCCache( true );
-		$result = $cache->get();
-
-		[ $cacheKey, $wanCache ] = $this->getCacheKeyAndCacheObjectForTesting( $cache );
-
-		// Content is supplied, shouldn't be cached.
-		$this->assertFalse( $wanCache->get( $cacheKey ) );
-		$this->assertSame( '{}', $result->getText() );
-	}
-
-	public function testGetWithContentOverrideAndCacheDisabled(): void {
-		$this->overrideConfigValue( 'JsonConfigDisableCache', true );
-
-		$cache = $this->newJCCache( true );
-		$result = $cache->get();
-
-		[ $cacheKey, $wanCache ] = $this->getCacheKeyAndCacheObjectForTesting( $cache );
-
-		// Content is supplied, shouldn't be cached.
-		$this->assertFalse( $wanCache->get( $cacheKey ) );
-		$this->assertSame( '{}', $result->getText() );
-	}
-
-	/**
-	 * This test validates that what is stored in the cache as a
-	 * result of fetchContent() is what gets stored in the class
-	 * content property.
-	 *
-	 * @return void
-	 */
-	public function testGetCacheMatchesClassContentProp(): void {
-		$cache = $this->newJCCache();
-		$cachedContent = $cache->get();
-
-		[ $cacheKey, $wanCache, $content ] = $this->getCacheKeyAndCacheObjectForTesting( $cache );
-
-		$expected = 'Test content for JCCacheTest-newJCCache';
-
-		// Cache hit and content should still be set below.
-		$this->assertSame( $expected, $wanCache->get( $cacheKey ) );
-		$this->assertSame( $expected, $cachedContent );
-		// Content in-memory of the JCClass object.
-		$this->assertSame( $expected, $content );
-	}
-
 }
