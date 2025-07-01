@@ -9,6 +9,8 @@ use MediaWiki\Title\TitleFormatter;
 use MediaWiki\Title\TitleValue;
 use Wikimedia\Rdbms\IConnectionProvider;
 use Wikimedia\Rdbms\IDatabase;
+use Wikimedia\Rdbms\IExpression;
+use Wikimedia\Rdbms\LikeValue;
 
 class GlobalJsonLinks {
 
@@ -507,5 +509,59 @@ class GlobalJsonLinks {
 	public function batchQuery( TitleValue $target ): GlobalJsonLinksQuery {
 		return new GlobalJsonLinksQuery( $this->connectionProvider,
 			$this->namespaceInfo, $target );
+	}
+
+	/**
+	 * Returns a count of how many global JSON link records match Data: pages
+	 * with the given suffix on the current wiki, or globally.
+	 *
+	 * This can be used to track the number of unique usages of a Data: page
+	 * type like ".tab" or ".chart" across the entire wiki, or all wikis.
+	 *
+	 * Warning: this will become more expensive over time as it's not well
+	 * optimized for suffix lookups on gjlt_title. Consider adding a suffix
+	 * column with special index in future.
+	 *
+	 * @param string $suffix the suffix to check for
+	 * @param bool $global whether to check on all connected wikis
+	 */
+	public function countLinksMatchingSuffix( string $suffix, bool $global = false ): int {
+		$db = $this->getDB();
+		$matcher = $db->expr(
+			'gjlt_title',
+			IExpression::LIKE,
+			new LikeValue(
+				$db->anyString(),
+				$suffix
+			)
+			);
+		if ( $global ) {
+			$builder = $db->newSelectQueryBuilder()
+				->select( 'COUNT(*)' )
+				->from( 'globaljsonlinks' )
+				->where( '1' )
+				->join( 'globaljsonlinks_target', /* alias: */ null, [
+					'gjl_target=gjlt_id',
+					'gjlt_namespace' => NS_DATA,
+					$matcher
+				] );
+		} else {
+			$builder = $db->newSelectQueryBuilder()
+				->select( 'COUNT(*)' )
+				->from( 'globaljsonlinks_wiki' )
+				->where( [
+					'gjlw_wiki' => $this->wiki,
+				] )
+				->join( 'globaljsonlinks', /* alias: */ null, [
+					'gjl_wiki=gjlw_id',
+				] )
+				->join( 'globaljsonlinks_target', /* alias: */ null, [
+					'gjl_target=gjlt_id',
+					'gjlt_namespace' => NS_DATA,
+					$matcher
+				] );
+		}
+		$builder = $builder->caller( __METHOD__ );
+		return intval( $builder->fetchField() );
 	}
 }
