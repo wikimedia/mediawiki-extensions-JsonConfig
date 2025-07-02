@@ -56,7 +56,8 @@ class JCCache {
 	public function get() {
 		if ( $this->content === null ) {
 			if ( $this->disableJsonConfigCache() ) {
-				return $this->fetchContent();
+				$this->content = $this->fetchContent();
+				return $this->content;
 			}
 
 			$value = $this->cache->getWithSetCallback(
@@ -108,12 +109,10 @@ class JCCache {
 	 */
 	private function fetchContent() {
 		if ( $this->titleValue->getConfig()->store ) {
-			$this->content = $this->loadLocal(); // Get it from the local wiki
-		} else {
-			$this->content = $this->loadRemote(); // Get it from HTTP
+			return $this->loadLocal(); // Get it from the local wiki
 		}
 
-		return $this->content;
+		return $this->loadRemote(); // Get it from HTTP
 	}
 
 	/**
