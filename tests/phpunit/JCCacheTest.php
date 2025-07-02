@@ -32,7 +32,7 @@ class JCCacheTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/** @return JCCache|\PHPUnit\Framework\MockObject\MockObject */
-	private function newJCCache( WikiPage $page, bool $enableOverride = false, ?callable &$load = null ) {
+	private function newJCCache( WikiPage $page, bool $enableOverride = false, ?callable $load = null ) {
 		$title = $this->newJCTitle( $page );
 		$content = $enableOverride
 			? new JCContent( '{ "foo": 1000 }', 'Test.Example', false )
@@ -105,7 +105,7 @@ class JCCacheTest extends MediaWikiIntegrationTestCase {
 		$this->assertSame( 'Content from load call 2', $storeB->get(), 'Req B hit' );
 		$this->assertSame( 0, $called, 'Process cache hit' );
 
-		// Again, with with a non-existing page
+		// Again, with a non-existing page
 		$called = 0;
 		$mockLoad = static function () use ( &$called ) {
 			$called++;
@@ -141,7 +141,7 @@ class JCCacheTest extends MediaWikiIntegrationTestCase {
 		$this->assertSame( 'Content from load call 1', $storeB->get(), 'Req B hit' );
 		$this->assertSame( 1, $called );
 
-		// Again, with with a non-existing page
+		// Again, with a non-existing page
 		$called = 0;
 		$mockLoad = static function () use ( &$called ) {
 			$called++;
