@@ -37,7 +37,7 @@
 	"jsonconfig-err-category-sort-invalid": "A propiedade \"sort\" da categoría debe ser unha cadea de texto",
 	"jsonconfig-err-integer": "O parámetro \"$1\" debe ser un número enteiro",
 	"jsonconfig-err-license": "O parámetro \"$1\" debe ser un dos códigos de licenza válidos; por exemplo, $2",
-	"jsonconfig-err-localized": "O parámetro \"$1\" debe ser un obxecto que asigne códigos de lingua válidos a unha liña de texto sen tabulacións nin espazos ao final; por exemplo, <kbd>{ \"gl\":\"Cadea de texto en galego\", ... }</kbd>",
+	"jsonconfig-err-localized": "O parámetro \"$1\" debe ser un obxecto que asigne códigos de lingua válidos a unha liña de texto non máis longa de $2 caracteres sen tabulacións nin espazos ao final; por exemplo, <kbd>{ \"gl\":\"Cadea de texto en galego\", ... }</kbd>",
 	"jsonconfig-err-number": "O parámetro \"$1\" debe ser un número",
 	"jsonconfig-err-object-expected": "O valor de \"$1\" esperábase que fose unha lista rodeada por chaves {...}",
 	"jsonconfig-err-root-array-expected": "Os datos JSON deben ser unha lista rodeada por corchetes [...]",
