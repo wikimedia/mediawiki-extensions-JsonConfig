@@ -12,6 +12,7 @@ if ( !class_exists( LuaEngineTestBase::class ) ) {
  * @covers \JsonConfig\JCLuaLibrary
  *
  * @license GPL-2.0-or-later
+ * @group Database
  */
 class JCLuaLibraryTest extends LuaEngineTestBase {
 

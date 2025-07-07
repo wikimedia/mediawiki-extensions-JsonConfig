@@ -109,6 +109,13 @@ class JCTransformerTest extends JCTransformTestCase {
 				[ 'Second_input.tab' ],
 				'Sample_input.tab',
 				'output-prepend.json',
+			],
+			[
+				'JCTransform_samples',
+				'identity',
+				[],
+				'Sample_nulls.tab',
+				'output-nulls.json',
 			]
 		];
 	}
