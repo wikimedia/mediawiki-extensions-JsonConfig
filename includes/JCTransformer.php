@@ -99,6 +99,25 @@ class JCTransformer {
 				// Required to return a table, which should result in an array on our end
 				return Status::newFatal( 'jsonconfig-transform-failed', $module, $function );
 			}
+			if ( $content instanceof JCTabularContent ) {
+				// Support null values in data arrays, specific to JCTabularContent.
+				$fields = $transformedData['schema']['fields'] ?? [];
+				$data = $transformedData['data'] ?? [];
+				if ( is_array( $fields ) && is_array( $data ) ) {
+					$cols = array_keys( $fields );
+					$newdata = [];
+					foreach ( $data as $j => &$row ) {
+						$newrow = [];
+						if ( is_array( $row ) ) {
+							foreach ( $cols as $i ) {
+								$newrow[$i] = $row[$i] ?? null;
+							}
+						}
+						$newdata[$j] = $newrow;
+					}
+					$transformedData['data'] = $newdata;
+				}
+			}
 			$arr = TextLibrary::reindexArrays( $transformedData, true );
 			$json = json_encode( $arr );
 			$status = JCUtils::hydrate( $title, $json, true );

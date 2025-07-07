@@ -1,0 +1,58 @@
+{
+	"license": "CC0-1.0",
+	"description": {
+		"en": "Test data set 2"
+	},
+	"schema": {
+		"fields": [
+			{
+				"name": "color",
+				"type": "string",
+				"title": {
+					"en": "Color"
+				}
+			},
+			{
+				"name": "a",
+				"type": "number",
+				"title": {
+					"en": "Group A"
+				}
+			},
+			{
+				"name": "b",
+				"type": "number",
+				"title": {
+					"en": "Group B"
+				}
+			},
+			{
+				"name": "c",
+				"type": "number",
+				"title": {
+					"en": "Group C"
+				}
+			}
+		]
+	},
+	"data": [
+		[
+			"red",
+			80,
+			90,
+			100
+		],
+		[
+			"blue",
+			null,
+			60,
+			70
+		],
+		[
+			"green",
+			120,
+			110,
+			null
+		]
+	]
+}
