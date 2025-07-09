@@ -61,7 +61,7 @@
 	"jsonconfig-globaljsonlinks": "অন্যান্য উইকিতে উপাত্তের ব্যবহার",
 	"jsonconfig-globaljsonlinks-on-wiki": "$2-এ ব্যবহার",
 	"jsonconfig-globaljsonlinks-of-page": "নিচের অন্যান্য উইকিগুলো এই উপাত্তটি ব্যবহার করে:",
-	"jsonconfig-globaljsonlinks-for": "$1-এর জন্য সংযোগ সমূহ",
+	"jsonconfig-globaljsonlinks-for": "$1-এর সংযোগসমূহ",
 	"jsonconfig-globaljsonlinks-ok": "অনুসন্ধান",
 	"jsonconfig-globaljsonlinks-text": "উপাত্তের বৈশ্বিক ব্যবহার অনুসন্ধান করুন",
 	"jsonconfig-globaljsonlinks-no-results": "[[:$1]] স্থানীয়ভাবে বা অন্যান্য উইকিতে ব্যবহৃত হচ্ছে না।"
