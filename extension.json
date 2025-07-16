@@ -120,6 +120,7 @@
 		"BeforePageDisplay": "main",
 		"CanonicalNamespaces": "main",
 		"CodeEditorGetPageLanguage": "codeeditor",
+		"CodeMirrorGetMode": "codemirror",
 		"ContentHandlerDefaultModelFor": "main",
 		"ContentHandlerForModelID": "main",
 		"GetContentModels": "main",
@@ -157,6 +158,13 @@
 		},
 		"codeeditor": {
 			"class": "JsonConfig\\CodeEditorHooks",
+			"services": [
+				"MainConfig",
+				"ContentHandlerFactory"
+			]
+		},
+		"codemirror": {
+			"class": "JsonConfig\\CodeMirrorHooks",
 			"services": [
 				"MainConfig",
 				"ContentHandlerFactory"
@@ -236,6 +244,14 @@
 		"JsonConfigTransformsEnabled": {
 			"value": false,
 			"description": "Enable use of Lua transforms on Data: page loaders through JCContentLoader and action=jsontransform. Requires Scribunto and $wgJsonConfigEnableLuaSupport to function."
+		},
+		"JsonConfigUseCodeEditor": {
+			"value": true,
+			"description": "Use CodeEditor for editing JsonConfig pages."
+		},
+		"JsonConfigUseCodeMirror": {
+			"value": false,
+			"description": "Use CodeMirror for editing JsonConfig pages."
 		}
 	},
 	"DatabaseVirtualDomains": [

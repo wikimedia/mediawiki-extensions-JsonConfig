@@ -40,7 +40,9 @@ class CodeEditorHooks implements
 	 * @return bool|void True or no return value to continue or false to abort
 	 */
 	public function onCodeEditorGetPageLanguage( Title $title, ?string &$lang, string $model, string $format ) {
-		if ( !JCHooks::jsonConfigIsStorage( $this->config ) ) {
+		if ( !$this->config->get( 'JsonConfigUseCodeEditor' ) ||
+			!JCHooks::jsonConfigIsStorage( $this->config )
+		) {
 			return;
 		}
 
