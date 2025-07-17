@@ -493,21 +493,20 @@ class JCHooks implements
 
 	/**
 	 * @param WikiPage|Title $value
-	 * @param JCContent|null $content
 	 * @return bool
 	 */
-	private function onArticleChangeComplete( $value, $content = null ) {
+	private function onArticleChangeComplete( $value ) {
 		if ( !self::jsonConfigIsStorage( $this->config ) ) {
 			return true;
 		}
 
-		if ( $value && ( !$content || $content instanceof JCContent ) ) {
+		if ( $value ) {
 			if ( method_exists( $value, 'getTitle' ) ) {
 				$value = $value->getTitle();
 			}
 			$jct = JCSingleton::parseTitle( $value );
 			if ( $jct && $jct->getConfig()->store ) {
-				$store = new JCCache( $jct, $content );
+				$store = new JCCache( $jct );
 				$store->resetCache();
 
 				// Handle remote site notification

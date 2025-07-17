@@ -25,9 +25,8 @@ class JCCache {
 	 * ** DO NOT USE directly - call JCSingleton::getContent() instead. **
 	 *
 	 * @param JCTitle $titleValue
-	 * @param JCContent|null $content
 	 */
-	public function __construct( JCTitle $titleValue, $content = null ) {
+	public function __construct( JCTitle $titleValue ) {
 		$this->titleValue = $titleValue;
 		$conf = $this->titleValue->getConfig();
 		$flRev = $conf->flaggedRevs;
@@ -46,7 +45,6 @@ class JCCache {
 			$this->key = $this->cache->makeGlobalKey( ...$keyArgs );
 		}
 		$this->cacheExpiration = $conf->cacheExp;
-		$this->content = $content ?: null; // ensure that if we don't have content, we use 'null'
 	}
 
 	/**
@@ -116,31 +114,12 @@ class JCCache {
 	}
 
 	/**
-	 * Delete any cached information related to this config
-	 * @param null|bool $updateCacheContent controls if cache should be updated with the new content
-	 *   false = only clear cache,
-	 *   true = set cache to the new value,
-	 *   null = use configuration settings
-	 *   New content will be set only if it is present
-	 *   (either get() was called before, or it was set via ctor)
+	 * Delete any cached information related to this config.
 	 */
-	public function resetCache( $updateCacheContent = null ) {
+	public function resetCache() {
 		if ( !$this->disableJsonConfigCache() ) {
-			$conf = $this->titleValue->getConfig();
 			// Delete the old value: this will propagate over WANCache
 			$this->cache->delete( $this->key );
-			if ( $this->content && ( $updateCacheContent === true ||
-				( $updateCacheContent === null && isset( $conf->store ) &&
-					// @phan-suppress-next-line PhanTypeExpectedObjectPropAccess
-					$conf->store->cacheNewValue ) )
-			) {
-				$value = $this->content;
-				if ( !is_string( $value ) ) {
-					$value = $value->getText();
-				}
-
-				$this->cache->set( $this->key, $value, $this->cacheExpiration );
-			}
 		}
 	}
 

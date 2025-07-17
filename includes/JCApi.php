@@ -7,7 +7,7 @@ use stdClass;
 use Wikimedia\ParamValidator\ParamValidator;
 
 /**
- * Allows JsonConfig to be manipulated via API
+ * Allows JsonConfig to be manipulated via the action API.
  */
 class JCApi extends ApiBase {
 
@@ -63,7 +63,8 @@ class JCApi extends ApiBase {
 
 		switch ( $command ) {
 			case 'status':
-				$this->getMain()->setCacheMaxAge( 1 * 30 ); // seconds
+				// maxage: in seconds
+				$this->getMain()->setCacheMaxAge( 30 );
 				$this->getMain()->setCacheMode( 'public' );
 
 				$result->addValue(
@@ -94,7 +95,8 @@ class JCApi extends ApiBase {
 				// Currently, that action is not used because in production store->notifyUrl is null
 				// Can MW API allow both for the same action, or should it be a separate action?
 
-				$this->getMain()->setCacheMaxAge( 1 ); // seconds
+				// maxage: in seconds
+				$this->getMain()->setCacheMaxAge( 1 );
 				$this->getMain()->setCacheMode( 'private' );
 				if ( !$this->getUser()->isAllowed( 'jsonconfig-flush' ) ) {
 					// Sigh. Can't use $this->checkUserRightsAny() because
@@ -126,27 +128,9 @@ class JCApi extends ApiBase {
 					$this->dieWithError( 'apierror-jsonconfig-badtitle', 'badparam-titles' );
 				}
 
-				if ( isset( $params['content'] ) && $params['content'] !== '' ) {
-					if ( $command !== 'reload ' ) {
-						$this->dieWithError(
-							[
-								'apierror-invalidparammix-mustusewith',
-								'content',
-								'command=reload'
-							],
-							'badparam-content'
-						);
-					}
-					$content = JCSingleton::parseContent( $jct, $params['content'], true );
-				} else {
-					$content = false;
-				}
-
-				$jc = new JCCache( $jct, $content );
+				$jc = new JCCache( $jct );
 				if ( $command === 'reset' ) {
-					$jc->resetCache( false ); // clear cache
-				} elseif ( $content ) {
-					$jc->resetCache( true ); // set new value in cache
+					$jc->resetCache(); // clear cache
 				} else {
 					$jc->get(); // gets content from the default source and cache
 				}
@@ -171,7 +155,6 @@ class JCApi extends ApiBase {
 				ParamValidator::PARAM_TYPE => 'integer',
 			],
 			'title' => '',
-			'content' => '',
 		];
 	}
 

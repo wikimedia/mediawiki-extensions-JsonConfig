@@ -3,7 +3,6 @@
 namespace JsonConfig\Tests\Integration;
 
 use JsonConfig\JCCache;
-use JsonConfig\JCContent;
 use JsonConfig\JCTitle;
 use MediaWiki\Page\WikiPage;
 use MediaWikiIntegrationTestCase;
@@ -32,24 +31,21 @@ class JCCacheTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/** @return JCCache|\PHPUnit\Framework\MockObject\MockObject */
-	private function newJCCache( WikiPage $page, bool $enableOverride = false, ?callable $load = null ) {
+	private function newJCCache( WikiPage $page, ?callable $load = null ) {
 		$title = $this->newJCTitle( $page );
-		$content = $enableOverride
-			? new JCContent( '{ "foo": 1000 }', 'Test.Example', false )
-			: null;
 		if ( $load === null ) {
-			return new JCCache( $title, $content );
-		} else {
-			$store = $this->getMockBuilder( JCCache::class )
-				->setConstructorArgs( [ $title, $content ] )
-				->onlyMethods( [ 'loadLocal' ] )
-				->getMock();
-
-			$store->method( 'loadLocal' )
-				->willReturnCallback( static fn () => $load() );
-
-			return $store;
+			return new JCCache( $title );
 		}
+
+		$store = $this->getMockBuilder( JCCache::class )
+			->setConstructorArgs( [ $title ] )
+			->onlyMethods( [ 'loadLocal' ] )
+			->getMock();
+
+		$store->method( 'loadLocal' )
+			->willReturnCallback( static fn () => $load() );
+
+		return $store;
 	}
 
 	public function testGetDefault() {
@@ -63,26 +59,6 @@ class JCCacheTest extends MediaWikiIntegrationTestCase {
 		$this->assertFalse( $store->get() );
 	}
 
-	public function testGetWithContentOverride() {
-		$page = $this->getExistingTestPage();
-		$store = $this->newJCCache( $page, true );
-
-		$result = $store->get();
-		$this->assertInstanceOf( JCContent::class, $result );
-		$this->assertSame( '{ "foo": 1000 }', $result->getText() );
-
-		// Overrides must not have leaked into a shared cache.
-		$store = $this->newJCCache( $page, false );
-		$this->assertSame( 'Test content for JCCacheTest-testGetWithContentOverride', $store->get() );
-
-		// Override must work regardless of caching.
-		$this->overrideConfigValue( 'JsonConfigDisableCache', true );
-		$store = $this->newJCCache( $page, true );
-		$result = $store->get();
-		$this->assertInstanceOf( JCContent::class, $result );
-		$this->assertSame( '{ "foo": 1000 }', $result->getText() );
-	}
-
 	public function testGetProcessCache() {
 		// Mock main cache so we can differentiate between main and process cache hit.
 		$this->setMainCache( new EmptyBagOStuff() );
@@ -93,8 +69,8 @@ class JCCacheTest extends MediaWikiIntegrationTestCase {
 		};
 		$page = $this->getExistingTestPage();
 		// These represent Requests A and B
-		$storeA = $this->newJCCache( $page, false, $mockLoad );
-		$storeB = $this->newJCCache( $page, false, $mockLoad );
+		$storeA = $this->newJCCache( $page, $mockLoad );
+		$storeB = $this->newJCCache( $page, $mockLoad );
 
 		$this->assertSame( 'Content from load call 1', $storeA->get(), 'Req A miss' );
 		$this->assertSame( 'Content from load call 2', $storeB->get(), 'Req B miss' );
@@ -112,8 +88,8 @@ class JCCacheTest extends MediaWikiIntegrationTestCase {
 			return false;
 		};
 		$page = $this->getNonExistingTestPage();
-		$storeA = $this->newJCCache( $page, false, $mockLoad );
-		$storeB = $this->newJCCache( $page, false, $mockLoad );
+		$storeA = $this->newJCCache( $page, $mockLoad );
+		$storeB = $this->newJCCache( $page, $mockLoad );
 
 		$this->assertFalse( $storeA->get() );
 		$this->assertSame( 1, $called, 'Req A miss' );
@@ -134,8 +110,8 @@ class JCCacheTest extends MediaWikiIntegrationTestCase {
 		};
 		$page = $this->getExistingTestPage();
 		// Request A and B: Separate instances, so they don't share a process cache.
-		$storeA = $this->newJCCache( $page, false, $mockLoad );
-		$storeB = $this->newJCCache( $page, false, $mockLoad );
+		$storeA = $this->newJCCache( $page, $mockLoad );
+		$storeB = $this->newJCCache( $page, $mockLoad );
 
 		$this->assertSame( 'Content from load call 1', $storeA->get(), 'Req A miss' );
 		$this->assertSame( 'Content from load call 1', $storeB->get(), 'Req B hit' );
@@ -148,8 +124,8 @@ class JCCacheTest extends MediaWikiIntegrationTestCase {
 			return false;
 		};
 		$page = $this->getNonExistingTestPage();
-		$storeA = $this->newJCCache( $page, false, $mockLoad );
-		$storeB = $this->newJCCache( $page, false, $mockLoad );
+		$storeA = $this->newJCCache( $page, $mockLoad );
+		$storeB = $this->newJCCache( $page, $mockLoad );
 
 		$this->assertFalse( $storeA->get(), 'Req A miss' );
 		$this->assertFalse( $storeB->get(), 'Req B hit' );
@@ -166,8 +142,8 @@ class JCCacheTest extends MediaWikiIntegrationTestCase {
 			return "Content from load call $called";
 		};
 		$page = $this->getExistingTestPage();
-		$storeA = $this->newJCCache( $page, false, $mockLoad );
-		$storeB = $this->newJCCache( $page, false, $mockLoad );
+		$storeA = $this->newJCCache( $page, $mockLoad );
+		$storeB = $this->newJCCache( $page, $mockLoad );
 
 		$this->assertSame( 'Content from load call 1', $storeA->get(), 'Req A miss' );
 		$this->assertSame( 'Content from load call 2', $storeB->get(), 'Req B miss' );
