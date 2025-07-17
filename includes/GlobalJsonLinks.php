@@ -546,19 +546,29 @@ class GlobalJsonLinks {
 					$matcher
 				] );
 		} else {
+			// Note the indexe hints force the database to first
+			// chop down the input set by title suffix, which is currently
+			// fast as of July 2025 because there are many more .tab and .map
+			// than .chart pages in use.
+			//
+			// This was particularly slowing down per-site queries on Commons
+			// in production, because a *lot* of entries were getting searched
+			// from the other side of the join that were irrelevant.
 			$builder = $db->newSelectQueryBuilder()
 				->select( 'COUNT(*)' )
-				->from( 'globaljsonlinks_wiki' )
-				->where( [
-					'gjlw_wiki' => $this->wiki,
-				] )
-				->join( 'globaljsonlinks', /* alias: */ null, [
-					'gjl_wiki=gjlw_id',
-				] )
+				->from( 'globaljsonlinks' )
 				->join( 'globaljsonlinks_target', /* alias: */ null, [
 					'gjl_target=gjlt_id',
-					'gjlt_namespace' => NS_DATA,
 					$matcher
+				] )
+				->useIndex( 'gjlt_namespace_title' )
+				->join( 'globaljsonlinks_wiki', /* alias: */ null, [
+					'gjl_wiki=gjlw_id',
+				] )
+				->ignoreIndex( 'gjlw_wiki_id_namespace' )
+				->where( [
+					'gjlt_namespace' => NS_DATA,
+					'gjlw_wiki' => $this->wiki,
 				] );
 		}
 		$builder = $builder->caller( __METHOD__ );
