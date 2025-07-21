@@ -40,16 +40,19 @@ class CodeEditorHooks implements
 	 * @return bool|void True or no return value to continue or false to abort
 	 */
 	public function onCodeEditorGetPageLanguage( Title $title, ?string &$lang, string $model, string $format ) {
-		if ( !$this->config->get( 'JsonConfigUseCodeEditor' ) ||
-			!JCHooks::jsonConfigIsStorage( $this->config )
+		if ( JCHooks::jsonConfigIsStorage( $this->config ) && (
+				$this->config->get( 'JsonConfigUseCodeEditor' ) ||
+				// Temporary while CodeMirror is still in beta (T373711#11018957).
+				!( \MediaWiki\Extension\CodeEditor\Hooks::tempIsCodeMirrorEnabled() )
+			)
 		) {
-			return;
-		}
-
-		// todo/fixme? We should probably add 'json' lang to only those pages that pass parseTitle()
-		$handler = $this->contentHandlerFactory->getContentHandler( $title->getContentModel() );
-		if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON || JCSingleton::parseTitle( $title ) ) {
-			$lang = 'json';
+			$handler = $this->contentHandlerFactory->getContentHandler( $title->getContentModel() );
+			if (
+				$handler->getDefaultFormat() === CONTENT_FORMAT_JSON &&
+				JCSingleton::parseTitle( $title )
+			) {
+				$lang = 'json';
+			}
 		}
 	}
 }

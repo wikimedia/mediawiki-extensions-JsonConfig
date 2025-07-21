@@ -29,9 +29,8 @@ class CodeMirrorHooks implements CodeMirrorGetModeHook {
 	 */
 	public function onCodeMirrorGetMode( Title $title, ?string &$mode, string $model ): bool {
 		if ( $this->config->get( 'JsonConfigUseCodeMirror' ) && JCHooks::jsonConfigIsStorage( $this->config ) ) {
-			// todo/fixme? We should probably add 'json' mode to only those pages that pass parseTitle()
 			$handler = $this->contentHandlerFactory->getContentHandler( $title->getContentModel() );
-			if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON || JCSingleton::parseTitle( $title ) ) {
+			if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON && JCSingleton::parseTitle( $title ) ) {
 				$mode = 'json';
 				return false;
 			}
