@@ -26,6 +26,7 @@
 	"jsonconfig-edit-dialog-error-fields-missing": "De JSON-eigenschap <code>schema.fields</code> ontbreekt of is geen array",
 	"jsonconfig-edit-dialog-error-schema-missing": "De JSON-eigenschap <code>schema</code> ontbreekt of is geen object",
 	"jsonconfig-edit-dialog-title": "JSON bewerken",
+	"jsonconfig-edit-dialog-warning-data-large": "Dit is een grote verzameling gegevens. Het bewerken ervan als tabel werkt mogelijk niet goed op uw apparaat.",
 	"jsonconfig-err-array": "Parameter \"$1\" moet een lijst zijn, bijvoorbeeld <kbd>[\"waarde1\", \"waarde2\", ...]</kbd>",
 	"jsonconfig-err-array-count": "Lijst \"$1\" heeft $2 {{PLURAL:$2|waarde|waarden}}, maar moet $3 {{PLURAL:$3|waarde|waarden}} hebben, hetzelfde aantal waarden als \"$4\"",
 	"jsonconfig-err-array-expected": "De waarde van \"$1\" had een door vierkante haakjes [...] omringde lijst moeten zijn",
@@ -39,7 +40,7 @@
 	"jsonconfig-err-category-sort-invalid": "De eigenschap ‘sort’ van de categorie moet een tekenreeks zijn",
 	"jsonconfig-err-integer": "Parameter \"$1\" moet een integer zijn",
 	"jsonconfig-err-license": "Parameter \"$1\" moet één van de geldige licentiecodes zijn, bijvoorbeeld $2",
-	"jsonconfig-err-localized": "De parameter “$1” moet een object zijn dat geldige taalcodes toewijst aan tekenreeksen van één regel zonder tabs en zonder spaties aan het eind, bv. <kbd>{ \"nl\":\"Tekenreeks in het Nederlands\", ... }</kbd>",
+	"jsonconfig-err-localized": "De parameter “$1” moet een object zijn dat geldige taalcodes toewijst aan tekenreeksen van één regel die niet langer zijn dan $2 tekens en geen tabs en aan het eind geen spaties bevatten, bv. <kbd>{ \"nl\":\"Tekenreeks in het Nederlands\", ... }</kbd>",
 	"jsonconfig-err-number": "Parameter \"$1\" moet een getal zijn",
 	"jsonconfig-err-object-expected": "De verwachting was dat \"$1\" een object was, omringd door accolades {...}",
 	"jsonconfig-err-root-array-expected": "JSON-gegevens moeten een lijst zijn, omringd door haakjes [...]",
@@ -75,7 +76,14 @@
 	"jsonconfig-blocked-page-creation": "De paginatitel die u heeft opgegeven komt met geen van de patronen overeen die zijn ingesteld voor de uitbreiding JSONConfig voor deze wiki.",
 	"jsonconfig-localjsonlinks": "Gebruik van gegevens op $1",
 	"jsonconfig-localjsonlinks-of-page": "De volgende pagina’s gebruiken deze gegevenspagina:",
+	"globaljsonlinks": "Globaal gegevensgebruik",
 	"jsonconfig-globaljsonlinks": "Gebruik van gegevens op andere wiki’s",
 	"jsonconfig-globaljsonlinks-on-wiki": "Gebruik op $2",
-	"jsonconfig-globaljsonlinks-of-page": "De volgende andere wiki’s gebruiken deze gegevenspagina:"
+	"jsonconfig-globaljsonlinks-of-page": "De volgende andere wiki’s gebruiken deze gegevenspagina:",
+	"jsonconfig-globaljsonlinks-more": "View [[{{#Special:GlobalJsonLinks}}/$1|Meer globaal gebruik]] van deze gegevenspagina bekijken.",
+	"jsonconfig-globaljsonlinks-header": "Deze pagina laat zien waar een pagina wordt geladen bij het ophalen van gegevens via een datapijplijn op andere wiki’s. Deze informatie bevindt zich ook onderaan de pagina met de beschrijving van de gegevens.",
+	"jsonconfig-globaljsonlinks-header-target": "Pagina’s met “Data:”-laadafankelijkheden op [[:$1]]",
+	"jsonconfig-globaljsonlinks-for": "Koppelingen voor $1",
+	"jsonconfig-globaljsonlinks-ok": "Zoeken",
+	"jsonconfig-globaljsonlinks-text": "Globaal gegevensgebruik doorzoeken"
 }

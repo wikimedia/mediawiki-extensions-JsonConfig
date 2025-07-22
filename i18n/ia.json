@@ -75,7 +75,7 @@
 	"jsonconfig-globaljsonlinks-of-page": "Le altere wikis sequente usa iste pagina de datos:",
 	"jsonconfig-globaljsonlinks-more": "Vider [[{{#Special:GlobalJsonLinks}}/$1|altere usos global]] de iste pagina de datos.",
 	"jsonconfig-globaljsonlinks-header": "Iste pagina indica ubi un pagina se carga durante le obtention de datos desde altere wikis. Tu pote tamben trovar ille information al fin del pagina de description del datos.",
-	"jsonconfig-globaljsonlinks-header-target": "Paginas con datos: cargar dependentias sur [[:$1]]",
+	"jsonconfig-globaljsonlinks-header-target": "Paginas con dependentias de cargamento ‘Data:’ sur [[:$1]]",
 	"jsonconfig-globaljsonlinks-for": "Ligamines pro $1",
 	"jsonconfig-globaljsonlinks-ok": "Cercar",
 	"jsonconfig-globaljsonlinks-text": "Cercar uso global de datos",
