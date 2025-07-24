@@ -85,5 +85,19 @@
 	"jsonconfig-globaljsonlinks-header-target": "Pagina’s met “Data:”-laadafankelijkheden op [[:$1]]",
 	"jsonconfig-globaljsonlinks-for": "Koppelingen voor $1",
 	"jsonconfig-globaljsonlinks-ok": "Zoeken",
-	"jsonconfig-globaljsonlinks-text": "Globaal gegevensgebruik doorzoeken"
+	"jsonconfig-globaljsonlinks-text": "Globaal gegevensgebruik doorzoeken",
+	"jsonconfig-globaljsonlinks-no-results": "[[:$1]] wordt niet op deze of andere wiki’s gebruikt.",
+	"jsonconfig-globaljsonlinks-remote": "Het bijhouden van koppelingen voor gegevensverbruik moet worden gecontroleerd via de centrale opslagwiki.",
+	"jsonconfig-globaljsonlinks-disabled": "Het bijhouden van koppelingen voor gegevensverbruik is uitgeschakeld.",
+	"jsonconfig-transform-disabled": "De Lua-integratie voor “Data:”-pagina’s is uitgeschakeld.",
+	"jsonconfig-transform-missing-data": "Brongegevenspagina $1 ontbreekt.",
+	"jsonconfig-transform-invalid-data": "Onjuiste brongegevenspagina $1.",
+	"jsonconfig-transform-invalid-module": "Onjuiste Lua-module $1.",
+	"jsonconfig-transform-invalid-module-engine": "Onjuiste motor voor Lua-module $1.",
+	"jsonconfig-transform-invalid-module-name": "Onjuiste Lua-modulenaam $1.",
+	"jsonconfig-transform-invalid-function": "Onjuiste functie; module $1 functie $2.",
+	"jsonconfig-transform-failed": "Het uitvoeren van de Lua-transformatie in module $1, functie $2, is niet gelukt.",
+	"jsonconfig-transform-error": "$3 bij het uitvoeren van de Lua-transformatie in module $1, functie $2: $4",
+	"jsonconfig-internal-api-error": "Interne API-aanvraag mislukt met code $1: $2",
+	"jsonconfig-internal-state": "Onjuiste interne status."
 }
