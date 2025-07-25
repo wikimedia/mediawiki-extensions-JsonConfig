@@ -20,6 +20,12 @@
 	"apihelp-jsondata-param-title": "De te verkrijgen titel. Standaard wordt ervan uitgegaan dat de naamruimte “Data:” is.",
 	"apihelp-jsondata-example-1": "JSON-inhoud ophalen van de pagina Sample.tab, gelokaliseerd in de taal van de gebruiker",
 	"apihelp-jsondata-example-2": "JSON-inhoud ophalen van de in het Frans gelokaliseerde pagina Sample.tab",
+	"apihelp-jsontransform-summary": "JSON-gegevens ophalen die zijn getransformeerd door een Lua-functie.",
+	"apihelp-jsontransform-param-title": "De te verwerken titel zonder naamruimtevoorvoegsel.",
+	"apihelp-jsontransform-param-jtmodule": "Naam van de Lua-module waaruit de transformatiecode moet worden geladen. Zonder opgave van naamruimte wordt “Module:” aangenomen.",
+	"apihelp-jsontransform-param-jtfunction": "Naam van de uit te voeren Lua-functie",
+	"apihelp-jsontransform-param-jtargs": "Reeks tekenreeksen die als argumenten aan de Lua-transformatiefunctie moeten worden doorgegeven",
+	"apihelp-jsontransform-example-1": "JSON-inhoud van de pagina Sample.tab ophalen door een Lua-transformatie uit te voeren",
 	"apierror-jsonconfig-paramrequired": "Voor deze opdracht is de parameter <var>$1</var> vereist.",
 	"apierror-jsonconfig-badtitle": "De pagina die is opgegeven middels de parameters <var>namespace</var> en <var>title</var> is ongeldig of is niet geregistreerd in de JsonConfig-instellingen."
 }
