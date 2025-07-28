@@ -81,7 +81,7 @@
 	"jsonconfig-globaljsonlinks-on-wiki": "Gebruik op $2",
 	"jsonconfig-globaljsonlinks-of-page": "De volgende andere wiki’s gebruiken deze gegevenspagina:",
 	"jsonconfig-globaljsonlinks-more": "View [[{{#Special:GlobalJsonLinks}}/$1|Meer globaal gebruik]] van deze gegevenspagina bekijken.",
-	"jsonconfig-globaljsonlinks-header": "Deze pagina laat zien waar een pagina wordt geladen bij het ophalen van gegevens via een datapijplijn op andere wiki’s. Deze informatie bevindt zich ook onderaan de pagina met de beschrijving van de gegevens.",
+	"jsonconfig-globaljsonlinks-header": "Deze pagina laat zien waar een pagina wordt geladen bij het ophalen van gegevens via een pijpleiding op andere wiki’s. Deze informatie bevindt zich ook onderaan de pagina met de beschrijving van de gegevens.",
 	"jsonconfig-globaljsonlinks-header-target": "Pagina’s met “Data:”-laadafankelijkheden op [[:$1]]",
 	"jsonconfig-globaljsonlinks-for": "Koppelingen voor $1",
 	"jsonconfig-globaljsonlinks-ok": "Zoeken",
