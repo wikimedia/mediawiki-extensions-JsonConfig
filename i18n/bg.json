@@ -38,5 +38,6 @@
 	"jsonconfig-license-copyrightwarning": "С публикуването на промените, се съгласявате с [https://foundation.wikimedia.org/wiki/Terms_of_Use/bg Условията за ползване] и се съгласявате безвъзвратно да отдадете своя принос под [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-copyrightwarning-license-unset": "С публикуването на промените, се съгласявате с [https://foundation.wikimedia.org/wiki/Terms_of_Use/bg Условията за ползване] и се съгласявате безвъзвратно да отдадете своя принос под лиценза, който е посочен в полето <code>licence</code>.",
 	"right-jsonconfig-flush": "Работа с JsonConfig чрез API",
-	"action-jsonconfig-flush": "работа с JsonConfig чрез API"
+	"action-jsonconfig-flush": "работа с JsonConfig чрез API",
+	"globaljsonlinks": "Глобално използване на данни"
 }
