@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ktchankt"
+			"Ktchankt",
+			"Yueman"
 		]
 	},
+	"jsonconfig-edit-action-cancel": "取消",
 	"globaljsonlinks": "全域資料使用情況",
 	"jsonconfig-globaljsonlinks-text": "搵全域資料使用情況"
 }
