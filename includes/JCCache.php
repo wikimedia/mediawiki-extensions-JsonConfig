@@ -160,7 +160,6 @@ class JCCache {
 			$conf = $this->titleValue->getConfig();
 			$remote = $conf->remote;
 			$apiUtils = MediaWikiServices::getInstance()->getService( 'JsonConfig.ApiUtils' );
-			// @phan-suppress-next-line PhanTypeExpectedObjectPropAccessButGotNull
 			$req = $apiUtils->initApiRequestObj( $remote->url, $remote->username ?? null, $remote->password ?? null );
 			if ( !$req ) {
 				break;

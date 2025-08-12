@@ -511,12 +511,9 @@ class JCHooks implements
 
 				// Handle remote site notification
 				$store = $jct->getConfig()->store;
-				// @phan-suppress-next-line PhanTypeExpectedObjectPropAccess
 				if ( $store->notifyUrl ) {
 					$req =
-						// @phan-suppress-next-line PhanTypeExpectedObjectPropAccess
 						$this->apiUtils->initApiRequestObj( $store->notifyUrl, $store->notifyUsername,
-							// @phan-suppress-next-line PhanTypeExpectedObjectPropAccess
 							$store->notifyPassword );
 					if ( $req ) {
 						$query = [
