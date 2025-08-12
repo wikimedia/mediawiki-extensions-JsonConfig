@@ -19,12 +19,15 @@ class JCApiUtils {
 	}
 
 	/** Init HTTP request object to make requests to the API, and login
-	 * @param string $url
-	 * @param string $username
-	 * @param string $password
+	 * @param string|null $url
+	 * @param string|null $username
+	 * @param string|null $password
 	 * @return MWHttpRequest|false
 	 */
 	public function initApiRequestObj( $url, $username, $password ) {
+		if ( $url === null ) {
+			return false;
+		}
 		$apiUri = wfAppendQuery( $url, [ 'format' => 'json' ] );
 		$options = [
 			'timeout' => 3,
@@ -33,7 +36,7 @@ class JCApiUtils {
 		];
 		$req = $this->httpRequestFactory->create( $apiUri, $options, __METHOD__ );
 
-		if ( $username && $password ) {
+		if ( $username !== null && $password !== null ) {
 			$tokenQuery = [
 				'action' => 'query',
 				'meta' => 'tokens',

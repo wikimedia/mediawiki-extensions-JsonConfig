@@ -125,7 +125,7 @@ class JCContentLoader {
 	 */
 	private function remoteTransform(): Status {
 		$conf = $this->title->getConfig();
-		$remote = $conf->remote ?? [];
+		$remote = $conf->remote ?? (object)[];
 		$req = $this->utils->initApiRequestObj(
 			$remote->url ?? null,
 			$remote->username ?? null,
