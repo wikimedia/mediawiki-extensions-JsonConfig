@@ -1,7 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ktchankt"
+			"Ktchankt",
+			"Yueman"
 		]
-	}
+	},
+	"jsonconfig-edit-action-cancel": "取消"
 }
