@@ -80,5 +80,6 @@
 	"jsonconfig-globaljsonlinks-text": "Хаамаш глобалан лелор леха",
 	"jsonconfig-globaljsonlinks-no-results": "[[:$1]] лелаш йац локалан а, йа кхечу викишкахь а.",
 	"jsonconfig-globaljsonlinks-remote": "ХӀуманаш лелоран хьажоргашна тӀаьхьакхиар хьажа деза йаккъера ларман вики агӀонехь.",
-	"jsonconfig-globaljsonlinks-disabled": "Хаамашна лелорна ларлелор дӀадаьккхина."
+	"jsonconfig-globaljsonlinks-disabled": "Хаамашна лелорна ларлелор дӀадаьккхина.",
+	"jsonconfig-internal-state": "Нийса доцу чоьхьара хьал."
 }
