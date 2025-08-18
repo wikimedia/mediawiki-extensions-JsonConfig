@@ -32,7 +32,7 @@
 	"jsonconfig-err-category-sort-invalid": "Категорин 'сорт' хьал могӀа хила беза",
 	"jsonconfig-err-integer": "Параметр «$1» дуьзина терахь хила деза",
 	"jsonconfig-err-license": "Параметр \"$1\" нийсачу лицензин кодех цхьаъ хила йеза, масала, $2",
-	"jsonconfig-err-localized": "\"$1\" параметр хила йеза нийса меттан кодаш цхьана могӀанан могӀанашна карта хӀоттош йолу объект, табуляцеш а, тӀаьхьара кӀайдаргаш а йоцуш, масала <kbd>{\"en\":\"ингалс маттахь текст\", ... }</kbd>",
+	"jsonconfig-err-localized": "\"$1\" параметр хила йезаш йу объект, нийса меттан кодаш цхьана цхьана могӀанашна карта хӀоттош $2 хьаьркал сов йоцуш, табуляцеш а, тӀаьхьара кӀайдаргаш а йоцуш, масала <kbd>{ \"en\":\"Ингалсан маттахь могӀа\", ... }</kbd>",
 	"jsonconfig-err-number": "Параметр «$1» терахь хила деза",
 	"jsonconfig-err-object-expected": "\"$1\" чохь долу маьӀна хьийзина къовларгашкахь дӀакъевлина объект хила йезаш йара {…}",
 	"jsonconfig-err-root-array-expected": "JSON хаамаш йеакӀов къовларгашкахь дӀакъевлина могӀам хила беза […]",
@@ -81,5 +81,14 @@
 	"jsonconfig-globaljsonlinks-no-results": "[[:$1]] лелаш йац локалан а, йа кхечу викишкахь а.",
 	"jsonconfig-globaljsonlinks-remote": "ХӀуманаш лелоран хьажоргашна тӀаьхьакхиар хьажа деза йаккъера ларман вики агӀонехь.",
 	"jsonconfig-globaljsonlinks-disabled": "Хаамашна лелорна ларлелор дӀадаьккхина.",
+	"jsonconfig-transform-missing-data": "Йуьхьанцара хаамийн агӀо йац $1.",
+	"jsonconfig-transform-invalid-data": "Йуьхьанцара хаамийн агӀо нийса йац $1.",
+	"jsonconfig-transform-invalid-module": "Нийса йоцу Lua модуль $1.",
+	"jsonconfig-transform-invalid-module-engine": "Lua модулан нийса боцу бух $1.",
+	"jsonconfig-transform-invalid-module-name": "Lua модулан нийса йоцу цӀе $1.",
+	"jsonconfig-transform-invalid-function": "Нийса йоцу функци; модуль $1 функци $2.",
+	"jsonconfig-transform-failed": "ГӀалат даьлла Lua хийцар кхочушдарехь $2 функцин $1 модулехь.",
+	"jsonconfig-transform-error": "$3 дӀадоладо Lua хийцар модулехь $1 функци $2: $4.",
+	"jsonconfig-internal-api-error": "Чоьхьара API дехар кхочуш ца хилира кодаца $1: $2",
 	"jsonconfig-internal-state": "Нийса доцу чоьхьара хьал."
 }
