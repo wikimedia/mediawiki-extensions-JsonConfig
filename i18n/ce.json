@@ -81,6 +81,7 @@
 	"jsonconfig-globaljsonlinks-no-results": "[[:$1]] лелаш йац локалан а, йа кхечу викишкахь а.",
 	"jsonconfig-globaljsonlinks-remote": "ХӀуманаш лелоран хьажоргашна тӀаьхьакхиар хьажа деза йаккъера ларман вики агӀонехь.",
 	"jsonconfig-globaljsonlinks-disabled": "Хаамашна лелорна ларлелор дӀадаьккхина.",
+	"jsonconfig-transform-disabled": "Data: pages леррина Lua интеграци дӀайайина.",
 	"jsonconfig-transform-missing-data": "Йуьхьанцара хаамийн агӀо йац $1.",
 	"jsonconfig-transform-invalid-data": "Йуьхьанцара хаамийн агӀо нийса йац $1.",
 	"jsonconfig-transform-invalid-module": "Нийса йоцу Lua модуль $1.",
