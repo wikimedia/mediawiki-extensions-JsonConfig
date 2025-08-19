@@ -36,7 +36,9 @@ class JCApiUtils {
 		];
 		$req = $this->httpRequestFactory->create( $apiUri, $options, __METHOD__ );
 
-		if ( $username !== null && $password !== null ) {
+		if ( $username !== null && $username !== '' &&
+			$password !== null && $password !== ''
+		) {
 			$tokenQuery = [
 				'action' => 'query',
 				'meta' => 'tokens',
