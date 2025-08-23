@@ -70,8 +70,6 @@ class JCHooks implements
 	PageMoveCompleteHook,
 	GetUserPermissionsErrorsHook
 {
-	private const NAMESPACE_CACHE_TTL = 3600;
-
 	private JCApiUtils $apiUtils;
 	private Config $config;
 	private IContentHandlerFactory $contentHandlerFactory;
@@ -90,7 +88,7 @@ class JCHooks implements
 	}
 
 	/**
-	 * Only register NS_CONFIG if running on the MediaWiki instance which houses
+	 * Only register NS_CONFIG if running on the MediaWiki instance that houses
 	 * the JSON configs (i.e. META)
 	 * @param array &$namespaces
 	 */
@@ -113,7 +111,7 @@ class JCHooks implements
 				$key = array_search( $name, $namespaces );
 				if ( $key !== false ) {
 					wfLogWarning( "JsonConfig: Invalid \$wgJsonConfigs: Namespace $ns => '$name' " .
-						"has identical name with the namespace #$key" );
+						"has an identical name with the namespace #$key" );
 				} else {
 					$namespaces[$ns] = $name;
 				}
@@ -232,9 +230,7 @@ class JCHooks implements
 		if ( $content instanceof JCContent ) {
 			$status->merge( $content->getStatus() );
 			if ( !$status->isGood() ) {
-				// @todo Use $status->setOK() instead after this extension
-				// do not support mediawiki version 1.36 and before
-				$status->setResult( false, $status->getValue() ?: EditPage::AS_HOOK_ERROR_EXPECTED );
+				$status->setOK( false );
 				return false;
 			}
 		}
@@ -242,8 +238,8 @@ class JCHooks implements
 	}
 
 	/**
-	 * Get the license code for the title or false otherwise.
-	 * license code is identifier from https://spdx.org/licenses/
+	 * Get the license code for the title or return false otherwise.
+	 * license code is an identifier from https://spdx.org/licenses/
 	 *
 	 * @param JCTitle $jct
 	 * @return bool|string Returns licence code string, or false if license is unknown
@@ -276,7 +272,7 @@ class JCHooks implements
 					$msg = [ 'jsonconfig-license-copyrightwarning', $code ];
 				} else {
 					$requireLicense = $jct->getConfig()->license ?? false;
-					// Check if page has license field to apply only if it is required
+					// Check if the page has a license field to apply only if it is required
 					// https://phabricator.wikimedia.org/T203173
 					if ( $requireLicense ) {
 						$msg = [ 'jsonconfig-license-copyrightwarning-license-unset' ];
@@ -304,7 +300,7 @@ class JCHooks implements
 					$noticeText = wfMessage( 'jsonconfig-license-notice', $code )->parse();
 					$iconCodes = '';
 					if ( preg_match_all( "/[a-z][a-z0-9]+/i", $code, $subcodes ) ) {
-						// Flip order due to dom ordering of the floating elements
+						// Flip order due to the DOM ordering of the floating elements
 						foreach ( array_reverse( $subcodes[0] ) as $c => $match ) {
 							// Used classes:
 							// * mw-jsonconfig-editnotice-icon-BY
@@ -331,7 +327,7 @@ class JCHooks implements
 						$iconCodes . $noticeText . $noticeFooter
 					);
 				} else {
-					// Check if page has license field to apply notice msgs only when license is required
+					// Check if page has a license field to apply notice msgs only when license is required
 					// https://phabricator.wikimedia.org/T203173
 					$requireLicense = $jct->getConfig()->license ?? false;
 					if ( $requireLicense ) {
@@ -416,7 +412,7 @@ class JCHooks implements
 
 	/**
 	 * Conditionally load API module 'jsondata' depending on whether or not
-	 * this wiki stores any jsonconfig data
+	 * this wiki stores any JSON config data
 	 *
 	 * @param ApiModuleManager $moduleManager Module manager instance
 	 */
@@ -466,8 +462,8 @@ class JCHooks implements
 	}
 
 	/**
-	 * Prohibit creation of the pages that are part of our namespaces but have not been explicitly
-	 * allowed.
+	 * Prohibit the creation of the pages that are part of our namespaces
+	 * but have not been explicitly allowed.
 	 * @param Title $title
 	 * @param User $user
 	 * @param string $action
@@ -484,7 +480,7 @@ class JCHooks implements
 
 		if ( $action === 'create' && JCSingleton::parseTitle( $title ) === null ) {
 			// prohibit creation of the pages for the namespace that we handle,
-			// if the title is not matching declared rules
+			// if the title does not match declared rules
 			$result = 'jsonconfig-blocked-page-creation';
 			return false;
 		}
