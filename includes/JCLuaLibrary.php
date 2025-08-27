@@ -47,9 +47,6 @@ class JCLuaLibrary extends LibraryBase {
 		if ( $content === null ) {
 			$this->incrementExpensiveFunctionCount();
 			$content = JCSingleton::getContent( $jct );
-
-			// Transition to a tracking category
-			$this->getParser()->addTrackingCategory( 'jsonconfig-use-category' );
 		}
 
 		if ( !$content ) {
