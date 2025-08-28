@@ -20,6 +20,12 @@
 	"apihelp-jsondata-param-title": "איזו כותרת לקבל. הערך ההתחלתי מניח שמרחב השם הוא \"Data:\".",
 	"apihelp-jsondata-example-1": "קבלת תוכן JSON של הדף Sample.tab, מותאם לשפה של המשתמש",
 	"apihelp-jsondata-example-2": "קבלת תוכן JSON של הדף Sample.tab מותאם לשפה הצרפתית",
+	"apihelp-jsontransform-summary": "אחזור נתוני JSON שהותמרו על־ידי פונקציית לואה.",
+	"apihelp-jsontransform-param-title": "כותרת לעיבוד ללא תחיליות מרחב שם.",
+	"apihelp-jsontransform-param-jtmodule": "שם מודול הלואה שיש לטעון ממנו את הקוד להתמרה. ברירת המחדל היא מרחב השם יחידה: (Module:‎).",
+	"apihelp-jsontransform-param-jtfunction": "שם פונקציית הלואה שיש להריץ",
+	"apihelp-jsontransform-param-jtargs": "סדרת מחרוזות שיש להעביר כארגומנטים לפונקציית ההתמרה של לואה",
+	"apihelp-jsontransform-example-1": "קבלת תוכן JSON של דף Sample.tab שרץ דרך פונקציית התמרה של לואה",
 	"apierror-jsonconfig-paramrequired": "הפרמטר <var>$1</var> נדרש לפקודה הזאת.",
 	"apierror-jsonconfig-badtitle": "הדף שצוין בפרמטרים <var>namespace</var> ו־<var>title</var> אינו תקין או שהוא לא רשום בהגדרות JsonConfig."
 }
