@@ -60,8 +60,6 @@
 	"jsonconfig-type-name-localized": "已本地化",
 	"jsonconfig-type-name-number": "数字",
 	"jsonconfig-type-name-boolean": "布尔值",
-	"jsonconfig-use-category": "使用JsonConfig扩展的页面",
-	"jsonconfig-use-category-desc": "这些页面使用由[[:mw:Extension:JsonConfig|JsonConfig]]扩展提供的被认为开销较大的<code>mw.ext.data.get</code>方法。",
 	"jsonconfig-license": "数据基于$1可用。",
 	"jsonconfig-license-not-set": "编辑此页面时，您同意根据<code>licence</code>中指定的许可证发布您的贡献。",
 	"jsonconfig-license-name-CC0-1.0": "知识共享CC0",

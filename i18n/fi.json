@@ -16,7 +16,6 @@
 	"jsonconfig-type-name-localized": "lokalisoitu",
 	"jsonconfig-type-name-number": "luku",
 	"jsonconfig-type-name-boolean": "totuusarvo",
-	"jsonconfig-use-category": "JsonConfig-laajennusta käyttävät sivut",
 	"jsonconfig-license": "Tiedot on käytettävissä lisenssillä $1.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
 	"jsonconfig-license-name-CC-BY-1.0": "Creative Commons Nimeä 1.0",

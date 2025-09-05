@@ -24,7 +24,6 @@
 	"jsonconfig-type-name-localized": "lokalizált",
 	"jsonconfig-type-name-number": "szám",
 	"jsonconfig-type-name-boolean": "logikai",
-	"jsonconfig-use-category": "JsonConfig kiterjesztést használó lapok",
 	"jsonconfig-license": "Az adatok a(z) $1 licenc feltételei szerint használhatók fel.",
 	"jsonconfig-license-not-set": "A lap szerkesztésekor beleegyezel a szerkesztésed <code>licence</code> mezőben megadott licenc alatti közzétételébe.",
 	"jsonconfig-license-copyrightwarning": "A módosítások közzétételével beleegyezel a közreműködésed közzétételébe a(z) [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}] licenc feltételei szerint.",

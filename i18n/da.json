@@ -48,8 +48,6 @@
 	"jsonconfig-type-name-localized": "lokaliseret",
 	"jsonconfig-type-name-number": "tal",
 	"jsonconfig-type-name-boolean": "boolesk",
-	"jsonconfig-use-category": "Sider, der bruger JsonConfig-udvidelsen",
-	"jsonconfig-use-category-desc": "Disse sider bruger metoden <code>mw.ext.data.get</code> leveret af [[:mw:Extension:JsonConfig|JsonConfig]] udvidelsen. Metoden <code>mw.ext.data.get</code> anses for dyr.",
 	"jsonconfig-license": "Data tilgængelige under $1 .",
 	"jsonconfig-license-not-set": "Når du redigerer denne side, accepterer du at frigive dit bidrag i henhold til den licens, der er angivet i <code>licence</code> .",
 	"jsonconfig-license-copyrightwarning": "Ved at udgive ændringer accepterer du at frigive dit bidrag i henhold til vilkårene i [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}]-licensen.",

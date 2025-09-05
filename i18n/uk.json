@@ -59,7 +59,6 @@
 	"jsonconfig-type-name-number": "число",
 	"jsonconfig-type-abbr-boolean": "(B)",
 	"jsonconfig-type-name-boolean": "булеве значення",
-	"jsonconfig-use-category": "Сторінки з використанням розширення JsonConfig",
 	"jsonconfig-license": "Дані доступні на умовах $1.",
 	"jsonconfig-license-not-set": "Редагуючи цю сторінку, Ви погоджуєтесь на публікацію свого внеску на умовах ліцензії, зазначеної в полі <code>licence</code>.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",

@@ -37,7 +37,6 @@
 	"jsonconfig-type-name-invalid": "유효하지 않음",
 	"jsonconfig-type-name-string": "문자열",
 	"jsonconfig-type-name-number": "숫자",
-	"jsonconfig-use-category": "JsonConfig 확장 기능을 사용하는 문서",
 	"jsonconfig-license": "$1로 데이터를 이용할 수 있습니다.",
 	"jsonconfig-license-name-CC0-1.0": "크리에이티브 커먼즈 제로",
 	"jsonconfig-license-name-CC-BY-1.0": "크리에이티브 커먼즈 저작자표시 1.0",

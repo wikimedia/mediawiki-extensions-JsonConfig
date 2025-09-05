@@ -51,8 +51,6 @@
 	"jsonconfig-type-name-localized": "localisate",
 	"jsonconfig-type-name-number": "numero",
 	"jsonconfig-type-name-boolean": "booleano",
-	"jsonconfig-use-category": "Paginas que usa le extension JsonConfig",
-	"jsonconfig-use-category-desc": "Iste paginas usa le extension <code>mw.ext.data.get</code> method provided by the [[:mw:Extension:JsonConfig|JsonConfig]]. Le methodo <code>mw.ext.data.get</code> se considera costose.",
 	"jsonconfig-license": "Datos disponibile sub $1.",
 	"jsonconfig-license-not-set": "Quando tu modifica iste pagina, tu accepta de liberar tu contribution sub le licentia specificate in le campo <code>licence</code>.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",

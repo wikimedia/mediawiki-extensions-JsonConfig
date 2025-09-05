@@ -72,8 +72,6 @@
 	"jsonconfig-type-name-number": "nombre",
 	"jsonconfig-type-abbr-boolean": "(B)",
 	"jsonconfig-type-name-boolean": "booléen",
-	"jsonconfig-use-category": "Pages utilisant l'extension JsonConfig",
-	"jsonconfig-use-category-desc": "Ces pages utilisent la méthode <code>mw.ext.data.get</code> fournie par l'extension [[:mw:Extension:JsonConfig|JsonConfig]]. La méthode <code>mw.ext.data.get</code> est considérée comme coûteuse.",
 	"jsonconfig-license": "Données disponibles sous $1.",
 	"jsonconfig-license-not-set": "Quand vous modifiez cette page, vous acceptez de placer votre contribution sous la licence spécifiée dans le champ <code>licence</code>.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zéro",

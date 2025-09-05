@@ -55,8 +55,6 @@
 	"jsonconfig-type-name-localized": "محلی",
 	"jsonconfig-type-name-number": "عدد",
 	"jsonconfig-type-name-boolean": "بولی",
-	"jsonconfig-use-category": "صفحه‌هایی که از افزونه پیکربندی جی‌سان استفاده می‌کنند",
-	"jsonconfig-use-category-desc": "این صفحه‌ها از شیوه <code>mw.ext.data.get</code> استفاده می‌کنند که از سوی افزونهٔ [[:mw:Extension:JsonConfig|پیکربندی جی‌سان]] ارائه می‌شود. شیوهٔ <code>mw.ext.data.get</code> به‌عنوان یک شیوهٔ پرخرج در نظر گرفته می‌شود.",
 	"jsonconfig-license": "داده‌ها تحت مجوز $1 در دسترس هستند",
 	"jsonconfig-license-name-CC0-1.0": "کریتیو کامنز صفر",
 	"right-jsonconfig-flush": "کنترل پیکربندی جی‌سان توسط واسط برنامه‌نویسی",

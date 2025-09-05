@@ -56,8 +56,6 @@
 	"jsonconfig-type-name-number": "število",
 	"jsonconfig-type-abbr-boolean": "(B)",
 	"jsonconfig-type-name-boolean": "bool",
-	"jsonconfig-use-category": "Strani, ki uporabljajo razširitev JsonConfig",
-	"jsonconfig-use-category-desc": "Te strani uporabljajo metodo <code>mw.ext.data.get</code>, ki jo zagotavlja razširitev [[:mw:Extension:JsonConfig|JsonConfig]]. Metoda <code>mw.ext.data.get</code> velja za drago.",
 	"jsonconfig-license": "Podatki so na voljo pod licenco $1.",
 	"jsonconfig-license-not-set": "Ob urejanju te strani izražate strinjanje z objavo svojega prispevka pod licenco, določeno v <code>licence</code>.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",

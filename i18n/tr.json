@@ -54,7 +54,6 @@
 	"jsonconfig-type-name-localized": "yerelleştirilmiş",
 	"jsonconfig-type-name-number": "sayı",
 	"jsonconfig-type-name-boolean": "boole",
-	"jsonconfig-use-category": "JsonConfig uzantısını kullanan sayfalar",
 	"jsonconfig-license": "$1 altındaki veriler.",
 	"jsonconfig-license-not-set": "Bu sayfayı düzenlediğinizde, katkınızı <code>licence</code> alanında belirtilen lisansa göre bırakmayı kabul edersiniz.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
