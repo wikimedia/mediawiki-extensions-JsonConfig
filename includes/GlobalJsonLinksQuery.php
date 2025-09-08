@@ -12,7 +12,6 @@ use Wikimedia\Rdbms\SelectQueryBuilder;
 /**
  * A helper class to query the globaljsonlinks_* tables
  * Based off the equivalent class in GlobalUsage
- *
  */
 class GlobalJsonLinksQuery {
 	/** The number of internal |-separated chunks in the offset strings, for validation */
@@ -123,7 +122,6 @@ class GlobalJsonLinksQuery {
 	 * Returns the string used for continuation
 	 *
 	 * @return string
-	 *
 	 */
 	public function getContinueString() {
 		if ( $this->hasMore() ) {
