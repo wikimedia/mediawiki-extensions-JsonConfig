@@ -2,6 +2,7 @@
 namespace JsonConfig;
 
 use MediaWiki\Api\ApiBase;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Registration\ExtensionRegistry;
 use stdClass;
 use Wikimedia\ParamValidator\ParamValidator;
@@ -20,7 +21,8 @@ class JCApi extends ApiBase {
 		$res = [
 			'model' => $conf->model,
 			'namespace' => $conf->namespace,
-			'nsName' => $conf->nsName,
+			'nsName' => $conf->nsName ?? MediaWikiServices::getInstance()->getNamespaceInfo()
+				->getCanonicalName( $conf->namespace ),
 			'nsTalk' => ( $conf->nsTalk ?? '' ) ?: 'default',
 			'isLocal' => $conf->isLocal,
 			'cacheExp' => $conf->cacheExp,
