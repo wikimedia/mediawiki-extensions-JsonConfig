@@ -19,6 +19,7 @@
 	"jsonconfig-edit-dialog-error-fields-missing": "JSON <code>schema.fields</code> билгало йа массив йац",
 	"jsonconfig-edit-dialog-error-schema-missing": "JSON <code>schema</code> билгало йа объект йац",
 	"jsonconfig-edit-dialog-title": "JSON нисйан",
+	"jsonconfig-edit-dialog-warning-data-large": "ХӀара хаамийн боккха гулам бу. Таблица санна хийцаро дика болх ца бан тарло хьан аппаратехь.",
 	"jsonconfig-err-array": "Параметр \"$1\" могӀам хила беза, масала <kbd>[\"маьӀна1\", \"маьӀна2\",...]</kbd>",
 	"jsonconfig-err-array-count": "\"$1\" могӀам чохь $2 {{PLURAL:$2|маьӀна}} ду, амма хила деза $3 {{PLURAL:$3|маьӀна}} (оцул маьӀнаш, \"$4\" санна)",
 	"jsonconfig-err-array-expected": "\"$1\" чохь долу маьӀна хила дезаш дара йиъкӀов къовларшкахь дӀакъевлина могӀам [...]",
