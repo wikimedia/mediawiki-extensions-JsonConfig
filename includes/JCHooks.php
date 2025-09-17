@@ -1,7 +1,5 @@
 <?php
 
-// phpcs:disable MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName
-
 namespace JsonConfig;
 
 use MediaWiki\Api\ApiModuleManager;
@@ -45,7 +43,6 @@ use Wikimedia\Message\MessageSpecifier;
 /**
  * Hook handlers for JsonConfig extension.
  *
- * @file
  * @ingroup Extensions
  * @ingroup JsonConfig
  * @license GPL-2.0-or-later

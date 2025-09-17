@@ -16,7 +16,6 @@ use stdClass;
 /**
  * Static utility methods and configuration page hook handlers for JsonConfig extension.
  *
- * @file
  * @ingroup Extensions
  * @ingroup JsonConfig
  * @author Yuri Astrakhan

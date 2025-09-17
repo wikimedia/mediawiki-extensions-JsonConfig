@@ -11,7 +11,6 @@ use MediaWiki\Title\Title;
  * Hook handlers for JsonConfig extension.
  * All hooks from the CodeEditor extension which is optional to use with this extension.
  *
- * @file
  * @ingroup Extensions
  * @ingroup JsonConfig
  * @license GPL-2.0-or-later

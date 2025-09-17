@@ -1,7 +1,5 @@
 <?php
 
-// phpcs:disable MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName
-
 namespace JsonConfig;
 
 use MediaWiki\Config\Config;
@@ -17,7 +15,6 @@ use MediaWiki\WikiMap\WikiMap;
 /**
  * Hook handlers for JsonConfig extension.
  *
- * @file
  * @ingroup Extensions
  * @ingroup JsonConfig
  * @license GPL-2.0-or-later

@@ -11,7 +11,7 @@ use stdClass;
 
 /**
  * Represents the content of a JSON Json Config article.
- * @file
+ *
  * @ingroup Extensions
  * @ingroup JsonConfig
  *

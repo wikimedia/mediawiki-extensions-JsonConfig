@@ -14,7 +14,6 @@ use MediaWiki\Parser\ParserOutput;
 /**
  * JSON Json Config content handler
  *
- * @file
  * @ingroup Extensions
  * @ingroup JsonConfig
  *
