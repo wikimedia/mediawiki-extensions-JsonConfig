@@ -31,6 +31,7 @@
 	"jsonconfig-license-notice-license-unset": "'''Märkus:''' Kui redigeerid seda lehekülge, siis nõustud avaldama oma muudatused väljal <code>licence</code> näidatud litsentsi all.",
 	"right-jsonconfig-flush": "Muuta JSON-häälestust API kaudu",
 	"action-jsonconfig-flush": "API kaudu JSON-häälestust muuta",
+	"globaljsonlinks": "Globaalne andmekasutus",
 	"jsonconfig-globaljsonlinks": "Andmete kasutus teistes vikides",
 	"jsonconfig-globaljsonlinks-on-wiki": "Kasutus vikis $2",
 	"jsonconfig-globaljsonlinks-of-page": "Seda andmelehekülge kasutavad järgmised teised vikid:",
@@ -40,5 +41,6 @@
 	"jsonconfig-globaljsonlinks-for": "Lehekülje $1 lingid",
 	"jsonconfig-globaljsonlinks-ok": "Otsi",
 	"jsonconfig-globaljsonlinks-text": "Globaalse andmekasutuse otsimine",
-	"jsonconfig-globaljsonlinks-no-results": "[[:$1]] ei ole kasutusel kohalikult ega teistes vikides."
+	"jsonconfig-globaljsonlinks-no-results": "[[:$1]] ei ole kasutusel kohalikult ega teistes vikides.",
+	"jsonconfig-globaljsonlinks-remote": "Andmekasutuse lingijälgimist tuleb kontrollida keskses hoidlavikis."
 }
