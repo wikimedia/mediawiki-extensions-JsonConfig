@@ -182,7 +182,7 @@ class JCContentHandler extends CodeContentHandler {
 			}
 		}
 
-		$output->setText( $html );
+		$output->setContentHolderText( $html );
 	}
 
 	/**
