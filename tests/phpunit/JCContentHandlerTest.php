@@ -32,7 +32,6 @@ class JCContentHandlerTest extends \MediaWikiIntegrationTestCase {
 		$reflector = new \ReflectionClass( $handler );
 
 		$method = $reflector->getMethod( 'addCategoriesToParserOutput' );
-		$method->setAccessible( true );
 		$method->invoke( $handler, $content, $parserOutput );
 
 		$this->assertSame( $expectedCategories, $parserOutput->getCategoryNames() );
