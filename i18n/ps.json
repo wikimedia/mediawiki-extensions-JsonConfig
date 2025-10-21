@@ -8,5 +8,6 @@
 	"jsonconfig-edit-dialog-warning-data-large": "دا يوه لويه اومتوک‌ټولگه ده. د لښتيال په توگه يې سمول شايد ستاسو وسيله کې سم کار ونهٔ کړي",
 	"jsonconfig-type-name-invalid": "ناسم",
 	"jsonconfig-type-name-number": "شمېره",
-	"globaljsonlinks": "ټوليزه اومتوک کارونې"
+	"globaljsonlinks": "ټوليزه اومتوک کارونې",
+	"jsonconfig-globaljsonlinks-header": "دا مخ په نورو ويکي‌گانو کې د مالوماتو په لوله‌کولو کې د مخ بارولو ځای ښيي. تاسو کولای شئ چې دا مالومات د اومتوک سپيناوي مخ په پای کې هم ومومئ."
 }
