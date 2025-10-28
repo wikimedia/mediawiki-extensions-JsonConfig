@@ -24,6 +24,7 @@
 	"jsonconfig-license": "D'Donnéeë sinn disponibel ënner $1.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
 	"right-jsonconfig-flush": "JsonConfig iwwer d'API manipuléieren",
+	"globaljsonlinks": "Globaalt Benotze vun den Donnéeën",
 	"jsonconfig-globaljsonlinks-ok": "Sichen",
 	"jsonconfig-transform-invalid-module": "Ongültege Lua-Modul $1.",
 	"jsonconfig-transform-invalid-module-name": "Ongültege Lua-Modul-Numm $1.",
