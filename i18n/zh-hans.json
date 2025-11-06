@@ -14,7 +14,8 @@
 			"Yurik",
 			"列维劳德",
 			"御坂美琴",
-			"沈澄心"
+			"沈澄心",
+			"PexEric"
 		]
 	},
 	"nstab-data": "数据",
@@ -75,5 +76,6 @@
 	"right-jsonconfig-flush": "通过API操作JsonConfig",
 	"action-jsonconfig-flush": "通过API操作JsonConfig",
 	"jsonconfig-blocked-page-creation": "您指定的页面标题与此wiki的JSONConfig扩展配置的任何模式均不匹配。",
+	"jsonconfig-globaljsonlinks-more": "查看此数据页面的[[{{#Special:GlobalJsonLinks}}/$1|更多全域使用情况]]。",
 	"jsonconfig-internal-state": "无效的内部状态。"
 }
