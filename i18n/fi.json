@@ -8,7 +8,14 @@
 			"Silvonen"
 		]
 	},
+	"nstab-data": "Data",
+	"tooltip-ca-nstab-data": "Näytä datasivu",
+	"jsonconfig-edit-action-apply": "Käytä",
 	"jsonconfig-edit-action-cancel": "Peruuta",
+	"jsonconfig-edit-button-label": "Muokkaa taulukkona",
+	"jsonconfig-edit-dialog-error": "Ei voida muokata taulukkona: $1",
+	"jsonconfig-edit-dialog-error-field-name-missing": "Jokaisella kentällä on oltava nimi",
+	"jsonconfig-edit-dialog-title": "Muokkaa JSON:ina",
 	"jsonconfig-err-bad-type": "Parametrin ”$1” on oltava kelvollinen tyyppi, kuten <code>string</code>, <code>number</code> tai <code>boolean</code>",
 	"jsonconfig-optional-field": "(valinnainen)",
 	"jsonconfig-type-name-invalid": "kelpaamaton",
@@ -17,6 +24,7 @@
 	"jsonconfig-type-name-number": "luku",
 	"jsonconfig-type-name-boolean": "totuusarvo",
 	"jsonconfig-license": "Tiedot on käytettävissä lisenssillä $1.",
+	"jsonconfig-license-not-set": "Kun muokkaat tätä sivua, hyväksyt muokkauksesi julkaisemisen <code>licence</code>-kentässä määritellyn lisenssin mukaisesti.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
 	"jsonconfig-license-name-CC-BY-1.0": "Creative Commons Nimeä 1.0",
 	"jsonconfig-license-name-CC-BY-2.0": "Creative Commons Nimeä 2.0",
@@ -42,5 +50,6 @@
 	"jsonconfig-license-url-CC-BY-SA-2.5": "https://creativecommons.org/licenses/by-sa/2.5/deed.fi",
 	"jsonconfig-license-url-CC-BY-SA-3.0": "https://creativecommons.org/licenses/by-sa/3.0/deed.fi",
 	"jsonconfig-license-url-CC-BY-SA-4.0": "https://creativecommons.org/licenses/by-sa/4.0/deed.fi",
-	"jsonconfig-license-url-CC-BY-SA-4.0+": "https://creativecommons.org/licenses/by-sa/4.0/deed.fi"
+	"jsonconfig-license-url-CC-BY-SA-4.0+": "https://creativecommons.org/licenses/by-sa/4.0/deed.fi",
+	"jsonconfig-license-notice-license-unset": "'''Huomaa:''' Kun muokkaat tätä sivua, suostut julkaisemaan muutoksesi <code>licence</code>-kentässä määritellyn lisenssin mukaisesti."
 }
