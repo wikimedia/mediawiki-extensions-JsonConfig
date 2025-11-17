@@ -17,5 +17,7 @@
 	"jsonconfig-type-name-number": "tala",
 	"jsonconfig-type-abbr-boolean": "(B)",
 	"jsonconfig-type-name-boolean": "rökgildi",
-	"jsonconfig-license-url-CC0-1.0": "https://creativecommons.org/publicdomain/zero/1.0/"
+	"jsonconfig-license-url-CC0-1.0": "https://creativecommons.org/publicdomain/zero/1.0/",
+	"globaljsonlinks": "Altæk gagnanotkun",
+	"jsonconfig-globaljsonlinks-text": "Leita að altækri gagnanotkun"
 }
