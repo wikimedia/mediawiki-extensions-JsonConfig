@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Jon Harald Søby",
-			"Kingu"
+			"Kingu",
+			"Yupik"
 		]
 	},
 	"nstab-data": "Data",
@@ -87,5 +88,6 @@
 	"jsonconfig-license-notice-license-unset": "'''Merk:''' Når du redirerer denne siden samtykker du i å slippe bidraget ditt under lisensen angitt i <code>licence</code>-feltet.",
 	"right-jsonconfig-flush": "Manipulere JsonConfig via API",
 	"action-jsonconfig-flush": "manipulere JsonConfig via API",
-	"jsonconfig-blocked-page-creation": "Sidetittelen du har angitt matcher ikke noen av mønstrene som er satt opp for JSONConfig-utvidelsen på denne wikien."
+	"jsonconfig-blocked-page-creation": "Sidetittelen du har angitt matcher ikke noen av mønstrene som er satt opp for JSONConfig-utvidelsen på denne wikien.",
+	"jsonconfig-globaljsonlinks-ok": "Søk"
 }
