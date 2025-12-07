@@ -9,13 +9,7 @@ use MWHttpRequest;
 
 class JCApiUtils {
 
-	/**
-	 * @var HttpRequestFactory
-	 */
-	private $httpRequestFactory;
-
-	public function __construct( HttpRequestFactory $httpRequestFactory ) {
-		$this->httpRequestFactory = $httpRequestFactory;
+	public function __construct( private readonly HttpRequestFactory $httpRequestFactory ) {
 	}
 
 	/** Init HTTP request object to make requests to the API, and login

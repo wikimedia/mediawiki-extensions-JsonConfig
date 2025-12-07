@@ -18,18 +18,10 @@ use MediaWiki\Title\Title;
 
 class JCTransformer {
 
-	/**
-	 * @var Config
-	 */
-	private Config $config;
-	/**
-	 * @var ParserFactory
-	 */
-	private ParserFactory $parserFactory;
-
-	public function __construct( Config $config, ParserFactory $parserFactory ) {
-		$this->config = $config;
-		$this->parserFactory = $parserFactory;
+	public function __construct(
+		private readonly Config $config,
+		private readonly ParserFactory $parserFactory,
+	) {
 	}
 
 	/**

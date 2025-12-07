@@ -12,9 +12,6 @@ use MediaWiki\Page\PageReference;
  * a given data page. Note that these objects are serialized for the job queue.
  */
 class GlobalJsonLinksCachePurgeJob extends Job {
-	private GlobalJsonLinks $globalJsonLinks;
-	private JobQueueGroupFactory $jobQueueGroupFactory;
-
 	/**
 	 * @param PageReference|null $title
 	 * @param array $params
@@ -22,12 +19,10 @@ class GlobalJsonLinksCachePurgeJob extends Job {
 	 * @param JobQueueGroupFactory $jobQueueGroupFactory
 	 */
 	public function __construct( $title, $params,
-		GlobalJsonLinks $globalJsonLinks,
-		JobQueueGroupFactory $jobQueueGroupFactory
+		private readonly GlobalJsonLinks $globalJsonLinks,
+		private readonly JobQueueGroupFactory $jobQueueGroupFactory,
 	) {
 		parent::__construct( 'globalJsonLinksCachePurge', $title, $params );
-		$this->globalJsonLinks = $globalJsonLinks;
-		$this->jobQueueGroupFactory = $jobQueueGroupFactory;
 		$this->removeDuplicates = true; // expensive
 	}
 

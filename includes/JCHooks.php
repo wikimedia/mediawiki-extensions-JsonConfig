@@ -67,21 +67,12 @@ class JCHooks implements
 	PageMoveCompleteHook,
 	GetUserPermissionsErrorsHook
 {
-	private JCApiUtils $apiUtils;
-	private Config $config;
-	private IContentHandlerFactory $contentHandlerFactory;
-	private JobQueueGroupFactory $jobQueueGroupFactory;
-
 	public function __construct(
-		JCApiUtils $apiUtils,
-		Config $config,
-		IContentHandlerFactory $contentHandlerFactory,
-		JobQueueGroupFactory $jobQueueGroupFactory
+		private readonly JCApiUtils $apiUtils,
+		private readonly Config $config,
+		private readonly IContentHandlerFactory $contentHandlerFactory,
+		private readonly JobQueueGroupFactory $jobQueueGroupFactory,
 	) {
-		$this->apiUtils = $apiUtils;
-		$this->config = $config;
-		$this->contentHandlerFactory = $contentHandlerFactory;
-		$this->jobQueueGroupFactory = $jobQueueGroupFactory;
 	}
 
 	/**

@@ -17,47 +17,21 @@ class GlobalJsonLinks {
 	/** Extension data key for global JSON links */
 	public const KEY_JSONLINKS = 'JsonConfig:globaljsonlinks';
 
-	private string $wiki;
-	private IConnectionProvider $connectionProvider;
 	private IDatabase $db;
-	private Config $config;
-
-	/**
-	 * @var NamespaceInfo
-	 */
-	private $namespaceInfo;
-
-	/**
-	 * @var TitleFormatter
-	 */
-	private $titleFormatter;
 
 	/**
 	 * @var string[]
 	 */
-	private $canonicalNamespaces;
+	private readonly array $canonicalNamespaces;
 
-	/**
-	 * Construct a GlobalJsonLinks instance for a certain wiki.
-	 *
-	 * @param Config $config
-	 * @param IConnectionProvider $connectionProvider
-	 * @param NamespaceInfo $namespaceInfo
-	 * @param TitleFormatter $titleFormatter
-	 * @param string $wiki wiki id of the wiki
-	 */
-	public function __construct( Config $config,
-		IConnectionProvider $connectionProvider,
-		NamespaceInfo $namespaceInfo,
-		TitleFormatter $titleFormatter,
-		string $wiki
+	public function __construct(
+		private readonly Config $config,
+		private readonly IConnectionProvider $connectionProvider,
+		private readonly NamespaceInfo $namespaceInfo,
+		private readonly TitleFormatter $titleFormatter,
+		private readonly string $wiki,
 	) {
-		$this->config = $config;
-		$this->connectionProvider = $connectionProvider;
-		$this->namespaceInfo = $namespaceInfo;
 		$this->canonicalNamespaces = $namespaceInfo->getCanonicalNamespaces();
-		$this->titleFormatter = $titleFormatter;
-		$this->wiki = $wiki;
 	}
 
 	/**

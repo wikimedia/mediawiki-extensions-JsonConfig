@@ -9,13 +9,9 @@ use SlotDiffRenderer;
 use TextSlotDiffRenderer;
 
 class JCSlotDiffRenderer extends SlotDiffRenderer {
-	/** @var TextSlotDiffRenderer */
-	private $textSlotDiffRenderer;
-
 	public function __construct(
-		TextSlotDiffRenderer $textSlotDiffRenderer
+		private readonly TextSlotDiffRenderer $textSlotDiffRenderer,
 	) {
-		$this->textSlotDiffRenderer = $textSlotDiffRenderer;
 	}
 
 	public function getTablePrefix( IContextSource $context, Title $newTitle ): array {

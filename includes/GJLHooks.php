@@ -31,18 +31,11 @@ class GJLHooks implements
 	/** @var GlobalJsonLinksQuery[] */
 	private static $queryCache = [];
 
-	private Config $config;
-	private NamespaceInfo $namespaceInfo;
-	private GlobalJsonLinks $globalJsonLinks;
-
 	public function __construct(
-		Config $config,
-		NamespaceInfo $namespaceInfo,
-		GlobalJsonLinks $globalJsonLinks
+		private readonly Config $config,
+		private readonly NamespaceInfo $namespaceInfo,
+		private readonly GlobalJsonLinks $globalJsonLinks,
 	) {
-		$this->config = $config;
-		$this->namespaceInfo = $namespaceInfo;
-		$this->globalJsonLinks = $globalJsonLinks;
 	}
 
 	/**

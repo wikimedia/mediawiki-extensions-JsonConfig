@@ -24,16 +24,11 @@ class SpecialGlobalJsonLinks extends SpecialPage {
 	 */
 	protected $target;
 
-	private GlobalJsonLinks $globalJsonLinks;
-	private SearchEngineFactory $searchEngineFactory;
-
 	public function __construct(
-		GlobalJsonLinks $globalJsonLinks,
-		SearchEngineFactory $searchEngineFactory
+		private readonly GlobalJsonLinks $globalJsonLinks,
+		private readonly SearchEngineFactory $searchEngineFactory,
 	) {
 		parent::__construct( 'GlobalJsonLinks' );
-		$this->globalJsonLinks = $globalJsonLinks;
-		$this->searchEngineFactory = $searchEngineFactory;
 	}
 
 	/**

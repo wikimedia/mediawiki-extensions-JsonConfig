@@ -5,19 +5,15 @@ namespace JsonConfig;
 use MediaWiki\Status\Status;
 
 class JCContentLoader {
-	/** @var JCTransformer */
-	private $transformer;
-	/** @var JCApiUtils */
-	private $utils;
 	/** @var ?JCTitle */
 	private $title;
 	/** @var ?JCTransform */
 	private $transform;
 
-	public function __construct( JCTransformer $transformer, JCApiUtils $utils ) {
-		$this->transformer = $transformer;
-		$this->utils = $utils;
-
+	public function __construct(
+		private readonly JCTransformer $transformer,
+		private readonly JCApiUtils $utils,
+	) {
 		$this->title = null;
 		$this->transform = null;
 	}

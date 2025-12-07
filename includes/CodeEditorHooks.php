@@ -18,15 +18,10 @@ use MediaWiki\Title\Title;
 class CodeEditorHooks implements
 	CodeEditorGetPageLanguageHook
 {
-	private Config $config;
-	private IContentHandlerFactory $contentHandlerFactory;
-
 	public function __construct(
-		Config $config,
-		IContentHandlerFactory $contentHandlerFactory
+		private readonly Config $config,
+		private readonly IContentHandlerFactory $contentHandlerFactory,
 	) {
-		$this->config = $config;
-		$this->contentHandlerFactory = $contentHandlerFactory;
 	}
 
 	/**
