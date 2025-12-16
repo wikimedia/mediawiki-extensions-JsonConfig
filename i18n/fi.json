@@ -10,6 +10,7 @@
 	},
 	"nstab-data": "Data",
 	"tooltip-ca-nstab-data": "Näytä datasivu",
+	"jsonconfig-desc": "Mahdollistaa JSON-konfiguraation tallentamisen wikiin",
 	"jsonconfig-edit-action-apply": "Käytä",
 	"jsonconfig-edit-action-cancel": "Peruuta",
 	"jsonconfig-edit-button-label": "Muokkaa taulukkona",
