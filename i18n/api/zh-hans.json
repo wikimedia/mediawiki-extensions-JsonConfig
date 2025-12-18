@@ -15,7 +15,7 @@
 	"apihelp-jsonconfig-paramvalue-command-reset": "从缓存中清空配置。需要$1title参数和jsonconfig-flush权限。",
 	"apihelp-jsonconfig-paramvalue-command-reload": "从配置库中重新加载并缓存配置。需要$1title参数和jsonconfig-reset权限。",
 	"apihelp-jsonconfig-param-namespace": "要处理的标题的命名空间编号。",
-	"apihelp-jsonconfig-param-title": "要不带命名空间前缀处理的标题。",
+	"apihelp-jsonconfig-param-title": "要处理的不带命名空间前缀的标题。",
 	"apihelp-jsonconfig-param-content": "对于$1command=reload，使用此内容。",
 	"apihelp-jsonconfig-example-1": "显示配置",
 	"apihelp-jsonconfig-example-2": "重置[[Data:Brazil/Amazonas.map]]",
@@ -24,6 +24,12 @@
 	"apihelp-jsondata-param-title": "要获取的标题。默认假设命名空间为“Data:”",
 	"apihelp-jsondata-example-1": "获取Sample.tab页面的JSON内容，以用户的语言本地化",
 	"apihelp-jsondata-example-2": "获取Sample.tab页面的JSON内容，本地化为法语",
+	"apihelp-jsontransform-summary": "获取由Lua函数转换的JSON数据。",
+	"apihelp-jsontransform-param-title": "要处理的不带命名空间前缀的标题。",
+	"apihelp-jsontransform-param-jtmodule": "要从中加载转换代码的Lua模块的名称。默认命名空间为Module:。",
+	"apihelp-jsontransform-param-jtfunction": "要运行的Lua函数名称",
+	"apihelp-jsontransform-param-jtargs": "要作为参数传递给Lua转换函数的字符串序列",
+	"apihelp-jsontransform-example-1": "通过运行Lua转换获取Sample.tab页面的JSON内容",
 	"apierror-jsonconfig-paramrequired": "此命令需要参数<var>$1</var>。",
 	"apierror-jsonconfig-badtitle": "由<var>namespace</var>和<var>title</var>参数指定的页面无效，或未在JsonConfig配置中注册。"
 }
