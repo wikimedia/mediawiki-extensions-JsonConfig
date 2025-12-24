@@ -45,6 +45,7 @@
 	"jsonconfig-err-bool": "参数“$1”必须设置为<code>true</code>或<code>false</code>",
 	"jsonconfig-err-category-invalid": "每个分类必须为物件，具有类型为字符串的“name”属性，以及选择性的、类型为字符串的“sort”属性",
 	"jsonconfig-err-category-name-invalid": "分类物件必须要有类型为字符串的“name”属性",
+	"jsonconfig-err-category-sort-invalid": "分类的“sort”属性必须为字符串",
 	"jsonconfig-err-integer": "参数“$1”必须是整数",
 	"jsonconfig-err-license": "参数“$1”必须是有效的许可协议代码之一，例如$2",
 	"jsonconfig-err-localized": "参数“$1”必须是映射有效语言代码至单行字符串，没有制表符或末尾空格的对象。例如：<kbd>{ \"zh\":\"中文字符串\", ... }</kbd>",
@@ -82,5 +83,9 @@
 	"right-jsonconfig-flush": "通过API操作JsonConfig",
 	"action-jsonconfig-flush": "通过API操作JsonConfig",
 	"jsonconfig-blocked-page-creation": "您指定的页面标题与此wiki的JSONConfig扩展配置的任何模式均不匹配。",
-	"jsonconfig-globaljsonlinks-on-wiki": "$2的使用情況"
+	"jsonconfig-localjsonlinks": "数据在$1的使用情况",
+	"jsonconfig-localjsonlinks-of-page": "以下页面使用了此数据页面：",
+	"jsonconfig-globaljsonlinks": "数据在其他wiki的使用情况",
+	"jsonconfig-globaljsonlinks-on-wiki": "$2的使用情況",
+	"jsonconfig-globaljsonlinks-of-page": "以下其他wiki使用了此数据页面："
 }
