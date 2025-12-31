@@ -36,7 +36,7 @@
 	"jsonconfig-err-bool": "Parametr „$1” musi mieć wartość <code>true</code> (prawda) lub <code>false</code> (fałsz)",
 	"jsonconfig-err-integer": "Parametr „$1” musi być liczbą całkowitą",
 	"jsonconfig-err-license": "Parametr „$1” musi być jednym ze znanych kodów licencji, na przykład $2",
-	"jsonconfig-err-localized": "Parametr „$1” musi być obiektem mapującym poprawne kody języków do ciągów znaków w pojedynczych liniach, bez tabulacji i pozostawionych spacji, np. <kbd>{ \"pl\":\"Tekst po polsku\", … }</kbd>",
+	"jsonconfig-err-localized": "Parametr „$1” musi być obiektem mapującym poprawne kody języków do jednolinijkowych ciągów znaków nie dłuższych niż $2 znaków, bez tabulacji i końcowych spacji, np. <kbd>{ \"pl\":\"Tekst po polsku\", … }</kbd>",
 	"jsonconfig-err-number": "Parametr „$1” musi być liczbą",
 	"jsonconfig-err-object-expected": "Wartość w „$1” powinna być obiektem otoczonym nawiasami {…}",
 	"jsonconfig-err-root-array-expected": "Dane JSON powinny być listą otoczoną nawiasami […]",
