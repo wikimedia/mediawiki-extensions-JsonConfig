@@ -1,6 +1,7 @@
 <?php
 namespace MediaWiki\Extension\JsonConfig;
 
+use MediaWiki\Content\CodeHighlighterOptions;
 use MediaWiki\Json\FormatJson;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Page\PageReference;
@@ -57,17 +58,19 @@ class JCMapDataContentView extends JCContentView {
 $jsonText
 </mapframe>
 EOT;
+				$output = $parser->parse( $text, $page, $options, true, true, $revId );
+
 			} else {
 				$jsonText = FormatJson::encode( $localizedData->data, true, FormatJson::UTF8_OK );
-				if ( in_array( 'syntaxhighlight', $parser->getTags(), true ) ||
-					$extReg->isLoaded( 'SyntaxHighlight' )
-				) {
-					$text = "<syntaxhighlight lang=json>\n$jsonText\n</syntaxhighlight>";
-				} else {
-					$text = "<pre dir=ltr>\n$jsonText\n</pre>";
-				}
+
+				$codeHighlighter = MediaWikiServices::getInstance()->getCodeHighlighter();
+				$highlightOutput = $codeHighlighter->highlight( $jsonText, new CodeHighlighterOptions(
+					language: 'json',
+					classes: [ 'mw-code' ],
+				) );
+				$output = new ParserOutput( $highlightOutput->getHtml() );
+				$highlightOutput->getMetadata()->addToParserOutput( $output );
 			}
-			$output = $parser->parse( $text, $page, $options, true, true, $revId );
 		}
 
 		// avoid that $output->getContentHolderText() throws down the line if there's errors in the JSON validation and
