@@ -32,7 +32,10 @@ return [
 	'JsonConfig.Transformer' => static function ( MediaWikiServices $services ): JCTransformer {
 		return new JCTransformer(
 			$services->getMainConfig(),
-			$services->getParserFactory()
+			$services->getParserFactory(),
+			$services->hasService( 'Scribunto.EngineFactory' ) ?
+				$services->getService( 'Scribunto.EngineFactory' ) :
+				null
 		);
 	},
 ];

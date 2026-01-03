@@ -5,10 +5,10 @@ namespace JsonConfig;
 use Article;
 use MediaWiki\Config\Config;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Extension\Scribunto\EngineFactory;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaModule;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\TextLibrary;
-use MediaWiki\Extension\Scribunto\Scribunto;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserFactory;
@@ -21,6 +21,7 @@ class JCTransformer {
 	public function __construct(
 		private readonly Config $config,
 		private readonly ParserFactory $parserFactory,
+		private readonly ?EngineFactory $engineFactory,
 	) {
 	}
 
@@ -35,7 +36,9 @@ class JCTransformer {
 	 */
 	public function execute( JCTitle $title, JCDataContent $content, JCTransform $transform ): Status {
 		if ( !$this->config->get( 'JsonConfigEnableLuaSupport' )
-			|| !$this->config->get( 'JsonConfigTransformsEnabled' ) ) {
+			|| !$this->config->get( 'JsonConfigTransformsEnabled' )
+			|| !$this->engineFactory
+		) {
 			return Status::newFatal( 'jsonconfig-transform-disabled' );
 		}
 
@@ -60,7 +63,7 @@ class JCTransformer {
 			return Status::newFatal( 'jsonconfig-transform-invalid-module-name', $module );
 		}
 
-		$engine = Scribunto::getParserEngine( $parser );
+		$engine = $this->engineFactory->getEngineForParser( $parser );
 		if ( !( $engine instanceof LuaEngine ) ) {
 			return Status::newFatal( 'jsonconfig-transform-invalid-module-engine', $module );
 		}

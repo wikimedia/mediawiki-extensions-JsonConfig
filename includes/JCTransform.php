@@ -7,7 +7,6 @@ use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaModule;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\TextLibrary;
-use MediaWiki\Extension\Scribunto\Scribunto;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\Parser;
@@ -113,7 +112,7 @@ class JCTransform {
 			return Status::newFatal( 'jsonconfig-transform-invalid-module-name', $this->module );
 		}
 
-		$engine = Scribunto::getParserEngine( $parser );
+		$engine = $services->getService( 'Scribunto.EngineFactory' )->getEngineForParser( $parser );
 		if ( !( $engine instanceof LuaEngine ) ) {
 			return Status::newFatal( 'jsonconfig-transform-invalid-module-engine', $this->module );
 		}
