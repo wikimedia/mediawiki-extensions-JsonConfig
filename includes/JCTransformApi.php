@@ -36,7 +36,7 @@ class JCTransformApi extends ApiBase {
 		$loader->transform( $transform );
 		$status = $loader->load();
 
-		if ( !$status->isOk() ) {
+		if ( !$status->isGood() ) {
 			$this->dieStatus( $status );
 		} else {
 			$wrapper = $status->getValue();

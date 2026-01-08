@@ -114,7 +114,7 @@ class JCContentWrapper {
 		}, $o->dependencies ?? [] );
 
 		$status = JCUtils::hydrate( $title, $data );
-		if ( $status->isOk() ) {
+		if ( $status->isGood() ) {
 			$status = Status::newGood( new self( $status->getValue(), $expiry, $dependencies ) );
 		}
 		return $status;
