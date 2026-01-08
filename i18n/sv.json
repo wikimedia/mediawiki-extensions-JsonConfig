@@ -34,7 +34,7 @@
 	"jsonconfig-err-bool": "Parametern \"$1\" måste antingen vara <code>true</code> eller <code>false</code>",
 	"jsonconfig-err-integer": "Parametern \"$1\" måste vara ett heltal",
 	"jsonconfig-err-license": "Parametern \"$1\" måste vara en av de giltiga licenskodarna, exempelvis $2",
-	"jsonconfig-err-localized": "Parameter \"$1\" måste vara ett objekt som matchar giltiga språkkoder till enkellinjesträngar utan tabulator eller efterföljande mellanrum, t.ex. <kbd>{ \"en\":\"Sträng på engelska\", ... }</kbd>",
+	"jsonconfig-err-localized": "Parametern \"$1\" måste vara ett objekt som mappar giltiga språkkoder till enradiga strängar som inte är längre än $2 tecken, utan tabbar eller efterföljande mellanslag, t.ex. <kbd>{ \"en\":\"Sträng på engelska\", ... }</kbd>",
 	"jsonconfig-err-number": "Parameter \"$1\" måste vara en siffra",
 	"jsonconfig-err-object-expected": "Värdet vid $1 förväntades vara ett objekt omgivet av {...}-parenteser",
 	"jsonconfig-err-root-array-expected": "JSON-data bör vara en lista, omgiven av [...]-parenteser",
