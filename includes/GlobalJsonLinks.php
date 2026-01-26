@@ -504,11 +504,8 @@ class GlobalJsonLinks {
 		$matcher = $db->expr(
 			'gjlt_title',
 			IExpression::LIKE,
-			new LikeValue(
-				$db->anyString(),
-				$suffix
-			)
-			);
+			new LikeValue( $db->anyString(), $suffix )
+		);
 		if ( $global ) {
 			$builder = $db->newSelectQueryBuilder()
 				->select( 'COUNT(*)' )

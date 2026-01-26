@@ -110,9 +110,9 @@ class JCTabularContent extends JCDataContent {
 			$this->testEach( 'data', function ( JCValue $v, array $path ) use ( $typeValidators ) {
 				$isOk = true;
 				$lastIdx = count( $path );
-				foreach ( array_keys( $typeValidators ) as $k ) {
+				foreach ( $typeValidators as $k => $validator ) {
 					$path[$lastIdx] = $k;
-					$isOk = $this->test( $path, $typeValidators[$k] ) && $isOk;
+					$isOk = $this->test( $path, $validator ) && $isOk;
 				}
 				return $isOk;
 			} );

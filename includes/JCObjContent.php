@@ -215,7 +215,7 @@ abstract class JCObjContent extends JCContent {
 				if ( is_object( $container ) ) {
 					$container = get_object_vars( $container );
 				}
-				foreach ( array_keys( $container ) as $k ) {
+				foreach ( $container as $k => $_ ) {
 					$path[$lastIdx] = $k;
 					$isOk = $this->testInt( $path, $vld ) && $isOk;
 				}

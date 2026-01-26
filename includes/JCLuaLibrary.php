@@ -86,7 +86,7 @@ class JCLuaLibrary extends LibraryBase {
 			$v = get_object_vars( $v );
 		}
 		if ( is_array( $v ) ) {
-			$v = array_map( [ self::class, 'objectToArray' ], $v );
+			$v = array_map( self::objectToArray( ... ), $v );
 		}
 		return $v;
 	}

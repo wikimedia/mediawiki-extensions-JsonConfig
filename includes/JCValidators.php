@@ -291,24 +291,14 @@ class JCValidators {
 	public static function validateDataType( &$validators ) {
 		return static function ( JCValue $v, array $path ) use ( &$validators ) {
 			$value = $v->getValue();
-			$validator = false;
-			if ( is_string( $value ) ) {
-				switch ( $value ) {
-					case 'string':
-						$validator = JCValidators::isStringLine( true );
-						break;
-					case 'boolean':
-						$validator = JCValidators::isBool( true );
-						break;
-					case 'number':
-						$validator = JCValidators::isNumber( true );
-						break;
-					case 'localized':
-						$validator = JCValidators::isLocalizedString( true );
-						break;
-				}
-			}
-			if ( $validator === false ) {
+			$validator = match ( $value ) {
+				'string' => JCValidators::isStringLine( true ),
+				'boolean' => JCValidators::isBool( true ),
+				'number' => JCValidators::isNumber( true ),
+				'localized' => JCValidators::isLocalizedString( true ),
+				default => null
+			};
+			if ( !$validator ) {
 				$v->error( 'jsonconfig-err-bad-type', $path );
 				return false;
 			}

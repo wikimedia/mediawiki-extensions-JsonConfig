@@ -90,14 +90,14 @@ class JCMapDataContent extends JCDataContent {
 				}
 			}
 		} elseif ( is_object( $json ) ) {
-			foreach ( array_keys( get_object_vars( $json ) ) as $prop ) {
-				if ( $prop === 'properties' && is_object( $json->properties ) ) {
-					if ( !self::isValidStringOrLocalized( $json->properties, 'title', $lang ) ||
-						!self::isValidStringOrLocalized( $json->properties, 'description', $lang )
+			foreach ( get_object_vars( $json ) as $key => $value ) {
+				if ( $key === 'properties' && is_object( $value ) ) {
+					if ( !self::isValidStringOrLocalized( $value, 'title', $lang ) ||
+						!self::isValidStringOrLocalized( $value, 'description', $lang )
 					) {
 						return false;
 					}
-				} elseif ( !self::recursiveWalk( $json->$prop, $lang ) ) {
+				} elseif ( !self::recursiveWalk( $value, $lang ) ) {
 					return false;
 				}
 			}

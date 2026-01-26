@@ -275,8 +275,7 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 		$target = $this->parseDataTitle( $targetStr );
 		$ticket = 'xyz';
 
-		foreach ( $sources as $source ) {
-			[ $wiki, $titles ] = $source;
+		foreach ( $sources as [ $wiki, $titles ] ) {
 			$gjl = $this->globalJsonLinks( $wiki );
 			foreach ( $titles as $text ) {
 				$title = $this->parseTitle( $text );
@@ -305,8 +304,7 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 			'TrackGlobalJsonLinksNamespaces' => false,
 		] );
 
-		foreach ( $sources as $source ) {
-			[ $wiki, $titles ] = $source;
+		foreach ( $sources as [ $wiki, $titles ] ) {
 			$gjl = $this->globalJsonLinks( $wiki );
 			foreach ( $titles as $text ) {
 				$title = $this->parseTitle( $text );
@@ -331,8 +329,7 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 			'TrackGlobalJsonLinksNamespaces' => true,
 		] );
 
-		foreach ( $sources as $source ) {
-			[ $wiki, $titles ] = $source;
+		foreach ( $sources as [ $wiki, $titles ] ) {
 			$gjl = $this->globalJsonLinks( $wiki );
 			foreach ( $titles as $text ) {
 				$title = $this->parseTitle( $text );
