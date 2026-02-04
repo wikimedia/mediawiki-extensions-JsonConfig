@@ -35,6 +35,9 @@
 	"jsonconfig-err-bad-geojson": "Parametr „$1” musi być poprawnym obiektem danych GeoJSON lub tablicą obiektów GeoJSON. Jeśli pole <code>properties</code> zawiera <code>title</code> lub <code>description</code>, muszą być one ciągami znaków w jednej linii bez tabulacji lub pozostawionych spacji, albo wielojęzycznymi obiektami ciągów znaków, np. <kbd>{ \"pl\":\"Tekst po polsku\", … }</kbd>",
 	"jsonconfig-err-bad-type": "Parametr „$1” musi być prawidłowym typem jak <code>string</code>, <code>number</code> lub <code>boolean</code>",
 	"jsonconfig-err-bool": "Parametr „$1” musi mieć wartość <code>true</code> (prawda) lub <code>false</code> (fałsz)",
+	"jsonconfig-err-category-invalid": "Każda kategoria musi być obiektem z właściwością 'name', która jest ciągiem znaków i opcjonalnie właściwością 'sort', która jest ciągiem znaków",
+	"jsonconfig-err-category-name-invalid": "Obiekt kategorii musi mieć właściwość 'name', która jest ciągiem znaków",
+	"jsonconfig-err-category-sort-invalid": "Właściwość 'sort' kategorii musi być ciągiem znaków",
 	"jsonconfig-err-integer": "Parametr „$1” musi być liczbą całkowitą",
 	"jsonconfig-err-license": "Parametr „$1” musi być jednym ze znanych kodów licencji, na przykład $2",
 	"jsonconfig-err-localized": "Parametr „$1” musi być obiektem mapującym poprawne kody języków do ciągów znaków w pojedynczych liniach, bez tabulacji i pozostawionych spacji, np. <kbd>{ \"pl\":\"Tekst po polsku\", … }</kbd>",
@@ -69,5 +72,10 @@
 	"jsonconfig-license-notice-license-unset": "'''Uwaga:''' Edytując tę stronę zgadzasz się na publikowanie twojego wkładu zgodnie z licencją podaną w polu <code>licence</code>.",
 	"right-jsonconfig-flush": "Zmienianie JsonConfig przez API",
 	"action-jsonconfig-flush": "zmieniania JsonConfig przez API",
-	"jsonconfig-blocked-page-creation": "Tytuł strony, który podano, nie pasuje do żadnych wzorów skonfigurowanych dla rozszerzenia JSONConfig dla tej wiki."
+	"jsonconfig-blocked-page-creation": "Tytuł strony, który podano, nie pasuje do żadnych wzorów skonfigurowanych dla rozszerzenia JSONConfig dla tej wiki.",
+	"jsonconfig-localjsonlinks": "Wykorzystanie danych na $1",
+	"jsonconfig-localjsonlinks-of-page": "Poniższe strony korzystają z tej strony danych:",
+	"jsonconfig-globaljsonlinks": "Wykorzystanie danych na innych wiki",
+	"jsonconfig-globaljsonlinks-on-wiki": "Wykorzystanie na $2",
+	"jsonconfig-globaljsonlinks-of-page": "Następujące inne wiki używają tej strony danych:"
 }
