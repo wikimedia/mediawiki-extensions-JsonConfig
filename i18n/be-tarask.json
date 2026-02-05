@@ -2,8 +2,10 @@
 	"@metadata": {
 		"authors": [
 			"Red Winged Duck",
-			"Renessaince"
+			"Renessaince",
+			"Ucukor"
 		]
 	},
+	"nstab-data": "Зьвесткі",
 	"right-jsonconfig-flush": "маніпуляваньне JsonConfig праз API"
 }

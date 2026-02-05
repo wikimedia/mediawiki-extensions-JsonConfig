@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Artsiom91"
+			"Artsiom91",
+			"Ucukor"
 		]
 	},
+	"jsonconfig-edit-action-cancel": "Скасаваць",
 	"jsonconfig-type-name-string": "радок",
 	"jsonconfig-type-name-number": "лік"
 }
