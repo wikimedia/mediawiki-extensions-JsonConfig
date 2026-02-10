@@ -8,7 +8,8 @@
 			"Ykhwong",
 			"그냥기여자",
 			"Nikki",
-			"YeBoy371"
+			"YeBoy371",
+			"Bisang"
 		]
 	},
 	"nstab-data": "데이터",
@@ -69,5 +70,7 @@
 	"jsonconfig-license-url-CC-BY-SA-2.5": "https://creativecommons.org/licenses/by-sa/2.5/deed.ko",
 	"jsonconfig-license-url-CC-BY-SA-3.0": "https://creativecommons.org/licenses/by-sa/3.0/deed.ko",
 	"jsonconfig-license-url-CC-BY-SA-4.0": "https://creativecommons.org/licenses/by-sa/4.0/deed.ko",
-	"jsonconfig-license-url-CC-BY-SA-4.0+": "https://creativecommons.org/licenses/by-sa/4.0/deed.ko"
+	"jsonconfig-license-url-CC-BY-SA-4.0+": "https://creativecommons.org/licenses/by-sa/4.0/deed.ko",
+	"right-jsonconfig-flush": "API를 통해 JsonConfig을 조작",
+	"action-jsonconfig-flush": "API를 통해 JsonConfig을 조작"
 }
