@@ -8,7 +8,8 @@
 			"Nikki",
 			"Ykhwong",
 			"그냥기여자",
-			"YeBoy371"
+			"YeBoy371",
+			"Bisang"
 		]
 	},
 	"nstab-data": "데이터",
@@ -69,5 +70,10 @@
 	"jsonconfig-license-url-CC-BY-SA-2.5": "https://creativecommons.org/licenses/by-sa/2.5/deed.ko",
 	"jsonconfig-license-url-CC-BY-SA-3.0": "https://creativecommons.org/licenses/by-sa/3.0/deed.ko",
 	"jsonconfig-license-url-CC-BY-SA-4.0": "https://creativecommons.org/licenses/by-sa/4.0/deed.ko",
-	"jsonconfig-license-url-CC-BY-SA-4.0+": "https://creativecommons.org/licenses/by-sa/4.0/deed.ko"
+	"jsonconfig-license-url-CC-BY-SA-4.0+": "https://creativecommons.org/licenses/by-sa/4.0/deed.ko",
+	"right-jsonconfig-flush": "API를 통해 JsonConfig을 조작",
+	"action-jsonconfig-flush": "API를 통해 JsonConfig을 조작",
+	"jsonconfig-localjsonlinks-of-page": "다음 문서가 이 데이터를 사용하고 있습니다:",
+	"jsonconfig-globaljsonlinks": "다른 위키의 데이터 사용",
+	"jsonconfig-globaljsonlinks-of-page": "다음 위키에서 이 데이터를 사용하고 있습니다:"
 }
