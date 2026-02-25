@@ -6,7 +6,6 @@ use MediaWiki\Extension\JsonConfig\JCSingleton;
 use MediaWiki\Extension\JsonConfig\JCTabularContent;
 use MediaWiki\Extension\JsonConfig\JCTransform;
 use MediaWiki\Json\FormatJson;
-use MediaWiki\MediaWikiServices;
 
 /**
  * @covers \JsonConfig\JCTransformer
@@ -47,7 +46,7 @@ class JCTransformerTest extends JCTransformTestCase {
 				$out = $status->getValue();
 				$this->assertEquals( $expected, $out->toJson(), 'execution got these results' );
 			} else {
-				$services = MediaWikiServices::getInstance();
+				$services = $this->getServiceContainer();
 				$context = RequestContext::getMain();
 				$messageFormatter = $services->getFormatterFactory()->getStatusFormatter( $context );
 				$this->fail( 'failed to execute' . json_encode( $messageFormatter->getWikiText( $status ) ) );
