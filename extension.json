@@ -68,7 +68,12 @@
 		}
 	},
 	"APIModules": {
-		"jsonconfig": "MediaWiki\\Extension\\JsonConfig\\JCApi"
+		"jsonconfig": {
+			"class": "MediaWiki\\Extension\\JsonConfig\\JCApi",
+			"services": [
+				"NamespaceInfo"
+			]
+		}
 	},
 	"ResourceModules": {
 		"ext.jsonConfig": {

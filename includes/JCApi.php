@@ -2,8 +2,9 @@
 namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Api\ApiBase;
-use MediaWiki\MediaWikiServices;
+use MediaWiki\Api\ApiMain;
 use MediaWiki\Registration\ExtensionRegistry;
+use MediaWiki\Title\NamespaceInfo;
 use stdClass;
 use Wikimedia\ParamValidator\ParamValidator;
 
@@ -12,17 +13,24 @@ use Wikimedia\ParamValidator\ParamValidator;
  */
 class JCApi extends ApiBase {
 
+	public function __construct(
+		ApiMain $mainModule,
+		string $moduleName,
+		private readonly NamespaceInfo $namespaceInfo,
+	) {
+		parent::__construct( $mainModule, $moduleName );
+	}
+
 	/**
 	 * @param stdClass $conf
 	 * @return array
 	 */
-	private static function addStatusConf( $conf ) {
+	private function addStatusConf( $conf ) {
 		// explicitly list values to avoid accidental exposure of private data
 		$res = [
 			'model' => $conf->model,
 			'namespace' => $conf->namespace,
-			'nsName' => $conf->nsName ?? MediaWikiServices::getInstance()->getNamespaceInfo()
-				->getCanonicalName( $conf->namespace ),
+			'nsName' => $conf->nsName ?? $this->namespaceInfo->getCanonicalName( $conf->namespace ),
 			'nsTalk' => ( $conf->nsTalk ?? '' ) ?: 'default',
 			'isLocal' => $conf->isLocal,
 			'cacheExp' => $conf->cacheExp,
@@ -80,7 +88,7 @@ class JCApi extends ApiBase {
 				foreach ( JCSingleton::getTitleMap() as $ns => $confs ) {
 					$vals = [];
 					foreach ( $confs as $conf ) {
-						$vals[] = self::addStatusConf( $conf );
+						$vals[] = $this->addStatusConf( $conf );
 					}
 					$data[$ns] = $vals;
 				}
