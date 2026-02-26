@@ -9,10 +9,6 @@ use MediaWiki\Message\Message;
  */
 final class JCValue {
 
-	/** @var int */
-	private $status;
-	/** @var mixed */
-	private $value;
 	/** @var bool|null */
 	private $sameAsDefault = false;
 	/** @var bool|null */
@@ -32,13 +28,10 @@ final class JCValue {
 	/** field was not explicitly tested, but it was listed as a parent of one of the tested fields */
 	public const VISITED = 3;
 
-	/**
-	 * @param int $status
-	 * @param mixed $value
-	 */
-	public function __construct( $status, $value ) {
-		$this->status = $status;
-		$this->value = $value;
+	public function __construct(
+		private int $status,
+		private mixed $value,
+	) {
 	}
 
 	/** @return mixed */

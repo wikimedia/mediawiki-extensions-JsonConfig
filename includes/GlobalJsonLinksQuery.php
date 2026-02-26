@@ -34,23 +34,15 @@ class GlobalJsonLinksQuery {
 	/** @var string[] sites desired */
 	private $filterSites;
 
-	/**
-	 * @var TitleValue
-	 */
-	private $target;
-
 	/** @var stdClass|null */
 	private $lastRow;
 
-	/**
-	 * @var IDatabase
-	 */
-	private $db;
+	private readonly IDatabase $db;
 
 	/**
 	 * @var string[]
 	 */
-	private $canonicalNamespaces;
+	private readonly array $canonicalNamespaces;
 
 	/**
 	 * @param IConnectionProvider $connectionProvider
@@ -59,11 +51,13 @@ class GlobalJsonLinksQuery {
 	 *        namespace, as upcoming filter support will increase the types of deps
 	 *        a Data: load can invoke.
 	 */
-	public function __construct( IConnectionProvider $connectionProvider,
-			NamespaceInfo $namespaceInfo, TitleValue $target ) {
+	public function __construct(
+		IConnectionProvider $connectionProvider,
+		NamespaceInfo $namespaceInfo,
+		private readonly TitleValue $target,
+	) {
 		$this->db = $connectionProvider->getPrimaryDatabase( 'virtual-globaljsonlinks' );
 		$this->canonicalNamespaces = $namespaceInfo->getCanonicalNamespaces();
-		$this->target = $target;
 		$this->offset = [];
 	}
 

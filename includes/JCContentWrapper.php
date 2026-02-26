@@ -11,10 +11,6 @@ use MediaWiki\Title\TitleValue;
 use stdClass;
 
 class JCContentWrapper {
-	/**
-	 * @var JCContent JSON data payload
-	 */
-	protected $content;
 
 	/**
 	 * Timestamp of the load/transform operation
@@ -23,24 +19,15 @@ class JCContentWrapper {
 	protected $timestamp;
 
 	/**
-	 * @var int recommended cache TTL in seconds
-	 */
-	protected $expiry;
-
-	/**
-	 * @var TitleValue[] list of pages on the store wiki that should trigger reparsing when they change
-	 */
-	protected $dependencies;
-
-	/**
 	 * @param JCContent $content JSON-style data object
 	 * @param int $expiry max time to live for cached output in seconds
 	 * @param TitleValue[] $dependencies pages which when edited should invalidate this cache entry
 	 */
-	public function __construct( JCContent $content, int $expiry, array $dependencies ) {
-		$this->content = $content;
-		$this->expiry = $expiry;
-		$this->dependencies = $dependencies;
+	public function __construct(
+		protected readonly JCContent $content,
+		protected readonly int $expiry,
+		protected readonly array $dependencies,
+	) {
 	}
 
 	/**

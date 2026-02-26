@@ -9,25 +9,20 @@ use Wikimedia\ObjectCache\WANObjectCache;
  * Handles retrieval (via HTTP) and memcached caching.
  */
 class JCCache {
-	/** @var JCTitle */
-	private $titleValue;
-	/** @var string */
-	private $key;
-	/** @var WANObjectCache */
-	private $cache;
+	private readonly string $key;
+	private readonly WANObjectCache $cache;
 	/** @var bool|string|JCContent */
 	private $content = null;
 
 	/** @var int number of seconds to keep the value in cache */
-	private $cacheExpiration;
+	private readonly int $cacheExpiration;
 
 	/**
 	 * ** DO NOT USE directly - call JCSingleton::getContent() instead. **
-	 *
-	 * @param JCTitle $titleValue
 	 */
-	public function __construct( JCTitle $titleValue ) {
-		$this->titleValue = $titleValue;
+	public function __construct(
+		private readonly JCTitle $titleValue,
+	) {
 		$conf = $this->titleValue->getConfig();
 		$flRev = $conf->flaggedRevs;
 		$this->cache = MediaWikiServices::getInstance()->getMainWANObjectCache();

@@ -17,29 +17,15 @@ use stdClass;
 
 class JCTransform {
 	/**
-	 * @var string Lua module name to load
-	 */
-	private string $module;
-
-	/**
-	 * @var string function name to run
-	 */
-	private string $function;
-
-	/**
-	 * @var array array of JSON-compatible arguments to pass to function
-	 */
-	private array $args;
-
-	/**
 	 * @param string $module Lua module name
 	 * @param string $function function name
 	 * @param array $args optional array to pass JSON-compatible arguments
 	 */
-	public function __construct( string $module, string $function, array $args = [] ) {
-		$this->module = $module;
-		$this->function = $function;
-		$this->args = $args;
+	public function __construct(
+		private readonly string $module,
+		private readonly string $function,
+		private readonly array $args = [],
+	) {
 	}
 
 	public function getModule(): string {

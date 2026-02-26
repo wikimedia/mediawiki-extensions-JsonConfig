@@ -23,12 +23,8 @@ class JCContent extends TextContent {
 	private $rawData = null;
 	/** @var stdClass */
 	protected $data = null;
-	/** @var Status */
-	private $status;
-	/** @var bool */
-	private $thorough;
-	/** @var bool */
-	private $stripComments;
+	private Status $status;
+	private readonly bool $stripComments;
 	/** @var JCContentView|null contains an instance of the view class */
 	private $view = null;
 
@@ -37,11 +33,14 @@ class JCContent extends TextContent {
 	 * @param string $modelId
 	 * @param bool $thorough True if extra validation should be performed
 	 */
-	public function __construct( $text, $modelId, $thorough ) {
+	public function __construct(
+		$text,
+		$modelId,
+		private readonly bool $thorough,
+	) {
 		$this->stripComments = $text !== null;
 		$text ??= $this->getView( $modelId )->getDefault( $modelId );
 		parent::__construct( $text, $modelId );
-		$this->thorough = $thorough;
 		$this->status = new Status();
 		$this->parse();
 	}
