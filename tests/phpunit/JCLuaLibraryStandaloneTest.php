@@ -7,7 +7,7 @@ namespace MediaWiki\Extension\JsonConfig\Tests;
  * @group LuaStandalone
  * @group Database
  */
-class JCLuaLibraryStandaloneTest extends JCLuaLibraryTest {
+class JCLuaLibraryStandaloneTest extends JCLuaLibraryTestBase {
 	protected function getEngineName(): string {
 		return 'LuaStandalone';
 	}

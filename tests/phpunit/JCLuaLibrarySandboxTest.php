@@ -7,7 +7,7 @@ namespace MediaWiki\Extension\JsonConfig\Tests;
  * @group LuaSandbox
  * @group Database
  */
-class JCLuaLibrarySandboxTest extends JCLuaLibraryTest {
+class JCLuaLibrarySandboxTest extends JCLuaLibraryTestBase {
 	protected function getEngineName(): string {
 		return 'LuaSandbox';
 	}
