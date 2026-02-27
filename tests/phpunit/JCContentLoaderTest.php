@@ -28,7 +28,7 @@ class JCContentLoaderTest extends JCTransformTestCase {
 		$json = file_get_contents( __DIR__ . '/transforms/' . $expectedFile );
 		$expected = json_decode( $json );
 		$wrapperStatus = JCContentWrapper::newFromJson( $jct, $expected );
-		$this->assertTrue( $wrapperStatus->isOk() );
+		$this->assertStatusOK( $wrapperStatus );
 
 		$wrapper = $wrapperStatus->getValue();
 		$remoteStatus = Status::newGood( [
@@ -51,7 +51,7 @@ class JCContentLoaderTest extends JCTransformTestCase {
 			$loader->transform( $transform );
 		}
 		$status = $loader->load();
-		$this->assertTrue( $status->isOk(), 'local fetch' );
+		$this->assertStatusOK( $status, 'local fetch' );
 		$this->assertEquals( $expected, $status->getValue()->toJson(), 'local fetch' );
 
 		$config = clone $jct->getConfig();
@@ -65,7 +65,7 @@ class JCContentLoaderTest extends JCTransformTestCase {
 			$loader->transform( $transform );
 		}
 		$status = $loader->load();
-		$this->assertTrue( $status->isOk(), 'local fetch' );
+		$this->assertStatusOK( $status, 'local fetch' );
 		$this->assertEquals( $expected, $status->getValue()->toJson(), 'remote fetch' );
 	}
 
@@ -106,18 +106,18 @@ class JCContentLoaderTest extends JCTransformTestCase {
 
 		$status = JCSingleton::getContentLoader( $jct )
 			->load();
-		$this->assertTrue( $status->isOk(), 'non-transformed 1' );
+		$this->assertStatusOK( $status, 'non-transformed 1' );
 		$plain1 = $status->getValue()->toJson();
 
 		$status = JCSingleton::getContentLoader( $jct )
 			->transform( $transform )
 			->load();
-		$this->assertTrue( $status->isOk(), 'transformed' );
+		$this->assertStatusOK( $status, 'transformed' );
 		$transformed = $status->getValue()->toJson();
 
 		$status = JCSingleton::getContentLoader( $jct )
 			->load();
-		$this->assertTrue( $status->isOk(), 'non-transformed 2' );
+		$this->assertStatusOK( $status, 'non-transformed 2' );
 		$plain2 = $status->getValue()->toJson();
 
 		$this->assertEquals( $identity, $plain1, 'plain1 run should be identical' );
