@@ -301,7 +301,6 @@ abstract class JCObjContent extends JCContent {
 				throw new LogicException( 'Logic error - subJcv must be valid here' );
 			} elseif ( $subJcv === false ) {
 				// field does not exist
-				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 				$initValue = !$path ? null : ( is_string( $path[0] ) ? (object)[] : [] );
 				$subJcv = new JCValue( JCValue::MISSING, $initValue );
 			}
