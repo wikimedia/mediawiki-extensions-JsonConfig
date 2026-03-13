@@ -89,7 +89,7 @@ class JCContent extends TextContent {
 
 	/** @inheritDoc */
 	public function isEmpty() {
-		$text = trim( $this->getNativeData() );
+		$text = trim( $this->getText() );
 		return $text === '' || $text === '{}';
 	}
 
@@ -132,7 +132,7 @@ class JCContent extends TextContent {
 	 * Perform initial json parsing and validation
 	 */
 	private function parse() {
-		$rawText = $this->getNativeData();
+		$rawText = $this->getText();
 		$parseOpts = FormatJson::TRY_FIXING;
 		if ( $this->stripComments ) {
 			$parseOpts += FormatJson::STRIP_COMMENTS;

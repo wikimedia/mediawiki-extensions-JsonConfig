@@ -48,7 +48,7 @@ class JCContentHandler extends CodeContentHandler {
 		} elseif ( $status->isOK() ) {
 			$data = $content->getRawData(); // JSON is valid, but the data has errors
 		} else {
-			return $content->getNativeData(); // Invalid JSON - can't do anything with it
+			return $content->getText(); // Invalid JSON - can't do anything with it
 		}
 
 		return FormatJson::encode( $data, $format === self::CONTENT_FORMAT_JSON_PRETTY,

@@ -1,6 +1,7 @@
 <?php
 namespace MediaWiki\Extension\JsonConfig;
 
+use MediaWiki\Content\WikitextContent;
 use MediaWiki\MediaWikiServices;
 use Wikimedia\ObjectCache\WANObjectCache;
 
@@ -132,9 +133,9 @@ class JCCache {
 		if ( !$result ) {
 			$result = false; // Keeping consistent with other usages
 		} elseif ( !( $result instanceof JCContent ) ) {
-			if ( $result->getModel() === CONTENT_MODEL_WIKITEXT ) {
+			if ( $result->getModel() === CONTENT_MODEL_WIKITEXT && $result instanceof WikitextContent ) {
 				// If this is a regular wiki page, allow it to be parsed as a json config
-				$result = $result->getNativeData();
+				$result = $result->getText();
 			} else {
 				wfLogWarning( "The locally stored wiki page '$this->titleValue' has " .
 					"unsupported content model'" );
