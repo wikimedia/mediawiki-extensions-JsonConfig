@@ -176,6 +176,13 @@ class GlobalJsonLinks {
 	private function mapTargets( array $targets ): array {
 		$db = $this->getDB();
 
+		$targetWhere = [];
+		foreach ( $targets as $title ) {
+			$targetWhere[] = [
+				'gjlt_namespace' => $title->getNamespace(),
+				'gjlt_title' => $title->getDbKey(),
+			];
+		}
 		$results = $db->newSelectQueryBuilder()
 			->select( [
 				'gjlt_id',
@@ -183,21 +190,20 @@ class GlobalJsonLinks {
 				'gjlt_title',
 			] )
 			->from( 'globaljsonlinks_target' )
-			->where( [
-				'gjlt_namespace' => NS_DATA,
-				'gjlt_title' => $targets
-			] )
+			->where( $db->factorConds( $targetWhere ) )
 			->caller( __METHOD__ )
 			->fetchResultSet();
 		$map = [];
 		foreach ( $results as $row ) {
-			$map[$row->gjlt_title] = intval( $row->gjlt_id );
+			$map[$row->gjlt_namespace . ':' . $row->gjlt_title] = intval( $row->gjlt_id );
 		}
 
-		$present = array_keys( $map );
-		$missing = array_diff( $targets, $present );
+		foreach ( $targets as $title ) {
+			$mapKey = $title->getNamespace() . ':' . $title->getDbKey();
+			if ( isset( $map[$mapKey] ) ) {
+				continue;
+			}
 
-		foreach ( $missing as $title ) {
 			$fields = [
 				'gjlt_namespace' => $title->getNamespace(),
 				'gjlt_title' => $title->getDbKey(),
@@ -222,7 +228,7 @@ class GlobalJsonLinks {
 							->fetchField() );
 					}
 					if ( $id ) {
-						$map[$title->getNamespace() . ':' . $title->getDbKey()] = intval( $id );
+						$map[$mapKey] = intval( $id );
 						break;
 					}
 				}
