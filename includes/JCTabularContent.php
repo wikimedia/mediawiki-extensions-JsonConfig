@@ -2,6 +2,7 @@
 
 namespace MediaWiki\Extension\JsonConfig;
 
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Language\Language;
 
 class JCTabularContent extends JCDataContent {
@@ -19,8 +20,8 @@ class JCTabularContent extends JCDataContent {
 	public function getWikitextForTransclusion() {
 		$toWiki = static function ( $value ) {
 			if ( is_object( $value ) ) {
-				global $wgLang;
-				$value = JCUtils::pickLocalizedString( $value, $wgLang );
+				$lang = RequestContext::getMain()->getLanguage();
+				$value = JCUtils::pickLocalizedString( $value, $lang );
 			}
 			if ( preg_match( '/^[ .\pL\pN]*$/i', $value ?? '' ) ) {
 				// Optimization: spaces, letters, numbers, and dots are returned without <nowiki>

@@ -5,11 +5,13 @@ namespace MediaWiki\Extension\JsonConfig;
 use MediaWiki\Html\Html;
 use MediaWiki\Language\Language;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Message\Message;
 use MediaWiki\Page\PageReference;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOptions;
 use MediaWiki\StubObject\StubUserLang;
 use stdClass;
+use Wikimedia\Message\ListType;
 
 abstract class JCDataContent extends JCObjContent {
 
@@ -34,11 +36,10 @@ abstract class JCDataContent extends JCObjContent {
 	 */
 	public static function isValidLicense() {
 		return static function ( JCValue $v, array $path ) {
-			global $wgLang;
 			$allowedLicenses = MediaWikiServices::getInstance()->getMainConfig()->get( 'JsonConfigAllowedLicenses' );
 			if ( !in_array( $v->getValue(), $allowedLicenses, true ) ) {
 				$v->error( 'jsonconfig-err-license', $path,
-					$wgLang->commaList( $allowedLicenses ) );
+					Message::listParam( $allowedLicenses, ListType::COMMA ) );
 				return false;
 			}
 			return true;
