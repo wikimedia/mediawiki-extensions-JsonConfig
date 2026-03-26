@@ -92,7 +92,7 @@ class JCApiUtils {
 		if ( !$status->isGood() ) {
 			JCUtils::warn(
 				'API call failed to ' . $debugMsg,
-				[ 'status' => Status::wrap( $status )->getWikiText() ],
+				[ 'status' => Status::wrap( $status )->getWikiText( false, false, 'en' ) ],
 				$query
 			);
 			return $status;
