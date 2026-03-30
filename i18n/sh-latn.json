@@ -7,7 +7,7 @@
 	},
 	"nstab-data": "Podaci",
 	"tooltip-ca-nstab-data": "Podatkovna stranica",
-	"jsonconfig-desc": "Dozvoljava skladištenje JSON konfiguracije na vikiju",
+	"jsonconfig-desc": "Dozvoljava skladištenje JSON konfiguracije na wikiju",
 	"jsonconfig-duplicate-field": "Pronađeno je više od jedne vrijednosti \"$1\"",
 	"jsonconfig-edit-action-apply": "Primijeni",
 	"jsonconfig-edit-action-cancel": "Otkaži",
