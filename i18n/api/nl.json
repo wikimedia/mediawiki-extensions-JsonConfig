@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Mainframe98",
-			"McDutchie"
+			"McDutchie",
+			"Siebrand"
 		]
 	},
 	"apihelp-jsonconfig-summary": "Verstrekt rechtstreekse toegang tot het JsonConfig-subsysteem.",
@@ -13,7 +14,7 @@
 	"apihelp-jsonconfig-param-namespace": "Naamruimtenummer van de te verwerken titel.",
 	"apihelp-jsonconfig-param-title": "De te verwerken titel zonder naamruimtevoorvoegsel.",
 	"apihelp-jsonconfig-param-content": "Voor $1command=reload, in plaats daarvan deze inhoud gebruiken.",
-	"apihelp-jsonconfig-example-1": "Toon configuratie",
+	"apihelp-jsonconfig-example-1": "Instellingen weergeven",
 	"apihelp-jsonconfig-example-2": "Opnieuw instellen van [[Data:Brazil/Amazonas.map]]",
 	"apihelp-jsonconfig-example-3": "Herladen van [[Data:Brazil/Amazonas.map]]",
 	"apihelp-jsondata-summary": "Gelokaliseerde JSON-gegevens ophalen.",
