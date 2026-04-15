@@ -2,13 +2,13 @@
 
 namespace MediaWiki\Extension\JsonConfig;
 
-use Article;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaModule;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\TextLibrary;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Page\Article;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Status\Status;

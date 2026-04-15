@@ -3,10 +3,10 @@ namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Content\Content;
 use MediaWiki\Context\IContextSource;
+use MediaWiki\Diff\SlotDiffRenderer;
+use MediaWiki\Diff\TextSlotDiffRenderer;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Title\Title;
-use SlotDiffRenderer;
-use TextSlotDiffRenderer;
 
 class JCSlotDiffRenderer extends SlotDiffRenderer {
 	public function __construct(

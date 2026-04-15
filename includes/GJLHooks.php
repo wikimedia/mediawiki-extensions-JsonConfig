@@ -3,8 +3,8 @@
 namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Config\Config;
+use MediaWiki\Deferred\Hook\LinksUpdateCompleteHook;
 use MediaWiki\Deferred\LinksUpdate\LinksUpdate;
-use MediaWiki\Hook\LinksUpdateCompleteHook;
 use MediaWiki\Page\Article;
 use MediaWiki\Page\Hook\ArticleViewFooterHook;
 use MediaWiki\Parser\Sanitizer;

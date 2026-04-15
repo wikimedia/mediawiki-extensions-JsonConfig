@@ -2,7 +2,6 @@
 
 namespace MediaWiki\Extension\JsonConfig;
 
-use Article;
 use MediaWiki\Config\Config;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\Scribunto\EngineFactory;
@@ -10,6 +9,7 @@ use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaModule;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\TextLibrary;
 use MediaWiki\Extension\Scribunto\ScribuntoException;
+use MediaWiki\Page\Article;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserFactory;
 use MediaWiki\Parser\ParserOptions;

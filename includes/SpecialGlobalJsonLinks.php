@@ -12,11 +12,11 @@ namespace MediaWiki\Extension\JsonConfig;
 use MediaWiki\HTMLForm\HTMLForm;
 use MediaWiki\MainConfigNames;
 use MediaWiki\Navigation\PagerNavigationBuilder;
+use MediaWiki\Search\SearchEngineFactory;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
 use MediaWiki\WikiMap\WikiMap;
-use SearchEngineFactory;
 
 class SpecialGlobalJsonLinks extends SpecialPage {
 	/**

@@ -2,7 +2,6 @@
 namespace MediaWiki\Extension\JsonConfig;
 
 use InvalidArgumentException;
-use MapCacheLRU;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
@@ -12,6 +11,7 @@ use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Title\Title;
 use MediaWiki\Title\TitleValue;
 use stdClass;
+use Wikimedia\ObjectCache\MapCacheLRU;
 
 /**
  * Static utility methods and configuration page hook handlers for JsonConfig extension.

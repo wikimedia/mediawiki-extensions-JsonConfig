@@ -3,9 +3,9 @@
 namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Http\HttpRequestFactory;
+use MediaWiki\Http\MWHttpRequest;
 use MediaWiki\Json\FormatJson;
 use MediaWiki\Status\Status;
-use MWHttpRequest;
 
 class JCApiUtils {
 

@@ -2,6 +2,7 @@
 namespace MediaWiki\Extension\JsonConfig;
 
 use MediaWiki\Content\WikitextContent;
+use MediaWiki\Http\MWHttpRequest;
 use MediaWiki\MediaWikiServices;
 use Wikimedia\ObjectCache\WANObjectCache;
 
@@ -214,7 +215,7 @@ class JCCache {
 
 	/** Given a legal set of API parameters, return page from API
 	 * @param string $articleName title name used for warnings
-	 * @param \MWHttpRequest $req logged-in session
+	 * @param MWHttpRequest $req logged-in session
 	 * @param array $query
 	 * @return bool|mixed
 	 */
