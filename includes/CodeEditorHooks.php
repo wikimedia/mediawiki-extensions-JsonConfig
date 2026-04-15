@@ -34,12 +34,7 @@ class CodeEditorHooks implements
 	 * @return bool|void True or no return value to continue or false to abort
 	 */
 	public function onCodeEditorGetPageLanguage( Title $title, ?string &$lang, string $model, string $format ) {
-		if ( JCHooks::jsonConfigIsStorage( $this->config ) && (
-				$this->config->get( 'JsonConfigUseCodeEditor' ) ||
-				// Temporary while CodeMirror is still in beta (T373711#11018957).
-				!( \MediaWiki\Extension\CodeEditor\Hooks::tempIsCodeMirrorEnabled() )
-			)
-		) {
+		if ( JCHooks::jsonConfigIsStorage( $this->config ) && $this->config->get( 'JsonConfigUseCodeEditor' ) ) {
 			$handler = $this->contentHandlerFactory->getContentHandler( $title->getContentModel() );
 			if (
 				$handler->getDefaultFormat() === CONTENT_FORMAT_JSON &&
