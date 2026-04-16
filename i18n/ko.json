@@ -7,6 +7,7 @@
 			"Keysuck",
 			"MemphisA5",
 			"Nikki",
+			"Tensama0415",
 			"YeBoy371",
 			"Ykhwong",
 			"그냥기여자"
@@ -38,6 +39,7 @@
 	"jsonconfig-type-name-invalid": "유효하지 않음",
 	"jsonconfig-type-name-string": "문자열",
 	"jsonconfig-type-name-number": "숫자",
+	"jsonconfig-type-name-boolean": "불리언",
 	"jsonconfig-license": "$1로 데이터를 이용할 수 있습니다.",
 	"jsonconfig-license-name-CC0-1.0": "크리에이티브 커먼즈 제로",
 	"jsonconfig-license-name-CC-BY-1.0": "크리에이티브 커먼즈 저작자표시 1.0",
