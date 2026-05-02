@@ -193,7 +193,7 @@ abstract class JCDataContent extends JCObjContent {
 
 		$markup = $sources->getValue();
 		return Html::rawElement( 'p', [ 'class' => 'mw-jsonconfig-sources' ],
-			$parser->parse( $markup, $page, $options, true, true, $revId )->getRawText() );
+			$parser->parse( $markup, $page, $options, true, true, $revId )->getContentHolderText() );
 	}
 
 }

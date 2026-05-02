@@ -70,14 +70,14 @@ EOT;
 			$output = $parser->parse( $text, $page, $options, true, true, $revId );
 		}
 
-		// avoid that $output->getRawText() throws down the line if there's errors in the JSON validation and
+		// avoid that $output->getContentHolderText() throws down the line if there's errors in the JSON validation and
 		// $localizedData is null
 		if ( !$output->hasText() ) {
-			$output->setRawText( '' );
+			$output->setContentHolderText( '' );
 		}
 
 		return $content->renderDescription( $options->getUserLangObj() ) . '<br>' .
-			$output->getRawText() . '<br clear=all>' .
+			$output->getContentHolderText() . '<br clear=all>' .
 			$content->renderSources( $parser, $page, $revId, $options ) .
 			$content->renderLicense();
 	}
