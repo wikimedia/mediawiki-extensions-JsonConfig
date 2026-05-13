@@ -37,6 +37,9 @@
 	"jsonconfig-err-bad-geojson": "Параметр «$1» повинен бути дійсним об'єктом даних GeoJSON, або набором об'єктів GeoJSON. Якщо поле <code>properties</code> містить <code>title</code> або <code>description</code>, вони мають бути або одиничними рядками без табуляцій чи кінцевих пробілів, або багатомовними об'єктами таких рядків, напр., <kbd>{ \"uk\":\"Рядок українською\", … }</kbd>",
 	"jsonconfig-err-bad-type": "Параметр «$1» повинен бути правильного типу, як то <code>string</code>, <code>number</code> чи <code>boolean</code>",
 	"jsonconfig-err-bool": "Параметр «$1» повинен мати значення <code>true</code> (істина) або <code>false</code> (хиба)",
+	"jsonconfig-err-category-invalid": "Кожна категорія повинна бути об'єктом, який містить властивість 'name', яка є рядком, та може мати властивість 'sort', яка є рядком",
+	"jsonconfig-err-category-name-invalid": "Об'єкт категорії повинен мати властивість 'name', яка є рядком",
+	"jsonconfig-err-category-sort-invalid": "Властивість 'sort' категорії має бути рядком",
 	"jsonconfig-err-integer": "Параметр \"$1\" має бути цілим числом",
 	"jsonconfig-err-license": "Параметр «$1» має бути одним із дійсних кодів ліцензій, наприклад, $2",
 	"jsonconfig-err-localized": "Параметр «$1» повинен бути об'єктом, що вказує на відповідність правильних кодів мови до одиничних рядків без табуляцій чи кінцевих пробілів, наприклад <kbd>{ \"uk\":\"Рядок українською\", … }</kbd>",
@@ -104,5 +107,10 @@
 	"jsonconfig-license-notice-license-unset": "'''Примітка:''' Редагуючи цю сторінку, Ви погоджуєтесь на публікацію свого внеску на умовах ліцензії, зазначеної в полі <code>licence</code>.",
 	"right-jsonconfig-flush": "Управління JsonConfig через API",
 	"action-jsonconfig-flush": "зміну JsonConfig через API",
-	"jsonconfig-blocked-page-creation": "Вказана вами назва сторінки не відповідає жодному шаблону, налаштованому для розширення JSONConfig для цієї вікі."
+	"jsonconfig-blocked-page-creation": "Вказана вами назва сторінки не відповідає жодному шаблону, налаштованому для розширення JSONConfig для цієї вікі.",
+	"jsonconfig-localjsonlinks": "Використання даних в $1",
+	"jsonconfig-localjsonlinks-of-page": "Цю сторінку даних використовують такі сторінки:",
+	"jsonconfig-globaljsonlinks": "Використання даних в інших вікі",
+	"jsonconfig-globaljsonlinks-on-wiki": "Використання в $2",
+	"jsonconfig-globaljsonlinks-of-page": "Цю сторінку даних використовують такі інші вікі:"
 }
