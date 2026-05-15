@@ -9,6 +9,7 @@ if ( !class_exists( LuaEngineTestBase::class ) ) {
 }
 
 /**
+ * @covers \JsonConfig\JCLuaLibrary
  * @group Lua
  * @group LuaSandbox
  * @group Database
