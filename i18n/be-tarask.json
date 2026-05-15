@@ -7,5 +7,6 @@
 		]
 	},
 	"nstab-data": "Зьвесткі",
+	"jsonconfig-type-name-boolean": "булевае",
 	"right-jsonconfig-flush": "маніпуляваньне JsonConfig праз API"
 }
