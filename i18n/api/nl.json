@@ -8,7 +8,7 @@
 	},
 	"apihelp-jsonconfig-summary": "Verstrekt rechtstreekse toegang tot het JsonConfig-subsysteem.",
 	"apihelp-jsonconfig-param-command": "Welke deelhandeling moet worden verricht op JsonConfig:",
-	"apihelp-jsonconfig-paramvalue-command-status": "Toont de JsonConfig-instellingen.",
+	"apihelp-jsonconfig-paramvalue-command-status": "Geeft de JsonConfig-instellingen weer.",
 	"apihelp-jsonconfig-paramvalue-command-reset": "Wist instellingen uit de cache. Vereist de parameter $1title en het recht jsonconfig-flush.",
 	"apihelp-jsonconfig-paramvalue-command-reload": "Herlaadt instellingen uit de configuratieopslag en slaat ze op in de cache. Vereist de parameter $1title en het recht jsonconfig-reset.",
 	"apihelp-jsonconfig-param-namespace": "Naamruimtenummer van de te verwerken titel.",
@@ -22,5 +22,5 @@
 	"apihelp-jsondata-example-1": "JSON-inhoud ophalen van de pagina Sample.tab, gelokaliseerd in de taal van de gebruiker",
 	"apihelp-jsondata-example-2": "JSON-inhoud ophalen van de in het Frans gelokaliseerde pagina Sample.tab",
 	"apierror-jsonconfig-paramrequired": "Voor deze opdracht is de parameter <var>$1</var> vereist.",
-	"apierror-jsonconfig-badtitle": "De pagina die is opgegeven middels de parameters <var>namespace</var> en <var>title</var> is ongeldig of is niet geregistreerd in de JsonConfig-instellingen."
+	"apierror-jsonconfig-badtitle": "De pagina die is opgegeven middels de parameters <var>namespace</var> en <var>title</var> is incorrect of is niet geregistreerd in de JsonConfig-instellingen."
 }
