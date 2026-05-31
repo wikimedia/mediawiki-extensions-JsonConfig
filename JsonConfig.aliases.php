@@ -12,3 +12,8 @@ $specialPageAliases = [];
 $specialPageAliases['en'] = [
 	'GlobalJsonLinks' => [ 'GlobalJsonLinks' ],
 ];
+
+/** Ukrainian (Українська) */
+$specialPageAliases['uk'] = [
+	'GlobalJsonLinks' => [ 'Глобальне_використання_даних' ],
+];
