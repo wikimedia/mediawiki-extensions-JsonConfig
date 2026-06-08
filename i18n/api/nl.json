@@ -16,7 +16,7 @@
 	"apihelp-jsonconfig-param-content": "Voor $1command=reload, in plaats daarvan deze inhoud gebruiken.",
 	"apihelp-jsonconfig-example-1": "Instellingen weergeven",
 	"apihelp-jsonconfig-example-2": "Opnieuw instellen van [[Data:Brazil/Amazonas.map]]",
-	"apihelp-jsonconfig-example-3": "Herladen van [[Data:Brazil/Amazonas.map]]",
+	"apihelp-jsonconfig-example-3": "[[Data:Brazil/Amazonas.map]] vernieuwen",
 	"apihelp-jsondata-summary": "Gelokaliseerde JSON-gegevens ophalen.",
 	"apihelp-jsondata-param-title": "De te verkrijgen titel. Standaard wordt ervan uitgegaan dat de naamruimte “Data:” is.",
 	"apihelp-jsondata-example-1": "JSON-inhoud ophalen van de pagina Sample.tab, gelokaliseerd in de taal van de gebruiker",

@@ -3,6 +3,7 @@
 		"authors": [
 			"BaRaN6161 TURK",
 			"Cobija",
+			"HakanIST",
 			"Joseph",
 			"Leo",
 			"MrSchipunov",
@@ -68,5 +69,6 @@
 	"right-jsonconfig-flush": "API ile JsonConfig'i değiştir",
 	"action-jsonconfig-flush": "API ile JsonConfig'i değiştir",
 	"globaljsonlinks": "Küresel veri kullanımı",
-	"jsonconfig-globaljsonlinks-header": "Bu sayfa, bir sayfanın diğer vikilerde veri hattı getirme işleminde nereye yüklendiğini gösterir. Bu bilgiyi ayrıca veri açıklama sayfasının en altında da bulabilirsiniz."
+	"jsonconfig-globaljsonlinks-header": "Bu sayfa, bir sayfanın diğer vikilerde veri hattı getirme işleminde nereye yüklendiğini gösterir. Bu bilgiyi ayrıca veri açıklama sayfasının en altında da bulabilirsiniz.",
+	"jsonconfig-globaljsonlinks-ok": "Ara"
 }
