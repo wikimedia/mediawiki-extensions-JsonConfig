@@ -18,7 +18,20 @@ class JCTransformTestCase extends MediaWikiIntegrationTestCase {
 	protected function setUp(): void {
 		$this->markTestSkippedIfExtensionNotLoaded( 'Scribunto' );
 		parent::setUp();
+		$this->configureTransformTest();
+	}
 
+	public function addDBDataOnce() {
+		// this is run before the parent::setUp() so need to check
+		// for Scribunto here.
+		$this->markTestSkippedIfExtensionNotLoaded( 'Scribunto' );
+		$this->configureTransformTest();
+		$this->editTransformPage( 'JCTransform_samples', 'lua', NS_MODULE );
+		$this->editTransformPage( 'Sample_input.tab', 'json', NS_DATA );
+		$this->editTransformPage( 'Second_input.tab', 'json', NS_DATA );
+	}
+
+	private function configureTransformTest(): void {
 		$this->overrideConfigValues( [
 			'LanguageCode' => 'en',
 			'JsonConfigEnableLuaSupport' => true,
@@ -48,23 +61,12 @@ class JCTransformTestCase extends MediaWikiIntegrationTestCase {
 				NS_DATA_TALK => 'Data_talk',
 			] );
 		}
+	}
 
-		$moduleName = 'JCTransform_samples';
-		$fileName = __DIR__ . "/transforms/$moduleName.lua";
+	private function editTransformPage( string $pageName, string $extension, int $namespace ): void {
+		$fileName = __DIR__ . "/transforms/$pageName.$extension";
 		$content = file_get_contents( $fileName );
-		$title = Title::makeTitle( NS_MODULE, $moduleName );
-		$this->editPage( $title, $content );
-
-		$tableName = 'Sample_input.tab';
-		$fileName = __DIR__ . "/transforms/$tableName.json";
-		$content = file_get_contents( $fileName );
-		$title = Title::makeTitle( NS_DATA, $tableName );
-		$this->editPage( $title, $content );
-
-		$tableName = 'Second_input.tab';
-		$fileName = __DIR__ . "/transforms/$tableName.json";
-		$content = file_get_contents( $fileName );
-		$title = Title::makeTitle( NS_DATA, $tableName );
+		$title = Title::makeTitle( $namespace, $pageName );
 		$this->editPage( $title, $content );
 	}
 
