@@ -127,6 +127,3 @@ class GJLHooks implements
 		$this->globalJsonLinks->updateLinks( $title, $pages, $ticket );
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( GJLHooks::class, 'JsonConfig\\GJLHooks' );

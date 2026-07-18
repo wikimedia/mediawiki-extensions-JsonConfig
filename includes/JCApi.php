@@ -183,6 +183,3 @@ class JCApi extends ApiBase {
 		];
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCApi::class, 'JsonConfig\\JCApi' );

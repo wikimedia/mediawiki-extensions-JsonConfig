@@ -24,6 +24,12 @@ use Wikimedia\ObjectCache\MapCacheLRU;
  */
 class JCSingleton {
 
+	private const CONFIG_CLASS_MAP = [
+		'JsonConfig\JCContent' => JCContent::class,
+		'JsonConfig\JCMapDataContent' => JCMapDataContent::class,
+		'JsonConfig\JCTabularContent' => JCTabularContent::class,
+	];
+
 	/**
 	 * @var array<int,stdClass[]> describes how a title should be handled by JsonConfig extension.
 	 * The structure is an array of array of ...:
@@ -455,7 +461,7 @@ class JCSingleton {
 		if ( !$class ) {
 			$class = JCContent::class;
 		}
-		return $class;
+		return self::CONFIG_CLASS_MAP[$class] ?? $class;
 	}
 
 	/**
@@ -655,6 +661,3 @@ class JCSingleton {
 		}, $links );
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCSingleton::class, 'JsonConfig\\JCSingleton' );

@@ -186,6 +186,3 @@ final class JCValue {
 		throw new InvalidArgumentException( 'Type mismatch for field ' . $fld );
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCValue::class, 'JsonConfig\\JCValue' );

@@ -64,6 +64,3 @@ class GlobalJsonLinksCachePurgeJob extends Job {
 	}
 
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( GlobalJsonLinksCachePurgeJob::class, 'JsonConfig\\GlobalJsonLinksCachePurgeJob' );

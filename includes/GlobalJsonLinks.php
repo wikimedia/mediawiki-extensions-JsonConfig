@@ -552,6 +552,3 @@ class GlobalJsonLinks {
 		return intval( $builder->fetchField() );
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( GlobalJsonLinks::class, 'JsonConfig\\GlobalJsonLinks' );

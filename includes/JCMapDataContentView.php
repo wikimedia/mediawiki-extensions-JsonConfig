@@ -127,6 +127,3 @@ EOT;
 EOT;
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCMapDataContentView::class, 'JsonConfig\\JCMapDataContentView' );

@@ -167,6 +167,3 @@ class JCContentLoader {
 		return $args;
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCContentLoader::class, 'JsonConfig\\JCContentLoader' );

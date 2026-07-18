@@ -318,6 +318,3 @@ class GlobalJsonLinksQuery {
 		return count( $this->result );
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( GlobalJsonLinksQuery::class, 'JsonConfig\\GlobalJsonLinksQuery' );

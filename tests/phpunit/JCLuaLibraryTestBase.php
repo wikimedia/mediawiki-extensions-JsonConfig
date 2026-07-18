@@ -5,7 +5,7 @@ namespace MediaWiki\Extension\JsonConfig\Tests;
 use MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon\LuaEngineTestBase;
 
 /**
- * @covers \JsonConfig\JCLuaLibrary
+ * @covers \MediaWiki\Extension\JsonConfig\JCLuaLibrary
  *
  * @license GPL-2.0-or-later
  * @group Database

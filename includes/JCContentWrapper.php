@@ -136,6 +136,3 @@ class JCContentWrapper {
 		}
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCContentWrapper::class, 'JsonConfig\\JCContentWrapper' );

@@ -14,6 +14,3 @@ class JCContentLoaderFactory {
 			->title( $title );
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCContentLoaderFactory::class, 'JsonConfig\\JCContentLoaderFactory' );

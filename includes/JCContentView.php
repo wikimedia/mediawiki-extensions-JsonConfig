@@ -59,6 +59,3 @@ $allowedLicenses
 EOT;
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCContentView::class, 'JsonConfig\\JCContentView' );

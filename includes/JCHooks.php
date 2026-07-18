@@ -552,6 +552,3 @@ class JCHooks implements
 		return $isStorage;
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCHooks::class, 'JsonConfig\\JCHooks' );

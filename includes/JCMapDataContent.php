@@ -152,6 +152,3 @@ class JCMapDataContent extends JCDataContent {
 		return new JCMapDataContentView();
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCMapDataContent::class, 'JsonConfig\\JCMapDataContent' );

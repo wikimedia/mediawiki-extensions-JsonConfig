@@ -260,6 +260,3 @@ class SpecialGlobalJsonLinks extends SpecialPage {
 		return 'media';
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( SpecialGlobalJsonLinks::class, 'JsonConfig\\SpecialGlobalJsonLinks' );

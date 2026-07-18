@@ -37,6 +37,3 @@ class SchemaHooks implements LoadExtensionSchemaUpdatesHook {
 	}
 
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( SchemaHooks::class, 'JsonConfig\\SchemaHooks' );

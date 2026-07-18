@@ -241,6 +241,3 @@ class JCCache {
 		return $pageInfo;
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCCache::class, 'JsonConfig\\JCCache' );

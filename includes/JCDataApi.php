@@ -68,6 +68,3 @@ class JCDataApi extends ApiBase {
 		return true;
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCDataApi::class, 'JsonConfig\\JCDataApi' );

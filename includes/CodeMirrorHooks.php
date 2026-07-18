@@ -39,6 +39,3 @@ class CodeMirrorHooks implements CodeMirrorGetModeHook {
 		return true;
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( CodeMirrorHooks::class, 'JsonConfig\\CodeMirrorHooks' );

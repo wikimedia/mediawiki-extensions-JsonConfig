@@ -6,7 +6,7 @@ use MediaWiki\Extension\JsonConfig\JCSingleton;
 use MediaWikiIntegrationTestCase;
 
 /**
- * @covers \JsonConfig\JCSingleton
+ * @covers \MediaWiki\Extension\JsonConfig\JCSingleton
  */
 class JCLoaderTest extends MediaWikiIntegrationTestCase {
 

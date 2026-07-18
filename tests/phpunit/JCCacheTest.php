@@ -9,7 +9,7 @@ use MediaWikiIntegrationTestCase;
 use Wikimedia\ObjectCache\EmptyBagOStuff;
 
 /**
- * @covers \JsonConfig\JCCache
+ * @covers \MediaWiki\Extension\JsonConfig\JCCache
  * @group Database
  */
 class JCCacheTest extends MediaWikiIntegrationTestCase {

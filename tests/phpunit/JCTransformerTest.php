@@ -8,7 +8,7 @@ use MediaWiki\Extension\JsonConfig\JCTransform;
 use MediaWiki\Json\FormatJson;
 
 /**
- * @covers \JsonConfig\JCTransformer
+ * @covers \MediaWiki\Extension\JsonConfig\JCTransformer
  * @group Database
  */
 class JCTransformerTest extends JCTransformTestCase {

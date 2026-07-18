@@ -9,7 +9,7 @@ use MediaWiki\Json\FormatJson;
 use MediaWikiIntegrationTestCase;
 
 /**
- * @covers \JsonConfig\JCTabularContent
+ * @covers \MediaWiki\Extension\JsonConfig\JCTabularContent
  */
 class JCTabularContentTest extends MediaWikiIntegrationTestCase {
 
@@ -26,7 +26,7 @@ class JCTabularContentTest extends MediaWikiIntegrationTestCase {
 			&& class_exists( LibraryBase::class )
 		) {
 			unset( $annotations['method']['@coversNothing'] );
-			$annotations['method']['@covers'][0] = '\JsonConfig\JCLuaLibrary::reindexTabularData';
+			$annotations['method']['@covers'][0] = '\MediaWiki\Extension\JsonConfig\JCLuaLibrary::reindexTabularData';
 		}
 		return $annotations;
 	}

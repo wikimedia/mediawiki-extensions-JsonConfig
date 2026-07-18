@@ -216,6 +216,3 @@ class JCTabularContentView extends JCContentView {
 EOT;
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCTabularContentView::class, 'JsonConfig\\JCTabularContentView' );

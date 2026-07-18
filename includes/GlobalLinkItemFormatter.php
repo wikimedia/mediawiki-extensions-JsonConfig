@@ -27,6 +27,3 @@ class GlobalLinkItemFormatter {
 		return $link === false ? htmlspecialchars( $page ) : $link;
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( GlobalLinkItemFormatter::class, 'JsonConfig\\GlobalLinkItemFormatter' );

@@ -104,6 +104,3 @@ class JCTransformApi extends ApiBase {
 		return true;
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCTransformApi::class, 'JsonConfig\\JCTransformApi' );

@@ -178,6 +178,3 @@ class JCContent extends TextContent {
 		return new JCDefaultContentView();
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCContent::class, 'JsonConfig\\JCContent' );

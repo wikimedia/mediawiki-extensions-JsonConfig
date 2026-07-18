@@ -7,7 +7,7 @@ use MediaWiki\Extension\JsonConfig\JCTabularContent;
 use MediaWiki\Parser\ParserOutput;
 
 /**
- * @covers \JsonConfig\JCContentHandler
+ * @covers \MediaWiki\Extension\JsonConfig\JCContentHandler
  */
 class JCContentHandlerTest extends \MediaWikiIntegrationTestCase {
 

@@ -9,7 +9,7 @@ if ( !class_exists( LuaEngineTestBase::class ) ) {
 }
 
 /**
- * @covers \JsonConfig\JCLuaLibrary
+ * @covers \MediaWiki\Extension\JsonConfig\JCLuaLibrary
  * @group Lua
  * @group LuaSandbox
  * @group Database

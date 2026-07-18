@@ -256,6 +256,3 @@ class JCUtils {
 	}
 
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCUtils::class, 'JsonConfig\\JCUtils' );

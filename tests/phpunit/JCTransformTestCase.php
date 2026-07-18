@@ -7,7 +7,7 @@ use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 
 /**
- * @covers \JsonConfig\JCTransformer
+ * @covers \MediaWiki\Extension\JsonConfig\JCTransformer
  * @group Database
  */
 class JCTransformTestCase extends MediaWikiIntegrationTestCase {

@@ -123,7 +123,7 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * @dataProvider provideWikis
-	 * @covers \JsonConfig\GlobalJsonLinks::mapWiki
+	 * @covers \MediaWiki\Extension\JsonConfig\GlobalJsonLinks::mapWiki
 	 */
 	public function testMapWiki( $a, $b, $shouldMatch ) {
 		[ $wikiA, $nsA, $nsTextA, $titleA ] = $a;
@@ -222,7 +222,7 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * @dataProvider provideTargets
-	 * @covers \JsonConfig\GlobalJsonLinks::mapTargets
+	 * @covers \MediaWiki\Extension\JsonConfig\GlobalJsonLinks::mapTargets
 	 */
 	public function testMapTargets( $a, $b, $shouldMatch ) {
 		$wiki = 'enwiki';
@@ -268,8 +268,8 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * @dataProvider provideLinks
-	 * @covers \JsonConfig\GlobalJsonLinks::insertLinks
-	 * @covers \JsonConfig\GlobalJsonLinks::getLinksToTarget
+	 * @covers \MediaWiki\Extension\JsonConfig\GlobalJsonLinks::insertLinks
+	 * @covers \MediaWiki\Extension\JsonConfig\GlobalJsonLinks::getLinksToTarget
 	 */
 	public function testInsertLinks( $targetStr, $sources, $expected ) {
 		$target = $this->parseDataTitle( $targetStr );
@@ -292,8 +292,8 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * @dataProvider provideLinks
-	 * @covers \JsonConfig\GlobalJsonLinks::updateLinks
-	 * @covers \JsonConfig\GlobalJsonLinks::getLinksToTarget
+	 * @covers \MediaWiki\Extension\JsonConfig\GlobalJsonLinks::updateLinks
+	 * @covers \MediaWiki\Extension\JsonConfig\GlobalJsonLinks::getLinksToTarget
 	 */
 	public function testUpdateLinks( $targetStr, $sources, $expected ) {
 		$target = $this->parseDataTitle( $targetStr );
@@ -400,10 +400,10 @@ class GlobalJsonLinksTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * @dataProvider provideBatchQueryOffset
-	 * @covers \JsonConfig\GlobalJsonLinks::batchQuery
-	 * @covers \JsonConfig\GlobalJsonLinksQuery::setOffset
-	 * @covers \JsonConfig\GlobalJsonLinksQuery::validateOffsetArray
-	 * @covers \JsonConfig\GlobalJsonLinksQuery::hasOffset
+	 * @covers \MediaWiki\Extension\JsonConfig\GlobalJsonLinks::batchQuery
+	 * @covers \MediaWiki\Extension\JsonConfig\GlobalJsonLinksQuery::setOffset
+	 * @covers \MediaWiki\Extension\JsonConfig\GlobalJsonLinksQuery::validateOffsetArray
+	 * @covers \MediaWiki\Extension\JsonConfig\GlobalJsonLinksQuery::hasOffset
 	 */
 	public function testBatchQueryOffset( $offset, $expected ) {
 		$gjl = $this->globalJsonLinks( WikiMap::getCurrentWikiId() );

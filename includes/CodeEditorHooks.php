@@ -45,6 +45,3 @@ class CodeEditorHooks implements
 		}
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( CodeEditorHooks::class, 'JsonConfig\\CodeEditorHooks' );

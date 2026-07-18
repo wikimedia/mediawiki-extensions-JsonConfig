@@ -54,7 +54,7 @@ class JCTitleParsingTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * @dataProvider provideValues
-	 * @covers \JsonConfig\JCSingleton::parseTitle
+	 * @covers \MediaWiki\Extension\JsonConfig\JCSingleton::parseTitle
 	 */
 	public function testTitleParsing( $value, $ns, $expected = false ) {
 		$actual = JCSingleton::parseTitle( $value, $ns );

@@ -11,7 +11,7 @@ use MediaWiki\Extension\JsonConfig\JCTransformer;
 use MediaWiki\Status\Status;
 
 /**
- * @covers \JsonConfig\JCContentLoader
+ * @covers \MediaWiki\Extension\JsonConfig\JCContentLoader
  * @group Database
  */
 class JCContentLoaderTest extends JCTransformTestCase {

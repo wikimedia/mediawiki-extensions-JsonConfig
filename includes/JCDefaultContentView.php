@@ -156,6 +156,3 @@ class JCDefaultContentView extends JCContentView {
 		return true;
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCDefaultContentView::class, 'JsonConfig\\JCDefaultContentView' );

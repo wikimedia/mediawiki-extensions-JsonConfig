@@ -142,6 +142,3 @@ class JCTransform {
 		return $status;
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCTransform::class, 'JsonConfig\\JCTransform' );

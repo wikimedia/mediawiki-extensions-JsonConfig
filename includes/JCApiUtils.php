@@ -115,6 +115,3 @@ class JCApiUtils {
 		return Status::newGood( $res );
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCApiUtils::class, 'JsonConfig\\JCApiUtils' );

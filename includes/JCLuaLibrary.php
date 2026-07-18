@@ -116,6 +116,3 @@ class JCLuaLibrary extends LibraryBase {
 		}
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCLuaLibrary::class, 'JsonConfig\\JCLuaLibrary' );

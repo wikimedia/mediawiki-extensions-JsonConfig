@@ -32,6 +32,3 @@ class ScribuntoHooks implements
 		}
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( ScribuntoHooks::class, 'JsonConfig\\ScribuntoHooks' );

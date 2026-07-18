@@ -162,6 +162,3 @@ class JCTabularContent extends JCDataContent {
 		}
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCTabularContent::class, 'JsonConfig\\JCTabularContent' );

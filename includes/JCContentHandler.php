@@ -207,6 +207,3 @@ class JCContentHandler extends CodeContentHandler {
 		}
 	}
 }
-
-/** @deprecated Temporary backwards-compatible class alias */
-class_alias( JCContentHandler::class, 'JsonConfig\\JCContentHandler' );
