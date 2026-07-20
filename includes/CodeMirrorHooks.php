@@ -31,7 +31,7 @@ class CodeMirrorHooks implements CodeMirrorGetModeHook {
 		if ( $this->config->get( 'JsonConfigUseCodeMirror' ) && JCHooks::jsonConfigIsStorage( $this->config ) ) {
 			$handler = $this->contentHandlerFactory->getContentHandler( $title->getContentModel() );
 			if ( $handler->getDefaultFormat() === CONTENT_FORMAT_JSON && JCSingleton::parseTitle( $title ) ) {
-				$mode = 'json';
+				$mode = 'jsonc';
 				return false;
 			}
 		}
