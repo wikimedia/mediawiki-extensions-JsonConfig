@@ -42,7 +42,7 @@ class JCTransformer {
 			return Status::newFatal( 'jsonconfig-transform-disabled' );
 		}
 
-		$rawtitle = Title::makeTitle( $title->getNamespace(), $title->getDbKey() );
+		$rawtitle = Title::makeTitle( $title->getNamespace(), $title->getDBkey() );
 		$context = RequestContext::getMain();
 		$article = new Article( $rawtitle );
 		$article->setContext( $context );

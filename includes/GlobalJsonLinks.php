@@ -104,7 +104,7 @@ class GlobalJsonLinks {
 			$fields['gjlw_namespace'] = $title->getNamespace();
 			$fields['gjlw_namespace_text'] = $this->titleFormatter->getNamespaceName(
 				$title->getNamespace(),
-				$title->getDBKey()
+				$title->getDBkey()
 			);
 		}
 
@@ -180,7 +180,7 @@ class GlobalJsonLinks {
 		foreach ( $targets as $title ) {
 			$targetWhere[] = [
 				'gjlt_namespace' => $title->getNamespace(),
-				'gjlt_title' => $title->getDbKey(),
+				'gjlt_title' => $title->getDBkey(),
 			];
 		}
 		$results = $db->newSelectQueryBuilder()
@@ -199,14 +199,14 @@ class GlobalJsonLinks {
 		}
 
 		foreach ( $targets as $title ) {
-			$mapKey = $title->getNamespace() . ':' . $title->getDbKey();
+			$mapKey = $title->getNamespace() . ':' . $title->getDBkey();
 			if ( isset( $map[$mapKey] ) ) {
 				continue;
 			}
 
 			$fields = [
 				'gjlt_namespace' => $title->getNamespace(),
-				'gjlt_title' => $title->getDbKey(),
+				'gjlt_title' => $title->getDBkey(),
 			];
 			$id = 0;
 			for ( $i = 0; $i < 2; $i++ ) {

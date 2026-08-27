@@ -23,7 +23,7 @@ class GlobalJsonLinksQuery {
 	private $offset;
 	/** @var bool */
 	private $hasMore = false;
-	/** @var array[][][] */
+	/** @var array<string,array<string,array{wiki: string, namespaceText: string, title: TitleValue, target: TitleValue}[]>> */
 	private $result;
 	/** @var bool|null */
 	private $reversed = false;
@@ -195,7 +195,7 @@ class GlobalJsonLinksQuery {
 		// Add target page
 		$queryBuilder->where( [
 			'gjlt_namespace' => $this->target->getNamespace(),
-			'gjlt_title' => $this->target->getDbKey(),
+			'gjlt_title' => $this->target->getDBkey(),
 		] );
 
 		if ( $this->filterNamespaces ) {
@@ -278,7 +278,8 @@ class GlobalJsonLinksQuery {
 	 *   - title: Unprefixed page title
 	 *   - wiki: Wiki id
 	 *
-	 * @return array Result set
+	 * @phpcs:ignore Generic.Files.LineLength
+	 * @return array<string,array<string,array{wiki: string, namespaceText: string, title: TitleValue, target: TitleValue}[]>>
 	 */
 	public function getResult() {
 		return $this->result;
@@ -290,7 +291,7 @@ class GlobalJsonLinksQuery {
 	 *
 	 * For further information see documentation of getResult()
 	 *
-	 * @return array Result set
+	 * @return array<string,array{wiki: string, namespaceText: string, title: TitleValue, target: TitleValue}[]>
 	 */
 	public function getSinglePageResult() {
 		if ( $this->result ) {

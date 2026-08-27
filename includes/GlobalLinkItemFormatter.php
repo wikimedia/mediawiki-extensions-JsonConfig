@@ -2,13 +2,15 @@
 
 namespace MediaWiki\Extension\JsonConfig;
 
+// phpcs:ignore MediaWiki.Classes.UnusedUseStatement
+use MediaWiki\Title\TitleValue;
 use MediaWiki\WikiMap\WikiMap;
 
 class GlobalLinkItemFormatter {
 
 	/**
 	 * Helper to format a specific item
-	 * @param array $item
+	 * @param array{wiki: string, namespaceText: string, title: TitleValue, target: TitleValue} $item
 	 * @return string
 	 */
 	public static function formatItem( $item ) {
@@ -17,7 +19,7 @@ class GlobalLinkItemFormatter {
 		} else {
 			$page = $item['namespaceText'] . ':';
 		}
-		$page .= $item['title']->getDbKey();
+		$page .= $item['title']->getDBkey();
 
 		$link = WikiMap::makeForeignLink(
 			$item['wiki'], $page,

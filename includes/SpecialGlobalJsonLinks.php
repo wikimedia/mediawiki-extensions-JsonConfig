@@ -16,6 +16,8 @@ use MediaWiki\Search\SearchEngineFactory;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
+// phpcs:ignore MediaWiki.Classes.UnusedUseStatement
+use MediaWiki\Title\TitleValue;
 use MediaWiki\WikiMap\WikiMap;
 
 class SpecialGlobalJsonLinks extends SpecialPage {
@@ -148,7 +150,7 @@ class SpecialGlobalJsonLinks extends SpecialPage {
 
 	/**
 	 * Helper to format a specific item
-	 * @param array $item
+	 * @param array{wiki: string, namespaceText: string, title: TitleValue, target: TitleValue} $item
 	 * @return string
 	 */
 	public static function formatItem( $item ) {
@@ -157,7 +159,7 @@ class SpecialGlobalJsonLinks extends SpecialPage {
 		} else {
 			$page = $item['namespaceText'] . ':';
 		}
-		$page .= $item['title']->getDbKey();
+		$page .= $item['title']->getDBkey();
 
 		$link = WikiMap::makeForeignLink(
 			$item['wiki'], $page,

@@ -118,7 +118,7 @@ class JCContentWrapper {
 			"dependencies" => array_map( static function ( $link ) {
 				return (object)[
 					'namespace' => $link->getNamespace(),
-					'title' => $link->getDbKey(),
+					'title' => $link->getDBkey(),
 				];
 			}, $this->getDependencies() )
 		];

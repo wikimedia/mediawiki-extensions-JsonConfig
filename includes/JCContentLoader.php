@@ -133,7 +133,7 @@ class JCContentLoader {
 
 		$query = [
 			'action' => 'jsontransform',
-			'title' => $this->title->getDbKey(),
+			'title' => $this->title->getDBkey(),
 			'jtmodule' => $this->transform->getModule(),
 			'jtfunction' => $this->transform->getFunction(),
 			'jtargs' => $this->transformArgsForApi(),

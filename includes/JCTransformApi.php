@@ -52,7 +52,7 @@ class JCTransformApi extends ApiBase {
 			'dependencies' => array_map( static function ( $titleValue ) {
 				return [
 					'namespace' => $titleValue->getNamespace(),
-					'title' => $titleValue->getDbKey(),
+					'title' => $titleValue->getDBkey(),
 				];
 			}, $deps )
 		];

@@ -250,9 +250,9 @@ class JCUtils {
 		}
 		if ( $content === false ) {
 			// JCCache->get returns false for missing page.
-			return Status::newFatal( 'jsonconfig-transform-missing-data', $title->getDbKey() );
+			return Status::newFatal( 'jsonconfig-transform-missing-data', $title->getDBkey() );
 		}
-		return Status::newFatal( 'jsonconfig-transform-invalid-data', $title->getDbKey() );
+		return Status::newFatal( 'jsonconfig-transform-invalid-data', $title->getDBkey() );
 	}
 
 }
