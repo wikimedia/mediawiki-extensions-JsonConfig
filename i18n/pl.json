@@ -8,7 +8,8 @@
 			"Railfail536",
 			"SemanticPioneer",
 			"Woytecr",
-			"IOIOI"
+			"IOIOI",
+			"PanWor"
 		]
 	},
 	"nstab-data": "Dane",
@@ -57,7 +58,7 @@
 	"jsonconfig-type-name-boolean": "wartość logiczna",
 	"jsonconfig-use-category": "Strony używające rozszerzenia JsonConfig",
 	"jsonconfig-license": "Dane dostępne w ramach licencji $1.",
-	"jsonconfig-license-not-set": "Edytując tę stronę zgadzasz się na publikowanie twojego wkładu zgodnie z licencją podaną w polu <code>licence</code>.",
+	"jsonconfig-license-not-set": "Edytując tę stronę, zgadzasz się na publikowanie Twojego wkładu zgodnie z licencją podaną w polu <code>licence</code>.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zero",
 	"jsonconfig-license-name-dl-de-zero-2.0": "Licencja na dane Niemcy - Zero - wersja 2.0",
 	"jsonconfig-license-name-dl-de-by-1.0": "Licencja na dane Niemcy - uznanie autorstwa - wersja 1.0",
@@ -65,8 +66,8 @@
 	"jsonconfig-license-name-GeoNutzV": "Licencja Geo Data Niemcy",
 	"jsonconfig-license-copyrightwarning": "Publikując zmiany, akceptujesz nasze [https://foundation.wikimedia.org/wiki/Terms_of_Use/pl Warunki użytkowania] i nieodwołalnie zgadzasz się na udostępnienie swojego wkładu na licencji [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-license-copyrightwarning-license-unset": "Publikując zmiany, zgadzasz się na udostępnienie swojego wkładu zgodnie z licencją określoną w polu <code>licence</code>.",
-	"jsonconfig-license-notice": "'''Uwaga:''' Edytując tę stronę zgadzasz się na publikowanie twojego wkładu zgodnie z zasadami licencji [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
-	"jsonconfig-license-notice-license-unset": "'''Uwaga:''' Edytując tę stronę zgadzasz się na publikowanie twojego wkładu zgodnie z licencją podaną w polu <code>licence</code>.",
+	"jsonconfig-license-notice": "'''Uwaga:''' Edytując tę stronę, zgadzasz się na publikowanie Twojego wkładu zgodnie z zasadami licencji [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
+	"jsonconfig-license-notice-license-unset": "'''Uwaga:''' Edytując tę stronę, zgadzasz się na publikowanie Twojego wkładu zgodnie z licencją podaną w polu <code>licence</code>.",
 	"right-jsonconfig-flush": "Zmienianie JsonConfig przez API",
 	"action-jsonconfig-flush": "zmieniania JsonConfig przez API",
 	"jsonconfig-blocked-page-creation": "Tytuł strony, który podano, nie pasuje do żadnych wzorów skonfigurowanych dla rozszerzenia JSONConfig dla tej wiki."
