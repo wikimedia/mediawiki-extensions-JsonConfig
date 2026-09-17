@@ -74,9 +74,15 @@ class JCTransformer {
 		}
 
 		$function = $transform->getFunction();
-		$func = $engine->executeModule( $mod->getInitChunk(), $function, null );
-		if ( !$func || !$engine->getInterpreter()->isLuaFunction( $func ) ) {
-			return Status::newFatal( 'jsonconfig-transform-invalid-function', $module, $function );
+		$callFunction = [ $mod, 'callFunction' ];
+		$executeModule = [ $engine, 'executeModule' ];
+		$func = null;
+		if ( !is_callable( $callFunction ) && is_callable( $executeModule ) ) {
+			// Scribunto before Ia029a2674ddaf3ae6fafe9b5594565ce6727fd59
+			$func = $executeModule( $mod->getInitChunk(), $function, null );
+			if ( !$func || !$engine->getInterpreter()->isLuaFunction( $func ) ) {
+				return Status::newFatal( 'jsonconfig-transform-invalid-function', $module, $function );
+			}
 		}
 
 		// Args may contain a mix of positional and named parameters
@@ -89,7 +95,10 @@ class JCTransformer {
 			}
 		}
 		try {
-			$transformedData = $engine->getInterpreter()->callFunction( $func, $data, $args )[ 0 ] ?? null;
+			$ret = $func
+				? $engine->getInterpreter()->callFunction( $func, $data, $args )
+				: $callFunction( $function, $data, $args );
+			$transformedData = $ret[ 0 ] ?? null;
 			if ( !is_array( $transformedData ) ) {
 				// Required to return a table, which should result in an array on our end
 				return Status::newFatal( 'jsonconfig-transform-failed', $module, $function );
@@ -117,6 +126,11 @@ class JCTransformer {
 			$json = json_encode( $arr );
 			$status = JCUtils::hydrate( $title, $json, true );
 		} catch ( ScribuntoException $e ) {
+			if ( in_array( $e->getMessageName(),
+				[ 'scribunto-common-nosuchfunction', 'scribunto-common-notafunction' ] )
+			) {
+				return Status::newFatal( 'jsonconfig-transform-invalid-function', $module, $function );
+			}
 			$status = Status::newFatal( 'jsonconfig-transform-error',
 				$module, $function, get_class( $e ), $e->getMessage() );
 		}
