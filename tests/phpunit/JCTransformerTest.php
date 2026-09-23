@@ -2,6 +2,7 @@
 
 namespace MediaWiki\Extension\JsonConfig\Tests;
 
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\JsonConfig\JCSingleton;
 use MediaWiki\Extension\JsonConfig\JCTabularContent;
 use MediaWiki\Extension\JsonConfig\JCTransform;
