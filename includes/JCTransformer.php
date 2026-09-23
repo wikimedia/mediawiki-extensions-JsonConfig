@@ -74,16 +74,6 @@ class JCTransformer {
 		}
 
 		$function = $transform->getFunction();
-		$callFunction = [ $mod, 'callFunction' ];
-		$executeModule = [ $engine, 'executeModule' ];
-		$func = null;
-		if ( !is_callable( $callFunction ) && is_callable( $executeModule ) ) {
-			// Scribunto before Ia029a2674ddaf3ae6fafe9b5594565ce6727fd59
-			$func = $executeModule( $mod->getInitChunk(), $function, null );
-			if ( !$func || !$engine->getInterpreter()->isLuaFunction( $func ) ) {
-				return Status::newFatal( 'jsonconfig-transform-invalid-function', $module, $function );
-			}
-		}
 
 		// Args may contain a mix of positional and named parameters
 		$args = [];
@@ -95,10 +85,7 @@ class JCTransformer {
 			}
 		}
 		try {
-			$ret = $func
-				? $engine->getInterpreter()->callFunction( $func, $data, $args )
-				: $callFunction( $function, $data, $args );
-			$transformedData = $ret[ 0 ] ?? null;
+			$transformedData = $mod->callFunction( $function, $data, $args )[ 0 ] ?? null;
 			if ( !is_array( $transformedData ) ) {
 				// Required to return a table, which should result in an array on our end
 				return Status::newFatal( 'jsonconfig-transform-failed', $module, $function );
