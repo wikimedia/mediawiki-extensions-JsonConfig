@@ -5,7 +5,7 @@ namespace MediaWiki\Extension\JsonConfig;
 use InvalidArgumentException;
 use MediaWiki\Json\FormatJson;
 use MediaWiki\Language\Language;
-use MediaWiki\Languages\LanguageNameUtils;
+use MediaWiki\Language\LanguageNameUtils;
 use MediaWiki\Status\Status;
 use MediaWiki\StubObject\StubUserLang;
 use stdClass;
