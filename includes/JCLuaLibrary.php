@@ -10,7 +10,7 @@ class JCLuaLibrary extends LibraryBase {
 
 	/** @inheritDoc */
 	public function register() {
-		$functions = [ 'get' => [ $this, 'get' ] ];
+		$functions = [ 'get' => $this->get( ... ) ];
 		$moduleFileName = __DIR__ . DIRECTORY_SEPARATOR . 'JCLuaLibrary.lua';
 		return $this->getEngine()->registerInterface( $moduleFileName, $functions, [] );
 	}
@@ -22,7 +22,7 @@ class JCLuaLibrary extends LibraryBase {
 	 * @return false[]|mixed[]
 	 * @throws LuaError
 	 */
-	public function get( $titleStr, $langCode ) {
+	private function get( $titleStr, $langCode ) {
 		$this->checkType( 'get', 1, $titleStr, 'string' );
 		if ( $langCode === null ) {
 			$language = $this->getParser()->getTargetLanguage();
