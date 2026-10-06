@@ -249,11 +249,11 @@
 			"description": "Enable use of Lua transforms on Data: page loaders through JCContentLoader and action=jsontransform. Requires Scribunto and $wgJsonConfigEnableLuaSupport to function."
 		},
 		"JsonConfigUseCodeEditor": {
-			"value": true,
+			"value": false,
 			"description": "Use CodeEditor for editing JsonConfig pages."
 		},
 		"JsonConfigUseCodeMirror": {
-			"value": false,
+			"value": true,
 			"description": "Use CodeMirror for editing JsonConfig pages."
 		}
 	},
