@@ -38,5 +38,7 @@
 	"right-jsonconfig-flush": "Работа с JsonConfig чрез API",
 	"action-jsonconfig-flush": "работа с JsonConfig чрез API",
 	"globaljsonlinks": "Глобално използване на данни",
-	"jsonconfig-globaljsonlinks-ok": "Търсене"
+	"jsonconfig-globaljsonlinks-header": "Тази страница показва къде дадена страница се зарежда при извличане в конвейера за данни на други уикита. Можете да намерите тази информация и в долната част на страницата с описанието на данните.",
+	"jsonconfig-globaljsonlinks-ok": "Търсене",
+	"jsonconfig-globaljsonlinks-remote": "Проследяването на връзките за използване на данни трябва да се проверява от централното хранилище на уикито."
 }
