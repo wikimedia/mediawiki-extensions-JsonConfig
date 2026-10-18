@@ -155,7 +155,6 @@
 			"class": "MediaWiki\\Extension\\JsonConfig\\GJLHooks",
 			"services": [
 				"MainConfig",
-				"NamespaceInfo",
 				"JsonConfig.GlobalJsonLinks"
 			]
 		},

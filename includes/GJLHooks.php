@@ -8,7 +8,6 @@ use MediaWiki\Deferred\LinksUpdate\LinksUpdate;
 use MediaWiki\Page\Article;
 use MediaWiki\Page\Hook\ArticleViewFooterHook;
 use MediaWiki\Parser\Sanitizer;
-use MediaWiki\Title\NamespaceInfo;
 use MediaWiki\Title\Title;
 use MediaWiki\WikiMap\WikiMap;
 
@@ -33,7 +32,6 @@ class GJLHooks implements
 
 	public function __construct(
 		private readonly Config $config,
-		private readonly NamespaceInfo $namespaceInfo,
 		private readonly GlobalJsonLinks $globalJsonLinks,
 	) {
 	}
