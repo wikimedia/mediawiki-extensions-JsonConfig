@@ -62,6 +62,8 @@
 	"jsonconfig-license-name-dl-de-by-1.0": "Datenlizenz Deutschland – Namensnennung – Version 1.0",
 	"jsonconfig-license-name-dl-de-by-2.0": "Datenlizenz Deutschland – Namensnennung – Version 2.0",
 	"jsonconfig-license-name-GeoNutzV": "Geodatenlizenz Deutschland",
+	"jsonconfig-license-name-BDGov-BBS-OpenData": "Richtlinie zur Veröffentlichung von Daten des Statistischen Amtes von Bangladesch, 2026",
+	"jsonconfig-license-name-OGD-BD": "Offene Regierungsdaten aus Bangladesch",
 	"jsonconfig-license-copyrightwarning": "Durch die Veröffentlichung von Änderungen erklärst du dich damit einverstanden, deinen Beitrag gemäß den Bedingungen der Lizenz [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}] freizugeben.",
 	"jsonconfig-license-copyrightwarning-license-unset": "Durch die Veröffentlichung von Änderungen erklärst du dich damit einverstanden, deinen Beitrag gemäß der im Feld <code>licence</code> angegebenen Lizenz freizugeben.",
 	"jsonconfig-license-notice": "'''Hinweis:''' Wenn du diese Seite bearbeitest, erklärst du dich damit einverstanden, deinen Beitrag gemäß den Bedingungen der Lizenz [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}] freizugeben.",
