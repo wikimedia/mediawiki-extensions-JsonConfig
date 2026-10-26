@@ -34,7 +34,7 @@
 	"jsonconfig-license-url-CC-BY-SA-3.0": "https://creativecommons.org/licenses/by-sa/3.0/deed.az",
 	"jsonconfig-license-url-CC-BY-SA-4.0": "https://creativecommons.org/licenses/by-sa/4.0/deed.az",
 	"jsonconfig-license-url-CC-BY-SA-4.0+": "https://creativecommons.org/licenses/by-sa/4.0/deed.az",
-	"jsonconfig-license-notice-license-unset": "'''Qeyd:''' Bu səhifəni redaktə edərkən, <code>licence</code> sahəsində göstərilən lisenziyaya uyğun olaraq töhfənizi yayımlamağa razılaşırsınız.",
+	"jsonconfig-license-notice-license-unset": "'''Qeyd:''' Bu səhifəni redaktə edərkən, <code>license</code> sahəsində göstərilən lisenziyaya uyğun olaraq töhfənizi yayımlamağa razılaşırsınız.",
 	"right-jsonconfig-flush": "API vasitəsilə JsonConfig-i manipulyasiya etmək",
 	"action-jsonconfig-flush": "API vasitəsilə JsonConfig-i manipulyasiya etmək",
 	"jsonconfig-blocked-page-creation": "Göstərdiyiniz səhifə başlığı bu viki üçün JSONConfig uzantısı üçün konfiqurasiya edilmiş nümunələrin heç birinə uyğun gəlmir."

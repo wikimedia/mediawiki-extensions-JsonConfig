@@ -29,7 +29,7 @@
 	"jsonconfig-license-name-CC-BY-SA-4.0": "Creative Commons Autorstvo-Deliti pod istim uslovima 4.0",
 	"jsonconfig-license-name-CC-BY-SA-4.0+": "Creative Commons Autorstvo-Deliti pod istim uslovima 4.0 ili kasnija verzija",
 	"jsonconfig-license-copyrightwarning": "Objavljivanjem izmena, prihvatate da objavite svoj doprinos pod licencama [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
-	"jsonconfig-license-copyrightwarning-license-unset": "Objavljivanjem izmena, prihvatate da objavite svoj doprinos pod licencama navedenim u polju <code>licence</code>.",
+	"jsonconfig-license-copyrightwarning-license-unset": "Objavljivanjem izmena, prihvatate da objavite svoj doprinos pod licencama navedenim u polju <code>license</code>.",
 	"jsonconfig-license-notice": "'''Napomena:''' Uređivanjem ove stranice prihvatate da objavite svoj doprinos pod licencom [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
 	"jsonconfig-globaljsonlinks-on-wiki": "Upotreba na $2"
 }

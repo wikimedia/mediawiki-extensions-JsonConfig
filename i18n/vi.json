@@ -42,7 +42,7 @@
 	"jsonconfig-type-abbr-boolean": "(LL)",
 	"jsonconfig-type-name-boolean": "luận lý",
 	"jsonconfig-license": "Dữ liệu có sẵn theo $1.",
-	"jsonconfig-license-not-set": "Khi bạn sửa đổi trang này, bạn đồng ý phát hành đóng góp của mình theo giấy phép được chỉ định trong trường <code>licence</code>.",
+	"jsonconfig-license-not-set": "Khi bạn sửa đổi trang này, bạn đồng ý phát hành đóng góp của mình theo giấy phép được chỉ định trong trường <code>license</code>.",
 	"jsonconfig-license-name-CC0-1.0": "Creative Commons Zêrô",
 	"jsonconfig-license-name-CC-BY-1.0": "Creative Commons Ghi công 1.0",
 	"jsonconfig-license-name-CC-BY-2.0": "Creative Commons Ghi công 2.0",
@@ -71,9 +71,9 @@
 	"jsonconfig-license-url-CC-BY-SA-4.0": "https://creativecommons.org/licenses/by-sa/4.0/deed.vi",
 	"jsonconfig-license-url-CC-BY-SA-4.0+": "https://creativecommons.org/licenses/by-sa/4.0/deed.vi",
 	"jsonconfig-license-copyrightwarning": "Khi lưu thay đổi, bạn đồng ý phát hành các đóng góp của bạn theo các điều khoản của giấy phép [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
-	"jsonconfig-license-copyrightwarning-license-unset": "Khi lưu thay đổi, bạn đồng ý phát hành các đóng góp của mình theo giấy phép được nêu trong trường <code>licence</code>.",
+	"jsonconfig-license-copyrightwarning-license-unset": "Khi lưu thay đổi, bạn đồng ý phát hành các đóng góp của mình theo giấy phép được nêu trong trường <code>license</code>.",
 	"jsonconfig-license-notice": "'''Lưu ý:''' Khi sửa đổi trang này, bạn đồng ý phát hành các đóng góp của bạn theo các điều khoản của giấy phép [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
-	"jsonconfig-license-notice-license-unset": "'''Lưu ý:''' Khi bạn sửa đổi trang này, bạn đồng ý phát hành đóng góp của mình theo giấy phép được chỉ định trong trường <code>licence</code>.",
+	"jsonconfig-license-notice-license-unset": "'''Lưu ý:''' Khi bạn sửa đổi trang này, bạn đồng ý phát hành đóng góp của mình theo giấy phép được chỉ định trong trường <code>license</code>.",
 	"right-jsonconfig-flush": "Điều khiển JsonConfig qua API",
 	"action-jsonconfig-flush": "điều khiển JsonConfig qua API"
 }

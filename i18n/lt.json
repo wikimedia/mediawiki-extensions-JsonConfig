@@ -40,9 +40,9 @@
 	"jsonconfig-type-name-number": "skaičius",
 	"jsonconfig-type-name-boolean": "loginė reikšmė",
 	"jsonconfig-license": "Duomenys prieinami $1.",
-	"jsonconfig-license-not-set": "Kai redaguojate šį puslapį, sutinkate išleisti savo indėlį pagal licenciją, nurodytą <code>licence</code> lauke.",
+	"jsonconfig-license-not-set": "Kai redaguojate šį puslapį, sutinkate išleisti savo indėlį pagal licenciją, nurodytą <code>license</code> lauke.",
 	"jsonconfig-license-notice": "'''Pastaba:''' Kai redaguojate šį puslapį, sutinkate išleisti savo indėlį pagal [{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}].",
-	"jsonconfig-license-notice-license-unset": "'''Pastaba:''' Kai redaguojate šį puslapį, sutinkate išleisti savo indėlį pagal licenciją, nurodytą <code>licence</code> lauke.",
+	"jsonconfig-license-notice-license-unset": "'''Pastaba:''' Kai redaguojate šį puslapį, sutinkate išleisti savo indėlį pagal licenciją, nurodytą <code>license</code> lauke.",
 	"right-jsonconfig-flush": "Manipuliuoti JsonConfig per API",
 	"action-jsonconfig-flush": "manipuliuoti JsonConfig per API"
 }
