@@ -1,8 +1,31 @@
 {
 	"@metadata": {
 		"authors": [
-			"আফতাবুজ্জামান"
+			"আফতাবুজ্জামান",
+			"Tausheef Hassan"
 		]
 	},
-	"apihelp-jsonconfig-example-1": "কনফিগারেশন দেখান"
+	"apihelp-jsonconfig-summary": "JsonConfig উপসিস্টেমে সরাসরি প্রবেশাধিকার দেয়।",
+	"apihelp-jsonconfig-param-command": "JsonConfig-এ যে উপ-এ্যাকশন সম্পাদন করা হবে:",
+	"apihelp-jsonconfig-paramvalue-command-status": "JsonConfig কনফিগারেশন দেখায়।",
+	"apihelp-jsonconfig-paramvalue-command-reset": "ক্যাশ থেকে কনফিগারেশন মুছে ফেলে। এর জন্য $1title প্যারামিটার এবং jsonconfig-flush অধিকার প্রয়োজন।",
+	"apihelp-jsonconfig-paramvalue-command-reload": "কনফিগারেশন স্টোর থেকে কনফিগারেশনসমুহ পুনরায় লোড এবং ক্যাশ করে। এর জন্য $1title প্যারামিটার এবং jsonconfig-reset অধিকার প্রয়োজন।",
+	"apihelp-jsonconfig-param-namespace": "প্রক্রিয়া করার জন্য শিরোনামের নামস্থান সংখ্যা।",
+	"apihelp-jsonconfig-param-title": "নামস্থান উপসর্গ ছাড়া প্রসেসের শিরোনাম।",
+	"apihelp-jsonconfig-param-content": "$1command=reload এর জন্য, এর পরিবর্তে এই বিষয়বস্তু ব্যবহার করুন।",
+	"apihelp-jsonconfig-example-1": "কনফিগারেশন দেখান",
+	"apihelp-jsonconfig-example-2": "[[Data:Brazil/Amazonas.map]] রিসেট করুন",
+	"apihelp-jsonconfig-example-3": "[[Data:Brazil/Amazonas.map]] পুনরায় লোড করুন",
+	"apihelp-jsondata-summary": "স্থানীয়কৃত JSON ডেটা পুনরুদ্ধার করুন।",
+	"apihelp-jsondata-param-title": "যে শিরোনামটি পেতে হবে। পূর্বনির্ধারিতভাবে নামস্থান \"Data:\" হিসেবে ধরে নেওয়া হয়।",
+	"apihelp-jsondata-example-1": "ব্যবহারকারীর ভাষায় স্থানীয়কৃত Sample.tab পাতার JSON বিষয়বস্তু পান",
+	"apihelp-jsondata-example-2": "ফ্রেঞ্চ ভাষায় স্থানীয়কৃত Sample.tab পাতার JSON বিষয়বস্তু পান",
+	"apihelp-jsontransform-summary": "একটি লুয়া ফাংশন দ্বারা রূপান্তরিত JSON ডেটা পুনরুদ্ধার করুন।",
+	"apihelp-jsontransform-param-title": "নামস্থান উপসর্গ ছাড়া প্রক্রিয়াকরণ করার শিরোনাম।।",
+	"apihelp-jsontransform-param-jtmodule": "যে লুয়া মডিউল থেকে রূপান্তর কোড লোড করা হবে তার নাম। পূর্বনির্ধারিতভাবে Module: নামস্থানে ব্যবহার করা হয়।",
+	"apihelp-jsontransform-param-jtfunction": "যে লুয়া ফাংশনটি চালাতে হবে তার নাম",
+	"apihelp-jsontransform-param-jtargs": "লুয়া রূপান্তর ফাংশনে আর্গুমেন্ট হিসেবে পাস করার জন্য স্ট্রিংয়ের ক্রম",
+	"apihelp-jsontransform-example-1": "লুয়া রূপান্তরের মাধ্যমে চালানো Sample.tab পাতার JSON বিষয়বস্তু পান",
+	"apierror-jsonconfig-paramrequired": "এই কমান্ডের জন্য <var>$1</var> প্যারামিটারটি আবশ্যক",
+	"apierror-jsonconfig-badtitle": "<var>namespace</var> এবং <var>title</var> প্যারামিটার দ্বারা নির্দিষ্ট করা পাতাটি হয় অবৈধ অথবা JsonConfig কনফিগারেশনে নিবন্ধিত নয়।"
 }
