@@ -4,7 +4,8 @@
 			"Bjh21",
 			"Piano1forte2",
 			"Reedy",
-			"Shirayuki"
+			"Shirayuki",
+			"MthulisiNcube"
 		]
 	},
 	"jsonconfig-err-license": "Parameter \"$1\" must be one of the valid licence codes, for example $2",
