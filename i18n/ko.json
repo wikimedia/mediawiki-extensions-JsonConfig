@@ -81,6 +81,8 @@
 	"jsonconfig-license-name-dl-de-by-1.0": "데이터 라이선스 독일 – 저작자 표시 – 버전 1.0",
 	"jsonconfig-license-name-dl-de-by-2.0": "데이터 라이선스 독일 – 저작자 표시 – 버전 2.0",
 	"jsonconfig-license-name-GeoNutzV": "Geo Data 라이선스 Germany",
+	"jsonconfig-license-name-BDGov-BBS-OpenData": "방글라데시 통계청 자료 공개 정책, 2026",
+	"jsonconfig-license-name-OGD-BD": "방글라데시 정부 공개 데이터",
 	"jsonconfig-license-url-CC0-1.0": "https://creativecommons.org/publicdomain/zero/1.0/deed.ko",
 	"jsonconfig-license-url-CC-BY-1.0": "https://creativecommons.org/licenses/by/1.0/deed.ko",
 	"jsonconfig-license-url-CC-BY-2.0": "https://creativecommons.org/licenses/by/2.0/deed.ko",
