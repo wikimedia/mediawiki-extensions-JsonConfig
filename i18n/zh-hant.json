@@ -8,6 +8,7 @@
 			"Kly",
 			"LNDDYL",
 			"Liuxinyu970226",
+			"LowensteinYang",
 			"SunAfterRain",
 			"Winston Sung",
 			"Yurik"
@@ -93,7 +94,7 @@
 	"jsonconfig-license-url-CC-BY-SA-4.0": "https://creativecommons.org/licenses/by-sa/4.0/deed.zh-hant",
 	"jsonconfig-license-url-CC-BY-SA-4.0+": "https://creativecommons.org/licenses/by-sa/4.0/deed.zh-hant",
 	"jsonconfig-license-copyrightwarning": "透過發布變更，您同意根據[{{int:jsonconfig-license-url- $1}} {{int:jsonconfig-license-name-$1}}]授權條款發布您的貢獻。",
-	"jsonconfig-license-copyrightwarning-license-unset": "透過發布變更，您同意將您的貢獻根據<code>license</code>欄位中指定的授權條款發布。",
+	"jsonconfig-license-copyrightwarning-license-unset": "您透過發佈變更，同意將您的貢獻根據<code>license</code>欄位中指定的授權條款發佈。",
 	"jsonconfig-license-notice": "'''注意：''' 編輯此頁面時，您同意根據[{{int:jsonconfig-license-url-$1}} {{int:jsonconfig-license-name-$1}}]授權條款發布您的貢獻。",
 	"jsonconfig-license-notice-license-unset": "'''請注意：'''當您編輯頁面時，代表您同意基於 <code>license</code> 欄位裡所指定的授權條款來釋出您的貢獻。",
 	"right-jsonconfig-flush": "經由 API 操控 JsonConfig",
